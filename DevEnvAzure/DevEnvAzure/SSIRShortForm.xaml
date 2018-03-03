@@ -1,0 +1,148 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+              xmlns:controls="clr-namespace:XLabs.Forms.Controls;assembly=XLabs.Forms"
+             x:Class="DevEnvAzure.SSIRShortForm">
+    <ContentPage.Content>
+        <ScrollView  Orientation="Vertical" VerticalOptions="FillAndExpand" IsClippedToBounds="True">
+            <StackLayout Orientation="Vertical" VerticalOptions = "FillAndExpand" Padding="10,0" BackgroundColor="#FFF9C4">
+                <StackLayout x:Name="Stacklay" Orientation="Vertical" VerticalOptions = "FillAndExpand" Padding="10,0" BackgroundColor="#FFF9C4">
+                    <Frame BackgroundColor="#FF9800">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="*" />
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <Label x:Name="lblname" Opacity="20" TextColor="Black"  FontSize="Medium" Grid.Row="0" Grid.Column="0" Text="Flight Safety Report" />
+                            <controls:CheckBox x:Name="Formcheck"  DefaultText="Full Form" Grid.Row="0" Grid.Column="1" HorizontalOptions="EndAndExpand"  Checked="False" CheckedChanged="Check_Clicked" />
+                        </Grid>
+                    </Frame>
+                    <StackLayout x:Name="Stacklay1" Orientation="Vertical" VerticalOptions = "FillAndExpand" Padding="10,0">
+                        <Frame   BackgroundColor="#FF9800" >
+                            <Label x:Name="eventDetail" Opacity="5" TextColor="Black"  FontSize="Small" HorizontalOptions="Center" Text="Event Details" />
+                        </Frame>
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="*" />
+                                <RowDefinition Height="*" />
+                                <RowDefinition Height="*" />
+                                <RowDefinition Height="*" />
+                                <RowDefinition Height="*" />
+                                <RowDefinition Height="*" />
+                                <RowDefinition Height="*" />
+                                <RowDefinition Height="*" />
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="*" />
+
+                            </Grid.ColumnDefinitions>
+                            <Label x:Name="EventTitle" Text="Event Title" TextColor="#E65100" Grid.Row="0" Grid.Column="0" />
+                            <Entry x:Name="EventTitleEntry"  Text="{Binding EventTitle, Mode=TwoWay}" TextColor="#0D47A1" Grid.Row="0" Grid.Column="1" />
+                            <Label x:Name="dateofEvent" TextColor="#E65100" Text="Date of Event" Grid.Row="1" Grid.Column="0" />
+                            <DatePicker x:Name="dtevntPicker" Date="{Binding DateOfEvent,Mode=TwoWay}" Grid.Row="1" Grid.Column="1" TextColor="#0D47A1"  >
+                                <DatePicker.Format>MM/dd/yyyy</DatePicker.Format>
+                            </DatePicker>
+                            <Label x:Name="FlightNumber" Text="Flight Number" TextColor="#E65100" Grid.Row="2" Grid.Column="0" />
+                            <Entry x:Name="FlnumEntry" Text="{Binding FlightNumber, Mode=TwoWay}" TextColor="#0D47A1" Grid.Row="2" Grid.Column="1" />
+                            <Label x:Name="AirCraftReg" Text="Aircraft Registeration" TextColor="#E65100" Grid.Row="3" Grid.Column="0" />
+                            <Picker x:Name="FlightPhasepicker"  SelectedIndex="{Binding AircraftRegis,Mode=TwoWay}"   TextColor="#0D47A1"  Grid.Row="3" Grid.Column="1" HorizontalOptions="FillAndExpand">
+                                <Picker.Items>
+                                    <x:String>HS-XBA</x:String>
+                                    <x:String>HS-XBB</x:String>
+                                    <x:String>HS-XBC</x:String>
+                                    <x:String>HS-XBD</x:String>
+                                    <x:String>N/A</x:String>
+                                </Picker.Items>
+                            </Picker>
+
+                            <Label x:Name="DepartStn" Text="Departure Station" TextColor="#E65100" Grid.Row="4" Grid.Column="0" />
+                            <Entry x:Name="DepartStnEntry"   Text="{Binding DepartureStation, Mode=TwoWay}" TextColor="#0D47A1" Grid.Row="4" Grid.Column="1" />
+                            <Label x:Name="ArrivStn" Text="Arrival Station" TextColor="#E65100" Grid.Row="5" Grid.Column="0" />
+                            <Entry x:Name="ArrivStnEntry"  Text="{Binding ArrivalStation, Mode=TwoWay}" TextColor="#0D47A1" Grid.Row="5" Grid.Column="1" />
+
+                            <Label x:Name="DivertStation" Text="Divert Station" TextColor="#E65100" Grid.Row="6" Grid.Column="0" />
+                            <Entry x:Name="DivertStEntry"   Text="{Binding DivertStation, Mode=TwoWay}" TextColor="#0D47A1" Grid.Row="6" Grid.Column="1" />
+
+                            <Label x:Name="AreaFIR" Text="Area_FIR of Event" TextColor="#E65100" Grid.Row="7" Grid.Column="0" />
+                            <Entry x:Name="AreaFIREntry"   Text="{Binding Area_FIR, Mode=TwoWay}" TextColor="#0D47A1" Grid.Row="7" Grid.Column="1" />
+                        </Grid>
+                    </StackLayout>
+                    <StackLayout x:Name="Stacklay2" Orientation="Vertical" VerticalOptions = "FillAndExpand" Padding="10,0">
+                        <Frame BackgroundColor="#FF9800">
+                            <Label x:Name="hazardDetail" Opacity="5" TextColor="Black"  FontSize="Small" HorizontalOptions="Center" Text="Details Of Event/Hazard" />
+                        </Frame>
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="*" />
+                                <RowDefinition Height="*" />
+                            </Grid.RowDefinitions>
+
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="*" />
+
+                            </Grid.ColumnDefinitions>
+                            <Label x:Name="EvntHazrd" Text="Describe what happened" TextColor="#E65100" Grid.Row="0" Grid.Column="0" />
+                            <Entry x:Name="EvntHazrdentry"   Text="{Binding DescribeEvent, Mode=TwoWay}" TextColor="#0D47A1" Grid.Row="0" Grid.Column="1" />
+                            <Label x:Name="comdPM" Text="Attach any photo or textual references" TextColor="#E65100" Grid.Row="1" Grid.Column="0" />
+                            <Entry x:Name="comdPMEntry"  Text="{Binding Attachment, Mode=TwoWay}" TextColor="#0D47A1" Grid.Row="1" Grid.Column="1" />
+                        </Grid>
+                    </StackLayout>
+                    <StackLayout x:Name="Stacklay3" Orientation="Vertical" VerticalOptions = "FillAndExpand" Padding="10,0">
+                        <Frame BackgroundColor="#FF9800">
+                            <Label x:Name="MORlbl" Opacity="5" TextColor="Black"  FontSize="Small" HorizontalOptions="Center" Text="Mandatory Reportable Occurrences" />
+                        </Frame>
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="*" />
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <Label x:Name="MOR" Text="MOR"   TextColor="#E65100" Grid.Row="0" Grid.Column="0" />
+                            <Entry x:Name="MORpicker"  Focused="MORattach_clicked"  TextColor="#0D47A1" Grid.Row="0" Grid.Column="1" HorizontalOptions="FillAndExpand" >
+                            </Entry>
+                        </Grid>
+                    </StackLayout>
+                    <StackLayout x:Name="StackLayoutSecurityReport" Orientation="Vertical" VerticalOptions = "FillAndExpand"  BackgroundColor="#FFF9C4">
+                        <Frame   BackgroundColor="#FF9800" >
+                            <Label x:Name="lblname1" Opacity="5" TextColor="Black"  FontSize="Small" HorizontalOptions="Center" Text="Submitter Information" />
+                        </Frame>
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="*" />
+                                <RowDefinition Height="*" />
+                                <RowDefinition Height="*" />
+                                <RowDefinition Height="*" />
+                                <RowDefinition Height="*" />
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <Label x:Name="ConfiReport" Text="CONFIDENTIAL REPORT?" TextColor="#E65100" Grid.Row="0" Grid.Column="0" />
+                            <controls:CheckBox x:Name="ConfiReportcheck"  DefaultText="" HorizontalOptions="EndAndExpand"  Checked="{Binding ConfiReport, Mode=TwoWay}" Grid.Row="0" Grid.Column="1" />
+
+                            <Label x:Name="Pax" Text="Others Persons Involved (Staff or Pax)" TextColor="#E65100" Grid.Row="1" Grid.Column="0" />
+                            <Entry x:Name="PaxEntry"   Text="{Binding pax, Mode=TwoWay}" TextColor="#0D47A1" Grid.Row="1" Grid.Column="1" />
+
+                            <Label x:Name="Name" Text="Name-Staff Number" TextColor="#E65100" Grid.Row="2" Grid.Column="0" />
+                            <Entry x:Name="NameEntry"  Text="" TextColor="#0D47A1" Grid.Row="2" Grid.Column="1" />
+                            <Label x:Name="Email" TextColor="#E65100" Text="Temp" Grid.Row="3" Grid.Column="0" />
+                            <Entry x:Name="EmailEntry"  Grid.Row="3" Grid.Column="1" TextColor="#0D47A1" />
+                            <Label x:Name="SSQ" Text="SSQ USE-Send Notifications" TextColor="#E65100" Grid.Row="4" Grid.Column="0" />
+                            <controls:CheckBox x:Name="SSQEntry"  DefaultText="" HorizontalOptions="EndAndExpand"  Checked="{Binding ssQ, Mode=TwoWay}" Grid.Row="4" Grid.Column="1" />
+                        </Grid>
+                    </StackLayout>
+                </StackLayout >
+                <Button x:Name="save_btn" HorizontalOptions="CenterAndExpand" Text="SAVE" Clicked="Save_clicked"/>
+                <Button x:Name="savedrafts_btn" HorizontalOptions="CenterAndExpand" Text="SAVE AS DRAFT" Clicked="savedrafts_btn_Clicked"/>
+            </StackLayout>
+        </ScrollView>
+    </ContentPage.Content>
+</ContentPage>

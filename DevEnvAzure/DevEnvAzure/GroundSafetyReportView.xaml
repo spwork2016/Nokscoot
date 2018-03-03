@@ -1,0 +1,187 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentView xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="DevEnvAzure.GroundSafetyReportView">
+    <ContentView.Content>
+        <StackLayout x:Name="StackLayoutGroundSafetyReport" Orientation="Vertical" VerticalOptions = "FillAndExpand"  BackgroundColor="#FFF9C4">
+            <Frame   BackgroundColor="#FF9800" >
+                <Label x:Name="lblEnvironment" Opacity="5" TextColor="Black"  FontSize="Small" HorizontalOptions="Center" Text="Conditions Weather -  Environment" />
+            </Frame>
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+
+                <Label x:Name="Lightlbl" Text="Light" TextColor="#E65100" Grid.Row="0" Grid.Column="0" />
+                <Picker x:Name="Lightpicker" TextColor="#0D47A1" Grid.Row="0" Grid.Column="1" HorizontalOptions="FillAndExpand" SelectedIndex="{Binding lightIndex,Mode=TwoWay}">
+                    <Picker.Items>
+                        <x:String>Day</x:String>
+                        <x:String>Night</x:String>
+                        <x:String>Twilight</x:String>
+                    </Picker.Items>
+                </Picker>
+                <Label x:Name="Weatherlbl" Text="Weather" TextColor="#E65100" Grid.Row="1" Grid.Column="0" />
+                <Picker x:Name="Weatherpicker" TextColor="#0D47A1" Grid.Row="1" Grid.Column="1" HorizontalOptions="FillAndExpand" SelectedIndex="{Binding weatherIndex,Mode=TwoWay}">
+                    <Picker.Items>
+                        <x:String>Dry</x:String>
+                        <x:String>Rain</x:String>
+                        <x:String>Snow</x:String>
+                        <x:String>Fog</x:String>
+                    </Picker.Items>
+                </Picker>
+                <Label x:Name="Precipitationlbl" Text="Precipitation" TextColor="#E65100" Grid.Row="2" Grid.Column="0" />
+                <Picker x:Name="Precipitationpicker" TextColor="#0D47A1" Grid.Row="2" Grid.Column="1" HorizontalOptions="FillAndExpand" SelectedIndex="{Binding precipitationIndex,Mode=TwoWay}">
+                    <Picker.Items>
+                        <x:String>Light</x:String>
+                        <x:String>Moderate</x:String>
+                        <x:String>Heavy</x:String>
+                        <x:String>Severe</x:String>
+                    </Picker.Items>
+                </Picker>
+                <Label x:Name="GroundConditionslbl" Text="Ground Conditions" TextColor="#E65100" Grid.Row="3" Grid.Column="0" />
+                <Picker x:Name="GroundConditionspicker" TextColor="#0D47A1" Grid.Row="3" Grid.Column="1" HorizontalOptions="FillAndExpand" SelectedIndex="{Binding groundconditions,Mode=TwoWay}">
+                    <Picker.Items>
+                        <x:String>Dry</x:String>
+                        <x:String>Wet</x:String>
+                        <x:String>Flood</x:String>
+                        <x:String>Snow/Ice</x:String>
+                    </Picker.Items>
+                </Picker>
+            </Grid>
+            <Frame   BackgroundColor="#FF9800" >
+                <Label x:Name="lblSpecificEventsSpillEvent" Opacity="5" TextColor="Black"  FontSize="Small" HorizontalOptions="Center" Text="Specific Events - Spill Event" />
+            </Frame>
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <Label x:Name="TypeofLiquidSpilledlbl" Text="Light" TextColor="#E65100" Grid.Row="0" Grid.Column="0" />
+                <Picker x:Name="TypeofLiquidSpilledpicker" TextColor="#0D47A1" Grid.Row="0" Grid.Column="1" HorizontalOptions="FillAndExpand" SelectedIndex="{Binding typeofLiquidIndex,Mode=TwoWay}">
+                    <Picker.Items>
+                        <x:String>Fuel</x:String>
+                        <x:String>Oil</x:String>
+                        <x:String>Chemical</x:String>
+                    </Picker.Items>
+                </Picker>
+                <Label x:Name="AmountSpilledLbl" Text="Amount Spilled" TextColor="#E65100" Grid.Row="1" Grid.Column="0" />
+                <Entry x:Name="AmountSpilledentry"   Text="{Binding amountSpilled,Mode=TwoWay}" TextColor="#0D47A1" Grid.Row="1" Grid.Column="1" />
+                <Label x:Name="WhereSpillOccurredlbl" Text="Where Spill Occurred" TextColor="#E65100" Grid.Row="1" Grid.Column="0" />
+                <Picker x:Name="WhereSpillOccurredpicker" TextColor="#0D47A1" Grid.Row="1" Grid.Column="1" HorizontalOptions="FillAndExpand" SelectedIndex="{Binding wherespillindex,Mode=TwoWay}">
+                    <Picker.Items>
+                        <x:String>Cabin</x:String>
+                        <x:String>Hold</x:String>
+                        <x:String>Ramp</x:String>
+                        <x:String>Hanger</x:String>
+                        <x:String>Warehouse</x:String>
+                    </Picker.Items>
+                </Picker>
+            </Grid>
+            <Frame   BackgroundColor="#FF9800" >
+                <Label x:Name="lblLoadingEvent" Opacity="5" TextColor="Black"  FontSize="Small" HorizontalOptions="Center" Text="Loading Event" />
+            </Frame>
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <Label x:Name="Baggagelbl" Text="Baggage" TextColor="#E65100" Grid.Row="0" Grid.Column="0" />
+                <Picker x:Name="Baggagepicker" TextColor="#0D47A1" Grid.Row="0" Grid.Column="1" HorizontalOptions="FillAndExpand" SelectedIndex="{Binding baggageIndex,Mode=TwoWay}">
+                    <Picker.Items>
+                        <x:String>Weight</x:String>
+                        <x:String>Number</x:String>
+                        <x:String>Unaccompanied bags</x:String>
+                    </Picker.Items>
+                </Picker>
+                <Label x:Name="Cargolbl" Text="Weather" TextColor="#E65100" Grid.Row="1" Grid.Column="0" />
+                <Picker x:Name="Cargopicker" TextColor="#0D47A1" Grid.Row="1" Grid.Column="1" HorizontalOptions="FillAndExpand" SelectedIndex="{Binding cargoIndex,Mode=TwoWay}">
+                    <Picker.Items>
+                        <x:String>DG</x:String>
+                        <x:String>Incorrect Position</x:String>
+                        <x:String>Load Restraint</x:String>
+                        <x:String>Locks</x:String>
+                        <x:String>NOTOC</x:String>
+                        <x:String>Pallet Build</x:String>
+                        <x:String>ULD Damage/Problem</x:String>
+                        <x:String>Weight</x:String>
+                    </Picker.Items>
+                </Picker>
+                <Label x:Name="LoadSheetlbl" Text="Load Sheet" TextColor="#E65100" Grid.Row="2" Grid.Column="0" />
+                <Picker x:Name="LoadSheetpicker" TextColor="#0D47A1" Grid.Row="2" Grid.Column="1" HorizontalOptions="FillAndExpand" SelectedIndex="{Binding loadSheetIndex,Mode=TwoWay}">
+                    <Picker.Items>
+                        <x:String>Baggage</x:String>
+                        <x:String>Cargo</x:String>
+                        <x:String>Fuel</x:String>
+                        <x:String>Pax/Crew</x:String>
+                    </Picker.Items>
+                </Picker>
+                <Label x:Name="ImpacttoAircraftPerformancelbl" Text="Impact to Aircraft Performance" TextColor="#E65100" Grid.Row="3" Grid.Column="0" />
+                <Picker x:Name="ImpacttoAircraftPerformancepicker" TextColor="#0D47A1" Grid.Row="3" Grid.Column="1" HorizontalOptions="FillAndExpand" SelectedIndex="{Binding impactTocraftIndex,Mode=TwoWay}">
+                    <Picker.Items>
+                        <x:String>Weight</x:String>
+                        <x:String>Trim</x:String>
+                        <x:String>Both</x:String>
+                    </Picker.Items>
+                </Picker>
+            </Grid>
+            <Frame   BackgroundColor="#FF9800" >
+                <Label x:Name="lblSpecificEventsDangerousGoodsEvent" Opacity="5" TextColor="Black"  FontSize="Small" HorizontalOptions="Center" Text="Specific Events - Dangerous Goods Event" />
+            </Frame>
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <Label x:Name="PaxorCargolbl" Text="Pax or Cargo" TextColor="#E65100" Grid.Row="0" Grid.Column="0" />
+                <Picker x:Name="PaxorCargopicker" TextColor="#0D47A1" Grid.Row="0" Grid.Column="1" HorizontalOptions="FillAndExpand"  SelectedIndex="{Binding pax_CargoIndex,Mode=TwoWay}">
+                    <Picker.Items>
+                        <x:String>Pax</x:String>
+                        <x:String>Cargo</x:String>
+                    </Picker.Items>
+                </Picker>
+                <Label x:Name="IdentifiedWhenlbl" Text="Identified When" TextColor="#E65100" Grid.Row="1" Grid.Column="0" />
+                <Picker x:Name="IdentifiedWhenpicker" SelectedIndex="{Binding identifiedWhenIndex,Mode=TwoWay}" TextColor="#0D47A1" Grid.Row="1" Grid.Column="1" HorizontalOptions="FillAndExpand">
+                    <Picker.Items>
+                        <x:String>Before flight</x:String>
+                        <x:String>During flight</x:String>
+                        <x:String>After flight</x:String>
+                    </Picker.Items>
+                </Picker>
+                <Label x:Name="IdentifiedWherelbl" Text="Identified Where" TextColor="#E65100" Grid.Row="2" Grid.Column="0" />
+                <Picker x:Name="IdentifiedWherepicker" SelectedIndex="{Binding identifiedWhereIndex,Mode=TwoWay}" TextColor="#0D47A1" Grid.Row="2" Grid.Column="1" HorizontalOptions="FillAndExpand">
+                    <Picker.Items>
+                        <x:String>Check-in/preboard</x:String>
+                        <x:String>Cabin bags</x:String>
+                        <x:String>Checked bags</x:String>
+                    </Picker.Items>
+                </Picker>
+            </Grid>
+        </StackLayout>
+    </ContentView.Content>
+</ContentView>

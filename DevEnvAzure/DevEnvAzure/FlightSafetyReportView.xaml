@@ -1,0 +1,119 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentView xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="DevEnvAzure.FlightSafetyReportView">
+    <ContentView.Content>
+        <StackLayout x:Name="StackLayoutFlightSafetyReport" Orientation="Vertical" VerticalOptions = "FillAndExpand"  BackgroundColor="#FFF9C4">
+            <Frame   BackgroundColor="#FF9800" >
+                <Label x:Name="lblCrewInformation" Opacity="5" TextColor="Black"  FontSize="Small" HorizontalOptions="Center" Text="Crew Information" />
+            </Frame>
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+
+                <Label x:Name="CommanderPForPMlbl" Text="Commander PF or PM" TextColor="#E65100" Grid.Row="0" Grid.Column="0" />
+                <Picker x:Name="CommanderPForPMpicker" TextColor="#0D47A1" Grid.Row="0" Grid.Column="1" HorizontalOptions="FillAndExpand">
+                    <Picker.Items>
+                        <x:String>PF</x:String>
+                        <x:String>PM</x:String>
+                    </Picker.Items>
+                </Picker>
+                <!-- People Picker-->
+                <Label x:Name="CommandersEmaillbl" Text="Commander's Email" TextColor="#E65100" Grid.Row="1" Grid.Column="0" />
+                <!-- People Picker-->
+                <Label x:Name="FlightCrew1Emaillbl" Text="Flight Crew 1 Email" TextColor="#E65100" Grid.Row="2" Grid.Column="0" />
+
+                <Label x:Name="FlightCrew1PFPMOBslbl" Text="Flight Crew 1 PF PM OBs" TextColor="#E65100" Grid.Row="3" Grid.Column="0" />
+                <Picker x:Name="FlightCrew1PFPMOBspicker" TextColor="#0D47A1" Grid.Row="3" Grid.Column="1" HorizontalOptions="FillAndExpand">
+                    <Picker.Items>
+                        <x:String>PF</x:String>
+                        <x:String>PM</x:String>
+                        <x:String>Obs</x:String>
+                    </Picker.Items>
+                </Picker>
+                <!-- People Picker-->
+                <Label x:Name="FlightCrew2Emaillbl" Text="Flight Crew 2 Email" TextColor="#E65100" Grid.Row="4" Grid.Column="0" />
+
+                <Label x:Name="FlightCrew2PFPMOBslbl" Text="Flight Crew 2 PF PM OBs" TextColor="#E65100" Grid.Row="5" Grid.Column="0" />
+                <Picker x:Name="FlightCrew2PFPMOBspicker" TextColor="#0D47A1" Grid.Row="5" Grid.Column="1" HorizontalOptions="FillAndExpand">
+                    <Picker.Items>
+                        <x:String>PF</x:String>
+                        <x:String>PM</x:String>
+                        <x:String>Obs</x:String>
+                    </Picker.Items>
+                </Picker>
+            </Grid>
+            <Frame   BackgroundColor="#FF9800" >
+                <Label x:Name="lblPhaseConditions" Opacity="5" TextColor="Black"  FontSize="Small" HorizontalOptions="Center" Text="Phase and Conditions" />
+            </Frame>
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <Label x:Name="Ifflighteventselectphaselbl" Text="If flight event - select phase" TextColor="#E65100" Grid.Row="0" Grid.Column="0" />
+                <Picker x:Name="Ifflighteventselectphasepicker" TextColor="#0D47A1" Grid.Row="0" Grid.Column="1" HorizontalOptions="FillAndExpand">
+                    <Picker.Items>
+                        <x:String>Parked</x:String>
+                        <x:String>Pre-flight</x:String>
+                        <x:String>Pushback</x:String>
+                        <x:String>Taxi out</x:String>
+                        <x:String>Take-off</x:String>
+                        <x:String>Climb</x:String>
+                        <x:String>Cruise</x:String>
+                        <x:String>Descent</x:String>
+                        <x:String>Holding</x:String>
+                        <x:String>Go-Around</x:String>
+                        <x:String>Approach</x:String>
+                        <x:String>Landing</x:String>
+                        <x:String>Taxi in</x:String>
+                        <x:String>Towing</x:String>
+                    </Picker.Items>
+                </Picker>
+                <Label x:Name="Ifongroundselectwherelbl" Text="If on ground - select where" TextColor="#E65100" Grid.Row="1" Grid.Column="0" />
+                <Picker x:Name="Ifongroundselectwherepicker" TextColor="#0D47A1" Grid.Row="1" Grid.Column="1" HorizontalOptions="FillAndExpand">
+                    <Picker.Items>
+                        <x:String>Baggage Carousel</x:String>
+                        <x:String>Ramp</x:String>
+                        <x:String>Remote Bay</x:String>
+                        <x:String>Taxiway</x:String>
+                        <x:String>Transport</x:String>
+                        <x:String>Simulator</x:String>
+                        <x:String>Training Facility</x:String>
+                        <x:String>Hotel</x:String>
+                    </Picker.Items>
+                </Picker>
+            </Grid>
+            <Frame   BackgroundColor="#FF9800" >
+                <Label x:Name="lblAircraftConfigurationTechnical" Opacity="5" TextColor="Black"  FontSize="Small" HorizontalOptions="Center" Text="Aircraft Configuration and Technical" />
+            </Frame>
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+            </Grid>
+        </StackLayout>
+    </ContentView.Content>
+</ContentView>

@@ -1,0 +1,79 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:controls="clr-namespace:DevEnvAzure.Controls;assembly=DevEnvAzure"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="DevEnvAzure.HomePage" Title="Employee Information">
+    <StackLayout Padding="10,0" BackgroundColor="#FFF8E1">
+        <Frame BackgroundColor="#FF9800" >
+            <Label x:Name="lblname" Opacity="20" TextColor="Black" FontSize="Large" HorizontalOptions="Center" Text="EMPLOYEE INFORMATION" />
+        </Frame>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+          
+            <Label x:Name="EmpName"
+               Text="Employee Name" TextColor="#E65100"
+                Grid.Row="1" Grid.Column="0" />
+            <Entry x:Name="empN"  Text="" TextColor="#0D47A1" Grid.Row="1" Grid.Column="1" />
+
+            <Label x:Name="EmpAge" TextColor="#E65100"
+               Text="Employee Age"
+                Grid.Row="2" Grid.Column="0" />
+            <Entry x:Name="EAge"  Keyboard="Numeric" Text="" TextColor="#0D47A1" Grid.Row="2" Grid.Column="1" />
+
+            <Label x:Name="date" TextColor="#E65100"
+               Text="Date"
+                Grid.Row="3" Grid.Column="0" />
+            <DatePicker x:Name="dtPicker"  Grid.Row="3" Grid.Column="1" TextColor="#0D47A1"  >></DatePicker>
+            <Label x:Name="Gender" TextColor="#E65100"
+               Text="Gender"
+                Grid.Row="4" Grid.Column="0" />
+
+            <Picker x:Name="gendEmp" TextColor="#0D47A1"  Grid.Row="4" Grid.Column="1" HorizontalOptions="FillAndExpand">
+                <Picker.Items>
+                    <x:String>Male</x:String>
+                    <x:String>Female</x:String>
+                </Picker.Items>
+            </Picker>
+            <Label x:Name="Dept" TextColor="#E65100"
+               Text="Department"
+                Grid.Row="5" Grid.Column="0" />
+
+            <Picker x:Name="deptemp" TextColor="#0D47A1" Grid.Row="5" Grid.Column="1" HorizontalOptions="FillAndExpand" >
+            </Picker>
+
+            <Label x:Name="EmpSal"   TextColor="#E65100"
+               Text="Employee Salary"
+                Grid.Row="6" Grid.Column="0" />
+            <Entry x:Name="ESal"  Keyboard="Numeric" Text=""  TextColor="#0D47A1" Grid.Row="6" Grid.Column="1" />
+
+            <Label x:Name="ActiveEmp" TextColor="#E65100"
+               Text="Active Employee"
+                Grid.Row="7" Grid.Column="0" />
+
+            <Picker x:Name="actEmp" TextColor="#0D47A1" Grid.Row="7" Grid.Column="1" HorizontalOptions="FillAndExpand">
+                <Picker.Items>
+                    <x:String>Yes</x:String>
+                    <x:String>No</x:String>
+                </Picker.Items>
+            </Picker>
+
+            <Button Text="SAVE"  Clicked="Button_Clicked" TextColor="Black" Grid.Row="8" Grid.Column="1" BackgroundColor="#FF9800" />
+        </Grid>
+
+    </StackLayout>
+</ContentPage>

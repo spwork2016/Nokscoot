@@ -1,0 +1,125 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="DevEnvAzure.SafetyReport" Title="Safety Report">
+    <ContentPage.Resources>
+      
+    </ContentPage.Resources>
+    <!--<ContentPage.Content>-->
+
+    <ScrollView  Orientation="Vertical" VerticalOptions="FillAndExpand" IsClippedToBounds="True">
+        <!--IsClippedToBounds = "true">-->
+        <StackLayout Orientation="Vertical" VerticalOptions = "FillAndExpand" Padding="10,0">
+        <StackLayout x:Name="Stacklay" Orientation="Vertical" VerticalOptions = "FillAndExpand" Padding="10,0">
+            <Frame BackgroundColor="#FF9800">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="*" />
+
+                    </Grid.ColumnDefinitions>
+                    <Label x:Name="lblname" Opacity="20" TextColor="Black"  FontSize="Medium" Grid.Row="0" Grid.Column="0" Text="Flight Safety Report" />
+                    <Picker x:Name="selectFormpicker" TextColor="#0D47A1"  Grid.Row="0" Grid.Column="1" SelectedIndexChanged="selectFormpicker_SelectedIndexChanged" SelectedIndex="0">
+                        <Picker.Items>
+                            <x:String>Short</x:String>
+                            <x:String>Full</x:String>
+                        </Picker.Items>
+                    </Picker>
+                </Grid>
+            </Frame>
+            <StackLayout x:Name="Stacklay1" Orientation="Vertical" VerticalOptions = "FillAndExpand" Padding="10,0">
+                <Frame   BackgroundColor="#FF9800" >
+                    <Label x:Name="lblname1" Opacity="5" TextColor="Black"  FontSize="Small" HorizontalOptions="Center" Text="Event Details" />
+                </Frame>
+                <!--<Frame BackgroundColor="#FF9800" HeightRequest="1">
+                    <Label x:Name="lblname1" Opacity="5" TextColor="Black"  FontSize="Small" HorizontalOptions="Center" Text="Event Details" />
+                </Frame>-->
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="*" />
+
+                    </Grid.RowDefinitions>
+
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+
+                    </Grid.ColumnDefinitions>
+                    <Label x:Name="EventTitle" Text="Event Title" TextColor="#E65100" Grid.Row="0" Grid.Column="0" />
+                    <Entry x:Name="EventTitleEntry"  Text="{Binding EventTitle, Mode=TwoWay}" TextColor="#0D47A1" Grid.Row="0" Grid.Column="1" />
+                    <Label x:Name="Item" Text="Item" TextColor="#E65100" Grid.Row="1" Grid.Column="0" />
+                    <Entry x:Name="ItemEntry"  Text="{Binding safetyObject.Item, Mode=TwoWay}" TextColor="#0D47A1" Grid.Row="1" Grid.Column="1" />
+
+                    <Label x:Name="Report" Text="Report Classification" TextColor="#E65100" Grid.Row="2" Grid.Column="0" />
+                    <Entry x:Name="ReportEntry"  Text="" TextColor="#0D47A1" Grid.Row="2" Grid.Column="1" />
+                    <Label x:Name="dateofEvent" TextColor="#E65100" Text="Date of Event" Grid.Row="3" Grid.Column="0" />
+                    <DatePicker x:Name="dtevntPicker"  Grid.Row="3" Grid.Column="1" TextColor="#0D47A1"  >
+                        <DatePicker.Format>MM/dd/yyyy</DatePicker.Format>
+                    </DatePicker>
+
+                    <Label x:Name="FlightNumber" Text="Flight Number" TextColor="#E65100" Grid.Row="4" Grid.Column="0" />
+                    <Entry x:Name="FlnumEntry"  Text="" TextColor="#0D47A1" Grid.Row="4" Grid.Column="1" />
+                    <Label x:Name="AirCraftReg" Text="Aircraft Registeration" TextColor="#E65100" Grid.Row="5" Grid.Column="0" />
+                    <Entry x:Name="Aircraft"  Text="" TextColor="#0D47A1" Grid.Row="5" Grid.Column="1" />
+
+                    <Label x:Name="DepartStn" Text="Departure Station" TextColor="#E65100" Grid.Row="6" Grid.Column="0" />
+                    <Entry x:Name="DepartStnEntry"  Text="" TextColor="#0D47A1" Grid.Row="6" Grid.Column="1" />
+                    <Label x:Name="ArrivStn" Text="Arrival Station" TextColor="#E65100" Grid.Row="7" Grid.Column="0" />
+                    <Entry x:Name="ArrivStnEntry"  Text="" TextColor="#0D47A1" Grid.Row="7" Grid.Column="1" />
+
+                    <!--<Label x:Name="DivertStn" Text="Divert Station" TextColor="#E65100" Grid.Row="8" Grid.Column="0" />
+                    <Entry x:Name="DivertStnEntry"  Text="" TextColor="#0D47A1" Grid.Row="8" Grid.Column="1" />
+                    <Label x:Name="AreaFIR" Text="Area_FIR of Event" TextColor="#E65100" Grid.Row="9" Grid.Column="0" />
+                    <Entry x:Name="AreaFIREntry"  Text="" TextColor="#0D47A1" Grid.Row="9" Grid.Column="1" />-->
+
+                </Grid>
+            </StackLayout>
+            <StackLayout x:Name="Stacklay2" Orientation="Vertical" VerticalOptions = "FillAndExpand" Padding="10,0">
+                <Frame BackgroundColor="#FF9800">
+                    <Label x:Name="lblname2" Opacity="5" TextColor="Black"  FontSize="Small" HorizontalOptions="Center" Text="Details Of Event/Hazard" />
+                </Frame>
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+
+                    </Grid.ColumnDefinitions>
+                    <Label x:Name="EvntHazrd" Text="Describe Event or Hazard" TextColor="#E65100" Grid.Row="0" Grid.Column="0" />
+                    <Entry x:Name="EvntHazrdentry"  Text="" TextColor="#0D47A1" Grid.Row="0" Grid.Column="1" />
+                    <Label x:Name="comdPM" Text="Commander PF or PM" TextColor="#E65100" Grid.Row="1" Grid.Column="0" />
+                    <Entry x:Name="comdPMEntry"  Text="" TextColor="#0D47A1" Grid.Row="1" Grid.Column="1" />
+                </Grid>
+               
+            </StackLayout>
+            
+        </StackLayout >
+            <Button x:Name="save_btn" HorizontalOptions="CenterAndExpand" Text="SAVE" Clicked="Check_Clicked"/>
+            <!--<Button x:Name="savedrafts_btn" HorizontalOptions="CenterAndExpand" Text="SAVE AS DRAFT" Clicked="savedrafts_btn_Clicked"/>-->
+        </StackLayout>
+    </ScrollView>
+    <!--</ContentPage.Content>-->
+    <ContentPage.ToolbarItems>
+        <ToolbarItem x:Name="savedrafts_btn" Text="Save Draft" Activated="savedrafts_btn_Clicked"></ToolbarItem>
+    </ContentPage.ToolbarItems>
+</ContentPage>

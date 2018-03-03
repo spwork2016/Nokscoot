@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="DevEnvAzure.ReportsPage" Title="Reports">
+    <ContentPage.Content>
+        <StackLayout Orientation="Vertical">
+            <Button Text="Safety Report"  Clicked="Button_Clicked" TextColor="Black"  BackgroundColor="#FF9800" />
+            <Button Text="Security Report"  Clicked="Security_Clicked"   TextColor="Black"  BackgroundColor="#FF9800" />
+            <Button Text="Cabin Safety Report" Clicked="CabinSafety_Clicked"   TextColor="Black"  BackgroundColor="#FF9800" />
+            <Button Text="Fatigue Report" Clicked="Fatigue_Clicked"   TextColor="Black"  BackgroundColor="#FF9800" />
+            <Button Text="Ground Safety Report" Clicked="GroundSafety_Clicked"   TextColor="Black"  BackgroundColor="#FF9800" />
+            <Button Text="Injury Illness Reports" Clicked="InjuryIllness_Clicked"   TextColor="Black"  BackgroundColor="#FF9800" />
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

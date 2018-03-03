@@ -1,0 +1,67 @@
+﻿<MasterDetailPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                  xmlns:controls="clr-namespace:ImageCircle.Forms.Plugin.Abstractions;assembly=ImageCircle.Forms.Plugin.Abstractions"
+             x:Class="DevEnvAzure.StartPage" Title="Welcom to Nokscoot">
+    <MasterDetailPage.Master>
+        <ContentPage Title="Menu">
+            <StackLayout VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand">
+                <Grid BackgroundColor="#1aa1d6">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="120"/>
+                        <RowDefinition Height="40"/>
+                    </Grid.RowDefinitions>
+                    <Image  x:Name="profilePic" Source="LoginIco.png" HeightRequest="110" Margin="0,20,0,0" BackgroundColor="#1aa1d6" VerticalOptions="Center" HorizontalOptions="Center"/>
+                    <Label x:Name="loggrInUser" Grid.Row="1" HorizontalTextAlignment="Center" HorizontalOptions="Center" FontSize="20" TextColor="White"/>
+                </Grid>
+                <ListView x:Name="navigationDrawerList"
+                  RowHeight="40"
+                  SeparatorVisibility="Default" SeparatorColor="Blue"
+                  BackgroundColor="#FFF" 
+                  ItemSelected="OnMenuItemSelected">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <ViewCell>
+                                <!-- Main design for our menu items -->
+                                <StackLayout VerticalOptions="FillAndExpand"
+                             Orientation="Horizontal"
+                             Padding="10,0,0,0"
+                             Spacing="10">
+
+                                    <Image Source="{Binding Icon}"
+                         WidthRequest="20"
+                         HeightRequest="20"
+                         VerticalOptions="Center" />
+
+                                    <Label Text="{Binding Title}"
+                         FontSize="Small"
+                         VerticalOptions="Center"
+                         TextColor="Black"  Margin="5"/>
+                                </StackLayout>
+                            </ViewCell>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+            </StackLayout>
+        </ContentPage>
+        <!--<ContentPage Title="NokscootPage" BackgroundColor="#FFFDE7" Padding="20">
+            <ContentPage.Content>
+                <StackLayout>
+                    <Button Text="Login" BackgroundColor="#E65100" Clicked="Login_clicked"></Button>
+                    <Button Text="Home" BackgroundColor="#E65100" Clicked="HomePage_Clicked"></Button>
+                </StackLayout>
+            </ContentPage.Content>
+        </ContentPage>-->
+    </MasterDetailPage.Master>
+    <MasterDetailPage.Detail>
+        <NavigationPage>
+
+        </NavigationPage>
+        <!--<ContentPage Title="Home" Padding="10" BackgroundColor="#FFFDE7">
+            <ContentPage.Content>
+                <StackLayout>
+                    <Label Text="Noskoot Home"/>
+                </StackLayout>
+            </ContentPage.Content>
+        </ContentPage>-->
+    </MasterDetailPage.Detail>
+</MasterDetailPage>

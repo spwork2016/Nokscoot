@@ -1,0 +1,36 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="DevEnvAzure.DraftsContentPage" Title="Drafts">
+    <ListView x:Name="EmployeeViewdetail" HasUnevenRows="True">
+        <ListView.ItemTemplate>
+            <DataTemplate>
+                <ViewCell>
+                    <Grid>
+                        <Frame  Padding="1" BackgroundColor="#31b0d5" HasShadow="True" OutlineColor="#bbb">
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="50"/>
+                                    <RowDefinition Height="*"/>
+                                </Grid.RowDefinitions>
+                                <!--<Frame BackgroundColor="White" Padding="5" HasShadow="False">
+                                    -->
+                                <!--<Image Source="" Aspect="AspectFill"
+                           HorizontalOptions="Center" VerticalOptions="Center" HeightRequest="80"/>-->
+                                <!--
+                                </Frame>-->
+                                <StackLayout Grid.Row="1" Padding="5,0,5,5" Spacing="1">
+                                    <Label Text="{Binding vEmpName}" VerticalOptions="Center" HorizontalOptions="Center" FontSize="16" LineBreakMode="TailTruncation" 
+                           TextColor="White" FontAttributes="Bold"/>
+                                    <Label Text="{Binding vEmpAge}" HorizontalOptions="Center" VerticalOptions="Center" FontSize="12" LineBreakMode="TailTruncation"
+                           TextColor="White"/>
+                                    <Label Text="{Binding vEmpGender}" FontSize="12" TextColor="White" HorizontalOptions="Center"  VerticalOptions="Center" LineBreakMode="TailTruncation"/>
+                                </StackLayout>
+                            </Grid>
+                        </Frame>
+                    </Grid>
+                </ViewCell>
+            </DataTemplate>
+        </ListView.ItemTemplate>
+    </ListView>
+</ContentPage>

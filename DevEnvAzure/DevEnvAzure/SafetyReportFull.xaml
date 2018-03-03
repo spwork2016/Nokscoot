@@ -1,0 +1,92 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentView xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="DevEnvAzure.SafetyReportFull">
+  <ContentView.Content>
+        <ScrollView  Orientation="Vertical" VerticalOptions="FillAndExpand" IsClippedToBounds="True">
+            <!--IsClippedToBounds = "true">-->
+            <StackLayout x:Name="Stacklay" Orientation="Vertical" VerticalOptions = "FillAndExpand" Padding="10,0" BackgroundColor="#FFF9C4">
+                <StackLayout x:Name="Stacklay1" Orientation="Vertical" VerticalOptions = "FillAndExpand" Padding="10,0">
+                    <Frame   BackgroundColor="#FF9800" >
+                        <Label x:Name="lblname1" Opacity="5" TextColor="Black"  FontSize="Small" HorizontalOptions="Center" Text="Environment" />
+                    </Frame>
+                    <!--<Frame BackgroundColor="#FF9800" HeightRequest="1">
+                    <Label x:Name="lblname1" Opacity="5" TextColor="Black"  FontSize="Small" HorizontalOptions="Center" Text="Event Details" />
+                </Frame>-->
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*" />
+                            <RowDefinition Height="*" />
+                            <RowDefinition Height="*" />
+                            <RowDefinition Height="*" />
+                            <RowDefinition Height="*" />
+                            <RowDefinition Height="*" />
+                            <RowDefinition Height="*" />
+                            <RowDefinition Height="*" />
+                            <RowDefinition Height="*" />
+                            <RowDefinition Height="*" />
+
+                        </Grid.RowDefinitions>
+
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <Label x:Name="EventTitle" Text="Meteorological Report" TextColor="#E65100" Grid.Row="0" Grid.Column="0" />
+                        <Entry x:Name="EventTitleEntry"  Text="" TextColor="#0D47A1" Grid.Row="0" Grid.Column="1" />
+                        <Label x:Name="Item" Text="Wind" TextColor="#E65100" Grid.Row="1" Grid.Column="0" />
+                        <Entry x:Name="ItemEntry"  Text="" TextColor="#0D47A1" Grid.Row="1" Grid.Column="1" />
+
+                        <Label x:Name="Report" Text="Vis/RVR" TextColor="#E65100" Grid.Row="2" Grid.Column="0" />
+                        <Entry x:Name="ReportEntry"  Text="" TextColor="#0D47A1" Grid.Row="2" Grid.Column="1" />
+                        <Label x:Name="dateofEvent" TextColor="#E65100" Text="Temp" Grid.Row="3" Grid.Column="0" />
+                        <Entry x:Name="dtevntPicker"  Grid.Row="3" Grid.Column="1" TextColor="#0D47A1" />
+
+
+
+                        <Label x:Name="FlightNumber" Text="Light" TextColor="#E65100" Grid.Row="4" Grid.Column="0" />
+                        <Entry x:Name="FlnumEntry"  Text="" TextColor="#0D47A1" Grid.Row="4" Grid.Column="1" />
+                        <Label x:Name="AirCraftReg" Text="Weather" TextColor="#E65100" Grid.Row="5" Grid.Column="0" />
+                        <Entry x:Name="Aircraft"  Text="" TextColor="#0D47A1" Grid.Row="5" Grid.Column="1" />
+
+                        <Label x:Name="DepartStn" Text="Precipitation" TextColor="#E65100" Grid.Row="6" Grid.Column="0" />
+                        <Entry x:Name="DepartStnEntry"  Text="" TextColor="#0D47A1" Grid.Row="6" Grid.Column="1" />
+                        <Label x:Name="ArrivStn" Text="Turbulance" TextColor="#E65100" Grid.Row="7" Grid.Column="0" />
+                        <Entry x:Name="ArrivStnEntry"  Text="" TextColor="#0D47A1" Grid.Row="7" Grid.Column="1" />
+
+                        <!--<Label x:Name="DivertStn" Text="Divert Station" TextColor="#E65100" Grid.Row="8" Grid.Column="0" />
+                        <Entry x:Name="DivertStnEntry"  Text="" TextColor="#0D47A1" Grid.Row="8" Grid.Column="1" />
+                        <Label x:Name="AreaFIR" Text="Area_FIR of Event" TextColor="#E65100" Grid.Row="9" Grid.Column="0" />
+                        <Entry x:Name="AreaFIREntry"  Text="" TextColor="#0D47A1" Grid.Row="9" Grid.Column="1" />-->
+
+                    </Grid>
+                </StackLayout>
+                <StackLayout x:Name="Stacklay2" Orientation="Vertical" VerticalOptions = "FillAndExpand" Padding="10,0">
+                    <Frame BackgroundColor="#FF9800">
+                        <Label x:Name="lblname2" Opacity="5" TextColor="Black"  FontSize="Small" HorizontalOptions="Center" Text="Crew Information" />
+                    </Frame>
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*" />
+                            <RowDefinition Height="*" />
+                            <RowDefinition Height="*" />
+                            <RowDefinition Height="*" />
+                            <RowDefinition Height="*" />
+                        </Grid.RowDefinitions>
+
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
+
+                        </Grid.ColumnDefinitions>
+                        <Label x:Name="Commander" Text="Commander" TextColor="#E65100" Grid.Row="0" Grid.Column="0" />
+                        <Entry x:Name="commdentry"  Text="" TextColor="#0D47A1" Grid.Row="0" Grid.Column="1" />
+                        <Label x:Name="comdPM" Text="Commander PF or PM" TextColor="#E65100" Grid.Row="1" Grid.Column="0" />
+                        <Entry x:Name="comdPMEntry"  Text="" TextColor="#0D47A1" Grid.Row="1" Grid.Column="1" />
+                    </Grid>
+                   <!--<Button x:Name="save_btn" HorizontalOptions="CenterAndExpand" Text="SAVE" Clicked="Check_Clicked" Grid.Row="0" Grid.Column="1"  />-->
+                </StackLayout>
+            </StackLayout>
+        </ScrollView>
+    </ContentView.Content>
+</ContentView>

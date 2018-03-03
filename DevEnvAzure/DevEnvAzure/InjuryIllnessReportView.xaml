@@ -1,0 +1,164 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentView xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:controls="clr-namespace:XLabs.Forms.Controls;assembly=XLabs.Forms"
+             x:Class="DevEnvAzure.InjuryIllnessReportView">
+    <ContentView.Content>
+        <StackLayout x:Name="StackLayoutInjuryIllnessReport" Orientation="Vertical" VerticalOptions = "FillAndExpand"  BackgroundColor="#FFF9C4">
+            <Frame   BackgroundColor="#FF9800" >
+                <Label x:Name="InjuryIllnesslbl" Opacity="5" TextColor="Black"  FontSize="Small" HorizontalOptions="Center" Text="Injury / Illness" />
+            </Frame>
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <Label x:Name="PersonInvolvedlbl" Text="Person Involved" TextColor="#E65100" Grid.Row="0" Grid.Column="0" />
+                <Picker x:Name="PersonInvolvedpicker" SelectedIndex="{Binding personInvolvedIndex,Mode=TwoWay}" TextColor="#0D47A1" Grid.Row="0" Grid.Column="1" HorizontalOptions="FillAndExpand">
+                    <Picker.Items>
+                        <x:String>Crew</x:String>
+                        <x:String>Staff</x:String>
+                        <x:String>Pax</x:String>
+                    </Picker.Items>
+                </Picker>
+                <Label x:Name="UnfitforDutylbl" Text="Unfit for Duty" TextColor="#E65100" Grid.Row="1" Grid.Column="0" />
+                <controls:CheckBox x:Name="UnfitforDutychkbx"  DefaultText="" HorizontalOptions="EndAndExpand"  Checked="{Binding unfitForDuty,Mode=TwoWay}" Grid.Row="1" Grid.Column="1" />
+                <Label x:Name="NatureofInjurylbl" Text="Weather" TextColor="#E65100" Grid.Row="2" Grid.Column="0" />
+                <Picker x:Name="NatureofInjurypicker" SelectedIndex="{Binding natureofInjuryIndex,Mode=TwoWay}" TextColor="#0D47A1" Grid.Row="2" Grid.Column="1" HorizontalOptions="FillAndExpand">
+                    <Picker.Items>
+                        <x:String>Abrasion/Graze</x:String>
+                        <x:String>Amputation</x:String>
+                        <x:String>Blindness</x:String>
+                        <x:String>Bruise/crush</x:String>
+                        <x:String>Burn</x:String>
+                        <x:String>Cut</x:String>
+                        <x:String>Concussion</x:String>
+                        <x:String>Deafness</x:String>
+                        <x:String>Dislocation</x:String>
+                        <x:String>Electric shock</x:String>
+                        <x:String>Foreign Body</x:String>
+                        <x:String>Fracture</x:String>
+                        <x:String>Internal</x:String>
+                        <x:String>Lungs/respiratory</x:String>
+                        <x:String>Poisoning</x:String>
+                        <x:String>Puncture/Needle Stick</x:String>
+                        <x:String>Repetitive Strain</x:String>
+                        <x:String>Skin allergic/irritant</x:String>
+                        <x:String>Strain/sprain</x:String>
+                        <x:String>Stress/anxiety</x:String>
+                    </Picker.Items>
+                </Picker>
+                <Label x:Name="BodyPartlbl" Text="Body Part" TextColor="#E65100" Grid.Row="3" Grid.Column="0" />
+                <Entry x:Name="BodyPartEntry"   Text="{Binding bodyPart, Mode=TwoWay}"  TextColor="#0D47A1" Grid.Row="3" Grid.Column="1" />
+                <Label x:Name="HowInjuryOccurredlbl" Text="How Injury Occurred" TextColor="#E65100" Grid.Row="4" Grid.Column="0" />
+                <Picker x:Name="HowInjuryOccurredpicker" SelectedIndex="{Binding howinjuryOccurredIndex,Mode=TwoWay}" TextColor="#0D47A1" Grid.Row="4" Grid.Column="1" HorizontalOptions="FillAndExpand">
+                    <Picker.Items>
+                        <x:String>Bend/reach</x:String>
+                        <x:String>Biological</x:String>
+                        <x:String>Biting info</x:String>
+                        <x:String>Bitten by</x:String>
+                        <x:String>Cold</x:String>
+                        <x:String>Crush/jam</x:String>
+                        <x:String>Cut/stab</x:String>
+                        <x:String>Electricity</x:String>
+                        <x:String>Fall from height</x:String>
+                        <x:String>Fumes/chemicals</x:String>
+                        <x:String>Hit by object</x:String>
+                        <x:String>Hit Object</x:String>
+                        <x:String>Hot</x:String>
+                        <x:String>Mental Stress</x:String>
+                        <x:String>Noise</x:String>
+                        <x:String>Pressure</x:String>
+                        <x:String>Push/pull</x:String>
+                        <x:String>Slip/trip/fall</x:String>
+                    </Picker.Items>
+                </Picker>
+                <Label x:Name="Objectlbl" Text="Object that Injured" TextColor="#E65100" Grid.Row="5" Grid.Column="0" />
+                <Picker x:Name="Objectpicker" SelectedIndex="{Binding objectInjuredIndex,Mode=TwoWay}" TextColor="#0D47A1" Grid.Row="5" Grid.Column="1" HorizontalOptions="FillAndExpand">
+                    <Picker.Items>
+                        <x:String>Aircraft</x:String>
+                        <x:String>Airport Fitting</x:String>
+                        <x:String>Animal/Insect</x:String>
+                        <x:String>Biological</x:String>
+                        <x:String>Cabin Fitting</x:String>
+                        <x:String>Chemicals</x:String>
+                        <x:String>Environmental</x:String>
+                        <x:String>Foreign Object</x:String>
+                        <x:String>Ground Equipment</x:String>
+                        <x:String>Sound</x:String>
+                        <x:String>Tools/Appliances</x:String>
+                        <x:String>Vehicle</x:String>
+                    </Picker.Items>
+                </Picker>
+                <Label x:Name="TypeofTreatmentlbl" Text="Type of Treatment" TextColor="#E65100" Grid.Row="6" Grid.Column="0" />
+                <Entry x:Name="TypeofTreatmentEntry"  Text="{Binding typeofTreatment,Mode=TwoWay}" TextColor="#0D47A1" Grid.Row="6" Grid.Column="1" />
+                <Label x:Name="TreatmentBylbl" Text="Treatment By" TextColor="#E65100" Grid.Row="7" Grid.Column="0" />
+                <Picker x:Name="TreatmentByspicker" SelectedIndex="{Binding treatmentByIndex,Mode=TwoWay}" TextColor="#0D47A1" Grid.Row="7" Grid.Column="1" HorizontalOptions="FillAndExpand">
+                    <Picker.Items>
+                        <x:String>Hospital/Clinic</x:String>
+                        <x:String>Doctor</x:String>
+                        <x:String>First Aider</x:String>
+                        <x:String>Nurse</x:String>
+                        <x:String>Crew</x:String>
+                    </Picker.Items>
+                </Picker>
+                <Label x:Name="Wheretheeventoccurredlbl" Text="Where the event occurred" TextColor="#E65100" Grid.Row="8" Grid.Column="0" />
+                <Entry x:Name="WheretheeventoccurredEntry"   Text="{Binding whereEventOccur, Mode=TwoWay}"  TextColor="#0D47A1" Grid.Row="8" Grid.Column="1" />
+                <Label x:Name="Partofbodyinjuredlbl" Text="Part of body injured" TextColor="#E65100" Grid.Row="9" Grid.Column="0" />
+                <Picker x:Name="Partofbodyinjuredpicker" SelectedIndex="{Binding bodyPartInjuredIndex,Mode=TwoWay}" TextColor="#0D47A1" Grid.Row="9" Grid.Column="1" HorizontalOptions="FillAndExpand">
+                    <Picker.Items>
+                        <x:String>Head</x:String>
+                        <x:String>Face</x:String>
+                        <x:String>Neck</x:String>
+                        <x:String>Shoulder</x:String>
+                        <x:String>Arm</x:String>
+                        <x:String>Back</x:String>
+                        <x:String>Respiratory System</x:String>
+                        <x:String>Internal System</x:String>
+                        <x:String>Hand and Finger</x:String>
+                        <x:String>Leg</x:String>
+                        <x:String>Knee</x:String>
+                        <x:String>Foot</x:String>
+                    </Picker.Items>
+                </Picker>
+                <Label x:Name="TypeofIllnessInjurylbl" Text="Type of Illness/Injury" TextColor="#E65100" Grid.Row="10" Grid.Column="0" />
+                <Picker x:Name="TypeofIllnessInjurypicker" SelectedIndex="{Binding IllnessTypeIndex,Mode=TwoWay}" TextColor="#0D47A1" Grid.Row="10" Grid.Column="1" HorizontalOptions="FillAndExpand">
+                    <Picker.Items>
+                        <x:String>Cut by</x:String>
+                        <x:String>Hit by/to</x:String>
+                        <x:String>Burn/Hot</x:String>
+                        <x:String>Surface/Heat</x:String>
+                        <x:String>Energy Exposure</x:String>
+                        <x:String>Slp/Trip/Fall</x:String>
+                        <x:String>Fall from height</x:String>
+                    </Picker.Items>
+                </Picker>
+                <Label x:Name="TypeofIllnessInjurylbl" Text="Type of Illness/Injury" TextColor="#E65100" Grid.Row="11" Grid.Column="0" />
+                <Picker x:Name="TypeofIllnessInjurypicker" SelectedIndex="{Binding occurTypeIndex,Mode=TwoWay}" TextColor="#0D47A1" Grid.Row="11" Grid.Column="1" HorizontalOptions="FillAndExpand">
+                    <Picker.Items>
+                        <x:String>Near Miss</x:String>
+                        <x:String>First Aid Case</x:String>
+                        <x:String>Medical Treatment Case</x:String>
+                        <x:String>Restricted Work Case</x:String>
+                        <x:String>Day away from work</x:String>
+                        <x:String>Disability</x:String>
+                        <x:String>Fatality</x:String>
+                    </Picker.Items>
+                </Picker>
+            </Grid>
+        </StackLayout>
+    </ContentView.Content>
+</ContentView>

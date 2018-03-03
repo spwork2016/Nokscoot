@@ -1,0 +1,14 @@
+*.dll
+packages
+*.exe
+*.pdb
+.vs/
+*.bak
+DevEnvAzure/DevEnvAzure.Droid/bin/
+DevEnvAzure/DevEnvAzure.Droid/obj/
+DevEnvAzure/DevEnvAzure.iOS/bin/
+DevEnvAzure/DevEnvAzure.iOS/obj/
+DevEnvAzure/DevEnvAzure.UWP/bin/
+DevEnvAzure/DevEnvAzure.UWP/obj/
+DevEnvAzure/DevEnvAzure/obj/
+DevEnvAzure/DevEnvAzure/bin/

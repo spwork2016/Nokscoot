@@ -1,0 +1,66 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentView xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+              xmlns:controls="clr-namespace:XLabs.Forms.Controls;assembly=XLabs.Forms"
+             x:Class="DevEnvAzure.CabinSafetyReportView">
+    <ContentView.Content>
+        <StackLayout x:Name="StackLayoutCabinSafetyReport" Orientation="Vertical" VerticalOptions = "FillAndExpand"  BackgroundColor="#FFF9C4">
+            <Frame   BackgroundColor="#FF9800" >
+                <Label x:Name="lblSpecificEvents" Opacity="5" TextColor="Black"  FontSize="Small" HorizontalOptions="Center" Text="Specific Events" />
+            </Frame>
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <Label x:Name="turbulancelbl" Text="Turbulence" TextColor="#E65100" Grid.Row="0" Grid.Column="0" />
+                <Picker x:Name="turbulancepicker" SelectedIndex="{Binding turbulenceIndex,Mode=TwoWay}"  TextColor="#0D47A1" Grid.Row="0" Grid.Column="1" HorizontalOptions="FillAndExpand">
+                    <Picker.Items>
+                        <x:String>Light</x:String>
+                        <x:String>Moderate</x:String>
+                        <x:String>Severe</x:String>
+                        <x:String>Extreme</x:String>
+                    </Picker.Items>
+                </Picker>
+
+                <Label x:Name="seatbeltsign" Text="Seatbelt Sign ON" TextColor="#E65100" Grid.Row="1" Grid.Column="0" />
+                <controls:CheckBox x:Name="seatbeltsignchkbx"  Checked="{Binding seatBeltsign, Mode=TwoWay}" DefaultText="" HorizontalOptions="EndAndExpand"   Grid.Row="1" Grid.Column="1" />
+
+                <Label x:Name="adviseStop" Text="Advised to stop service" TextColor="#E65100" Grid.Row="2" Grid.Column="0" />
+                <controls:CheckBox x:Name="adviseStopchkbx"  Checked="{Binding adviceStop, Mode=TwoWay}" DefaultText="" HorizontalOptions="EndAndExpand"  Grid.Row="2" Grid.Column="1" />
+
+                <Label x:Name="pax" Text="Dangerous Goods Event - Pax or Cargo" TextColor="#E65100" Grid.Row="3" Grid.Column="0" />
+                <Picker x:Name="paxpicker" SelectedIndex="{Binding dangerPaxIndex,Mode=TwoWay}" TextColor="#0D47A1" Grid.Row="3" Grid.Column="1" HorizontalOptions="FillAndExpand">
+                    <Picker.Items>
+                        <x:String>pax</x:String>
+                        <x:String>cargo</x:String>
+                    </Picker.Items>
+                </Picker>
+                <Label x:Name="identified" Text="Identified When" TextColor="#E65100" Grid.Row="4" Grid.Column="0" />
+                <Picker x:Name="identifiedpicker" SelectedIndex="{Binding identifiedWhenCabinIndex,Mode=TwoWay}" TextColor="#0D47A1" Grid.Row="4" Grid.Column="1" HorizontalOptions="FillAndExpand">
+                    <Picker.Items>
+                        <x:String>Before flight</x:String>
+                        <x:String>During flight</x:String>
+                        <x:String>After flight</x:String>
+                    </Picker.Items>
+                </Picker>
+                <Label x:Name="idenwhere" TextColor="#E65100" Text="Identified Where" Grid.Row="5" Grid.Column="0" />
+                <Picker x:Name="identifiedwherepicker" SelectedIndex="{Binding identifiedWhereCabinIndex,Mode=TwoWay}" TextColor="#0D47A1" Grid.Row="5" Grid.Column="1" HorizontalOptions="FillAndExpand">
+                    <Picker.Items>
+                        <x:String>Check-in/preboard</x:String>
+                        <x:String>Cabin bags</x:String>
+                        <x:String>Checked bags</x:String>
+                    </Picker.Items>
+                </Picker>
+            </Grid>
+        </StackLayout>
+    </ContentView.Content>
+</ContentView>
