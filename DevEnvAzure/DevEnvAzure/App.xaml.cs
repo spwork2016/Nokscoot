@@ -36,7 +36,7 @@ namespace DevEnvAzure
             if (App.AuthenticationResponse == null)
                 MainPage = new Login();
             else
-                MainPage = new DevEnvAzure.StartPage();
+                MainPage = new StartPage();
         }
         public static DataAccess DAUtil
         {

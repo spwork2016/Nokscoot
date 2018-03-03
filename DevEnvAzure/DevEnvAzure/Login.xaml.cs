@@ -41,24 +41,25 @@ namespace DevEnvAzure
                 var t1 = Task.Run(async () =>
                {
                    await OAuthHelper.GetAuthenticationHeader(Username.Text, Password.Text).ContinueWith((x) =>
-                   {
-                       Device.BeginInvokeOnMainThread(() =>
-                       {
-                           if (App.AuthenticationResponse != null)
-                           {
-                               this.Navigation.PushModalAsync(new StartPage());
-                           }
-                           else
-                           {
-                               DependencyService.Get<IMessage>().LongAlert("Login Failed! Please check email/password");
+                  {
+                      Device.BeginInvokeOnMainThread(() =>
+                      {
+                          OAuthHelper.GetUserInfo();
+                          if (App.AuthenticationResponse != null)
+                          {
+                              this.Navigation.PushModalAsync(new StartPage());
+                          }
+                          else
+                          {
+                              DependencyService.Get<IMessage>().LongAlert("Login Failed! Please check email/password");
 
-                               btnLogin.IsVisible = true;
-                               spinner.IsVisible = false;
-                               spinner.IsRunning = false;
-                           }
-                       });
+                              btnLogin.IsVisible = true;
+                              spinner.IsVisible = false;
+                              spinner.IsRunning = false;
+                          }
+                      });
 
-                   });
+                  });
                });
 
             }

@@ -34,7 +34,6 @@ namespace DevEnvAzure
             string aadResource = ClientConfiguration.Default.ActiveDirectoryResource;
 
             AuthenticationContext authenticationContext = new AuthenticationContext(aadTenant, false);
-            AuthenticationResult authenticationResult;
 
             if (useWebAppAuthentication)
             {
