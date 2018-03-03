@@ -13,7 +13,6 @@ namespace DevEnvAzure
         public Login()
         {
             InitializeComponent();
-            //this.AddIndicator();
 
             //REMOVE - only dev
             Username.Text = ClientConfiguration.Default.UserName;
