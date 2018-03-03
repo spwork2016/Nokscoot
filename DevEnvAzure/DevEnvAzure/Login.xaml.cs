@@ -68,17 +68,5 @@ namespace DevEnvAzure
                 DependencyService.Get<IMessage>().LongAlert("Login Failed! Please check email/passowrd");
             }
         }
-
-        //public async Task<void> NavigateTopage()
-        //{
-        //    try
-        //    {
-        //        await Navigation.PushModalAsync(new StartPage());
-        //    }
-        //    catch (Exception ex)
-        //    {
-
-        //    }
-        //}
     }
 }
