@@ -142,14 +142,15 @@ namespace DevEnvAzure
 
             try
             {
-                var response = await client.GetStringAsync(ClientConfiguration.Default.SPRootURL + "web/currentUser?");
+                //var response = await client.GetStringAsync(ClientConfiguration.Default.SPRootURL + "web/currentUser?");
+                var response = await client.GetStringAsync(ClientConfiguration.Default.SPRootURL + "SP.UserProfiles.PeopleManager/GetMyProperties");
                 if (response != null)
                 {
                     App.DAUtil.RefreshMasterInfo(new MasterInfo { Name = "UserInfo", content = response });
                     var spData = JsonConvert.DeserializeObject<SPData>(response, new JsonSerializerSettings { DateParseHandling = DateParseHandling.None });
                     if (spData != null)
                     {
-                        App.CurrentUser = new User { Name = spData.d.Title, Email = spData.d.Email, PictureUrl = await SPUtility.GetProfilePicUrl() };
+                        App.CurrentUser = new User { Name = spData.d.DisplayName, Email = spData.d.Email, PictureUrl = spData.d.PictureUrl };
 
                         //string picUrl = ClientConfiguration.Default.SPRootURL + "_layouts/15/userphoto.aspx?size=M&accountname = " + spData.d.LoginName;
                         //var picResponse = await client.GetStringAsync(picUrl);

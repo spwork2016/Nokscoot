@@ -152,24 +152,54 @@ namespace DevEnvAzure.Model
         public string Gender { get; set; }
     }
 
+    public class UserProfileProperties
+    {
+        public IList<Result> results { get; set; }
+
+    }
+    public class DirectReports
+    {
+        public Metadata __metadata { get; set; }
+        public IList<object> results { get; set; }
+    }
+
+    public class ExtendedManagers
+    {
+        public Metadata __metadata { get; set; }
+        public IList<object> results { get; set; }
+    }
+
+    public class ExtendedReports
+    {
+        public Metadata __metadata { get; set; }
+        public IList<string> results { get; set; }
+    }
+
+    public class Peers
+    {
+        public Metadata __metadata { get; set; }
+        public IList<object> results { get; set; }
+    }
+
     public class D
     {
         //user fields 
         public Metadata __metadata { get; set; }
-        public Alerts Alerts { get; set; }
-        public Groups Groups { get; set; }
-        public int Id { get; set; }
-        public bool IsHiddenInUI { get; set; }
-        public string LoginName { get; set; }
-        public string Title { get; set; }
-        public int PrincipalType { get; set; }
+        public string AccountName { get; set; }
+        public DirectReports DirectReports { get; set; }
+        public string DisplayName { get; set; }
         public string Email { get; set; }
-        public bool IsEmailAuthenticationGuestUser { get; set; }
-        public bool IsShareByEmailGuestUser { get; set; }
-        public bool IsSiteAdmin { get; set; }
-        public UserId UserId { get; set; }
-        //user fields end
+        public ExtendedManagers ExtendedManagers { get; set; }
+        public ExtendedReports ExtendedReports { get; set; }
+        public bool IsFollowed { get; set; }
+        public object LatestPost { get; set; }
+        public Peers Peers { get; set; }
+        public string PersonalSiteHostUrl { get; set; }
+        public string PersonalUrl { get; set; }
         public string PictureUrl { get; set; }
+        public string Title { get; set; }
+        public UserProfileProperties UserProfileProperties { get; set; }
+        public string UserUrl { get; set; }
 
         public IList<Result> results { get; set; }
     }
@@ -185,4 +215,5 @@ namespace DevEnvAzure.Model
         public string Email { get; set; }
         public string PictureUrl { get; set; }
     }
+
 }

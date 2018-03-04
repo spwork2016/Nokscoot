@@ -54,7 +54,6 @@ namespace DevEnvAzure
             if (App.CurrentUser == null)
             {
                 await OAuthHelper.GetUserInfo();
-                loggrInUser.Text = App.CurrentUser?.Name;
                 //profilePicUrl = App.CurrentUser.PictureUrl;
                 //profilePic.Source = new UriImageSource
                 //{
@@ -64,6 +63,8 @@ namespace DevEnvAzure
                 //};
 
             }
+
+            loggrInUser.Text = App.CurrentUser?.Name;
         }
 
         private void OnMenuItemSelected(object sender, SelectedItemChangedEventArgs e)

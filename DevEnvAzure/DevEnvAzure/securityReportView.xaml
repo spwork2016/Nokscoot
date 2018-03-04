@@ -5,7 +5,7 @@
              x:Class="DevEnvAzure.securityReportView">
     <ContentView.Content>
         <StackLayout x:Name="StackLayoutSecurityReport" Orientation="Vertical" VerticalOptions="FillAndExpand">
-            <Frame BackgroundColor="#FDCE02">
+            <Frame BackgroundColor="#FDCE02" OutlineColor="#FDCE02" Padding="10" HasShadow="False">
                 <Label x:Name="lblphaseconditions" TextColor="Black" FontSize="Medium" HorizontalOptions="Center" Text="Phase and Conditions" />
             </Frame>
             <Grid>

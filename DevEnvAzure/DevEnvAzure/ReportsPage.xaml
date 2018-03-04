@@ -3,13 +3,13 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="DevEnvAzure.ReportsPage" Title="Reports">
     <ContentPage.Content>
-        <StackLayout Orientation="Vertical">
-            <Button Text="Safety Report"  Clicked="Button_Clicked" TextColor="Black"  BackgroundColor="#FF9800" />
-            <Button Text="Security Report"  Clicked="Security_Clicked"   TextColor="Black"  BackgroundColor="#FF9800" />
-            <Button Text="Cabin Safety Report" Clicked="CabinSafety_Clicked"   TextColor="Black"  BackgroundColor="#FF9800" />
-            <Button Text="Fatigue Report" Clicked="Fatigue_Clicked"   TextColor="Black"  BackgroundColor="#FF9800" />
-            <Button Text="Ground Safety Report" Clicked="GroundSafety_Clicked"   TextColor="Black"  BackgroundColor="#FF9800" />
-            <Button Text="Injury Illness Reports" Clicked="InjuryIllness_Clicked"   TextColor="Black"  BackgroundColor="#FF9800" />
+        <StackLayout Orientation="Vertical" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" Padding="10">
+            <Button Text="Safety Report" TextColor="White" FontSize="Medium" Clicked="Button_Clicked" BackgroundColor="#1aa1d6" />
+            <Button Text="Security Report" TextColor="White"  FontSize="Medium" Clicked="Security_Clicked" BackgroundColor="#1aa1d6" />
+            <Button Text="Cabin Safety Report" TextColor="White" FontSize="Medium" Clicked="CabinSafety_Clicked" BackgroundColor="#1aa1d6" />
+            <Button Text="Fatigue Report" TextColor="White" FontSize="Medium" Clicked="Fatigue_Clicked" BackgroundColor="#1aa1d6" />
+            <Button Text="Ground Safety Report" TextColor="White" FontSize="Medium" Clicked="GroundSafety_Clicked" BackgroundColor="#1aa1d6" />
+            <Button Text="Injury Illness Reports" TextColor="White" FontSize="Medium" Clicked="InjuryIllness_Clicked" BackgroundColor="#1aa1d6" />
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>
