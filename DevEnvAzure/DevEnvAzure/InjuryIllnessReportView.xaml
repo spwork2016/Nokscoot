@@ -146,8 +146,8 @@
                         <x:String>Fall from height</x:String>
                     </Picker.Items>
                 </Picker>
-                <Label x:Name="TypeofIllnessInjurylbl" Text="Type of Illness/Injury" TextColor="#E65100" Grid.Row="11" Grid.Column="0" />
-                <Picker x:Name="TypeofIllnessInjurypicker" SelectedIndex="{Binding occurTypeIndex,Mode=TwoWay}" TextColor="#0D47A1" Grid.Row="11" Grid.Column="1" HorizontalOptions="FillAndExpand">
+                <Label x:Name="TypeofIllnessInjurylbl1" Text="Type of Illness/Injury" TextColor="#E65100" Grid.Row="11" Grid.Column="0" />
+                <Picker x:Name="TypeofIllnessInjurypicker1" SelectedIndex="{Binding occurTypeIndex,Mode=TwoWay}" TextColor="#0D47A1" Grid.Row="11" Grid.Column="1" HorizontalOptions="FillAndExpand">
                     <Picker.Items>
                         <x:String>Near Miss</x:String>
                         <x:String>First Aid Case</x:String>

@@ -150,8 +150,7 @@ namespace DevEnvAzure
                 //  var x = fileData.DataArray;
                 if (fileData != null)
                 {
-                    var y = fileData.FilePath;
-                    MORpicker.Text = y;
+                    MORpicker.Text = fileData.FileName;
                 }
                 else
                 {
