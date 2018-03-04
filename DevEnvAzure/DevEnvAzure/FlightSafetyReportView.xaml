@@ -54,7 +54,7 @@
                     </Picker.Items>
                 </Picker>
             </Grid>
-            <Frame  BackgroundColor="#FDCE02" OutlineColor="#FDCE02" Padding="10" HasShadow="False">
+            <Frame BackgroundColor="#FDCE02" OutlineColor="#FDCE02" Padding="10" HasShadow="False">
                 <Label x:Name="lblPhaseConditions" TextColor="Black"  FontSize="Medium" HorizontalOptions="Center" Text="Phase and Conditions" />
             </Frame>
             <Grid>

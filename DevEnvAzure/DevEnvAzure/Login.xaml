@@ -3,7 +3,6 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:local="clr-namespace:DevEnvAzure"
              x:Class="DevEnvAzure.Login" Title="Welcome to Nokscoot">
-
     <StackLayout x:Name="sl" VerticalOptions="FillAndExpand"
                      Padding="10">
 
@@ -14,7 +13,7 @@
         <Button x:Name="btnLogin" Text="Login" Clicked="Login_OnClicked" TextColor="White" Grid.Row="11" Grid.Column="1" 
                 BackgroundColor="#FF9800" HorizontalOptions="FillAndExpand" />
         <ActivityIndicator x:Name="activityIndicator" BackgroundColor="Transparent" IsEnabled="False" IsVisible="False"
-                           VerticalOptions="Center" HorizontalOptions="Center" Color="Red"
+                           VerticalOptions="Center" HorizontalOptions="Center" Color="#FDCE02"
                            IsRunning="False"></ActivityIndicator>
 
     </StackLayout>
