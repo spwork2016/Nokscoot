@@ -8,5 +8,5 @@
 	<uses-permission android:name="android.permission.ACCESS_LOCATION_EXTRA_COMMANDS" />
 	<uses-permission android:name="android.permission.ACCESS_MOCK_LOCATION" />
 	<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-	<application android:label="DevEnvAzure.Droid" android:icon="@drawable/Nokscoot"></application>
+	<application android:label="Nokscoot" android:icon="@drawable/Nokscoot"></application>
 </manifest>

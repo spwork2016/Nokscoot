@@ -4,8 +4,8 @@
               xmlns:controls="clr-namespace:XLabs.Forms.Controls;assembly=XLabs.Forms"
              x:Class="DevEnvAzure.securityReportView">
     <ContentView.Content>
-        <StackLayout x:Name="StackLayoutSecurityReport" Orientation="Vertical" VerticalOptions = "FillAndExpand"  BackgroundColor="#FFF9C4">
-            <Frame   BackgroundColor="#FF9800" >
+        <StackLayout x:Name="StackLayoutSecurityReport" Orientation="Vertical" VerticalOptions="FillAndExpand">
+            <Frame BackgroundColor="#FDCE02" >
                 <Label x:Name="lblphaseconditions" Opacity="5" TextColor="Black"  FontSize="Small" HorizontalOptions="Center" Text="Phase and Conditions" />
             </Frame>
             <Grid>
@@ -20,8 +20,8 @@
                     <ColumnDefinition Width="*" />
                     <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
-                <Label x:Name="FlightPhase" Text="If flight event - select phase" TextColor="#E65100" Grid.Row="0" Grid.Column="0" />
-                <Picker x:Name="FlightPhasepicker"  SelectedIndex="{Binding flightphase,Mode=TwoWay}"   TextColor="#0D47A1" Grid.Row="0" Grid.Column="1" HorizontalOptions="FillAndExpand">
+                <Label x:Name="FlightPhase" Text="If flight event - select phase" Grid.Row="0" Grid.Column="0" />
+                <Picker x:Name="FlightPhasepicker"  SelectedIndex="{Binding flightphase,Mode=TwoWay}" Grid.Row="0" Grid.Column="1" HorizontalOptions="FillAndExpand">
                     <Picker.Items>
                         <x:String>Parked</x:String>
                         <x:String>Pre-fligh</x:String>
@@ -39,7 +39,7 @@
                         <x:String>Towing</x:String>
                     </Picker.Items>
                 </Picker>
-                <Label x:Name="flightwhere" Text="If on ground - select where" TextColor="#E65100" Grid.Row="1" Grid.Column="0" />
+                <Label x:Name="flightwhere" Text="If on ground - select where" Grid.Row="1" Grid.Column="0" />
                 <Picker x:Name="flightwherepicker" SelectedIndex="{Binding flightwhere,Mode=TwoWay}"  TextColor="#0D47A1" Grid.Row="1" Grid.Column="1" HorizontalOptions="FillAndExpand">
                     <Picker.Items>
                         <x:String>Baggage Carousel</x:String>
@@ -52,10 +52,10 @@
                         <x:String>Hotel</x:String>
                     </Picker.Items>
                 </Picker>
-                <Label x:Name="secEvent" Text="Security Event - Type" TextColor="#E65100" Grid.Row="2" Grid.Column="0" />
-                <Entry x:Name="secEventEntry"   Text="{Binding securityEvent, Mode=TwoWay}"  TextColor="#0D47A1" Grid.Row="2" Grid.Column="1" />
+                <Label x:Name="secEvent" Text="Security Event - Type" Grid.Row="2" Grid.Column="0" />
+                <Entry x:Name="secEventEntry"   Text="{Binding securityEvent, Mode=TwoWay}" Grid.Row="2" Grid.Column="1" />
                 <Label x:Name="policereport" TextColor="#E65100" Text="Reported to Police" Grid.Row="3" Grid.Column="0" />
-                <controls:HyperLinkLabel x:Name="policereportEntry" Text="www.google.com"  Grid.Row="3" Grid.Column="1" TextColor="#0D47A1" />
+                <controls:HyperLinkLabel x:Name="policereportEntry" Text="www.google.com"  Grid.Row="3" Grid.Column="1" />
             </Grid>
         </StackLayout>
     </ContentView.Content>

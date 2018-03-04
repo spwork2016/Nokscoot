@@ -19,14 +19,36 @@ namespace DevEnvAzure
     public partial class SSIRShortForm : ContentPage
     {
         object _viewobject = null;
-        public  string _classname;
-      
+        public string _classname;
+
         public SSIRShortForm(object viewObject, string modelname)
         {
-            this.BindingContext = viewObject;
             _classname = modelname;
+            this.BindingContext = viewObject;
             _viewobject = viewObject;
             InitializeComponent();
+
+            switch (modelname)
+            {
+                case "safety":
+                    this.Title = "Safety Report";
+                    break;
+                case "security":
+                    this.Title = "Security Report";
+                    break;
+                case "ground":
+                    this.Title = "Ground Report";
+                    break;
+                case "fatigue":
+                    this.Title = "Fatigue Report";
+                    break;
+                case "Injury":
+                    this.Title = "Injury Report";
+                    break;
+                case "cabin":
+                    this.Title = "Cabin Report";
+                    break;
+            }
         }
 
         //  _classname secViewfull = null;
@@ -38,26 +60,32 @@ namespace DevEnvAzure
                 switch (_classname)
                 {
                     case "safety":
+                        this.Title = "Safety Report";
                         break;
                     case "security":
-
+                        this.Title = "Security Report";
                         _fullviewobj = new securityReportView();
                         break;
                     case "ground":
+                        this.Title = "Ground Report";
                         _fullviewobj = new GroundSafetyReportView();
                         break;
                     case "fatigue":
+                        this.Title = "Fatigue Report";
                         _fullviewobj = new FatigueReportView();
                         break;
                     case "Injury":
+                        this.Title = "Injury Report";
                         _fullviewobj = new InjuryIllnessReportView();
                         break;
                     case "cabin":
+                        this.Title = "Cabin Report";
                         _fullviewobj = new CabinSafetyReportView();
                         break;
                 }
             }
-            if (Formcheck.Checked == true)
+
+            if (Formcheck.IsToggled == true)
             {
                 Stacklay2.Children.Add(_fullviewobj);
             }
@@ -77,7 +105,7 @@ namespace DevEnvAzure
                 case "security":
                     //  App.security.Add((SecurityModel)_viewobject);
                     CreateItems();
-                   // App.DAUtil.SaveEmployee((SecurityModel)_viewobject);
+                    // App.DAUtil.SaveEmployee((SecurityModel)_viewobject);
                     //  _fullviewobj = new securityReportView();
                     break;
                 case "ground":
@@ -113,8 +141,8 @@ namespace DevEnvAzure
                     break;
                 case "security":
                     //  App.security.Add((SecurityModel)_viewobject);
-                   
-                   App.DAUtil.SaveEmployee((SecurityModel)_viewobject);
+
+                    App.DAUtil.SaveEmployee((SecurityModel)_viewobject);
                     //  _fullviewobj = new securityReportView();
                     break;
                 case "ground":
@@ -210,7 +238,7 @@ namespace DevEnvAzure
                 {
                     var empdetails = "safety";
                     var client = GetHTTPClient();
-                   // var body = "{\"__metadata\":{\"type\":\"SP.Data.TestFormListItem\"},\"Type_x0020_of_x0020_Report\":\"" + empdetails + "\"}";
+                    // var body = "{\"__metadata\":{\"type\":\"SP.Data.TestFormListItem\"},\"Type_x0020_of_x0020_Report\":\"" + empdetails + "\"}";
                     //var body = "{\"__metadata\":{\"type\":\"SP.Data.TestFormListItem\"},\"Employee_x0020_Details\":\"" + empdetails + "\",\"DepartmentId\":\"" + dptname + "\",\"Salary\":\"" + sal +
                     //"\",\"Active_x0020_Employee\":\"" + actemp + "\",\"Joining_x0020_Date\":\"" + date + "\",\"Employee_x0020_Age\":\"" + empage + 
                     //"\",\"Employee_x0020_Name\":\"" + empName + "\",\"Gender\": \"" + gender + "\"}";
@@ -291,12 +319,12 @@ namespace DevEnvAzure
                     //};
                     //App.employees.Add(vEmployee);
                     App.DAUtil.SaveEmployee(_viewobject);
-                    
+
                     var vList = App.DAUtil.GetAllEmployees<SecurityModel>("SecurityModel");
                     DependencyService.Get<IMessage>().LongAlert("List data stored in local storage");
                 }
 
-               // await Navigation.PushAsync(new DraftsPage());
+                // await Navigation.PushAsync(new DraftsPage());
             }
             catch (HttpRequestException ex)
             {
@@ -308,6 +336,6 @@ namespace DevEnvAzure
             }
         }
 
-       
+
     }
 }

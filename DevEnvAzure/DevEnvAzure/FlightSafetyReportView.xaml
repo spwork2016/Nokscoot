@@ -46,7 +46,7 @@
                 <Label x:Name="FlightCrew2Emaillbl" Text="Flight Crew 2 Email" TextColor="#E65100" Grid.Row="4" Grid.Column="0" />
 
                 <Label x:Name="FlightCrew2PFPMOBslbl" Text="Flight Crew 2 PF PM OBs" TextColor="#E65100" Grid.Row="5" Grid.Column="0" />
-                <Picker x:Name="FlightCrew2PFPMOBspicker" TextColor="#0D47A1" Grid.Row="5" Grid.Column="1" HorizontalOptions="FillAndExpand">
+                <Picker x:Name="FlightCrew2PFPMOBspicker" Grid.Row="5" Grid.Column="1" HorizontalOptions="FillAndExpand">
                     <Picker.Items>
                         <x:String>PF</x:String>
                         <x:String>PM</x:String>
@@ -54,8 +54,8 @@
                     </Picker.Items>
                 </Picker>
             </Grid>
-            <Frame   BackgroundColor="#FF9800" >
-                <Label x:Name="lblPhaseConditions" Opacity="5" TextColor="Black"  FontSize="Small" HorizontalOptions="Center" Text="Phase and Conditions" />
+            <Frame  BackgroundColor="#FDCE02" OutlineColor="#FDCE02" Padding="10" HasShadow="False">
+                <Label x:Name="lblPhaseConditions" TextColor="Black"  FontSize="Medium" HorizontalOptions="Center" Text="Phase and Conditions" />
             </Frame>
             <Grid>
                 <Grid.RowDefinitions>
@@ -66,7 +66,7 @@
                     <ColumnDefinition Width="*" />
                     <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
-                <Label x:Name="Ifflighteventselectphaselbl" Text="If flight event - select phase" TextColor="#E65100" Grid.Row="0" Grid.Column="0" />
+                <Label x:Name="Ifflighteventselectphaselbl" Text="If flight event - select phase" Grid.Row="0" Grid.Column="0" />
                 <Picker x:Name="Ifflighteventselectphasepicker" TextColor="#0D47A1" Grid.Row="0" Grid.Column="1" HorizontalOptions="FillAndExpand">
                     <Picker.Items>
                         <x:String>Parked</x:String>

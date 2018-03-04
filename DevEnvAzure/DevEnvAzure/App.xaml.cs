@@ -33,8 +33,10 @@ namespace DevEnvAzure
         public App()
         {
             InitializeComponent();
-            if (App.AuthenticationResponse == null)
+            if (!OAuthHelper.IsLoggedIn())
+            {
                 MainPage = new Login();
+            }
             else
                 MainPage = new StartPage();
         }

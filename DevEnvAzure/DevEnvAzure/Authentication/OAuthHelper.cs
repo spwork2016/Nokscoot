@@ -88,6 +88,7 @@ namespace DevEnvAzure
                     if (response.IsSuccessStatusCode)
                     {
                         string str = await response.Content.ReadAsStringAsync();
+                        App.DAUtil.RefreshMasterInfo(new MasterInfo { content = str, Name = "Authentication" });
                         AuthenticationResponse json = JsonConvert.DeserializeObject<AuthenticationResponse>(str);
                         App.AuthenticationResponse = json;
                         return true;
@@ -144,6 +145,7 @@ namespace DevEnvAzure
                 var response = await client.GetStringAsync(ClientConfiguration.Default.SPRootURL + "web/currentUser?");
                 if (response != null)
                 {
+                    App.DAUtil.RefreshMasterInfo(new MasterInfo { Name = "UserInfo", content = response });
                     var spData = JsonConvert.DeserializeObject<SPData>(response, new JsonSerializerSettings { DateParseHandling = DateParseHandling.None });
                     if (spData != null)
                     {
@@ -169,12 +171,29 @@ namespace DevEnvAzure
 
         public static bool IsLoggedIn()
         {
+            if (!CrossConnectivity.Current.IsConnected)
+            {
+                MasterInfo auth = App.DAUtil.GetMasterInfoByName("Authentication");
+                if (auth != null)
+                {
+                    AuthenticationResponse json = JsonConvert.DeserializeObject<AuthenticationResponse>(auth.content);
+                    App.AuthenticationResponse = json;
+                }
+
+                MasterInfo userInfo = App.DAUtil.GetMasterInfoByName("UserInfo");
+                if (userInfo != null)
+                {
+                    var spData = JsonConvert.DeserializeObject<SPData>(auth.content, new JsonSerializerSettings { DateParseHandling = DateParseHandling.None });
+                    App.CurrentUser = new User { Name = spData.d.Title, Email = spData.d.Email, PictureUrl = SPUtility.GetProfilePicUrl().Result };
+                }
+            }
+
             if (App.AuthenticationResponse == null) return false;
 
             //For offline fuctionality
             if (App.AuthenticationResponse != null && !CrossConnectivity.Current.IsConnected) return true;
 
-            DateTime expries = new DateTime(1970, 1, 1, 0, 0, 0, 0, System.DateTimeKind.Utc);
+            DateTime expries = new DateTime(1970, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc);
             expries = expries.AddSeconds(long.Parse(App.AuthenticationResponse.expires_on)).ToLocalTime();
 
             return CrossConnectivity.Current.IsConnected && expries > DateTime.Now;
