@@ -42,8 +42,12 @@
     <Compile Include="CabinSafetyReportView.xaml.cs">
       <DependentUpon>CabinSafetyReportView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="DataContracts\DocumentLib.cs" />
     <Compile Include="DataContracts\EmployeeInformation.cs" />
     <Compile Include="DataContracts\FlightSecuritySharepointData.cs" />
+    <Compile Include="DocumentLibrary.xaml.cs">
+      <DependentUpon>DocumentLibrary.xaml</DependentUpon>
+    </Compile>
     <Compile Include="EditableDrafts.xaml.cs">
       <DependentUpon>EditableDrafts.xaml</DependentUpon>
     </Compile>
@@ -303,6 +307,12 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="SSIRShortForm.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="DocumentLibrary.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
       <SubType>Designer</SubType>
     </EmbeddedResource>

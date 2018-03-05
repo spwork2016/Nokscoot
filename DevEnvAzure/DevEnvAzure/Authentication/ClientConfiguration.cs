@@ -17,6 +17,7 @@ namespace DevEnvAzure
             ActiveDirectoryClientAppId = "d4c9dc64-803f-4dce-842c-380ce91f60d4", //sptechnophiles            // Insert here the application secret when authenticate with AAD by the application  
             SPRootURL = "https://sptechnophiles.sharepoint.com/_api/",
             SPRootURLList = "https://sptechnophiles.sharepoint.com/_api/web/lists/",
+            SPDocumentLibraryURL = "https://sptechnophiles.sharepoint.com/_api/web/GetFolderByServerRelativeUrl('/SampleDocuments')/Folders",
 
             //UserName = "Prasad.Par@nokscoot.com",            // Insert the correct password here for the actual test.           
             //Password = "Nokfly2018",
@@ -40,5 +41,6 @@ namespace DevEnvAzure
         public string ActiveDirectoryClientAppSecret { get; set; }
         public string SPRootURL { get; set; }
         public string SPRootURLList { get; set; }
+        public string SPDocumentLibraryURL { get; set; }
     }
 }

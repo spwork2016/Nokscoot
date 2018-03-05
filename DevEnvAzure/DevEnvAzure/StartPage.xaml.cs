@@ -32,11 +32,15 @@ namespace DevEnvAzure
             var logout = new MasterPageItem() { Title = "Logout", Icon = "logout.png" };
             var page4 = new MasterPageItem() { Title = "Safety", Icon = "EMP_info.png", TargetType = typeof(ReportsPage) };
             var editableDraftsPage = new MasterPageItem() { Title = "Editable Drafts", Icon = "EMP_info.png", TargetType = typeof(EditableDrafts) };
+            var docPage = new MasterPageItem() { Title = "Documents", Icon = "EMP_info.png", TargetType = typeof(DocumentLibrary) };
             menuList.Add(page2);
             menuList.Add(page4);
             menuList.Add(page3);
             menuList.Add(editableDraftsPage);
+            menuList.Add(docPage);
             menuList.Add(logout);
+
+            
 
             // Setting our list to be ItemSource for ListView in MainPage.xaml
             navigationDrawerList.ItemsSource = menuList;
