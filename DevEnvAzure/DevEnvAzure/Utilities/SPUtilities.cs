@@ -1,5 +1,6 @@
 ﻿using DevEnvAzure.Model;
 using Newtonsoft.Json;
+using PCLStorage;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,6 +12,21 @@ namespace DevEnvAzure
 {
     public static class SPUtility
     {
+        public async static Task SaveImage(this byte[] image, string fileName, IFolder rootFolder = null)
+        {
+            // get hold of the file system  
+            IFolder folder = rootFolder ?? FileSystem.Current.LocalStorage;
+
+            // create a file, overwriting any existing file  
+            IFile file = await folder.CreateFileAsync(fileName, CreationCollisionOption.ReplaceExisting);
+
+            // populate the file with image data  
+            using (System.IO.Stream stream = await file.OpenAsync(PCLStorage.FileAccess.ReadAndWrite))
+            {
+                stream.Write(image, 0, image.Length); 
+            }
+        }
+
         public static async Task<Result> ValidateUser(string name)
         {
             if (string.IsNullOrEmpty(name) || string.IsNullOrWhiteSpace(name)) return null;

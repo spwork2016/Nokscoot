@@ -40,7 +40,7 @@ namespace DevEnvAzure
             menuList.Add(docPage);
             menuList.Add(logout);
 
-            
+
 
             // Setting our list to be ItemSource for ListView in MainPage.xaml
             navigationDrawerList.ItemsSource = menuList;
@@ -92,17 +92,6 @@ namespace DevEnvAzure
 
             Detail = new NavigationPage((Page)Activator.CreateInstance(item.TargetType));
         }
-
-        //void Login_clicked(object sender, System.EventArgs e)
-        //{
-        //    Detail = new NavigationPage(new Login());
-        //    IsPresented = false;
-        //}
-        // void HomePage_Clicked(object sender, System.EventArgs e)
-        //{
-        //    Detail =  new NavigationPage(new HomePage(App.username));
-        //    IsPresented = false;
-        //}
     }
 
     public class MasterPageItem

@@ -92,6 +92,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="NetworkConnection.cs" />
+    <Compile Include="SaveFile.cs" />
     <Compile Include="SqliteService.cs" />
     <Compile Include="MessageIOS .cs" />
     <Compile Include="Authenticator.cs" />
@@ -128,8 +129,18 @@
     <ImageAsset Include="Resources\Media.xcassets\LaunchImages.launchimage\Contents.json">
       <Visible>false</Visible>
     </ImageAsset>
-    <ImageAsset Include="Resources\Media.xcassets\AppIcons.appiconset\Contents.json" />
-    <ImageAsset Include="Resources\Media.xcassets\LaunchImages.launchimage\Contents.json" />
+    <ImageAsset Include="Resources\Media.xcassets\AppIcons.appiconset\Contents.json">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Resources\Media.xcassets\LaunchImages.launchimage\Contents.json">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Resources\Media.xcassets\AppIcons.appiconset\Contents.json">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Resources\Media.xcassets\LaunchImages.launchimage\Contents.json">
+      <Visible>false</Visible>
+    </ImageAsset>
   </ItemGroup>
   <ItemGroup>
     <BundleResource Include="Resources\Default-568h%402x.png" />
@@ -160,6 +171,12 @@
     <Reference Include="Microsoft.IdentityModel.Clients.ActiveDirectory.Platform, Version=3.13.8.999, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Microsoft.IdentityModel.Clients.ActiveDirectory.3.13.8\lib\Xamarin.iOS10\Microsoft.IdentityModel.Clients.ActiveDirectory.Platform.dll</HintPath>
       <Private>True</Private>
+    </Reference>
+    <Reference Include="PCLStorage, Version=1.0.2.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\PCLStorage.1.0.2\lib\portable-Xamarin.iOS+Xamarin.Mac\PCLStorage.dll</HintPath>
+    </Reference>
+    <Reference Include="PCLStorage.Abstractions, Version=1.0.2.0, Culture=neutral, PublicKeyToken=286fe515a2c35b64, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\PCLStorage.1.0.2\lib\portable-Xamarin.iOS+Xamarin.Mac\PCLStorage.Abstractions.dll</HintPath>
     </Reference>
     <Reference Include="Plugin.Connectivity, Version=3.0.1.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Xam.Plugin.Connectivity.3.0.1\lib\Xamarin.iOS10\Plugin.Connectivity.dll</HintPath>
@@ -500,37 +517,100 @@
     </ImageAsset>
   </ItemGroup>
   <ItemGroup>
-    <ImageAsset Include="Resources\Media.xcassets\AppIcons.appiconset\120x120.png" />
+    <ImageAsset Include="Resources\Media.xcassets\AppIcons.appiconset\120x120.png">
+      <Visible>false</Visible>
+    </ImageAsset>
   </ItemGroup>
   <ItemGroup>
-    <ImageAsset Include="Resources\Media.xcassets\AppIcons.appiconset\180x180.png" />
+    <ImageAsset Include="Resources\Media.xcassets\AppIcons.appiconset\180x180.png">
+      <Visible>false</Visible>
+    </ImageAsset>
   </ItemGroup>
   <ItemGroup>
-    <ImageAsset Include="Resources\Media.xcassets\AppIcons.appiconset\20x20.png" />
+    <ImageAsset Include="Resources\Media.xcassets\AppIcons.appiconset\20x20.png">
+      <Visible>false</Visible>
+    </ImageAsset>
   </ItemGroup>
   <ItemGroup>
-    <ImageAsset Include="Resources\Media.xcassets\AppIcons.appiconset\29x29.png" />
+    <ImageAsset Include="Resources\Media.xcassets\AppIcons.appiconset\29x29.png">
+      <Visible>false</Visible>
+    </ImageAsset>
   </ItemGroup>
   <ItemGroup>
-    <ImageAsset Include="Resources\Media.xcassets\AppIcons.appiconset\40X40.png" />
+    <ImageAsset Include="Resources\Media.xcassets\AppIcons.appiconset\40X40.png">
+      <Visible>false</Visible>
+    </ImageAsset>
   </ItemGroup>
   <ItemGroup>
-    <ImageAsset Include="Resources\Media.xcassets\AppIcons.appiconset\58x58.png" />
+    <ImageAsset Include="Resources\Media.xcassets\AppIcons.appiconset\58x58.png">
+      <Visible>false</Visible>
+    </ImageAsset>
   </ItemGroup>
   <ItemGroup>
-    <ImageAsset Include="Resources\Media.xcassets\AppIcons.appiconset\60x60.png" />
+    <ImageAsset Include="Resources\Media.xcassets\AppIcons.appiconset\60x60.png">
+      <Visible>false</Visible>
+    </ImageAsset>
   </ItemGroup>
   <ItemGroup>
-    <ImageAsset Include="Resources\Media.xcassets\AppIcons.appiconset\80x80.png" />
+    <ImageAsset Include="Resources\Media.xcassets\AppIcons.appiconset\80x80.png">
+      <Visible>false</Visible>
+    </ImageAsset>
   </ItemGroup>
   <ItemGroup>
-    <ImageAsset Include="Resources\Media.xcassets\AppIcons.appiconset\87x87.png" />
+    <ImageAsset Include="Resources\Media.xcassets\AppIcons.appiconset\87x87.png">
+      <Visible>false</Visible>
+    </ImageAsset>
   </ItemGroup>
   <ItemGroup>
     <BundleResource Include="Resources\file.png" />
   </ItemGroup>
   <ItemGroup>
     <BundleResource Include="Resources\folder.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <ImageAsset Include="Resources\Media.xcassets\AppIcons.appiconset\120x120.png">
+      <Visible>false</Visible>
+    </ImageAsset>
+  </ItemGroup>
+  <ItemGroup>
+    <ImageAsset Include="Resources\Media.xcassets\AppIcons.appiconset\180x180.png">
+      <Visible>false</Visible>
+    </ImageAsset>
+  </ItemGroup>
+  <ItemGroup>
+    <ImageAsset Include="Resources\Media.xcassets\AppIcons.appiconset\20x20.png">
+      <Visible>false</Visible>
+    </ImageAsset>
+  </ItemGroup>
+  <ItemGroup>
+    <ImageAsset Include="Resources\Media.xcassets\AppIcons.appiconset\29x29.png">
+      <Visible>false</Visible>
+    </ImageAsset>
+  </ItemGroup>
+  <ItemGroup>
+    <ImageAsset Include="Resources\Media.xcassets\AppIcons.appiconset\40X40.png">
+      <Visible>false</Visible>
+    </ImageAsset>
+  </ItemGroup>
+  <ItemGroup>
+    <ImageAsset Include="Resources\Media.xcassets\AppIcons.appiconset\58x58.png">
+      <Visible>false</Visible>
+    </ImageAsset>
+  </ItemGroup>
+  <ItemGroup>
+    <ImageAsset Include="Resources\Media.xcassets\AppIcons.appiconset\60x60.png">
+      <Visible>false</Visible>
+    </ImageAsset>
+  </ItemGroup>
+  <ItemGroup>
+    <ImageAsset Include="Resources\Media.xcassets\AppIcons.appiconset\80x80.png">
+      <Visible>false</Visible>
+    </ImageAsset>
+  </ItemGroup>
+  <ItemGroup>
+    <ImageAsset Include="Resources\Media.xcassets\AppIcons.appiconset\87x87.png">
+      <Visible>false</Visible>
+    </ImageAsset>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

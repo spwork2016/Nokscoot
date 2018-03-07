@@ -60,10 +60,10 @@ namespace DevEnvAzure.Model
         public Deferred __deferred { get; set; }
     }
 
-    public class File
-    {
-        public Deferred __deferred { get; set; }
-    }
+    //public class File
+    //{
+    //    public Deferred __deferred { get; set; }
+    //}
 
     public class Folder
     {
@@ -129,7 +129,7 @@ namespace DevEnvAzure.Model
         public FieldValuesAsHtml FieldValuesAsHtml { get; set; }
         public FieldValuesAsText FieldValuesAsText { get; set; }
         public FieldValuesForEdit FieldValuesForEdit { get; set; }
-        public File File { get; set; }
+        //public File File { get; set; }
         public Folder Folder { get; set; }
         public ParentList ParentList { get; set; }
         public Properties Properties { get; set; }

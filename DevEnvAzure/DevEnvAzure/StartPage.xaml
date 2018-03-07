@@ -35,7 +35,8 @@
                                     <Label Text="{Binding Title}"
                          FontSize="Small"
                          VerticalOptions="Center"
-                         TextColor="Black"  Margin="5"/>
+                         TextColor="Black"  Margin="5">
+                                    </Label>
                                 </StackLayout>
                             </ViewCell>
                         </DataTemplate>

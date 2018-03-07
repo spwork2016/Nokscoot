@@ -74,6 +74,12 @@
     <Reference Include="Mono.Android" />
     <Reference Include="Mono.Android.Export" />
     <Reference Include="mscorlib" />
+    <Reference Include="PCLStorage, Version=1.0.2.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\PCLStorage.1.0.2\lib\monoandroid\PCLStorage.dll</HintPath>
+    </Reference>
+    <Reference Include="PCLStorage.Abstractions, Version=1.0.2.0, Culture=neutral, PublicKeyToken=286fe515a2c35b64, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\PCLStorage.1.0.2\lib\monoandroid\PCLStorage.Abstractions.dll</HintPath>
+    </Reference>
     <Reference Include="Plugin.Connectivity, Version=3.0.1.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Xam.Plugin.Connectivity.3.0.1\lib\MonoAndroid10\Plugin.Connectivity.dll</HintPath>
       <Private>True</Private>
@@ -231,6 +237,8 @@
     <AndroidResource Include="Resources\drawable\logo.png" />
     <AndroidResource Include="Resources\drawable\logout.png" />
     <Content Include="Nokscoot.png" />
+    <AndroidResource Include="Resources\drawable\folder.png" />
+    <AndroidResource Include="Resources\drawable\file.png" />
     <Content Include="userIcon.png" />
   </ItemGroup>
   <ItemGroup>
