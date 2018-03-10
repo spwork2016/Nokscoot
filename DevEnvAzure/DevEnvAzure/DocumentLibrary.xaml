@@ -2,39 +2,49 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="DevEnvAzure.DocumentLibrary" Title="{Binding Path=FolderPath}">
-    <RelativeLayout VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand">
-    <StackLayout x:Name="sl" VerticalOptions="StartAndExpand"
-                     Padding="10">
-        <Button x:Name="btnNavBack" Text="Back" Clicked="BtnNavBack_Clicked" TextColor="White"
-                BackgroundColor="#FF9800" HorizontalOptions="FillAndExpand" IsVisible="False"/>
-        <ActivityIndicator x:Name="activityIndicator" BackgroundColor="Transparent" IsEnabled="True" IsVisible="True"
-                           VerticalOptions="Center" HorizontalOptions="Center" Color="#FDCE02"
-                           IsRunning="True"></ActivityIndicator>
-   
 
-    <ListView x:Name="documentList" HasUnevenRows="True">
-        <ListView.ItemTemplate>
-            <DataTemplate>
-                <ViewCell>
-                    <StackLayout VerticalOptions="FillAndExpand"
+    <AbsoluteLayout HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
+        <StackLayout AbsoluteLayout.LayoutFlags="All" AbsoluteLayout.LayoutBounds="0,0,1,1">
+            <ScrollView>
+                <StackLayout>
+                    <StackLayout VerticalOptions="CenterAndExpand" HorizontalOptions="FillAndExpand">
+                        <Button x:Name="btnNavBack" Text="Back" Clicked="BtnNavBack_Clicked" TextColor="White"
+                BackgroundColor="#FF9800" HorizontalOptions="FillAndExpand" IsVisible="False"/>
+                    </StackLayout>
+                    <StackLayout Spacing="2" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand">
+                        <ListView x:Name="documentList" HasUnevenRows="True">
+                            <ListView.ItemTemplate>
+                                <DataTemplate>
+                                    <ViewCell>
+                                        <StackLayout VerticalOptions="FillAndExpand"
                              Orientation="Horizontal"
                              Padding="20,0,0,0"
                              Spacing="10">
 
-                        <Image Source="{Binding Path=Icon}"
+                                            <Image Source="{Binding Path=Icon}"
                          WidthRequest="20"
                          HeightRequest="20"
                          VerticalOptions="Center" />
 
-                        <Label Text="{Binding Name}"
+                                            <Label Text="{Binding Name}"
                          FontSize="Small"
                          VerticalOptions="Center"
                          TextColor="Black" Margin="5"/>
+                                        </StackLayout>
+                                    </ViewCell>
+                                </DataTemplate>
+                            </ListView.ItemTemplate>
+                        </ListView>
                     </StackLayout>
-                </ViewCell>
-            </DataTemplate>
-        </ListView.ItemTemplate>
-    </ListView>
+                </StackLayout>
+            </ScrollView>
+
         </StackLayout>
-    </RelativeLayout>
+
+        <StackLayout IsVisible="{Binding IsBusy}" Padding="12"
+                 AbsoluteLayout.LayoutFlags="PositionProportional"
+                 AbsoluteLayout.LayoutBounds="0.5,0.5,-1,-1">
+            <ActivityIndicator x:Name="activityIndicator" IsRunning="{Binding IsBusy}" Color="OrangeRed"/>
+        </StackLayout>
+    </AbsoluteLayout>
 </ContentPage>

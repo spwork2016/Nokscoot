@@ -6,6 +6,8 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Threading.Tasks;
 
 using Xamarin.Forms;
@@ -18,7 +20,8 @@ namespace DevEnvAzure
     public partial class DocumentLibrary : ContentPage
     {
         const string SPDocumentLibraryURL = "https://sptechnophiles.sharepoint.com/_api/web/GetFolderByServerRelativeUrl('{0}')/{1}";
-        const string SPDocumentFileURL = "https://sptechnophiles.sharepoint.com/_api/web/GetFolderByServerRelativeUrl('{0}')/Files('{1}')/$value";
+        const string SPDocumentFileURL = "https://sptechnophiles.sharepoint.com/_api/web/GetFolderByServerRelativeUrl('{0}')/Files('{1}')";
+        const string SPDocumentAnonymousLink = "https://sptechnophiles.sharepoint.com/_api/SP.Web.CreateAnonymousLink";
 
         public string FolderPath { get; set; }
         public string PrevPath { get; set; }
@@ -48,8 +51,10 @@ namespace DevEnvAzure
         {
             ActivityIndicator spinner = this.FindByName<ActivityIndicator>("activityIndicator");
 
-            spinner.IsVisible = true;
-            spinner.IsRunning = true;
+            Device.BeginInvokeOnMainThread(() =>
+            {
+                IsBusy = true;
+            });
 
             List<DataContracts.Result> dataSource = new List<Result>();
             var folders = await GetDocuments(fPath, false);
@@ -79,9 +84,7 @@ namespace DevEnvAzure
 
             Device.BeginInvokeOnMainThread(() =>
             {
-                spinner.IsVisible = false;
-                spinner.IsRunning = false;
-
+                IsBusy = false;
             });
             return true;
         }
@@ -103,7 +106,6 @@ namespace DevEnvAzure
             {
                 PrevPath = FolderPath;
                 await DataBind(item.ServerRelativeUrl);
-                //await Navigation.PushAsync(new DocumentLibrary(item.ServerRelativeUrl));
             }
 
         }
@@ -126,22 +128,39 @@ namespace DevEnvAzure
 
         public async Task GetFile(DataContracts.Result fileObj)
         {
-            var client = OAuthHelper.GetHTTPClient();
-            string filePath = string.Format(SPDocumentFileURL, fileObj.ServerRelativeUrl.Replace(fileObj.Name, ""), fileObj.Name);
-            var response = await client.GetStringAsync(filePath);
-            if (response != null)
+            try
             {
-                byte[] bytes = System.Text.Encoding.UTF8.GetBytes(response);
-                //await bytes.SaveImage(fileObj.Name);
-                //string path = await LoadAndDisplayPDF(fileObj.Name, bytes);
+                var client = OAuthHelper.GetHTTPClient();
 
+                string root = ClientConfiguration.Default.ActiveDirectoryResource;
+                string urlString = Uri.EscapeUriString(root.Remove(root.Length - 1, 1) + fileObj.ServerRelativeUrl);
+                var myContent = "{'url':'" + urlString + "','isEditLink':false}";
+                var buffer = System.Text.Encoding.UTF8.GetBytes(myContent);
+                var byteContent = new ByteArrayContent(buffer);
+                byteContent.Headers.ContentType = new MediaTypeHeaderValue("application/json");
+
+                var response = client.PostAsync(SPDocumentAnonymousLink, byteContent).Result;
+                if (response.IsSuccessStatusCode)
+                {
+                    string str = await response.Content.ReadAsStringAsync();
+                    DocumentAnonymousReponse res = JsonConvert.DeserializeObject<DocumentAnonymousReponse>(str);
+                    Device.OpenUri(new Uri(res.d.CreateAnonymousLink));
+                }
+            }
+            catch (Exception ex)
+            {
+                DependencyService.Get<IMessage>().ShortAlert("Unable to retrieve file Information");
             }
         }
 
-        public async Task<string> LoadAndDisplayPDF(string Name, byte[] bytes)
+        public class D
         {
-            string filepath = await DependencyService.Get<ISaveFile>().SaveFiles(Name, bytes);
-            return filepath;
+            public string CreateAnonymousLink { get; set; }
+        }
+
+        public class DocumentAnonymousReponse
+        {
+            public D d { get; set; }
         }
 
     }

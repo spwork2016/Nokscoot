@@ -36,26 +36,27 @@ namespace DevEnvAzure
 
                 var t1 = Task.Run(async () =>
                {
-                   await OAuthHelper.GetAuthenticationHeader(Username.Text, Password.Text).ContinueWith((x) =>
-                  {
-                      Device.BeginInvokeOnMainThread(() =>
-                      {
-                          OAuthHelper.GetUserInfo();
-                          if (App.AuthenticationResponse != null)
-                          {
-                              this.Navigation.PushModalAsync(new StartPage());
-                          }
-                          else
-                          {
-                              DependencyService.Get<IMessage>().LongAlert("Login Failed! Please check email/password");
+                   await OAuthHelper.GetAuthenticationHeader(Username.Text, Password.Text).ContinueWith(async (x) =>
+                 {
+                     await OAuthHelper.GetUserInfo(Username.Text, Password.Text).ContinueWith((y) =>
+                    {
+                        Device.BeginInvokeOnMainThread(async () =>
+                        {
+                            if (App.AuthenticationResponse != null)
+                            {
+                                await this.Navigation.PushModalAsync(new StartPage());
+                            }
+                            else
+                            {
+                                DependencyService.Get<IMessage>().LongAlert("Login Failed! Please check email/password");
 
-                              btnLogin.IsVisible = true;
-                              spinner.IsVisible = false;
-                              spinner.IsRunning = false;
-                          }
-                      });
-
-                  });
+                                btnLogin.IsVisible = true;
+                                spinner.IsVisible = false;
+                                spinner.IsRunning = false;
+                            }
+                        });
+                    });
+                 });
                });
 
             }

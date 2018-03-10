@@ -18,6 +18,8 @@ namespace DevEnvAzure
             SPRootURL = "https://sptechnophiles.sharepoint.com/_api/",
             SPRootURLList = "https://sptechnophiles.sharepoint.com/_api/web/lists/",
             SPDocumentLibraryURL = "https://sptechnophiles.sharepoint.com/_api/web/GetFolderByServerRelativeUrl('/SampleDocuments')/Folders",
+            GraphAPIRootURL = "https://graph.windows.net/",
+            GraphAPIURL = "https://graph.windows.net/542381e6-b9d2-4fe3-a20b-e575f656c08c",
 
             //UserName = "Prasad.Par@nokscoot.com",            // Insert the correct password here for the actual test.           
             //Password = "Nokfly2018",
@@ -37,10 +39,12 @@ namespace DevEnvAzure
         public string ActiveDirectoryResource { get; set; }
         public String ActiveDirectoryTenant { get; set; }
         public String ActiveDirectoryClientAppId { get; set; }
-        //Client secret is for web app/api , the belwo is invalid - if you want web app access correct the secret and use GetAuthenticationHeader(useWebAppAuthentication = true)
+        //Client secret is for web app/api , the below is invalid - if you want web app access correct the secret and use GetAuthenticationHeader(useWebAppAuthentication = true)
         public string ActiveDirectoryClientAppSecret { get; set; }
         public string SPRootURL { get; set; }
         public string SPRootURLList { get; set; }
         public string SPDocumentLibraryURL { get; set; }
+        public string GraphAPIRootURL { get; set; }
+        public string GraphAPIURL { get; set; }
     }
 }

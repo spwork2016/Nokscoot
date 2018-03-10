@@ -67,40 +67,17 @@ namespace DevEnvAzure
                     throw new Exception("Failed OAuth by empty password.");
                 }
 
-                var pairs = new List<KeyValuePair<string, string>>
-                    {
-                        new KeyValuePair<string, string>("grant_type", "password"),
-                        new KeyValuePair<string, string>("username", username),
-                        new KeyValuePair<string, string>("password", password),
-                        new KeyValuePair<string, string>("client_id", aadClientAppId),
-                        new KeyValuePair<string, string>("resource", aadResource)
-                    };
-
-                HttpResponseMessage response = null;
-                try
+                var authResponse = await GetAccessToken(username, password, aadClientAppId, aadResource, aadTenant);
+                if (authResponse != null)
                 {
-                    var content = new FormUrlEncodedContent(pairs);
-                    var client = new HttpClient { BaseAddress = new Uri(aadTenant) };
-
-                    // call sync
-                    response = client.PostAsync("", content).Result;
-                    //response.EnsureSuccessStatusCode();
-                    if (response.IsSuccessStatusCode)
+                    App.AuthenticationResponse = authResponse;
+                    byte[] picResponse = await GetPicture(username, password);
+                    if (picResponse != null)
                     {
-                        string str = await response.Content.ReadAsStringAsync();
-                        App.DAUtil.RefreshMasterInfo(new MasterInfo { content = str, Name = "Authentication" });
-                        AuthenticationResponse json = JsonConvert.DeserializeObject<AuthenticationResponse>(str);
-                        App.AuthenticationResponse = json;
-                        return true;
-                    }
-                    else
-                    {
-                        string ss = await response.Content.ReadAsStringAsync();
+                        App.CurrentUser.PictureBytes = picResponse;
                     }
                 }
-                catch (Exception ex)
-                {
-                }
+
                 //try
                 //{
                 //    // Get token object
@@ -117,7 +94,41 @@ namespace DevEnvAzure
             return false;
         }
 
-        public static HttpClient GetHTTPClient()
+        public static async Task<AuthenticationResponse> GetAccessToken(string username, string password, string aadClientAppId, string aadResource, string aadTenant)
+        {
+            var pairs = new List<KeyValuePair<string, string>>
+                    {
+                        new KeyValuePair<string, string>("grant_type", "password"),
+                        new KeyValuePair<string, string>("username", username),
+                        new KeyValuePair<string, string>("password", password),
+                        new KeyValuePair<string, string>("client_id", aadClientAppId),
+                        new KeyValuePair<string, string>("resource", aadResource)
+                    };
+
+            HttpResponseMessage response = null;
+            try
+            {
+                var content = new FormUrlEncodedContent(pairs);
+                var client = new HttpClient { BaseAddress = new Uri(aadTenant) };
+
+                // call sync
+                response = client.PostAsync("", content).Result;
+                if (response.IsSuccessStatusCode)
+                {
+                    string str = await response.Content.ReadAsStringAsync();
+                    App.DAUtil.RefreshMasterInfo(new MasterInfo { content = str, Name = "Authentication" });
+                    AuthenticationResponse json = JsonConvert.DeserializeObject<AuthenticationResponse>(str);
+                    return json;
+                }
+            }
+            catch (Exception ex)
+            {
+            }
+
+            return null;
+        }
+
+        public static HttpClient GetHTTPClient(string access_token = "")
         {
             if (App.AuthenticationResponse == null)
             {
@@ -127,22 +138,19 @@ namespace DevEnvAzure
             HttpClient client = new HttpClient();
             client.DefaultRequestHeaders.Add("Accept", "application/json;odata=verbose");
             client.DefaultRequestHeaders.Add("ContentType", "application/json");
-            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(App.AuthenticationResponse.token_type, App.AuthenticationResponse.access_token);
-            //MediaTypeWithQualityHeaderValue mediaType = new MediaTypeWithQualityHeaderValue("application/json");
-            //mediaType.Parameters.Add(new NameValueHeaderValue("odata", "verbose"));
-            //client.DefaultRequestHeaders.Accept.Add(mediaType);
+            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(App.AuthenticationResponse.token_type,
+                access_token != "" ? access_token : App.AuthenticationResponse.access_token);
 
             return client;
         }
 
-        public static async Task<User> GetUserInfo()
+        public static async Task<User> GetUserInfo(string username, string password)
         {
             var client = GetHTTPClient();
             if (client == null) { return null; }
 
             try
             {
-                //var response = await client.GetStringAsync(ClientConfiguration.Default.SPRootURL + "web/currentUser?");
                 var response = await client.GetStringAsync(ClientConfiguration.Default.SPRootURL + "SP.UserProfiles.PeopleManager/GetMyProperties");
                 if (response != null)
                 {
@@ -150,17 +158,35 @@ namespace DevEnvAzure
                     var spData = JsonConvert.DeserializeObject<SPData>(response, new JsonSerializerSettings { DateParseHandling = DateParseHandling.None });
                     if (spData != null)
                     {
-                        App.CurrentUser = new User { Name = spData.d.DisplayName, Email = spData.d.Email, PictureUrl = spData.d.PictureUrl };
-
-                        //string picUrl = ClientConfiguration.Default.SPRootURL + "_layouts/15/userphoto.aspx?size=M&accountname = " + spData.d.LoginName;
-                        //var picResponse = await client.GetStringAsync(picUrl);
-                        //if (picResponse != null)
-                        //{
-
-                        //}
+                        App.CurrentUser = new User { Name = spData.d.DisplayName, Email = spData.d.Email, PictureBytes = GetPicture(username, password).Result };
                     }
                 }
 
+            }
+            catch (Exception ex)
+            {
+
+            }
+
+            return null;
+        }
+
+        public static async Task<byte[]> GetPicture(string username, string password)
+        {
+            string aadTenant = ClientConfiguration.Default.ActiveDirectoryTenant;
+            string aadClientAppId = ClientConfiguration.Default.ActiveDirectoryClientAppId;
+            string aadClientAppSecret = ClientConfiguration.Default.ActiveDirectoryClientAppSecret;
+            string aadResource = "https://graph.microsoft.com/";
+
+            try
+            {
+                var authResponse = await GetAccessToken(username, password, aadClientAppId, aadResource, aadTenant);
+                if (authResponse != null)
+                {
+                    var client = GetHTTPClient(authResponse.access_token);
+                    var picResponse = await client.GetByteArrayAsync(aadResource + "v1.0/me/photo/$value");
+                    return picResponse;
+                }
             }
             catch (Exception ex)
             {
@@ -185,7 +211,7 @@ namespace DevEnvAzure
                 if (userInfo != null)
                 {
                     var spData = JsonConvert.DeserializeObject<SPData>(auth.content, new JsonSerializerSettings { DateParseHandling = DateParseHandling.None });
-                    App.CurrentUser = new User { Name = spData.d.Title, Email = spData.d.Email, PictureUrl = SPUtility.GetProfilePicUrl().Result };
+                    App.CurrentUser = new User { Name = spData.d.Title, Email = spData.d.Email };
                 }
             }
 

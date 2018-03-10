@@ -57,7 +57,7 @@ namespace DevEnvAzure
         {
             if (App.CurrentUser == null)
             {
-                await OAuthHelper.GetUserInfo();
+                //await OAuthHelper.GetUserInfo();
                 //profilePicUrl = App.CurrentUser.PictureUrl;
                 //profilePic.Source = new UriImageSource
                 //{
@@ -69,6 +69,8 @@ namespace DevEnvAzure
             }
 
             loggrInUser.Text = App.CurrentUser?.Name;
+            if (App.CurrentUser != null && App.CurrentUser.PictureBytes != null)
+                profilePic.Source = ImageSource.FromStream(() => new MemoryStream(App.CurrentUser?.PictureBytes));
         }
 
         private void OnMenuItemSelected(object sender, SelectedItemChangedEventArgs e)
