@@ -252,7 +252,7 @@ namespace DevEnvAzure
                 //  var x = fileData.DataArray;
                 if (fileData != null)
                 {
-                    var y = fileData.FilePath;
+                    var y = fileData.FileName;
                     eventAttachEntry.Text = y;
                 }
                 else
