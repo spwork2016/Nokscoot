@@ -24,33 +24,29 @@ namespace DevEnvAzure
         const string SPDocumentAnonymousLink = "https://sptechnophiles.sharepoint.com/_api/SP.Web.CreateAnonymousLink";
 
         public string FolderPath { get; set; }
-        public string PrevPath { get; set; }
+        public List<string> PrevPaths { get; set; }
         public bool IsBackButtonVisible { get; set; }
 
         public DocumentLibrary()
         {
             FolderPath = "/SampleDocuments";
             BindingContext = this;
-            InitializeComponent();
-        }
-
-        public DocumentLibrary(string folderPath = "/SampleDocuments")
-        {
-            FolderPath = folderPath;
-            BindingContext = this;
+            PrevPaths = new List<string>();
             InitializeComponent();
         }
 
         private async void BtnNavBack_Clicked(object sender, EventArgs e)
         {
-            if (PrevPath != "")
-                await DataBind(PrevPath);
+            if (PrevPaths.Count > 0)
+            {
+                string prevPath = PrevPaths.Last();
+                PrevPaths.RemoveAt(PrevPaths.Count - 1);
+                await DataBind(prevPath);
+            }
         }
 
         private async Task<bool> DataBind(string fPath)
         {
-            ActivityIndicator spinner = this.FindByName<ActivityIndicator>("activityIndicator");
-
             Device.BeginInvokeOnMainThread(() =>
             {
                 IsBusy = true;
@@ -79,11 +75,10 @@ namespace DevEnvAzure
             }
 
             documentList.ItemsSource = dataSource;
-            FolderPath = fPath;
             btnNavBack.IsVisible = fPath != "/SampleDocuments";
-
             Device.BeginInvokeOnMainThread(() =>
             {
+                Title = FolderPath = fPath;
                 IsBusy = false;
             });
             return true;
@@ -97,14 +92,19 @@ namespace DevEnvAzure
 
         private async void DocumentList_ItemSelected(object sender, SelectedItemChangedEventArgs e)
         {
+            PrevPaths.Add(FolderPath);
             var item = (DataContracts.Result)e.SelectedItem;
             if (item.Icon == "file.png")
             {
+                Device.BeginInvokeOnMainThread(() =>
+                {
+                    IsBusy = true;
+                });
+
                 await GetFile(item);
             }
             else
             {
-                PrevPath = FolderPath;
                 await DataBind(item.ServerRelativeUrl);
             }
 
@@ -145,10 +145,19 @@ namespace DevEnvAzure
                     string str = await response.Content.ReadAsStringAsync();
                     DocumentAnonymousReponse res = JsonConvert.DeserializeObject<DocumentAnonymousReponse>(str);
                     Device.OpenUri(new Uri(res.d.CreateAnonymousLink));
+                    Device.BeginInvokeOnMainThread(() =>
+                    {
+                        IsBusy = false;
+                    });
                 }
             }
             catch (Exception ex)
             {
+                Device.BeginInvokeOnMainThread(() =>
+                {
+                    IsBusy = false;
+                });
+
                 DependencyService.Get<IMessage>().ShortAlert("Unable to retrieve file Information");
             }
         }
