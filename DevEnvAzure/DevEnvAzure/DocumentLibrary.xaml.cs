@@ -26,10 +26,11 @@ namespace DevEnvAzure
         public string FolderPath { get; set; }
         public List<string> PrevPaths { get; set; }
         public bool IsBackButtonVisible { get; set; }
+        const string RootFolder = "/SampleDocuments";
 
         public DocumentLibrary()
         {
-            FolderPath = "/SampleDocuments";
+            FolderPath = RootFolder;
             BindingContext = this;
             PrevPaths = new List<string>();
             InitializeComponent();
@@ -75,10 +76,14 @@ namespace DevEnvAzure
             }
 
             documentList.ItemsSource = dataSource;
-            btnNavBack.IsVisible = fPath != "/SampleDocuments";
+            btnNavBack.IsVisible = fPath != RootFolder;
             Device.BeginInvokeOnMainThread(() =>
             {
-                Title = FolderPath = fPath;
+                FolderPath = fPath;
+
+                string[] ps = fPath.Split('/');
+                Title = ps[ps.Length - 1];
+
                 IsBusy = false;
             });
             return true;
