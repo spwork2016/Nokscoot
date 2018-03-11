@@ -28,10 +28,7 @@ namespace DevEnvAzure
                     return;
                 }
 
-                ActivityIndicator spinner = this.FindByName<ActivityIndicator>("activityIndicator");
-
-                spinner.IsVisible = true;
-                spinner.IsRunning = true;
+                IsBusy = true;
                 btnLogin.IsVisible = false;
 
                 var t1 = Task.Run(async () =>
@@ -51,8 +48,7 @@ namespace DevEnvAzure
                                 DependencyService.Get<IMessage>().LongAlert("Login Failed! Please check email/password");
 
                                 btnLogin.IsVisible = true;
-                                spinner.IsVisible = false;
-                                spinner.IsRunning = false;
+                                IsBusy = false;
                             }
                         });
                     });

@@ -76,7 +76,7 @@ namespace DevEnvAzure
             }
 
             documentList.ItemsSource = dataSource;
-            btnNavBack.IsVisible = fPath != RootFolder;
+            tBarItemBackBtn.Text = fPath != RootFolder ? "Back" : "";
             Device.BeginInvokeOnMainThread(() =>
             {
                 FolderPath = fPath;
@@ -86,6 +86,7 @@ namespace DevEnvAzure
 
                 IsBusy = false;
             });
+
             return true;
         }
 
@@ -101,11 +102,7 @@ namespace DevEnvAzure
             var item = (DataContracts.Result)e.SelectedItem;
             if (item.Icon == "file.png")
             {
-                Device.BeginInvokeOnMainThread(() =>
-                {
-                    IsBusy = true;
-                });
-
+                IsBusy = true;
                 await GetFile(item);
             }
             else
