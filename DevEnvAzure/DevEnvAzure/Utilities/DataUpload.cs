@@ -13,7 +13,8 @@ namespace DevEnvAzure
 {
    public class DataUpload
     {
-        const string SPRootURL = "https://nok365.sharepoint.com/sites/Nokscoot/SSQServices/WorkBench/_api/web/lists/";
+        const string SPRootURL = "https://sptechnophiles.sharepoint.com/_api/web/lists/";
+     //   const string SPRootURL = "https://nok365.sharepoint.com/sites/Nokscoot/SSQServices/WorkBench/_api/web/lists/";
 
         private static HttpClient GetHTTPClient()
         {
@@ -33,7 +34,7 @@ namespace DevEnvAzure
             return networkConnection.IsConnected;
         }
 
-        public static async void CreateItemsOffline(List<Employee> lstEmp)
+        public static async void CreateItemsOffline(List<DatatableData> lstEmp)
         {
             var client = GetHTTPClient();
 
@@ -44,17 +45,17 @@ namespace DevEnvAzure
                 {
 
 
-                    var body = "{\"__metadata\":{\"type\":\"SP.Data.TestFormListItem\"},\"Employee_x0020_Details\":\"" + emp.vEmpDetails + "\",\"DepartmentId\":\"" + emp.vEmpDept + "\",\"Salary\":\"" + emp.vEmpSal + "\",\"Active_x0020_Employee\":\"" + emp.vEmpActive + "\",\"Joining_x0020_Date\":\"" + emp.vEmpDate + "\",\"Employee_x0020_Age\":\"" + emp.vEmpAge + "\",\"Employee_x0020_Name\":\"" + emp.vEmpName + "\",\"Gender\": \"" + emp.vEmpGender + "\"}";
-                    var contents = new StringContent(body);
+                 //   var body = "{\"__metadata\":{\"type\":\"SP.Data.TestFormListItem\"},\"Employee_x0020_Details\":\"" + emp.vEmpDetails + "\",\"DepartmentId\":\"" + emp.vEmpDept + "\",\"Salary\":\"" + emp.vEmpSal + "\",\"Active_x0020_Employee\":\"" + emp.vEmpActive + "\",\"Joining_x0020_Date\":\"" + emp.vEmpDate + "\",\"Employee_x0020_Age\":\"" + emp.vEmpAge + "\",\"Employee_x0020_Name\":\"" + emp.vEmpName + "\",\"Gender\": \"" + emp.vEmpGender + "\"}";
+                    var contents = new StringContent(emp.Value);
                     contents.Headers.ContentType = MediaTypeHeaderValue.Parse("application/json;odata=verbose");
-
-                    var postResult = await client.PostAsync(SPRootURL + "GetByTitle('TestForm')/items", contents);
+                    var postResult =  client.PostAsync("https://sptechnophiles.sharepoint.com/_api/web/lists/GetByTitle('Operational_Hazard_Event_Register_04042018')/items", contents).Result;
+                   // var postResult = await client.PostAsync(SPRootURL + "GetByTitle('TestForm')/items", contents);
                     var result = postResult.EnsureSuccessStatusCode();
                     if (result.IsSuccessStatusCode)
                     {
                         count++;
                         App.DAUtil.DeleteEmployee(emp);
-                        App.employees.Remove(emp);
+                        App.fullDataTablecollection.Remove(emp);
                     }
                 }
 

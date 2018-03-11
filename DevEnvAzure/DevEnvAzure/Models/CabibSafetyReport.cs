@@ -3,16 +3,18 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Newtonsoft.Json;
 using SQLite.Net.Attributes;
 namespace DevEnvAzure.Models
 {
     [Table(@"CabibSafetyReport")]
    public class CabibSafetyReport
     {
-        [PrimaryKey, AutoIncrement, Column("CabinId")]
-        public long cabinId
-        { get; set; }
-        [NotNull]
+        //[PrimaryKey, AutoIncrement, Column("CabinId")]
+        //[NotNull]
+        //public long cabinId
+        //{ get; set; }
+      
         public string ReportType
         { get; set; }
         public string EventTitle
@@ -43,7 +45,6 @@ namespace DevEnvAzure.Models
         { get; set; }
         public bool ssQ
         { get; set; }
-
 
 
         public int turbulenceIndex

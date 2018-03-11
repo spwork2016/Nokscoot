@@ -21,19 +21,21 @@
                            HorizontalOptions="Center" VerticalOptions="Center" HeightRequest="80"/>--><!--
                                 </Frame>-->
                                 <StackLayout Grid.Row="1" Padding="5,0,5,5" Spacing="1">
-                                    <Label Text="{Binding vEmpName}" VerticalOptions="Center" HorizontalOptions="Center" FontSize="16" LineBreakMode="TailTruncation" 
+                                    <Label Text="{Binding contentID}" VerticalOptions="Center" HorizontalOptions="Center" FontSize="16" LineBreakMode="TailTruncation" 
                            TextColor="White" FontAttributes="Bold"/>
-                                    <Label Text="{Binding vEmpAge}" HorizontalOptions="Center" VerticalOptions="Center" FontSize="12" LineBreakMode="TailTruncation"
+                                    <Label Text="OFFLine" VerticalOptions="Center" HorizontalOptions="Center" FontSize="16" LineBreakMode="TailTruncation" 
+                           TextColor="White" FontAttributes="Bold"/>
+                                    <!--<Label Text="{Binding ReportType}" HorizontalOptions="Center" VerticalOptions="Center" FontSize="12" LineBreakMode="TailTruncation"
                            TextColor="White"/>
-                                    <Label Text="{Binding vEmpGender}" FontSize="12" TextColor="White" HorizontalOptions="Center"  VerticalOptions="Center" LineBreakMode="TailTruncation"/>
+                                    <Label Text="{Binding EventTitle}" FontSize="12" TextColor="White" HorizontalOptions="Center"  VerticalOptions="Center" LineBreakMode="TailTruncation"/>-->
                                     <Grid>
                                         <Grid.ColumnDefinitions>
                                             <ColumnDefinition Width="*"/>
                                             <ColumnDefinition Width="100"/>
                                             <ColumnDefinition Width="*"/>
                                         </Grid.ColumnDefinitions>
-                                        <Button Grid.Column="1" Text="Detail" VerticalOptions="Center" BorderRadius="16" FontSize="10" HeightRequest="34" BorderWidth="0" Clicked="Details_OnClicked" CommandParameter="{Binding EmpId}"/>
-                                        <Button Grid.Column="2" Text="Edit" VerticalOptions="Center" BorderRadius="16" FontSize="10" HeightRequest="34" BorderWidth="0" Clicked="Button_Clicked" CommandParameter="{Binding EmpId}"/>
+                                        <Button Grid.Column="1" Text="Detail" VerticalOptions="Center" BorderRadius="16" FontSize="10" HeightRequest="34" BorderWidth="0" Clicked="Details_OnClicked" CommandParameter="{Binding contentIDs}"/>
+                                        <!--<Button Grid.Column="2" Text="Edit" VerticalOptions="Center" BorderRadius="16" FontSize="10" HeightRequest="34" BorderWidth="0" Clicked="Button_Clicked" CommandParameter="{Binding ReportType}"/>-->
                                     </Grid>
                                 </StackLayout>
                             </Grid>

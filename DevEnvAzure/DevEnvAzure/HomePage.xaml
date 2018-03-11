@@ -38,7 +38,7 @@
             <Label x:Name="date" TextColor="#E65100"
                Text="Date"
                 Grid.Row="3" Grid.Column="0" />
-            <DatePicker x:Name="dtPicker"  Grid.Row="3" Grid.Column="1" TextColor="#0D47A1"  >></DatePicker>
+            <DatePicker x:Name="dtPicker"  Grid.Row="3" Grid.Column="1" TextColor="#0D47A1"  ></DatePicker>
             <Label x:Name="Gender" TextColor="#E65100"
                Text="Gender"
                 Grid.Row="4" Grid.Column="0" />

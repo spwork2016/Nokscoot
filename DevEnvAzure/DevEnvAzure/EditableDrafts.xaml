@@ -3,248 +3,120 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="DevEnvAzure.EditableDrafts" Title="Edit Drafts">
     <ContentPage.Content>
-        <ScrollView>
-            <!--<Label Text="Safety Report" VerticalOptions="Center" HorizontalOptions="Center" FontSize="16" LineBreakMode="TailTruncation" 
-                                                TextColor="White" FontAttributes="Bold"/>-->
-            <StackLayout>
-                <ListView x:Name="SafetyReportView" HasUnevenRows="True" >
-                    <ListView.ItemTemplate>
-                        <DataTemplate>
-                            <ViewCell>
-                                <Grid>
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="*"/>
-                                    </Grid.ColumnDefinitions>
-                                    <Frame  Padding="1" BackgroundColor="#31b0d5" HasShadow="True" OutlineColor="#bbb">
-                                        <Grid>
-                                            <Grid.RowDefinitions>
-                                                <RowDefinition Height="50"/>
-                                                <RowDefinition Height="*"/>
-                                            </Grid.RowDefinitions>
-                                            <StackLayout Grid.Row="1" Padding="5,0,5,5" Spacing="1">
 
-                                                <Label Text="{Binding EventTitle}" VerticalOptions="Center" HorizontalOptions="Center" FontSize="16" LineBreakMode="TailTruncation" 
-                           TextColor="White" FontAttributes="Bold"/>
-                                                <Label Text="{Binding DateOfEvent}" HorizontalOptions="Center" VerticalOptions="Center" FontSize="12" LineBreakMode="TailTruncation"
-                           TextColor="White"/>
-                                                <Label Text="{Binding FlightNumber}" FontSize="12" TextColor="White" HorizontalOptions="Center"  VerticalOptions="Center" LineBreakMode="TailTruncation"/>
-                                                <Grid>
-                                                    <Grid.ColumnDefinitions>
-                                                        <ColumnDefinition Width="*"/>
-                                                        <ColumnDefinition Width="100"/>
-                                                        <ColumnDefinition Width="*"/>
-                                                    </Grid.ColumnDefinitions>
-                                                    <Button Grid.Column="1" Text="Detail" VerticalOptions="Center" BorderRadius="16" FontSize="10" HeightRequest="34" BorderWidth="0" Clicked="Details_OnClicked" CommandParameter="{Binding SafetyID}"/>
-                                                    <Button Grid.Column="2" Text="Edit" VerticalOptions="Center" BorderRadius="16" FontSize="10" HeightRequest="34" BorderWidth="0" Clicked="Button_Clicked" CommandParameter="{Binding SafetyID}"/>
-                                                </Grid>
-                                            </StackLayout>
-                                        </Grid>
-                                    </Frame>
-                                </Grid>
-                            </ViewCell>
-                        </DataTemplate>
-                    </ListView.ItemTemplate>
-                </ListView>
+        <!--<ScrollView VerticalOptions="FillAndExpand" Orientation="Vertical">-->
+            <Grid VerticalOptions="FillAndExpand">
+                <Grid.RowDefinitions>
+                <RowDefinition Height="30" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="30" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="30" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="30" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="30" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="30" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <StackLayout Orientation="Horizontal"  Grid.Row="0" Padding="10,5,5,10" BackgroundColor="#31b0d5">
+                <Label Text="Safety Report" TextColor="White"/>
             </StackLayout>
-            <!--<Label Text="cabin Report" VerticalOptions="Center" HorizontalOptions="Center" FontSize="16" LineBreakMode="TailTruncation" 
-                                                TextColor="White" FontAttributes="Bold"/>-->
-            <StackLayout>
-                <ListView x:Name="cabinSafetyView" HasUnevenRows="True" >
-                    <ListView.ItemTemplate>
+            <ListView x:Name="SafetyReportView" Grid.Row="1" HasUnevenRows="True">
+                <ListView.ItemTemplate>
                         <DataTemplate>
                             <ViewCell>
-                                <Grid>
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="*"/>
-                                    </Grid.ColumnDefinitions>
-                                    <Frame  Padding="1" BackgroundColor="#31b0d5" HasShadow="True" OutlineColor="#bbb">
-                                        <Grid>
-                                            <Grid.RowDefinitions>
-                                                <RowDefinition Height="50"/>
-                                                <RowDefinition Height="*"/>
-                                            </Grid.RowDefinitions>
-                                            <StackLayout Grid.Row="1" Padding="5,0,5,5" Spacing="1">
-                                                <Label Text="Cabin Safety Report" VerticalOptions="Center" HorizontalOptions="Center" FontSize="16" LineBreakMode="TailTruncation" 
-                                                TextColor="White" FontAttributes="Bold"/>
-                                                <Label Text="{Binding EventTitle}" VerticalOptions="Center" HorizontalOptions="Center" FontSize="16" LineBreakMode="TailTruncation" 
-                           TextColor="White" FontAttributes="Bold"/>
-                                                <Label Text="{Binding DateOfEvent}" HorizontalOptions="Center" VerticalOptions="Center" FontSize="12" LineBreakMode="TailTruncation"
-                           TextColor="White"/>
-                                                <Label Text="{Binding FlightNumber}" FontSize="12" TextColor="White" HorizontalOptions="Center"  VerticalOptions="Center" LineBreakMode="TailTruncation"/>
-                                                <Grid>
-                                                    <Grid.ColumnDefinitions>
-                                                        <ColumnDefinition Width="*"/>
-                                                        <ColumnDefinition Width="100"/>
-                                                        <ColumnDefinition Width="*"/>
-                                                    </Grid.ColumnDefinitions>
-                                                    <Button Grid.Column="1" Text="Detail" VerticalOptions="Center" BorderRadius="16" FontSize="10" HeightRequest="34" BorderWidth="0" Clicked="Details_OnClicked" CommandParameter="{Binding SafetyID}"/>
-                                                    <Button Grid.Column="2" Text="Edit" VerticalOptions="Center" BorderRadius="16" FontSize="10" HeightRequest="34" BorderWidth="0" Clicked="Button_Clicked" CommandParameter="{Binding SafetyID}"/>
-                                                </Grid>
-                                            </StackLayout>
-                                        </Grid>
-                                    </Frame>
-                                </Grid>
+                                <StackLayout>
+                                    <Label Text="{Binding ReportType}"></Label>
+                                    <Label Text="{Binding DateOfEvent}"></Label>
+                                    <Button  Text="Edit" VerticalOptions="Center" BorderRadius="16" FontSize="10" HeightRequest="34" BorderWidth="0" Clicked="SafetyReport_Clicked" CommandParameter="{Binding ReportType}"/>
+                                </StackLayout>
                             </ViewCell>
                         </DataTemplate>
                     </ListView.ItemTemplate>
                 </ListView>
+            <StackLayout Orientation="Horizontal"  Grid.Row="2" Padding="10,5,5,10" BackgroundColor="#31b0d5">
+                <Label Text="Ground SafetyReport"  TextColor="White"/>
             </StackLayout>
-            <!--<Label Text="fatigue Report" VerticalOptions="Center" HorizontalOptions="Center" FontSize="16" LineBreakMode="TailTruncation" 
-                                                TextColor="White" FontAttributes="Bold"/>
-            <ListView x:Name="fatigueView" HasUnevenRows="True">
+            <ListView x:Name="groundSafetyView"   Grid.Row="3" HasUnevenRows="True">
                 <ListView.ItemTemplate>
-                    <DataTemplate>
-                        <ViewCell>
-                            <Grid>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="*"/>
-                                </Grid.ColumnDefinitions>
-                                <Frame  Padding="1" BackgroundColor="#31b0d5" HasShadow="True" OutlineColor="#bbb">
-                                    --><!--<Grid>
-                                        <Grid.RowDefinitions>
-                                            <RowDefinition Height="50"/>
-                                            <RowDefinition Height="*"/>
-                                        </Grid.RowDefinitions>
-                                        <StackLayout Grid.Row="1" Padding="5,0,5,5" Spacing="1">
-                                            <Label Text="{Binding EventTitle}" VerticalOptions="Center" HorizontalOptions="Center" FontSize="16" LineBreakMode="TailTruncation" 
-                           TextColor="White" FontAttributes="Bold"/>
-                                            <Label Text="{Binding DateOfEvent}" HorizontalOptions="Center" VerticalOptions="Center" FontSize="12" LineBreakMode="TailTruncation"
-                           TextColor="White"/>
-                                            <Label Text="{Binding FlightNumber}" FontSize="12" TextColor="White" HorizontalOptions="Center"  VerticalOptions="Center" LineBreakMode="TailTruncation"/>
-                                            <Grid>
-                                                <Grid.ColumnDefinitions>
-                                                    <ColumnDefinition Width="*"/>
-                                                    <ColumnDefinition Width="100"/>
-                                                    <ColumnDefinition Width="*"/>
-                                                </Grid.ColumnDefinitions>
-                                                <Button Grid.Column="1" Text="Detail" VerticalOptions="Center" BorderRadius="16" FontSize="10" HeightRequest="34" BorderWidth="0" Clicked="Details_OnClicked" CommandParameter="{Binding SafetyID}"/>
-                                                <Button Grid.Column="2" Text="Edit" VerticalOptions="Center" BorderRadius="16" FontSize="10" HeightRequest="34" BorderWidth="0" Clicked="Button_Clicked" CommandParameter="{Binding SafetyID}"/>
-                                            </Grid>
-                                        </StackLayout>
-                                    </Grid>--><!--
-                                </Frame>
-                            </Grid>
-                        </ViewCell>
-                    </DataTemplate>
-                </ListView.ItemTemplate>
-            </ListView>-->
-            <!--<Label Text="ground Report" VerticalOptions="Center" HorizontalOptions="Center" FontSize="16" LineBreakMode="TailTruncation" 
-                                                TextColor="White" FontAttributes="Bold"/>
-            <ListView x:Name="groundSafetyView" HasUnevenRows="True">
+                        <DataTemplate>
+                            <ViewCell>ss
+                                <StackLayout>
+                                    <Label Text="{Binding ReportType}"></Label>
+                                    <Label Text="{Binding DateOfEvent}"></Label>
+                                    <Button  Text="Edit" VerticalOptions="Center" BorderRadius="16" FontSize="10" HeightRequest="34" BorderWidth="0" Clicked="groundSafety_Clicked" CommandParameter="{Binding ReportType}"/>
+                                </StackLayout>
+                            </ViewCell>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+            <StackLayout Orientation="Horizontal"  Grid.Row="4" Padding="10,5,5,10" BackgroundColor="#31b0d5">
+                <Label Text="Security Report"  TextColor="White"/>
+            </StackLayout>
+            <ListView x:Name="securityListView"  Grid.Row="5" HasUnevenRows="True">
                 <ListView.ItemTemplate>
-                    <DataTemplate>
-                        <ViewCell>
-                            <Grid>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="*"/>
-                                </Grid.ColumnDefinitions>
-                                <Frame  Padding="1" BackgroundColor="#31b0d5" HasShadow="True" OutlineColor="#bbb">
-                                    --><!--<Grid>
-                                        <Grid.RowDefinitions>
-                                            <RowDefinition Height="50"/>
-                                            <RowDefinition Height="*"/>
-                                        </Grid.RowDefinitions>
-                                        <StackLayout Grid.Row="1" Padding="5,0,5,5" Spacing="1">
-                                            <Label Text="{Binding EventTitle}" VerticalOptions="Center" HorizontalOptions="Center" FontSize="16" LineBreakMode="TailTruncation" 
-                           TextColor="White" FontAttributes="Bold"/>
-                                            <Label Text="{Binding DateOfEvent}" HorizontalOptions="Center" VerticalOptions="Center" FontSize="12" LineBreakMode="TailTruncation"
-                           TextColor="White"/>
-                                            <Label Text="{Binding FlightNumber}" FontSize="12" TextColor="White" HorizontalOptions="Center"  VerticalOptions="Center" LineBreakMode="TailTruncation"/>
-                                            <Grid>
-                                                <Grid.ColumnDefinitions>
-                                                    <ColumnDefinition Width="*"/>
-                                                    <ColumnDefinition Width="100"/>
-                                                    <ColumnDefinition Width="*"/>
-                                                </Grid.ColumnDefinitions>
-                                                <Button Grid.Column="1" Text="Detail" VerticalOptions="Center" BorderRadius="16" FontSize="10" HeightRequest="34" BorderWidth="0" Clicked="Details_OnClicked" CommandParameter="{Binding SafetyID}"/>
-                                                <Button Grid.Column="2" Text="Edit" VerticalOptions="Center" BorderRadius="16" FontSize="10" HeightRequest="34" BorderWidth="0" Clicked="Button_Clicked" CommandParameter="{Binding SafetyID}"/>
-                                            </Grid>
-                                        </StackLayout>
-                                    </Grid>--><!--
-                                </Frame>
-                            </Grid>
-                        </ViewCell>
-                    </DataTemplate>
-                </ListView.ItemTemplate>
-            </ListView>
-            <Label Text="Injury Report" VerticalOptions="Center" HorizontalOptions="Center" FontSize="16" LineBreakMode="TailTruncation" 
-                                                TextColor="White" FontAttributes="Bold"/>-->
-            <!--<ListView x:Name="injuryIllnessView" HasUnevenRows="True">
+                        <DataTemplate>
+                            <ViewCell>ss
+                                <StackLayout>
+                                    <Label Text="{Binding ReportType}"></Label>
+                                    <Label Text="{Binding DateOfEvent}"></Label>
+                                    <Button  Text="Edit" VerticalOptions="Center" BorderRadius="16" FontSize="10" HeightRequest="34" BorderWidth="0" Clicked="security_Clicked" CommandParameter="{Binding ReportType}"/>
+                                </StackLayout>
+                            </ViewCell>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+            <StackLayout Orientation="Horizontal"  Grid.Row="6" Padding="10,5,5,10" BackgroundColor="#31b0d5">
+                <Label Text="Fatigue Report"  TextColor="White"/>
+            </StackLayout>
+            <ListView x:Name="fatigueView"   Grid.Row="7" HasUnevenRows="True">
                 <ListView.ItemTemplate>
-                    <DataTemplate>
-                        <ViewCell>
-                            <Grid>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="*"/>
-                                </Grid.ColumnDefinitions>
-                                <Frame  Padding="1" BackgroundColor="#31b0d5" HasShadow="True" OutlineColor="#bbb">
-                                    --><!--<Grid>
-                                        <Grid.RowDefinitions>
-                                            <RowDefinition Height="50"/>
-                                            <RowDefinition Height="*"/>
-                                        </Grid.RowDefinitions>
-                                        <StackLayout Grid.Row="1" Padding="5,0,5,5" Spacing="1">
-                                            <Label Text="{Binding EventTitle}" VerticalOptions="Center" HorizontalOptions="Center" FontSize="16" LineBreakMode="TailTruncation" 
-                           TextColor="White" FontAttributes="Bold"/>
-                                            <Label Text="{Binding DateOfEvent}" HorizontalOptions="Center" VerticalOptions="Center" FontSize="12" LineBreakMode="TailTruncation"
-                           TextColor="White"/>
-                                            <Label Text="{Binding FlightNumber}" FontSize="12" TextColor="White" HorizontalOptions="Center"  VerticalOptions="Center" LineBreakMode="TailTruncation"/>
-                                            <Grid>
-                                                <Grid.ColumnDefinitions>
-                                                    <ColumnDefinition Width="*"/>
-                                                    <ColumnDefinition Width="100"/>
-                                                    <ColumnDefinition Width="*"/>
-                                                </Grid.ColumnDefinitions>
-                                                <Button Grid.Column="1" Text="Detail" VerticalOptions="Center" BorderRadius="16" FontSize="10" HeightRequest="34" BorderWidth="0" Clicked="Details_OnClicked" CommandParameter="{Binding SafetyID}"/>
-                                                <Button Grid.Column="2" Text="Edit" VerticalOptions="Center" BorderRadius="16" FontSize="10" HeightRequest="34" BorderWidth="0" Clicked="Button_Clicked" CommandParameter="{Binding SafetyID}"/>
-                                            </Grid>
-                                        </StackLayout>
-                                    </Grid>--><!--
-                                </Frame>
-                            </Grid>
-                        </ViewCell>
-                    </DataTemplate>
-                </ListView.ItemTemplate>
-            </ListView>-->
-            <!--<Label Text="security Report" VerticalOptions="Center" HorizontalOptions="Center" FontSize="16" LineBreakMode="TailTruncation" 
-                                                TextColor="White" FontAttributes="Bold"/>
-            <ListView x:Name="securityView" HasUnevenRows="True">
+                        <DataTemplate>
+                            <ViewCell>ss
+                                <StackLayout>
+                                    <Label Text="{Binding ReportType}"></Label>
+                                    <Label Text="{Binding DateOfEvent}"></Label>
+                                    <Button  Text="Edit" VerticalOptions="Center" BorderRadius="16" FontSize="10" HeightRequest="34" BorderWidth="0" Clicked="fatigue_Clicked" CommandParameter="{Binding ReportType}"/>
+                                </StackLayout>
+                            </ViewCell>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+            <StackLayout Orientation="Horizontal"  Grid.Row="8" Padding="10,5,5,10" BackgroundColor="#31b0d5">
+                <Label Text="Cabin Safety Report"  TextColor="White"/>
+            </StackLayout>
+            <ListView x:Name="cabinSafetyListView"  Grid.Row="9" HasUnevenRows="True">
                 <ListView.ItemTemplate>
-                    <DataTemplate>
-                        <ViewCell>
-                            --><!--<Grid>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="*"/>
-                                </Grid.ColumnDefinitions>
-                                <Frame  Padding="1" BackgroundColor="#31b0d5" HasShadow="True" OutlineColor="#bbb">
-                                    <Grid>
-                                        <Grid.RowDefinitions>
-                                            <RowDefinition Height="50"/>
-                                            <RowDefinition Height="*"/>
-                                        </Grid.RowDefinitions>
-                                        <StackLayout Grid.Row="1" Padding="5,0,5,5" Spacing="1">
-                                            <Label Text="{Binding EventTitle}" VerticalOptions="Center" HorizontalOptions="Center" FontSize="16" LineBreakMode="TailTruncation" 
-                           TextColor="White" FontAttributes="Bold"/>
-                                            <Label Text="{Binding DateOfEvent}" HorizontalOptions="Center" VerticalOptions="Center" FontSize="12" LineBreakMode="TailTruncation"
-                           TextColor="White"/>
-                                            <Label Text="{Binding FlightNumber}" FontSize="12" TextColor="White" HorizontalOptions="Center"  VerticalOptions="Center" LineBreakMode="TailTruncation"/>
-                                            <Grid>
-                                                <Grid.ColumnDefinitions>
-                                                    <ColumnDefinition Width="*"/>
-                                                    <ColumnDefinition Width="100"/>
-                                                    <ColumnDefinition Width="*"/>
-                                                </Grid.ColumnDefinitions>
-                                                <Button Grid.Column="1" Text="Detail" VerticalOptions="Center" BorderRadius="16" FontSize="10" HeightRequest="34" BorderWidth="0" Clicked="Details_OnClicked" CommandParameter="{Binding SafetyID}"/>
-                                                <Button Grid.Column="2" Text="Edit" VerticalOptions="Center" BorderRadius="16" FontSize="10" HeightRequest="34" BorderWidth="0" Clicked="Button_Clicked" CommandParameter="{Binding SafetyID}"/>
-                                            </Grid>
-                                        </StackLayout>
-                                    </Grid>
-                                </Frame>
-                            </Grid>--><!--
-                        </ViewCell>
-                    </DataTemplate>
-                </ListView.ItemTemplate>
-            </ListView>-->
-        </ScrollView>
+                        <DataTemplate>
+                            <ViewCell>ss
+                                <StackLayout>
+                                    <Label Text="{Binding ReportType}"></Label>
+                                    <Label Text="{Binding DateOfEvent}"></Label>
+                                    <Button  Text="Edit" VerticalOptions="Center" BorderRadius="16" FontSize="10" HeightRequest="34" BorderWidth="0" Clicked="cabinSafety_Clicked" CommandParameter="{Binding ReportType}"/>
+                                </StackLayout>
+                            </ViewCell>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+            <StackLayout Orientation="Horizontal"  Grid.Row="10" Padding="10,5,5,10" BackgroundColor="#31b0d5">
+                <Label Text="Injury Illness Report"  TextColor="White"/>
+            </StackLayout>
+            <ListView x:Name="injuryIllnessView"  Grid.Row="11" HasUnevenRows="True">
+                <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <ViewCell>
+                                <StackLayout>
+                                    <Label Text="{Binding ReportType}"></Label>
+                                    <Label Text="{Binding DateOfEvent}"></Label>
+                                    <Button  Text="Edit" VerticalOptions="Center" BorderRadius="16" FontSize="10" HeightRequest="34" BorderWidth="0" Clicked="injuryIllness_Clicked" CommandParameter="{Binding ReportType}"/>
+                                </StackLayout>
+                            </ViewCell>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+            </Grid>
+        <!--</ScrollView>-->
     </ContentPage.Content>
 </ContentPage>

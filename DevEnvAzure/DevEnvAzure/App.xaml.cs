@@ -21,6 +21,7 @@ namespace DevEnvAzure
         static DataAccess dbUtils;
         public static AuthenticationContext authcontext = null;
         public static ObservableCollection<Employee> employees = new ObservableCollection<Employee>();
+        public static ObservableCollection<DatatableData> fullDataTablecollection = new ObservableCollection<DatatableData>();
         public static ObservableCollection<object> savedDrafts = new ObservableCollection<object>();
 
         public static ObservableCollection<CabibSafetyReport> cabinSafety = new ObservableCollection<CabibSafetyReport>();
@@ -28,17 +29,15 @@ namespace DevEnvAzure
         public static ObservableCollection<GroundSafetyReport> groundSafety = new ObservableCollection<GroundSafetyReport>();
         public static ObservableCollection<InjuryIllnessReport> injuryIllness = new ObservableCollection<InjuryIllnessReport>();
         public static ObservableCollection<SecurityModel> security = new ObservableCollection<SecurityModel>();
-        public static ObservableCollection<SafetyReportModel> safetyReport = new ObservableCollection<SafetyReportModel>();
+        public static ObservableCollection<FlightSafetyReportModel> safetyReport = new ObservableCollection<FlightSafetyReportModel>();
 
         public App()
         {
             InitializeComponent();
-            if (!OAuthHelper.IsLoggedIn())
-            {
+            if (App.AuthenticationResponse == null)
                 MainPage = new Login();
-            }
             else
-                MainPage = new StartPage();
+                MainPage = new DevEnvAzure.StartPage();
         }
         public static DataAccess DAUtil
         {

@@ -25,7 +25,7 @@
                 <Label x:Name="Hourswhenfatigueoccurredlbl" Text="Hours when fatigue occurred" TextColor="#E65100" Grid.Row="1" Grid.Column="0" />
                 <Entry x:Name="HourswhenfatigueoccurredEntry"   Text="{Binding hoursFromReport, Mode=TwoWay}"  TextColor="#0D47A1" Grid.Row="1" Grid.Column="1" />
                 <Label x:Name="Disruptlbl" Text="Disrupt" TextColor="#E65100" Grid.Row="2" Grid.Column="0" />
-                <controls:CheckBox x:Name="Disruptchkbx"  DefaultText="" HorizontalOptions="EndAndExpand"  Checked="{Binding disrupt, Mode=TwoWay}" Grid.Row="2" Grid.Column="1" />
+                <Switch x:Name="Disruptchkbx"   HorizontalOptions="EndAndExpand"  IsToggled="{Binding disrupt, Mode=TwoWay}" Grid.Row="2" Grid.Column="1" />
             </Grid>
             <Frame   BackgroundColor="#FF9800" >
                 <Label x:Name="Whathappenedlbl" Opacity="5" TextColor="Black"  FontSize="Small" HorizontalOptions="Center" Text="What happened?" />
@@ -75,17 +75,17 @@
                     <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
                 <Label x:Name="FatiguedpriortoDutylbl" Text="Fatigued prior to Duty" TextColor="#E65100" Grid.Row="0" Grid.Column="0" />
-                <controls:CheckBox x:Name="FatiguedpriortoDutychkbx" Checked="{Binding fatiguePrior, Mode=TwoWay}"  DefaultText="" HorizontalOptions="EndAndExpand" Grid.Row="0" Grid.Column="1" />
+                <Switch x:Name="FatiguedpriortoDutychkbx" IsToggled="{Binding fatiguePrior, Mode=TwoWay}"  HorizontalOptions="EndAndExpand" Grid.Row="0" Grid.Column="1" />
                 <Label x:Name="PoorInFlightRestlbl" Text="Poor In-Flight Rest" TextColor="#E65100" Grid.Row="1" Grid.Column="0" />
-                <controls:CheckBox x:Name="PoorInFlightRestchkbx" Checked="{Binding poorFlightRest, Mode=TwoWay}" DefaultText="" HorizontalOptions="EndAndExpand"  Grid.Row="1" Grid.Column="1" />
+                <Switch x:Name="PoorInFlightRestchkbx" IsToggled="{Binding poorFlightRest, Mode=TwoWay}" HorizontalOptions="EndAndExpand"  Grid.Row="1" Grid.Column="1" />
                 <Label x:Name="DutyItselflbl" Text="Duty Itself" TextColor="#E65100" Grid.Row="2" Grid.Column="0" />
-                <controls:CheckBox x:Name="DutyItselfchkbx" Checked="{Binding dutyItself, Mode=TwoWay}"  DefaultText="" HorizontalOptions="EndAndExpand"  Grid.Row="2" Grid.Column="1" />
+                <Switch x:Name="DutyItselfchkbx" IsToggled="{Binding dutyItself, Mode=TwoWay}"   HorizontalOptions="EndAndExpand"  Grid.Row="2" Grid.Column="1" />
                 <Label x:Name="RosterCombinationofDutieslbl" Text="Roster/Combination of Duties" TextColor="#E65100" Grid.Row="3" Grid.Column="0" />
-                <controls:CheckBox x:Name="RostercombinationofDutieschkbx" Checked="{Binding roaster, Mode=TwoWay}"  DefaultText="" HorizontalOptions="EndAndExpand"  Grid.Row="3" Grid.Column="1" />
+                <Switch x:Name="RostercombinationofDutieschkbx" IsToggled="{Binding roaster, Mode=TwoWay}"  HorizontalOptions="EndAndExpand"  Grid.Row="3" Grid.Column="1" />
                 <Label x:Name="PersonalStresslbl" Text="Personal Stress" TextColor="#E65100" Grid.Row="4" Grid.Column="0" />
-                <controls:CheckBox x:Name="PersonalStresschkbx"  DefaultText="" HorizontalOptions="EndAndExpand"  Checked="{Binding personalStress,Mode=TwoWay}" Grid.Row="4" Grid.Column="1" />
+                <Switch x:Name="PersonalStresschkbx"   HorizontalOptions="EndAndExpand"  IsToggled="{Binding personalStress,Mode=TwoWay}" Grid.Row="4" Grid.Column="1" />
                 <Label x:Name="HotelDisturbancelbl" Text="Hotel Disturbance" TextColor="#E65100" Grid.Row="5" Grid.Column="0" />
-                <controls:CheckBox x:Name="HotelDisturbancechkbx" Checked="{Binding hotelDisturbance, Mode=TwoWay}" DefaultText="" HorizontalOptions="EndAndExpand"  Grid.Row="6" Grid.Column="1" />
+                <Switch x:Name="HotelDisturbancechkbx" IsToggled="{Binding hotelDisturbance, Mode=TwoWay}"  HorizontalOptions="EndAndExpand"  Grid.Row="5" Grid.Column="1" />
                 <Label x:Name="OtherCommentslbl" Text="Other/Comments" TextColor="#E65100" Grid.Row="6" Grid.Column="0" />
                 <Entry x:Name="OtherCommentsEntry"   Text="{Binding otherComments, Mode=TwoWay}"  TextColor="#0D47A1" Grid.Row="6" Grid.Column="1" />
             </Grid>

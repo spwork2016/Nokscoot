@@ -9,10 +9,10 @@ namespace DevEnvAzure.Models
     [Table(@"FatigueReport")]
     public class FatigueReport
     {
-        [PrimaryKey, AutoIncrement, Column("fatigueId")]
-        public long fatigueId
-        { get; set; }
-        [NotNull]
+        //[PrimaryKey, AutoIncrement, Column("fatigueId")]
+        //public long fatigueId
+        //{ get; set; }
+        //[NotNull]
         public string ReportType
         { get; set; }
         public string EventTitle

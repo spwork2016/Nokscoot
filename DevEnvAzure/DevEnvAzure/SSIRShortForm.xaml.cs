@@ -5,6 +5,7 @@ using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
+using DevEnvAzure.Model;
 using DevEnvAzure.Models;
 using Newtonsoft.Json;
 using Plugin.Connectivity;
@@ -12,45 +13,59 @@ using Plugin.FilePicker;
 using Plugin.FilePicker.Abstractions;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
-
+using DevEnvAzure.Utilities;
 namespace DevEnvAzure
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class SSIRShortForm : ContentPage
     {
-        object _viewobject = null;
-        public string _classname;
-
+       public object _viewobject = null;
+        public  string _classname;
+        public static string airregis;
+        public static int MORTypeID;
+        Jsonpropertyinitialise jsonInitObj = new Jsonpropertyinitialise();
+        const string SPRootURL = "https://sptechnophiles.sharepoint.com/_api/web/lists/";
         public SSIRShortForm(object viewObject, string modelname)
         {
-            _classname = modelname;
-            this.BindingContext = viewObject;
-            _viewobject = viewObject;
-            InitializeComponent();
-
-            switch (modelname)
+            try
             {
-                case "safety":
-                    this.Title = "Safety Report";
-                    break;
-                case "security":
-                    this.Title = "Security Report";
-                    break;
-                case "ground":
-                    this.Title = "Ground Report";
-                    break;
-                case "fatigue":
-                    this.Title = "Fatigue Report";
-                    break;
-                case "Injury":
-                    this.Title = "Injury Report";
-                    break;
-                case "cabin":
-                    this.Title = "Cabin Report";
-                    break;
+                this.BindingContext = viewObject;
+                _classname = modelname;
+                _viewobject = viewObject;
+                FetchListItems();
+                InitializeComponent();
+            }
+            catch
+            {
+
             }
         }
+        protected override void OnAppearing()
+        {
+            try
+            {
+                base.OnAppearing();
+                Plugin.Connectivity.CrossConnectivity.Current.ConnectivityChanged += Current_ConnectivityChanged;
+            }
+            catch
+            {
 
+            }
+            //  UpdateStatus();
+        }
+        private void Current_ConnectivityChanged(object sender, Plugin.Connectivity.Abstractions.ConnectivityChangedEventArgs e)
+        {
+            if (e.IsConnected)
+            {
+                var eValue = App.DAUtil.GetAllEmployees<DatatableData>("DatatableData1");
+                if (eValue != null && eValue.Count > 0)
+                {
+                    DataUpload.CreateItemsOffline(eValue);
+                }
+                DependencyService.Get<IMessage>().LongAlert("Network Connection detected");
+            }
+            // var answer =  DisplayAlert("Question?", "Would you like to play a game", "Yes", "No");
+        }
         //  _classname secViewfull = null;
         ContentView _fullviewobj = null;
         private void Check_Clicked(object sender, XLabs.EventArgs<bool> e)
@@ -60,109 +75,168 @@ namespace DevEnvAzure
                 switch (_classname)
                 {
                     case "safety":
-                        this.Title = "Safety Report";
+                        _fullviewobj = new FlightSafetyReportView();
                         break;
                     case "security":
-                        this.Title = "Security Report";
+
                         _fullviewobj = new securityReportView();
+                       
                         break;
                     case "ground":
-                        this.Title = "Ground Report";
                         _fullviewobj = new GroundSafetyReportView();
                         break;
                     case "fatigue":
-                        this.Title = "Fatigue Report";
                         _fullviewobj = new FatigueReportView();
                         break;
                     case "Injury":
-                        this.Title = "Injury Report";
                         _fullviewobj = new InjuryIllnessReportView();
                         break;
                     case "cabin":
-                        this.Title = "Cabin Report";
                         _fullviewobj = new CabinSafetyReportView();
                         break;
                 }
             }
-
             if (Formcheck.IsToggled == true)
             {
-                Stacklay2.Children.Add(_fullviewobj);
+                try
+                {
+                    Stacklay2.Children.Add(_fullviewobj);
+                }
+                catch
+                {
+
+                }
             }
             else
             {
                 Stacklay2.Children.Remove(_fullviewobj);
             }
         }
+
+        public static int idval;
         private void Save_clicked(object sender, XLabs.EventArgs<bool> e)
         {
             switch (_classname)
             {
                 case "safety":
-                    // App.safetyReport.Add((SafetyReportModel)_viewobject);
-                    App.DAUtil.SaveEmployee((SafetyReportModel)_viewobject);
+                  
+                    idval = new Random().Next(1, 1000);
+                    FlightSafetyReportModel sf = (FlightSafetyReportModel)_viewobject;
+                    sf.ReportType = "Safety" + idval.ToString();
+                    CreateItems(jsonInitObj.getflightSafetyJson(sf));
+                    // App.DAUtil.SaveEmployee((SafetyReportModel)_viewobject);
+                    //  App.DAUtil.SaveEmployee<SafetyReportModel>(sf);
                     break;
                 case "security":
-                    //  App.security.Add((SecurityModel)_viewobject);
-                    CreateItems();
-                    // App.DAUtil.SaveEmployee((SecurityModel)_viewobject);
-                    //  _fullviewobj = new securityReportView();
+                    
+                    idval = new Random().Next(1, 1000);
+                    SecurityModel sd = (SecurityModel)_viewobject;
+                    sd.ReportType = "Security" + idval.ToString();
+                    MORTypeID = MORpicker.SelectedIndex;
+                        CreateItems(jsonInitObj.getSecurity(sd));
+                   // App.DAUtil.SaveEmployee<SecurityModel>(sd);
                     break;
                 case "ground":
-                    // App.groundSafety.Add((GroundSafetyReport)_viewobject);
-                    App.DAUtil.SaveEmployee((GroundSafetyReport)_viewobject);
-                    // _fullviewobj = new GroundSafetyReportView();
+                   // CreateItems();
+                    idval = new Random().Next(1, 1000);
+                    GroundSafetyReport gd = (GroundSafetyReport)_viewobject;
+                    gd.ReportType = "GroundSafety" + idval.ToString();
+
+                    
+                   CreateItems(jsonInitObj.getGroundSafety(gd));
+                    //   App.DAUtil.SaveEmployee<GroundSafetyReport>(gd);
                     break;
                 case "fatigue":
-                    // App.fatigue.Add((FatigueReport)_viewobject);
-                    App.DAUtil.SaveEmployee((FatigueReport)_viewobject);
-                    //  _fullviewobj = new FatigueReportView();
+                 //   CreateItems();
+                    idval = new Random().Next(1, 1000);
+                    FatigueReport ft = (FatigueReport)_viewobject;
+                    ft.ReportType = "Fatigue" + idval.ToString();
+                   
+                    CreateItems(jsonInitObj.getFatigue(ft));
+                   // App.DAUtil.SaveEmployee<FatigueReport>(ft);
                     break;
                 case "Injury":
-                    //  App.injuryIllness.Add((InjuryIllnessReport)_viewobject);
-                    App.DAUtil.SaveEmployee((InjuryIllnessReport)_viewobject);
-                    // _fullviewobj = new InjuryIllnessReportView();
+                  //  CreateItems();
+                    idval = new Random().Next(1, 1000);
+                    InjuryIllnessReport injr = (InjuryIllnessReport)_viewobject;
+                    injr.ReportType = "InjuryIllness" + idval.ToString();
+                   
+                    CreateItems(jsonInitObj.getInjuryJson(injr));
+                    //  App.DAUtil.SaveEmployee<InjuryIllnessReport>(injr);
                     break;
                 case "cabin":
-                    //    App.cabinSafety.Add((CabibSafetyReport)_viewobject);
-                    App.DAUtil.SaveEmployee((CabibSafetyReport)_viewobject);
-                    // _fullviewobj = new CabinSafetyReportView();
+                 //   CreateItems();
+                    idval = new Random().Next(1, 1000);
+                    CabibSafetyReport cd = (CabibSafetyReport)_viewobject;
+                    cd.ReportType = "Cabin" + idval.ToString();
+                    CreateItems(jsonInitObj.getCabinSfetyJson(cd));
+                    // App.DAUtil.SaveEmployee<CabibSafetyReport>(cd);
                     break;
             }
 
         }
+     
         private void savedrafts_btn_Clicked(object sender, EventArgs e)
         {
+          
             switch (_classname)
             {
+               
                 case "safety":
+                    idval = new Random().Next(1, 1000);
+                    FlightSafetyReportModel sf = (FlightSafetyReportModel)_viewobject;
+                    sf.ReportType = "Safety" + idval.ToString();
+                    //App.safetyReport.Add(sf);
+                    App.DAUtil.SaveEmployee<FlightSafetyReportModel>(sf);
                     // App.safetyReport.Add((SafetyReportModel)_viewobject);
-                    App.DAUtil.SaveEmployee((SafetyReportModel)_viewobject);
+                    //  App.DAUtil.SaveEmployee((SafetyReportModel)_viewobject);
                     break;
                 case "security":
-                    //  App.security.Add((SecurityModel)_viewobject);
-
-                    App.DAUtil.SaveEmployee((SecurityModel)_viewobject);
+                    idval = new Random().Next(1, 1000);
+                    SecurityModel sd = (SecurityModel)_viewobject;
+                    sd.ReportType = "Security" + idval.ToString();
+                 //   App.security.Add(sd);
+                    App.DAUtil.SaveEmployee<SecurityModel>(sd);
                     //  _fullviewobj = new securityReportView();
                     break;
                 case "ground":
+                    idval = new Random().Next(1, 1000);
                     // App.groundSafety.Add((GroundSafetyReport)_viewobject);
-                    App.DAUtil.SaveEmployee((GroundSafetyReport)_viewobject);
+                    GroundSafetyReport gd = (GroundSafetyReport)_viewobject;
+                    gd.ReportType = "GroundSafety" + idval.ToString();
+                  //  App.groundSafety.Add(gd);
+                    App.DAUtil.SaveEmployee<GroundSafetyReport>(gd);
+                 //   App.DAUtil.SaveEmployee((GroundSafetyReport)_viewobject);
                     // _fullviewobj = new GroundSafetyReportView();
                     break;
                 case "fatigue":
+                    idval = new Random().Next(1, 1000);
                     // App.fatigue.Add((FatigueReport)_viewobject);
-                    App.DAUtil.SaveEmployee((FatigueReport)_viewobject);
+                    FatigueReport ft = (FatigueReport)_viewobject;
+                    ft.ReportType = "Fatigue" + idval.ToString();
+                  //  App.fatigue.Add(ft);
+                    App.DAUtil.SaveEmployee<FatigueReport>(ft);
+                   // App.DAUtil.SaveEmployee((FatigueReport)_viewobject);
                     //  _fullviewobj = new FatigueReportView();
                     break;
                 case "Injury":
+                    idval = new Random().Next(1, 1000);
                     //  App.injuryIllness.Add((InjuryIllnessReport)_viewobject);
-                    App.DAUtil.SaveEmployee((InjuryIllnessReport)_viewobject);
+                    InjuryIllnessReport injr = (InjuryIllnessReport)_viewobject;
+                    injr.ReportType = "InjuryIllness" + idval.ToString();
+                  //  App.injuryIllness.Add(injr);
+                    App.DAUtil.SaveEmployee<InjuryIllnessReport>(injr);
+                    //App.DAUtil.SaveEmployee((InjuryIllnessReport)_viewobject);
                     // _fullviewobj = new InjuryIllnessReportView();
                     break;
                 case "cabin":
-                    //    App.cabinSafety.Add((CabibSafetyReport)_viewobject);
-                    App.DAUtil.SaveEmployee((CabibSafetyReport)_viewobject);
+                    idval = new Random().Next(1, 1000);
+                    CabibSafetyReport cd = (CabibSafetyReport)_viewobject;
+                    cd.ReportType = "Cabin" + idval.ToString();
+                 //   App.cabinSafety.Add(cd);
+                    App.DAUtil.SaveEmployee<CabibSafetyReport>(cd);
+                    //  App.cabinSafety.Add((CabibSafetyReport)_viewobject);
+                    //  App.DAUtil.SaveEmployee(cd);
                     // _fullviewobj = new CabinSafetyReportView();
                     break;
             }
@@ -178,11 +252,12 @@ namespace DevEnvAzure
                 //  var x = fileData.DataArray;
                 if (fileData != null)
                 {
-                    MORpicker.Text = fileData.FileName;
+                    var y = fileData.FilePath;
+                    eventAttachEntry.Text = y;
                 }
                 else
                 {
-                    MORpicker.Text = "";
+                    eventAttachEntry.Text = "";
                 }
                 //  SourceImg.Source = ImageSource.FromFile(y);
 
@@ -213,55 +288,34 @@ namespace DevEnvAzure
 
             return client;
         }
-        protected async void CreateItems()
+        protected  void CreateItems<U>(U reportObject) where U : class
         {
-            //var empName = empN.Text;
-            //var gender = gendEmp.Items[gendEmp.SelectedIndex];
-            //var empage = EAge.Text;
-            //var date = dtPicker.Date;
-            //var dptname = deptemp.SelectedIndex + 1;
-            //var actemp = actEmp.Items[actEmp.SelectedIndex];
-            //var empdetails = "developer";
-            //var sal = ESal.Text;
-            //if (actemp == "Yes")
-            //{
-            //    actemp = "true";
-            //}
-            //else
-            //{
-            //    actemp = "false";
-            //}
-
             try
             {
+                // StringContent contents = null;
+                var client = GetHTTPClient();
+                var data = reportObject;// _viewobject;
+
+                var body = JsonConvert.SerializeObject(data, Formatting.None,
+                        new JsonSerializerSettings
+                        {
+                            NullValueHandling = NullValueHandling.Ignore
+                        });
+                var contents = new StringContent(body);
+                contents.Headers.ContentType = MediaTypeHeaderValue.Parse("application/json;odata=verbose");
                 if (CheckConnection())
                 {
-                    var empdetails = "safety";
-                    var client = GetHTTPClient();
-                    // var body = "{\"__metadata\":{\"type\":\"SP.Data.TestFormListItem\"},\"Type_x0020_of_x0020_Report\":\"" + empdetails + "\"}";
-                    //var body = "{\"__metadata\":{\"type\":\"SP.Data.TestFormListItem\"},\"Employee_x0020_Details\":\"" + empdetails + "\",\"DepartmentId\":\"" + dptname + "\",\"Salary\":\"" + sal +
-                    //"\",\"Active_x0020_Employee\":\"" + actemp + "\",\"Joining_x0020_Date\":\"" + date + "\",\"Employee_x0020_Age\":\"" + empage + 
-                    //"\",\"Employee_x0020_Name\":\"" + empName + "\",\"Gender\": \"" + gender + "\"}";
-                    var data = _viewobject;
-
-                    //data.Employee_x0020_Name = empName;
-                    //data.Employee_x0020_Details = empdetails;
-                    //data.DepartmentId = dptname;
-                    //data.Salary = Convert.ToInt32(sal);
-                    //data.Active_x0020_Employee = actemp == "Yes" ? true : false;
-                    //data.Joining_x0020_Date = date;
-                    //data.Employee_x0020_Age = Convert.ToInt32(empage);
-
-                    var body = JsonConvert.SerializeObject(data, Formatting.None,
-                            new JsonSerializerSettings
-                            {
-                                NullValueHandling = NullValueHandling.Ignore
-                            });
-                    var contents = new StringContent(body);
-                    contents.Headers.ContentType = MediaTypeHeaderValue.Parse("application/json;odata=verbose");
+                  
+                    // var body = "{\"__metadata\":{\"type\":\"SP.Data.Operational_x005f_Hazard_x005f_Event_x005f_Register_x005f_04042018ListItem\"},\"Title_x0020_of_x0020_Event_Hazar\":\"" + empdetails + "\"}";
+                   // SecurityModel sd = (SecurityModel)_viewobject;
+                    //sd.ReportType = "Security" + idval.ToString();
+                  
+                   // jsonInitObj.getSecurity(reportObject);
+                    // sd.DateOfEvent = null ;
+                  
                     //contents.Headers.Add("Accept", "application/json");
 
-                    var postResult = client.PostAsync("https://nok365.sharepoint.com/sites/Nokscoot/SSQServices/WorkBench/_api/web/lists/GetByTitle('Operational_Hazard_Event_Register 25 Jan 18')/items", contents).Result;
+                    var postResult = client.PostAsync("https://sptechnophiles.sharepoint.com/_api/web/lists/GetByTitle('Operational_Hazard_Event_Register_04042018')/items", contents).Result;
                     //var result = postResult.EnsureSuccessStatusCode();
 
                     if (!postResult.IsSuccessStatusCode)
@@ -272,59 +326,28 @@ namespace DevEnvAzure
                     }
                     if (postResult.IsSuccessStatusCode)
                     {
-                        //var vEmployee = new Employee()
-                        //{
-                        //    vEmpName = empName,
-                        //    vEmpAge = empage,
-                        //    vEmpDept = dptname.ToString(),
-                        //    vEmpDetails = empdetails,
-                        //    vEmpGender = gender,
-                        //    vEmpSal = sal,
-                        //    vEmpDate = date,
-                        //    vEmpActive = actemp
-                        //};
-                        //DraftsPage.employees.Add(vEmployee);
                         DependencyService.Get<IMessage>().LongAlert("List updated successfully");
                     }
                     else
                     {
-                        //var vEmployee = new Employee()
-                        //{
-                        //    vEmpName = empName,
-                        //    vEmpAge = empage,
-                        //    vEmpDept = dptname.ToString(),
-                        //    vEmpDetails = empdetails,
-                        //    vEmpGender = gender,
-                        //    vEmpSal = sal,
-                        //    vEmpDate = date,
-                        //    vEmpActive = actemp
-                        //};
                         //App.employees.Add(_viewobject);
-                        App.DAUtil.SaveEmployee(_viewobject);
+                      //  FullReportTableModel fullRep = new FullReportTableModel();
+                        DatatableData dt = new DatatableData();
+                       // dt.Value = contents;
+                        App.DAUtil.SaveEmployee<DatatableData>(dt);
                         DependencyService.Get<IMessage>().LongAlert("List data stored in local storage");
                     }
                 }
                 else
                 {
-                    //var vEmployee = new Employee()
-                    //{
-                    //    vEmpName = empName,
-                    //    vEmpAge = empage,
-                    //    vEmpDept = dptname.ToString(),
-                    //    vEmpDetails = empdetails,
-                    //    vEmpGender = gender,
-                    //    vEmpSal = sal,
-                    //    vEmpDate = date,
-                    //    vEmpActive = actemp
-                    //};
-                    //App.employees.Add(vEmployee);
-                    App.DAUtil.SaveEmployee(_viewobject);
+                  
+                    DatatableData dt = new DatatableData();
+                    dt.Value = body;// contents.ToString();
+                    App.DAUtil.SaveEmployee<DatatableData>(dt);
 
-                    var vList = App.DAUtil.GetAllEmployees<SecurityModel>("SecurityModel");
+                    var vList = App.DAUtil.GetAllEmployees<DatatableData>("DatatableData1");
                     DependencyService.Get<IMessage>().LongAlert("List data stored in local storage");
                 }
-
-                // await Navigation.PushAsync(new DraftsPage());
             }
             catch (HttpRequestException ex)
             {
@@ -335,7 +358,105 @@ namespace DevEnvAzure
                 DependencyService.Get<IMessage>().ShortAlert("Upload Error" + ex.Message);
             }
         }
+        protected async void FetchListItems()
+        {
+            var client = GetHTTPClient();
+            if (client == null) { return; }
+            try
+            {
+               // https://sptechnophiles.sharepoint.com/_api/web/lists/GetByTitle('MOR%20Type%20Lead%20Time')
+                var result = await client.GetStringAsync(SPRootURL + "GetByTitle('MOR%20Type%20Lead%20Time')/items");
+                var result1 = await client.GetStringAsync("https://sptechnophiles.sharepoint.com/_api/web/lists/GetByTitle('Operational_Hazard_Event_Register_04042018')/items");
+                if (result != null)
+                {
+                    //'2f41b8fe-275e-4ba6-bbd0-52e73eb55b54'
+                    //SP.Data.MOR_x0020_Type_x0020__x0020_Lead_x0020_TimeListItem
+                    var data = result.Length;
+                    var spData = JsonConvert.DeserializeObject<SPData>(result, new JsonSerializerSettings { DateParseHandling = DateParseHandling.None });
 
+                    foreach (var val in spData.d.results)
+                    {
+                        MORpicker.Items.Add(val.Title);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                var msg = "Unable to fetch list items. " + ex.Message;
 
+            }
+        }
+
+        public void intializeProperties()
+        {
+            switch (_classname)
+            {
+
+                case "safety":
+                    idval = new Random().Next(1, 1000);
+                    FlightSafetyReportModel sf = (FlightSafetyReportModel)_viewobject;
+                    sf.ReportType = "Safety" + idval.ToString();
+                    //App.safetyReport.Add(sf);
+                    App.DAUtil.SaveEmployee<FlightSafetyReportModel>(sf);
+                    // App.safetyReport.Add((SafetyReportModel)_viewobject);
+                    //  App.DAUtil.SaveEmployee((SafetyReportModel)_viewobject);
+                    break;
+                case "security":
+                    idval = new Random().Next(1, 1000);
+                    SecurityModel sd = (SecurityModel)_viewobject;
+                    sd.ReportType = "Security" + idval.ToString();
+                    //   App.security.Add(sd);
+                    App.DAUtil.SaveEmployee<SecurityModel>(sd);
+                    //  _fullviewobj = new securityReportView();
+                    break;
+                case "ground":
+                    idval = new Random().Next(1, 1000);
+                    // App.groundSafety.Add((GroundSafetyReport)_viewobject);
+                    GroundSafetyReport gd = (GroundSafetyReport)_viewobject;
+                    gd.ReportType = "GroundSafety" + idval.ToString();
+                    //  App.groundSafety.Add(gd);
+                    App.DAUtil.SaveEmployee<GroundSafetyReport>(gd);
+                    //   App.DAUtil.SaveEmployee((GroundSafetyReport)_viewobject);
+                    // _fullviewobj = new GroundSafetyReportView();
+                    break;
+                case "fatigue":
+                    idval = new Random().Next(1, 1000);
+                    // App.fatigue.Add((FatigueReport)_viewobject);
+                    FatigueReport ft = (FatigueReport)_viewobject;
+                    ft.ReportType = "Fatigue" + idval.ToString();
+                    //  App.fatigue.Add(ft);
+                    App.DAUtil.SaveEmployee<FatigueReport>(ft);
+                    // App.DAUtil.SaveEmployee((FatigueReport)_viewobject);
+                    //  _fullviewobj = new FatigueReportView();
+                    break;
+                case "Injury":
+                    idval = new Random().Next(1, 1000);
+                    //  App.injuryIllness.Add((InjuryIllnessReport)_viewobject);
+                    InjuryIllnessReport injr = (InjuryIllnessReport)_viewobject;
+                    injr.ReportType = "InjuryIllness" + idval.ToString();
+                    //  App.injuryIllness.Add(injr);
+                    App.DAUtil.SaveEmployee<InjuryIllnessReport>(injr);
+                    //App.DAUtil.SaveEmployee((InjuryIllnessReport)_viewobject);
+                    // _fullviewobj = new InjuryIllnessReportView();
+                    break;
+                case "cabin":
+                    idval = new Random().Next(1, 1000);
+                    CabibSafetyReport cd = (CabibSafetyReport)_viewobject;
+                    cd.ReportType = "Cabin" + idval.ToString();
+                    //   App.cabinSafety.Add(cd);
+                    App.DAUtil.SaveEmployee<CabibSafetyReport>(cd);
+                    //  App.cabinSafety.Add((CabibSafetyReport)_viewobject);
+                    //  App.DAUtil.SaveEmployee(cd);
+                    // _fullviewobj = new CabinSafetyReportView();
+                    break;
+            }
+
+        }
+
+        private void aircraftRegis_Changed(object sender, EventArgs e)
+        {
+            airregis = FlightPhasepicker.Items.ElementAt(FlightPhasepicker.SelectedIndex);
+        }
+        
     }
 }

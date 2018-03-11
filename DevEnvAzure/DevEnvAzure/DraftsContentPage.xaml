@@ -20,11 +20,11 @@
                                 <!--
                                 </Frame>-->
                                 <StackLayout Grid.Row="1" Padding="5,0,5,5" Spacing="1">
-                                    <Label Text="{Binding vEmpName}" VerticalOptions="Center" HorizontalOptions="Center" FontSize="16" LineBreakMode="TailTruncation" 
+                                    <Label Text="{Binding contentID}" VerticalOptions="Center" HorizontalOptions="Center" FontSize="16" LineBreakMode="TailTruncation" 
                            TextColor="White" FontAttributes="Bold"/>
-                                    <Label Text="{Binding vEmpAge}" HorizontalOptions="Center" VerticalOptions="Center" FontSize="12" LineBreakMode="TailTruncation"
+                                    <!--<Label Text="{Binding vEmpAge}" HorizontalOptions="Center" VerticalOptions="Center" FontSize="12" LineBreakMode="TailTruncation"
                            TextColor="White"/>
-                                    <Label Text="{Binding vEmpGender}" FontSize="12" TextColor="White" HorizontalOptions="Center"  VerticalOptions="Center" LineBreakMode="TailTruncation"/>
+                                    <Label Text="{Binding vEmpGender}" FontSize="12" TextColor="White" HorizontalOptions="Center"  VerticalOptions="Center" LineBreakMode="TailTruncation"/>-->
                                 </StackLayout>
                             </Grid>
                         </Frame>

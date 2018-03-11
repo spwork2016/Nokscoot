@@ -10,10 +10,10 @@ namespace DevEnvAzure.Models
     [Table(@"GroundSafetyReport")]
     public class GroundSafetyReport
     {
-        [PrimaryKey, AutoIncrement, Column("groundId")]
-        public long groundId
-        { get; set; }
-        [NotNull]
+        //[PrimaryKey, AutoIncrement, Column("groundId")]
+        //public long groundId
+        //{ get; set; }
+        //[NotNull]
         public string ReportType
         { get; set; }
         public string EventTitle

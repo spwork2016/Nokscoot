@@ -8,9 +8,20 @@ using System.Threading.Tasks;
 using Xamarin.Forms;
 using SQLite.Net.Interop;
 using DevEnvAzure.Models;
+using System.Net.Http;
 
 namespace DevEnvAzure
 {
+    [Table(@"DatatableData1")]
+    public class DatatableData
+    {
+        [NotNull]
+        [PrimaryKey, AutoIncrement, Column("contentID")]
+        public long contentID
+        { get; set; }
+        public string Value
+        { set; get; }
+    }
     public class DataAccess
     {
         SQLite.Net.SQLiteConnection dbConn;
@@ -22,45 +33,57 @@ namespace DevEnvAzure
                 dbConn.CreateTable<Employee>();
                 dbConn.CreateTable<MasterInfo>();
 
-                dbConn.CreateTable<SafetyReportModel>();
+               // dbConn.CreateTable<MasterInfo>();
+                dbConn.CreateTable<FlightSafetyReportModel>();
                 dbConn.CreateTable<SecurityModel>();
                 dbConn.CreateTable<CabibSafetyReport>();
                 dbConn.CreateTable<FatigueReport>();
                 dbConn.CreateTable<GroundSafetyReport>();
                 dbConn.CreateTable<InjuryIllnessReport>();
+
+                dbConn.CreateTable<DatatableData>();
+                //dbConn.
             }
             catch (Exception ex)
             {
 
             }
         }
+        
 
-        public bool createTable<U>() where U:class
+        public bool createTable<U>() where U : class
         {
-            var tableExistsQuery = "SELECT name FROM sqlite_master WHERE type='table' AND name='MovieId';";
-            var result = dbConn.ExecuteScalar<string>(tableExistsQuery);
-            if (result.Length == 0)
+         //   var tableExistsQuery = "SELECT name FROM sqlite_master WHERE type='table' AND name='MovieId';";
+         //   var result = dbConn.ExecuteScalar<string>(tableExistsQuery);
+           // if (result.Length == 0)
             {
                 dbConn.CreateTable<U>();
                 return true;
             }
-            else 
-            {
-                return false;
-            }
-              
+         //   else
+          //  {
+          //      return false;
+          //  }
+
         }
 
         public List<U>GetAllEmployees<U>(string classObj) where U:class
         {
-            return dbConn.Query<U>("Select * From ['classObj']");
+            return dbConn.Query<U>("Select * From " + classObj + "");
         }
         public int SaveEmployee<U>(U reportData) where U : class
         {
-            
-            dbConn.CreateTable<U>();
+            try
+            {
+                dbConn.CreateTable<U>();
+                return dbConn.Insert(reportData);
+            }
+            catch(Exception ex)
+            {
+                return 0;
+            }
 
-            return dbConn.Insert(reportData);
+          
         }
         public int DeleteEmployee<U>(U aEmployee) where U:class
         {

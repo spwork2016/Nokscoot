@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DevEnvAzure.Models;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -17,9 +18,24 @@ namespace DevEnvAzure
         public DraftsPage()
         {
             InitializeComponent();
-           
-            EmployeeView.ItemsSource = App.employees;
+            load_saveddrafts();
+            EmployeeView.ItemsSource = App.fullDataTablecollection;
             BindingContext = this;
+        }
+
+        public void load_saveddrafts()
+        {
+            try
+            {
+
+                var d = App.DAUtil.GetAllEmployees<DatatableData>("DatatableData1");
+                App.fullDataTablecollection = new ObservableCollection<DatatableData>(App.DAUtil.GetAllEmployees<DatatableData>("DatatableData1"));
+               
+            }
+            catch (Exception ex)
+            {
+
+            }
         }
         private async void Details_OnClicked(object sender, EventArgs e)
         {

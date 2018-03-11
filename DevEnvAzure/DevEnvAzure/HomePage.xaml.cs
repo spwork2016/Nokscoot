@@ -74,7 +74,7 @@ namespace DevEnvAzure
                var eValue = App.DAUtil.GetAllEmployees<Employee>("Employee");
                 if (eValue != null && eValue.Count > 0)
                 {
-                   DataUpload.CreateItemsOffline(eValue);
+                 //  DataUpload.CreateItemsOffline(eValue);
                 }
                 DependencyService.Get<IMessage>().LongAlert("Network Connection detected");
             }
@@ -94,7 +94,7 @@ namespace DevEnvAzure
                     var eValue = App.DAUtil.GetAllEmployees<Employee>("Employee");
                     if (eValue.Count > 0)
                     {
-                        DataUpload.CreateItemsOffline(eValue);
+                      //  DataUpload.CreateItemsOffline(eValue);
                     }
                 }
                 //   IsLoading = false;
