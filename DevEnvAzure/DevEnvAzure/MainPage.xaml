@@ -2,13 +2,9 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="DevEnvAzure.MainPage" Title="Welcome to Nokscoot">
-    <StackLayout Orientation="Vertical" VerticalOptions = "FillAndExpand" Padding="10,0"  >
+    <StackLayout Orientation="Vertical" VerticalOptions = "FillAndExpand" Padding="10,0">
         <StackLayout Orientation="Vertical" HorizontalOptions="Center">
-            <Image Source="Nokscoot.png"  Grid.Row="0"/>
+            <Image Source="logo.png"  Grid.Row="0"/>
         </StackLayout>
-        <BoxView HeightRequest="1" WidthRequest="1" BackgroundColor="Black"/>
-        <StackLayout Orientation="Vertical" HorizontalOptions="Center">
-            <Label Text="Welcome to Nokscoot" FontSize="Large" HorizontalOptions="Center" Font="Bold,20" />
-        </StackLayout>  
     </StackLayout>
 </ContentPage>

@@ -92,7 +92,6 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="NetworkConnection.cs" />
-    <Compile Include="SaveFile.cs" />
     <Compile Include="SqliteService.cs" />
     <Compile Include="MessageIOS .cs" />
     <Compile Include="Authenticator.cs" />
@@ -141,6 +140,8 @@
     <ImageAsset Include="Resources\Media.xcassets\LaunchImages.launchimage\Contents.json">
       <Visible>false</Visible>
     </ImageAsset>
+    <ImageAsset Include="Resources\Media.xcassets\AppIcons.appiconset\Contents.json" />
+    <ImageAsset Include="Resources\Media.xcassets\LaunchImages.launchimage\Contents.json" />
   </ItemGroup>
   <ItemGroup>
     <BundleResource Include="Resources\Default-568h%402x.png" />
@@ -263,18 +264,6 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <BundleResource Include="login.PNG" />
-  </ItemGroup>
-  <ItemGroup>
-    <BundleResource Include="logo.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <BundleResource Include="Hamburger_icon.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <BundleResource Include="EMP_info.png" />
-  </ItemGroup>
-  <ItemGroup>
     <ImageAsset Include="Resources\Media.xcassets\AppIcons.appiconset\120x120.png">
       <Visible>false</Visible>
     </ImageAsset>
@@ -310,25 +299,13 @@
     </ImageAsset>
   </ItemGroup>
   <ItemGroup>
-    <BundleResource Include="Nokscoot.png" />
-  </ItemGroup>
-  <ItemGroup>
     <BundleResource Include="Resources\logout.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <BundleResource Include="LoginIco.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <BundleResource Include="logout.png" />
   </ItemGroup>
   <ItemGroup>
     <BundleResource Include="Resources\EMP_info.png" />
   </ItemGroup>
   <ItemGroup>
     <BundleResource Include="Resources\icon.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <BundleResource Include="Resources\login.PNG" />
   </ItemGroup>
   <ItemGroup>
     <BundleResource Include="Resources\LoginIco.png" />
@@ -611,6 +588,36 @@
     <ImageAsset Include="Resources\Media.xcassets\AppIcons.appiconset\87x87.png">
       <Visible>false</Visible>
     </ImageAsset>
+  </ItemGroup>
+  <ItemGroup>
+    <ImageAsset Include="Resources\Media.xcassets\AppIcons.appiconset\120x120.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <ImageAsset Include="Resources\Media.xcassets\AppIcons.appiconset\180x180.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <ImageAsset Include="Resources\Media.xcassets\AppIcons.appiconset\20x20.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <ImageAsset Include="Resources\Media.xcassets\AppIcons.appiconset\29x29.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <ImageAsset Include="Resources\Media.xcassets\AppIcons.appiconset\40X40.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <ImageAsset Include="Resources\Media.xcassets\AppIcons.appiconset\58x58.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <ImageAsset Include="Resources\Media.xcassets\AppIcons.appiconset\60x60.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <ImageAsset Include="Resources\Media.xcassets\AppIcons.appiconset\80x80.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <ImageAsset Include="Resources\Media.xcassets\AppIcons.appiconset\87x87.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\logo.png" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

@@ -8,7 +8,7 @@
             <ScrollView>
                 <StackLayout>
                     <StackLayout Padding="20" Spacing="2" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand">
-                        <Image Source="Nokscoot.png" HeightRequest="150" HorizontalOptions="FillAndExpand" Margin="50"/>
+                        <Image Source="logo.png" HeightRequest="150" HorizontalOptions="FillAndExpand" Margin="50"/>
                         <Entry x:Name="Username" HeightRequest="40" Text="" Placeholder="Email" TextColor="Olive" Grid.Row="1"  Grid.Column="9" HorizontalOptions="FillAndExpand"/>
 
                         <Entry x:Name="Password" HeightRequest="40" Text="" Placeholder="Password" IsPassword="True" TextColor="Black" Grid.Row="1"  Grid.Column="9"  HorizontalOptions="FillAndExpand" />

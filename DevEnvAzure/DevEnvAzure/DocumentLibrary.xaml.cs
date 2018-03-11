@@ -1,17 +1,13 @@
 ﻿using DevEnvAzure.DataContracts;
-using DevEnvAzure.Interfaces;
 using Newtonsoft.Json;
-using PCLStorage;
 using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Threading.Tasks;
 
 using Xamarin.Forms;
-using Xamarin.Forms.Internals;
 using Xamarin.Forms.Xaml;
 
 namespace DevEnvAzure

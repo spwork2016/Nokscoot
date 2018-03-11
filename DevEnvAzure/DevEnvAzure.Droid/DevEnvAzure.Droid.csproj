@@ -229,17 +229,14 @@
     <AndroidResource Include="Resources\values\styles.xml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="login.PNG" />
     <AndroidResource Include="Resources\drawable\login.PNG" />
     <AndroidResource Include="Resources\drawable\Nokscoot.png" />
     <AndroidResource Include="Resources\drawable\EMP_info.png" />
     <AndroidResource Include="Resources\drawable\LoginIco.png" />
     <AndroidResource Include="Resources\drawable\logo.png" />
     <AndroidResource Include="Resources\drawable\logout.png" />
-    <Content Include="Nokscoot.png" />
     <AndroidResource Include="Resources\drawable\folder.png" />
     <AndroidResource Include="Resources\drawable\file.png" />
-    <Content Include="userIcon.png" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\DevEnvAzure\DevEnvAzure.csproj">

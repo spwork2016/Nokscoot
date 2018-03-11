@@ -63,7 +63,6 @@
     <Compile Include="InjuryIllnessReportView.xaml.cs">
       <DependentUpon>InjuryIllnessReportView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Interfaces\ISaveFile.cs" />
     <Compile Include="Models\CabibSafetyReport.cs" />
     <Compile Include="Models\FatigueReport.cs" />
     <Compile Include="Models\GroundSafetyReport.cs" />
