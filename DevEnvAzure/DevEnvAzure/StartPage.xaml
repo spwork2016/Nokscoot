@@ -11,7 +11,7 @@
                         <RowDefinition Height="30"/>
                     </Grid.RowDefinitions>
 
-                    <Frame CornerRadius="20" Padding="0" IsClippedToBounds="True">
+                    <Frame  Padding="0" IsClippedToBounds="True">
                         <Image x:Name="profilePic" HeightRequest="100" Aspect="AspectFill" Source="LoginIco.png"/>
                     </Frame>
                     

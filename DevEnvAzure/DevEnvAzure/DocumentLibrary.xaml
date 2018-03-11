@@ -2,7 +2,6 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="DevEnvAzure.DocumentLibrary" Title="{Binding Path=FolderPath}">
-
     <AbsoluteLayout HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
         <StackLayout AbsoluteLayout.LayoutFlags="All" AbsoluteLayout.LayoutBounds="0,0,1,1">
             <ScrollView>
@@ -17,19 +16,13 @@
                                 <DataTemplate>
                                     <ViewCell>
                                         <StackLayout VerticalOptions="FillAndExpand"
-                             Orientation="Horizontal"
-                             Padding="20,0,0,0"
-                             Spacing="10">
+                             Orientation="Horizontal" Padding="20,0,0,0" Spacing="10">
 
                                             <Image Source="{Binding Path=Icon}"
-                         WidthRequest="20"
-                         HeightRequest="20"
-                         VerticalOptions="Center" />
+                         WidthRequest="20" HeightRequest="20" VerticalOptions="Center" />
 
                                             <Label Text="{Binding Name}"
-                         FontSize="Small"
-                         VerticalOptions="Center"
-                         TextColor="Black" Margin="5"/>
+                         FontSize="Small" VerticalOptions="Center" TextColor="Black" Margin="5"/>
                                         </StackLayout>
                                     </ViewCell>
                                 </DataTemplate>
