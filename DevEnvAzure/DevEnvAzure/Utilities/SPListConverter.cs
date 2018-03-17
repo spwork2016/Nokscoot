@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 namespace DevEnvAzure.Model
 {
@@ -150,6 +151,25 @@ namespace DevEnvAzure.Model
         public string DepartmentName { get; set; }
         public string Employee_x0020_Name { get; set; }
         public string Gender { get; set; }
+
+        //Tasks
+        [JsonProperty(PropertyName = "odata.editLink")]
+        public string Link { get; set; }
+        public string Priority { get; set; }
+        public string Status { get; set; }
+        public int PercentComplete { get; set; }
+        public int AssignedToId { get; set; }
+        public string AssignedToStringId { get; set; }
+        public object Body { get; set; }
+        public object StartDate { get; set; }
+        public DateTime DueDate { get; set; }
+        public string Checkmark { get; set; }
+        public string RelatedItems { get; set; }
+        public object PreviouslyAssignedToStringId { get; set; }
+        public object TaskOutcome { get; set; }
+        public object UpdateDe { get; set; }
+        public object DEPT_x0020_CODE { get; set; }
+        public object Change_x0020_Update { get; set; }
     }
 
     public class UserProfileProperties
@@ -197,6 +217,7 @@ namespace DevEnvAzure.Model
         public string PersonalSiteHostUrl { get; set; }
         public string PersonalUrl { get; set; }
         public string PictureUrl { get; set; }
+        public int Id { get; set; }
         public string Title { get; set; }
         public UserProfileProperties UserProfileProperties { get; set; }
         public string UserUrl { get; set; }
@@ -211,6 +232,7 @@ namespace DevEnvAzure.Model
 
     public class User
     {
+        public int Id { get; set; }
         public string Name { get; set; }
         public string Email { get; set; }
         public byte[] PictureBytes { get; set; }
