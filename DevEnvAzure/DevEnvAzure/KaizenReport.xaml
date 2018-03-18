@@ -1,0 +1,127 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="DevEnvAzure.KaizenReport">
+    <ContentPage.Content>
+        <ScrollView  Orientation="Vertical" VerticalOptions="FillAndExpand" IsClippedToBounds="True">
+            <StackLayout Orientation="Vertical" VerticalOptions = "FillAndExpand" Padding="10,0" BackgroundColor="White">
+                <StackLayout x:Name="StackLayoutKaizenReport" Orientation="Vertical" VerticalOptions = "FillAndExpand"  BackgroundColor="White">
+                    <Frame   BackgroundColor="#FDCE02" >
+                        <Label x:Name="KaizenReportlbl" Opacity="5" TextColor="Black"  FontSize="Small" HorizontalOptions="Center" Text="Kaizen Report" />
+                    </Frame>
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*" />
+                            <RowDefinition Height="*" />
+                            <RowDefinition Height="*" />
+                            <RowDefinition Height="*" />
+                            <RowDefinition Height="*" />
+                            <RowDefinition Height="*" />
+                            <RowDefinition Height="*" />
+                            <RowDefinition Height="*" />
+                            <RowDefinition Height="*" />
+                            <RowDefinition Height="*" />
+                            <RowDefinition Height="*" />
+                            <RowDefinition Height="*" />
+                            <RowDefinition Height="*" />
+                            <RowDefinition Height="*" />
+                            <RowDefinition Height="*" />
+                            <RowDefinition Height="*" />
+                            <RowDefinition Height="*" />
+                            <RowDefinition Height="*" />
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+
+                        <Label x:Name="Afterlbl" Text="After" TextColor="#E65100" Grid.Row="0" Grid.Column="0" />
+                        <Entry x:Name="AfterEntry"   Text="{Binding After, Mode=TwoWay}"  TextColor="#0D47A1" Grid.Row="0" Grid.Column="1" />
+
+                        <Label x:Name="ApprovedByLbl" Text="Approved By" TextColor="#E65100" Grid.Row="1" Grid.Column="0" />
+                        <Entry x:Name="ApprovedByEntry"  Text="{Binding ApprovedBy, Mode=TwoWay}" TextColor="#0D47A1" Grid.Row="1" Grid.Column="1" />
+
+                        <Label x:Name="AreaLocationLbl" Text="Area / Location" TextColor="#E65100" Grid.Row="2" Grid.Column="0" />
+                        <Entry x:Name="AreaLocationEntry"  Text="{Binding AreaLocation, Mode=TwoWay}" TextColor="#0D47A1" Grid.Row="2" Grid.Column="1" />
+
+                        <Label x:Name="Beforelbl" Text="Before" TextColor="#E65100" Grid.Row="3" Grid.Column="0" />
+                        <Entry x:Name="BeforeEntry"   Text="{Binding Before, Mode=TwoWay}"  TextColor="#0D47A1" Grid.Row="3" Grid.Column="1" />
+
+                        <Label x:Name="BenefitsCategorylbl" Text="Benefits Category" TextColor="#E65100" Grid.Row="4" Grid.Column="0" />
+                        <Picker x:Name="BenefitsCategorypicker" SelectedIndex="{Binding BenefitsCategory,Mode=TwoWay}" SelectedIndexChanged="BenefitsCategorypicker_changed" TextColor="#0D47A1" Grid.Row="4" Grid.Column="1" HorizontalOptions="FillAndExpand">
+                            <Picker.Items>
+                                <x:String>Cost</x:String>
+                                <x:String>Customer responsiveness</x:String>
+                                <x:String>Delivery</x:String>
+                                <x:String>Efficiency</x:String>
+                                <x:String>Environment / Energy</x:String>
+                                <x:String>Morale</x:String>
+                                <x:String>Quality</x:String>
+                                <x:String>Safety / Health</x:String>
+                                <x:String>Waste</x:String>
+                                <x:String>Other</x:String>
+                            </Picker.Items>
+                        </Picker>
+
+                        <Label x:Name="BenefitsDescriptionlbl" Text="Benefits Description" TextColor="#E65100" Grid.Row="5" Grid.Column="0" />
+                        <Entry x:Name="BenefitsDescriptionEntry"   Text="{Binding BenefitsDescription, Mode=TwoWay}"  TextColor="#0D47A1" Grid.Row ="5" Grid.Column="1" />
+
+                        <Label x:Name="ContactDetailslbl" Text="Contact Details" TextColor="#E65100" Grid.Row="6" Grid.Column="0" />
+                        <Entry x:Name="ContactDetailsEntry"   Text="{Binding ContactDetails, Mode=TwoWay}"  TextColor="#0D47A1" Grid.Row="6" Grid.Column="1" />
+
+                        <Label x:Name="DateofCompletionlbl" TextColor="#E65100" Text="Date of Completion" Grid.Row="7" Grid.Column="0" />
+                        <DatePicker x:Name="DateofCompletionPicker" Date="{Binding DateofCompletion,Mode=TwoWay}" Grid.Row="7" Grid.Column="1" TextColor="#0D47A1"  >
+                            <DatePicker.Format>MM/dd/yyyy</DatePicker.Format>
+                        </DatePicker>
+
+                        <Label x:Name="DepartmentDivisionLbl" Text="Department / Division" TextColor="#E65100" Grid.Row="8" Grid.Column="0" />
+                        <Entry x:Name="DepartmentDivisionEntry"  Text="{Binding DepartmentDivision, Mode=TwoWay}" TextColor="#0D47A1" Grid.Row="8" Grid.Column="1" />
+
+                        <Label x:Name="ImplementationDatelbl" TextColor="#E65100" Text="Implementation Date" Grid.Row="9" Grid.Column="0" />
+                        <DatePicker x:Name="ImplementationDatePicker" Date="{Binding ImplementationDate,Mode=TwoWay}" Grid.Row="9" Grid.Column="1" TextColor="#0D47A1"  >
+                            <DatePicker.Format>MM/dd/yyyy</DatePicker.Format>
+                        </DatePicker>
+
+                        <Label x:Name="InitialConditionlbl" Text="Initial Condition" TextColor="#E65100" Grid.Row="10" Grid.Column="0" />
+                        <Entry x:Name="InitialConditionEntry"   Text="{Binding InitialCondition, Mode=TwoWay}"  TextColor="#0D47A1" Grid.Row="10" Grid.Column="1" />
+
+                        <Label x:Name="ProcessProjectLbl" Text="Process / Project" TextColor="#E65100" Grid.Row="11" Grid.Column="0" />
+                        <Entry x:Name="ProcessProjectEntry"  Text="{Binding ProcessProject, Mode=TwoWay}" TextColor="#0D47A1" Grid.Row="11" Grid.Column="1" />
+
+                        <Label x:Name="ReferenceLbl" Text="Reference#" TextColor="#E65100" Grid.Row="12" Grid.Column="0" />
+                        <Entry x:Name="ReferenceEntry"  Text="{Binding Reference, Mode=TwoWay}" TextColor="#0D47A1" Grid.Row="12" Grid.Column="1" />
+
+                        <Label x:Name="SolutionDescriptionlbl" Text="Solution Description" TextColor="#E65100" Grid.Row="13" Grid.Column="0" />
+                        <Entry x:Name="SolutionDescriptionEntry"   Text="{Binding SolutionDescription, Mode=TwoWay}"  TextColor="#0D47A1" Grid.Row="13" Grid.Column="1" />
+
+                        <Label x:Name="StandardizationRemarkslbl" Text="Standardization Remarks" TextColor="#E65100" Grid.Row="14" Grid.Column="0" />
+                        <Entry x:Name="StandardizationRemarksEntry"   Text="{Binding StandardizationRemarks, Mode=TwoWay}"  TextColor="#0D47A1" Grid.Row="14" Grid.Column="1" />
+
+                        <Label x:Name="SubjectLbl" Text="Subject" TextColor="#E65100" Grid.Row="15" Grid.Column="0" />
+                        <Entry x:Name="SubjectEntry"  Text="{Binding Subject, Mode=TwoWay}" TextColor="#0D47A1" Grid.Row="15" Grid.Column="1" />
+
+                        <Label x:Name="TeamMemberslbl" Text="Team Members" TextColor="#E65100" Grid.Row="16" Grid.Column="0" />
+                        <Entry x:Name="TeamMembersEntry"   Text="{Binding TeamMembers, Mode=TwoWay}"  TextColor="#0D47A1" Grid.Row="16" Grid.Column="1" />
+
+                        <Label x:Name="ValidatedByLbl" Text="Validated By" TextColor="#E65100" Grid.Row="17" Grid.Column="0" />
+                        <Entry x:Name="ValidatedByEntry"  Text="{Binding ValidatedBy, Mode=TwoWay}" TextColor="#0D47A1" Grid.Row="17" Grid.Column="1" />
+
+                    </Grid>
+                </StackLayout>
+                <StackLayout>
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*" />
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <Button x:Name="save_btn" HorizontalOptions="CenterAndExpand" Text="SAVE" BackgroundColor="#FDCE02"  Clicked="Save_clicked" Grid.Row="0" Grid.Column="0"/>
+                        <Button x:Name="savedrafts_btn" HorizontalOptions="CenterAndExpand" Text="SAVE AS DRAFT"  BackgroundColor="#FDCE02" Clicked="savedrafts_btn_Clicked" Grid.Row="0" Grid.Column="1"/>
+                    </Grid>
+                </StackLayout>
+            </StackLayout>
+        </ScrollView>
+    </ContentPage.Content>
+</ContentPage>

@@ -3,8 +3,8 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="DevEnvAzure.GroundSafetyReportView">
     <ContentView.Content>
-        <StackLayout x:Name="StackLayoutGroundSafetyReport" Orientation="Vertical" VerticalOptions = "FillAndExpand"  BackgroundColor="#FFF9C4">
-            <Frame   BackgroundColor="#FF9800" >
+        <StackLayout x:Name="StackLayoutGroundSafetyReport" Orientation="Vertical" VerticalOptions = "FillAndExpand"  BackgroundColor="White">
+            <Frame   BackgroundColor="#FDCE02" >
                 <Label x:Name="lblEnvironment" Opacity="5" TextColor="Black"  FontSize="Small" HorizontalOptions="Center" Text="Conditions Weather -  Environment" />
             </Frame>
             <Grid>
@@ -56,7 +56,7 @@
                     </Picker.Items>
                 </Picker>
             </Grid>
-            <Frame   BackgroundColor="#FF9800" >
+            <Frame   BackgroundColor="#FDCE02" >
                 <Label x:Name="lblSpecificEventsSpillEvent" Opacity="5" TextColor="Black"  FontSize="Small" HorizontalOptions="Center" Text="Specific Events - Spill Event" />
             </Frame>
             <Grid>
@@ -91,7 +91,7 @@
                     </Picker.Items>
                 </Picker>
             </Grid>
-            <Frame   BackgroundColor="#FF9800" >
+            <Frame   BackgroundColor="#FDCE02" >
                 <Label x:Name="lblLoadingEvent" Opacity="5" TextColor="Black"  FontSize="Small" HorizontalOptions="Center" Text="Loading Event" />
             </Frame>
             <Grid>
@@ -144,7 +144,7 @@
                     </Picker.Items>
                 </Picker>
             </Grid>
-            <Frame   BackgroundColor="#FF9800" >
+            <Frame   BackgroundColor="#FDCE02" >
                 <Label x:Name="lblSpecificEventsDangerousGoodsEvent" Opacity="5" TextColor="Black"  FontSize="Small" HorizontalOptions="Center" Text="Specific Events - Dangerous Goods Event" />
             </Frame>
             <Grid>

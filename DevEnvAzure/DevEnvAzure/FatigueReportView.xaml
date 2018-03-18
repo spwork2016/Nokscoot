@@ -4,8 +4,8 @@
              xmlns:controls="clr-namespace:XLabs.Forms.Controls;assembly=XLabs.Forms"
              x:Class="DevEnvAzure.FatigueReportView">
     <ContentView.Content>
-        <StackLayout x:Name="StackLayoutFatigueReport" Orientation="Vertical" VerticalOptions = "FillAndExpand"  BackgroundColor="#FFF9C4">
-            <Frame   BackgroundColor="#FF9800" >
+        <StackLayout x:Name="StackLayoutFatigueReport" Orientation="Vertical" VerticalOptions = "FillAndExpand"  BackgroundColor="White">
+            <Frame   BackgroundColor="#FDCE02" >
                 <Label x:Name="Whendidithappenlbl" Opacity="5" TextColor="Black"  FontSize="Small" HorizontalOptions="Center" Text="When did it happen?" />
             </Frame>
             <Grid>
@@ -27,7 +27,7 @@
                 <Label x:Name="Disruptlbl" Text="Disrupt" TextColor="#E65100" Grid.Row="2" Grid.Column="0" />
                 <Switch x:Name="Disruptchkbx"   HorizontalOptions="EndAndExpand"  IsToggled="{Binding disrupt, Mode=TwoWay}" Grid.Row="2" Grid.Column="1" />
             </Grid>
-            <Frame   BackgroundColor="#FF9800" >
+            <Frame   BackgroundColor="#FDCE02" >
                 <Label x:Name="Whathappenedlbl" Opacity="5" TextColor="Black"  FontSize="Small" HorizontalOptions="Center" Text="What happened?" />
             </Frame>
             <Grid>
@@ -57,7 +57,7 @@
                     </Picker.Items>
                 </Picker>
             </Grid>
-            <Frame   BackgroundColor="#FF9800" >
+            <Frame   BackgroundColor="#FDCE02" >
                 <Label x:Name="Whydidithappenlbl" Opacity="5" TextColor="Black"  FontSize="Small" HorizontalOptions="Center" Text="Why did it happen ?" />
             </Frame>
             <Grid>
@@ -90,7 +90,7 @@
                 <Entry x:Name="OtherCommentsEntry"   Text="{Binding otherComments, Mode=TwoWay}"  TextColor="#0D47A1" Grid.Row="6" Grid.Column="1" />
             </Grid>
 
-            <Frame   BackgroundColor="#FF9800" >
+            <Frame   BackgroundColor="#FDCE02" >
                 <Label x:Name="Whatdidyoudolbl" Opacity="5" TextColor="Black"  FontSize="Small" HorizontalOptions="Center" Text="What did you do ?" />
             </Frame>
             <Grid>

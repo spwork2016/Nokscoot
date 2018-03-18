@@ -67,6 +67,8 @@ namespace DevEnvAzure.Models
         { get; set; }
         public string securityEvent
         { get; set; }
+        public string policereport
+        { get; set; }
 
         //[JsonProperty(PropertyName = "Details_x0020_of_x0020_Event_x0020_/_x0020_Hazard")]
         //public string policeReport

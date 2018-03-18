@@ -27,7 +27,7 @@ namespace DevEnvAzure
             // Here you can define title for item, 
             // icon on the left side, and page that you want to open after selection
             //var page1 = new MasterPageItem() { Title = "Login", Icon = "LoginIco.png", TargetType = typeof(Login) };
-            var page2 = new MasterPageItem() { Title = "Employee Information", Icon = "EMP_info.png", TargetType = typeof(HomePage) };
+            //var page2 = new MasterPageItem() { Title = "Employee Information", Icon = "EMP_info.png", TargetType = typeof(HomePage) };
             var page3 = new MasterPageItem() { Title = "Offline Drafts", Icon = "EMP_info.png", TargetType = typeof(DraftsPage) };
             var logout = new MasterPageItem() { Title = "Logout", Icon = "logout.png" };
             var page4 = new MasterPageItem() { Title = "Safety", Icon = "EMP_info.png", TargetType = typeof(ReportsPage) };
@@ -37,8 +37,8 @@ namespace DevEnvAzure
             var editableDraftsPage = new MasterPageItem() { Title = "Editable Drafts", Icon = "EMP_info.png", TargetType = typeof(EditableDrafts) };
             var docsPage = new MasterPageItem() { Title = "Documents", Icon = "EMP_info.png", TargetType = typeof(DocumentLibrary) };
             var tasksPage = new MasterPageItem() { Title = "My Tasks", Icon = "tasks.png", TargetType = typeof(Tasks) };
-            
-            menuList.Add(page2);
+
+            //menuList.Add(page2);
             menuList.Add(page4);
             menuList.Add(KaizenReportPage);
             menuList.Add(StationInformationPage);
@@ -89,7 +89,9 @@ namespace DevEnvAzure
                 IsPresented = false;
                 DependencyService.Get<IMessage>().LongAlert("Logged out successfully.");
                 App.AuthenticationResponse = null;
-                Navigation.PushModalAsync(new Login());
+                Detail = new NavigationPage((Page)Activator.CreateInstance(typeof(Login)));
+
+                //Navigation.PushModalAsync(new Login());
                 return;
             }
 

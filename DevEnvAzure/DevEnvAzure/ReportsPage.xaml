@@ -9,7 +9,7 @@
             <Button Text="Cabin Safety Report" TextColor="White" FontSize="Medium" Clicked="CabinSafety_Clicked" BackgroundColor="#1aa1d6" />
             <Button Text="Fatigue Report" TextColor="White" FontSize="Medium" Clicked="Fatigue_Clicked" BackgroundColor="#1aa1d6" />
             <Button Text="Ground Safety Report" TextColor="White" FontSize="Medium" Clicked="GroundSafety_Clicked" BackgroundColor="#1aa1d6" />
-            <Button Text="Injury Illness Reports" TextColor="White" FontSize="Medium" Clicked="InjuryIllness_Clicked" BackgroundColor="#1aa1d6" />
+            <Button Text="Injury Illness Report" TextColor="White" FontSize="Medium" Clicked="InjuryIllness_Clicked" BackgroundColor="#1aa1d6" />
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

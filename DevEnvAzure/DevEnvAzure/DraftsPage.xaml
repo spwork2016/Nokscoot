@@ -13,28 +13,27 @@
                         <Frame  Padding="1" BackgroundColor="#31b0d5" HasShadow="True" OutlineColor="#bbb">
                             <Grid>
                                 <Grid.RowDefinitions>
-                                    <RowDefinition Height="50"/>
+                                    <RowDefinition Height="*"/>
                                     <RowDefinition Height="*"/>
                                 </Grid.RowDefinitions>
-                                <!--<Frame BackgroundColor="White" Padding="5" HasShadow="False">
-                                    --><!--<Image Source="" Aspect="AspectFill"
-                           HorizontalOptions="Center" VerticalOptions="Center" HeightRequest="80"/>--><!--
-                                </Frame>-->
+
                                 <StackLayout Grid.Row="1" Padding="5,0,5,5" Spacing="1">
-                                    <Label Text="{Binding contentID}" VerticalOptions="Center" HorizontalOptions="Center" FontSize="16" LineBreakMode="TailTruncation" 
-                           TextColor="White" FontAttributes="Bold"/>
-                                    <Label Text="OFFLine" VerticalOptions="Center" HorizontalOptions="Center" FontSize="16" LineBreakMode="TailTruncation" 
-                           TextColor="White" FontAttributes="Bold"/>
-                                    <!--<Label Text="{Binding ReportType}" HorizontalOptions="Center" VerticalOptions="Center" FontSize="12" LineBreakMode="TailTruncation"
-                           TextColor="White"/>
-                                    <Label Text="{Binding EventTitle}" FontSize="12" TextColor="White" HorizontalOptions="Center"  VerticalOptions="Center" LineBreakMode="TailTruncation"/>-->
                                     <Grid>
-                                        <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="*"/>
-                                            <ColumnDefinition Width="100"/>
-                                            <ColumnDefinition Width="*"/>
-                                        </Grid.ColumnDefinitions>
-                                        <Button Grid.Column="1" Text="Detail" VerticalOptions="Center" BorderRadius="16" FontSize="10" HeightRequest="34" BorderWidth="0" Clicked="Details_OnClicked" CommandParameter="{Binding contentIDs}"/>
+                                        <Grid.RowDefinitions>
+                                        <RowDefinition Height="*"/>
+                                    </Grid.RowDefinitions>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="*"/>
+                                    </Grid.ColumnDefinitions>
+                                       
+                                            <Label Text="{Binding contentID}" Grid.Column="0" VerticalOptions="Center" HorizontalOptions="Start" FontSize="16" LineBreakMode="TailTruncation" 
+                           TextColor="White" FontAttributes="Bold"/>
+                                    <Label Text="OFFLine" Grid.Column="1" VerticalOptions="Center" HorizontalOptions="Center" FontSize="16" LineBreakMode="TailTruncation" 
+                           TextColor="White" FontAttributes="Bold"/>
+
+                                        <Button Grid.Column="2" Text="Detail" VerticalOptions="Center" BorderRadius="16" FontSize="10" HeightRequest="34" BorderWidth="0" Clicked="Details_OnClicked" CommandParameter="{Binding Value}"/>
                                         <!--<Button Grid.Column="2" Text="Edit" VerticalOptions="Center" BorderRadius="16" FontSize="10" HeightRequest="34" BorderWidth="0" Clicked="Button_Clicked" CommandParameter="{Binding ReportType}"/>-->
                                     </Grid>
                                 </StackLayout>

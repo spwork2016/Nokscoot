@@ -15,10 +15,10 @@ namespace DevEnvAzure
         public DraftsContentPage(Button t)
         {
             InitializeComponent();
-            var listitem = (from itm in App.employees
-                            where itm.EmpId.ToString() == t.CommandParameter.ToString()
+            var listitem = (from itm in App.fullDataTablecollection
+                            where itm.Value.ToString() == t.CommandParameter.ToString()
                             select itm).SingleOrDefault();
-            List<Employee> x = new List<Employee>();
+            List<DatatableData> x = new List<DatatableData>();
             x.Add(listitem);
             EmployeeViewdetail.ItemsSource = x;
             BindingContext = this;

@@ -4,7 +4,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="DevEnvAzure.HomePage" Title="Employee Information">
     <StackLayout Padding="10,0" BackgroundColor="#FFF8E1">
-        <Frame BackgroundColor="#FF9800" >
+        <Frame BackgroundColor="#FDCE02" >
             <Label x:Name="lblname" Opacity="20" TextColor="Black" FontSize="Large" HorizontalOptions="Center" Text="EMPLOYEE INFORMATION" />
         </Frame>
         <Grid>
@@ -72,7 +72,7 @@
                 </Picker.Items>
             </Picker>
 
-            <Button Text="SAVE"  Clicked="Button_Clicked" TextColor="Black" Grid.Row="8" Grid.Column="1" BackgroundColor="#FF9800" />
+            <Button Text="SAVE"  Clicked="Button_Clicked" TextColor="Black" Grid.Row="8" Grid.Column="1" BackgroundColor="#FDCE02" />
         </Grid>
 
     </StackLayout>

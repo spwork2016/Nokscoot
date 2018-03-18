@@ -5,9 +5,41 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static DevEnvAzure.Utilities.Jsonpropertyinitialise;
 
 namespace DevEnvAzure.DataContracts
 {
+    public class Metadata1
+    {
+        public string type { get; set; }
+    }
+
+    public class ApproachType
+    {
+        public Metadata1 __metadata { get; set; }
+        public List<string> results { get; set; }
+    }
+    public class Metadata2
+    {
+        public string type { get; set; }
+    }
+
+    public class ReasonForDeviation
+    {
+        public Metadata2 __metadata { get; set; }
+        public List<string> results { get; set; }
+    }
+
+    public class Metadata3
+    {
+        public string type { get; set; }
+    }
+
+    public class IntruderACRelativePosition
+    {
+        public Metadata3 __metadata { get; set; }
+        public List<string> results { get; set; }
+    }
     class FlightSafetyReportModelSp
     {
         public FlightSafetyReportModelSp()
@@ -16,6 +48,7 @@ namespace DevEnvAzure.DataContracts
             this.__metadata.type = "SP.Data.Operational_x005f_Hazard_x005f_Event_x005f_Register_x005f_04042018ListItem";
         }
         public Metadata __metadata { get; set; }
+      
         //[PrimaryKey, AutoIncrement, Column("SafetyID")]
         //public long SafetyID
         //{ get; set; }
@@ -104,8 +137,9 @@ namespace DevEnvAzure.DataContracts
         public string ATOn
         { get; set; }
         [JsonProperty(PropertyName = "ApproachType")]
-        public string ApproachType
-        { get; set; }
+        public ApproachType ApproachType { get; set; }
+        //public string ApproachType
+        //{ get; set; }
         [JsonProperty(PropertyName = "Heading")]
         public string Heading
         { get; set; }
@@ -132,7 +166,7 @@ namespace DevEnvAzure.DataContracts
         public string FuelDumping
         { get; set; }
 
-        [JsonProperty(PropertyName = "SeatbeltSignON")]
+        [JsonProperty(PropertyName = "SeatbeltSignON.value")]
         public string SeatbeltSign
         { get; set; }
         [JsonProperty(PropertyName = "MetConditions")]
@@ -178,7 +212,7 @@ namespace DevEnvAzure.DataContracts
         public string Vertical
         { get; set; }
         [JsonProperty(PropertyName = "ReasonForDeviation")]
-        public string ReasonforDeviation
+        public ReasonForDeviation ReasonforDeviation
         { get; set; }
 
         [JsonProperty(PropertyName = "TAAlert.value")]
@@ -199,7 +233,7 @@ namespace DevEnvAzure.DataContracts
         public string Callsign
         { get; set; }
         [JsonProperty(PropertyName = "IntruderACRelativePosition")]
-        public string Relativeposition
+        public IntruderACRelativePosition Relativeposition
         { get; set; }
         [JsonProperty(PropertyName = "IntruderACBearing")]
         public string Bearing

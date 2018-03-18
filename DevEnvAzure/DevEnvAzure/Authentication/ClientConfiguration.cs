@@ -10,8 +10,12 @@ namespace DevEnvAzure
         public static ClientConfiguration Default { get { return ClientConfiguration.OneBox; } }
         public static ClientConfiguration OneBox = new ClientConfiguration()
         {
-            UserName = "Prasad.parava@sptechnophiles.com",            // Insert the correct password here for the actual test.           
-            Password = "Vada1608",
+            //UserName = "Prasad.parava@sptechnophiles.com",
+            //Password = "Vada1608",
+
+            UserName = "sreasty.korada@sptechnophiles.com",      
+            Password = "143@kleen1",
+
             ActiveDirectoryResource = "https://sptechnophiles.sharepoint.com/",
             ActiveDirectoryTenant = "https://login.microsoftonline.com/542381e6-b9d2-4fe3-a20b-e575f656c08c/oauth2/token",
             ActiveDirectoryClientAppId = "d4c9dc64-803f-4dce-842c-380ce91f60d4", //sptechnophiles            // Insert here the application secret when authenticate with AAD by the application  

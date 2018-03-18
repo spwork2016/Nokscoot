@@ -41,6 +41,11 @@ namespace DevEnvAzure
                 dbConn.CreateTable<GroundSafetyReport>();
                 dbConn.CreateTable<InjuryIllnessReport>();
 
+                //New Tables by Sravan
+                dbConn.CreateTable<KaizenReport>();
+                dbConn.CreateTable<StationInformation>();
+                dbConn.CreateTable<Models.FlightCrewVoyageRecordModel>();
+
                 dbConn.CreateTable<DatatableData>();
                 //dbConn.
             }

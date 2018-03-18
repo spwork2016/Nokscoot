@@ -5,12 +5,12 @@
   <ContentView.Content>
         <ScrollView  Orientation="Vertical" VerticalOptions="FillAndExpand" IsClippedToBounds="True">
             <!--IsClippedToBounds = "true">-->
-            <StackLayout x:Name="Stacklay" Orientation="Vertical" VerticalOptions = "FillAndExpand" Padding="10,0" BackgroundColor="#FFF9C4">
+            <StackLayout x:Name="Stacklay" Orientation="Vertical" VerticalOptions = "FillAndExpand" Padding="10,0" BackgroundColor="White">
                 <StackLayout x:Name="Stacklay1" Orientation="Vertical" VerticalOptions = "FillAndExpand" Padding="10,0">
-                    <Frame   BackgroundColor="#FF9800" >
+                    <Frame   BackgroundColor="#FDCE02" >
                         <Label x:Name="lblname1" Opacity="5" TextColor="Black"  FontSize="Small" HorizontalOptions="Center" Text="Environment" />
                     </Frame>
-                    <!--<Frame BackgroundColor="#FF9800" HeightRequest="1">
+                    <!--<Frame BackgroundColor="#FDCE02" HeightRequest="1">
                     <Label x:Name="lblname1" Opacity="5" TextColor="Black"  FontSize="Small" HorizontalOptions="Center" Text="Event Details" />
                 </Frame>-->
                     <Grid>
@@ -62,7 +62,7 @@
                     </Grid>
                 </StackLayout>
                 <StackLayout x:Name="Stacklay2" Orientation="Vertical" VerticalOptions = "FillAndExpand" Padding="10,0">
-                    <Frame BackgroundColor="#FF9800">
+                    <Frame BackgroundColor="#FDCE02">
                         <Label x:Name="lblname2" Opacity="5" TextColor="Black"  FontSize="Small" HorizontalOptions="Center" Text="Crew Information" />
                     </Frame>
                     <Grid>

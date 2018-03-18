@@ -4,8 +4,8 @@
               xmlns:controls="clr-namespace:XLabs.Forms.Controls;assembly=XLabs.Forms"
              x:Class="DevEnvAzure.CabinSafetyReportView">
     <ContentView.Content>
-        <StackLayout x:Name="StackLayoutCabinSafetyReport" Orientation="Vertical" VerticalOptions = "FillAndExpand"  BackgroundColor="#FFF9C4">
-            <Frame   BackgroundColor="#FF9800" >
+        <StackLayout x:Name="StackLayoutCabinSafetyReport" Orientation="Vertical" VerticalOptions = "FillAndExpand"  BackgroundColor="White">
+            <Frame   BackgroundColor="#FDCE02" >
                 <Label x:Name="lblSpecificEvents" Opacity="5" TextColor="Black"  FontSize="Small" HorizontalOptions="Center" Text="Specific Events" />
             </Frame>
             <Grid>

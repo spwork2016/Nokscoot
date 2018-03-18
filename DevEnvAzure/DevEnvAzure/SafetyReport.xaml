@@ -11,7 +11,7 @@
         <!--IsClippedToBounds = "true">-->
         <StackLayout Orientation="Vertical" VerticalOptions = "FillAndExpand" Padding="10,0">
         <StackLayout x:Name="Stacklay" Orientation="Vertical" VerticalOptions = "FillAndExpand" Padding="10,0">
-            <Frame BackgroundColor="#FF9800">
+            <Frame BackgroundColor="#FDCE02">
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="*" />
@@ -32,10 +32,10 @@
                 </Grid>
             </Frame>
             <StackLayout x:Name="Stacklay1" Orientation="Vertical" VerticalOptions = "FillAndExpand" Padding="10,0">
-                <Frame   BackgroundColor="#FF9800" >
+                <Frame   BackgroundColor="#FDCE02" >
                     <Label x:Name="lblname1" Opacity="5" TextColor="Black"  FontSize="Small" HorizontalOptions="Center" Text="Event Details" />
                 </Frame>
-                <!--<Frame BackgroundColor="#FF9800" HeightRequest="1">
+                <!--<Frame BackgroundColor="#FDCE02" HeightRequest="1">
                     <Label x:Name="lblname1" Opacity="5" TextColor="Black"  FontSize="Small" HorizontalOptions="Center" Text="Event Details" />
                 </Frame>-->
                 <Grid>
@@ -88,7 +88,7 @@
                 </Grid>
             </StackLayout>
             <StackLayout x:Name="Stacklay2" Orientation="Vertical" VerticalOptions = "FillAndExpand" Padding="10,0">
-                <Frame BackgroundColor="#FF9800">
+                <Frame BackgroundColor="#FDCE02">
                     <Label x:Name="lblname2" Opacity="5" TextColor="Black"  FontSize="Small" HorizontalOptions="Center" Text="Details Of Event/Hazard" />
                 </Frame>
                 <Grid>

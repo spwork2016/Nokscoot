@@ -1,0 +1,204 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="DevEnvAzure.StationInformation">
+    <ContentPage.Content>
+        <ScrollView  Orientation="Vertical" VerticalOptions="FillAndExpand" IsClippedToBounds="True">
+            <StackLayout Orientation="Vertical" VerticalOptions = "FillAndExpand" Padding="10,0" BackgroundColor="White">
+                <StackLayout x:Name="StackLayoutStationInformation" Orientation="Vertical" VerticalOptions = "FillAndExpand"  BackgroundColor="White">
+                    <Frame   BackgroundColor="#FDCE02" >
+                        <Label x:Name="GENERALlbl" Opacity="5" TextColor="Black"  FontSize="Small" HorizontalOptions="Center" Text="GENERAL" />
+                    </Frame>
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*" />
+                            <RowDefinition Height="*" />
+                            <RowDefinition Height="*" />
+                            <RowDefinition Height="*" />
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <Label x:Name="IATACodeLbl" Text="IATA Code" TextColor="#E65100" Grid.Row="0" Grid.Column="0" />
+                        <Entry x:Name="IATACodeEntry"  Text="{Binding IATACode, Mode=TwoWay}" TextColor="#0D47A1" Grid.Row="0" Grid.Column="1" />
+                        <Label x:Name="NameofAirportInfoLbl" TextColor="#E65100" Text="Name of Airport and Info" Grid.Row="1" Grid.Column="0" />
+                        <Entry x:Name="NameofAirportInfoEntry"  Text="{Binding NameofAirport, Mode=TwoWay}" TextColor="#0D47A1" Grid.Row="1" Grid.Column="1" />
+                        <Label x:Name="GMTLbl" Text="GMT" TextColor="#E65100" Grid.Row="2" Grid.Column="0" />
+                        <Entry x:Name="GMTEntry"  Text="{Binding GMT, Mode=TwoWay}" TextColor="#0D47A1" Grid.Row="2" Grid.Column="1" />
+                        <Label x:Name="TerminalAndRowLbl" Text="Terminal and Row where we operate" TextColor="#E65100" Grid.Row="3" Grid.Column="0" />
+                        <Entry x:Name="TerminalAndRowEntry"  Text="{Binding TerminalRowwhereweoperate, Mode=TwoWay}" TextColor="#0D47A1" Grid.Row="3" Grid.Column="1" />
+                    </Grid>
+                    <Frame   BackgroundColor="#FDCE02" >
+                        <Label x:Name="APPOINTEDAIRPORTPARTNERSlbl" Opacity="5" TextColor="Black"  FontSize="Small" HorizontalOptions="Center" Text="APPOINTED AIRPORT PARTNERS" />
+                    </Frame>
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*" />
+                            <RowDefinition Height="*" />
+                            <RowDefinition Height="*" />
+                            <RowDefinition Height="*" />
+                            <RowDefinition Height="*" />
+                            <RowDefinition Height="*" />
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <Label x:Name="StationRep1NameLbl" Text="Station Rep (1) Name" TextColor="#E65100" Grid.Row="0" Grid.Column="0" />
+                        <Entry x:Name="StationRep1NameEntry"  Text="{Binding StationRep1Name, Mode=TwoWay}" TextColor="#0D47A1" Grid.Row="0" Grid.Column="1" />
+                        <Label x:Name="StationRep1EmailLbl" Text="Email" TextColor="#E65100" Grid.Row="1" Grid.Column="0" />
+                        <Entry x:Name="StationRep1EmailEntry"  Text="{Binding EmailRep1, Mode=TwoWay}" TextColor="#0D47A1" Grid.Row="1" Grid.Column="1" />
+                        <Label x:Name="StationRep1TelLbl" Text="Tel" TextColor="#E65100" Grid.Row="2" Grid.Column="0" />
+                        <Entry x:Name="StationRep1TelEntry"  Text="{Binding TelRep1, Mode=TwoWay}" TextColor="#0D47A1" Grid.Row="2" Grid.Column="1" />
+                        <Label x:Name="StationRep2NameLbl" Text="Station Rep (2) Name" TextColor="#E65100" Grid.Row="3" Grid.Column="0" />
+                        <Entry x:Name="StationRep2NameEntry"  Text="{Binding StationRep2Name, Mode=TwoWay}" TextColor="#0D47A1" Grid.Row="3" Grid.Column="1" />
+                        <Label x:Name="StationRep2EmailLbl" Text="Email" TextColor="#E65100" Grid.Row="4" Grid.Column="0" />
+                        <Entry x:Name="StationRep2EmailEntry"  Text="{Binding EmailRep2, Mode=TwoWay}" TextColor="#0D47A1" Grid.Row="4" Grid.Column="1" />
+                        <Label x:Name="StationRep2TelLbl" Text="Tel" TextColor="#E65100" Grid.Row="5" Grid.Column="0" />
+                        <Entry x:Name="StationRep2TelEntry"  Text="{Binding TelRep2, Mode=TwoWay}" TextColor="#0D47A1" Grid.Row="5" Grid.Column="1" />
+                    </Grid>
+                    <Frame   BackgroundColor="#FDCE02" >
+                        <Label x:Name="NEARESTROYALTHAIEMBASSYBEIJINGlbl" Opacity="5" TextColor="Black"  FontSize="Small" HorizontalOptions="Center" Text="NEAREST ROYAL THAI EMBASSY, BEIJING" />
+                    </Frame>
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*" />
+                            <RowDefinition Height="*" />
+                            <RowDefinition Height="*" />
+                            <RowDefinition Height="*" />
+                            <RowDefinition Height="*" />
+                            <RowDefinition Height="*" />
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <Label x:Name="ThaiConsulateAddressLbl" Text="Address" TextColor="#E65100" Grid.Row="0" Grid.Column="0" />
+                        <Entry x:Name="ThaiConsulateAddressEntry"  Text="{Binding AddressThaiConsulate, Mode=TwoWay}" TextColor="#0D47A1" Grid.Row="0" Grid.Column="1" />
+                        <Label x:Name="ThaiConsulateTelLbl" Text="Tel" TextColor="#E65100" Grid.Row="1" Grid.Column="0" />
+                        <Entry x:Name="ThaiConsulateTelEntry"  Text="{Binding TelThaiConsulate, Mode=TwoWay}" TextColor="#0D47A1" Grid.Row="1" Grid.Column="1" />
+                        <Label x:Name="ThaiConsulateFaxLbl" Text="Fax" TextColor="#E65100" Grid.Row="2" Grid.Column="0" />
+                        <Entry x:Name="ThaiConsulateFaxEntry"  Text="{Binding FaxThaiConsulate, Mode=TwoWay}" TextColor="#0D47A1" Grid.Row="2" Grid.Column="1" />
+                        <Label x:Name="ThaiConsulateEmailLbl" Text="Email" TextColor="#E65100" Grid.Row="3" Grid.Column="0" />
+                        <Entry x:Name="ThaiConsulateEmailEntry"  Text="{Binding EmailThaiConsulate, Mode=TwoWay}" TextColor="#0D47A1" Grid.Row="3" Grid.Column="1" />
+                        <Label x:Name="ThaiConsulateWorkinghoursLbl" Text="Working Hours" TextColor="#E65100" Grid.Row="4" Grid.Column="0" />
+                        <Entry x:Name="ThaiConsulateWorkinghoursEntry"  Text="{Binding WorkingHoursThaiConsulate, Mode=TwoWay}" TextColor="#0D47A1" Grid.Row="4" Grid.Column="1" />
+                        <Label x:Name="CAAContactNameNumberLbl" Text="CAA Contact Name and Number" TextColor="#E65100" Grid.Row="5" Grid.Column="0" />
+                        <Entry x:Name="CAAContactNameNumberEntry"  Text="{Binding CAAContactNameNumber, Mode=TwoWay}" TextColor="#0D47A1" Grid.Row="5" Grid.Column="1" />
+                    </Grid>
+                    <Frame   BackgroundColor="#FDCE02" >
+                        <Label x:Name="LODGINGTRANSPORTlbl" Opacity="5" TextColor="Black"  FontSize="Small" HorizontalOptions="Center" Text="LODGING and TRANSPORT" />
+                    </Frame>
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*" />
+                            <RowDefinition Height="*" />
+                            <RowDefinition Height="*" />
+                            <RowDefinition Height="*" />
+                            <RowDefinition Height="*" />
+                            <RowDefinition Height="*" />
+                            <RowDefinition Height="*" />
+                            <RowDefinition Height="*" />
+                            <RowDefinition Height="*" />
+                            <RowDefinition Height="*" />
+                            <RowDefinition Height="*" />
+                            <RowDefinition Height="*" />
+                            <RowDefinition Height="*" />
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <Label x:Name="HotelNameLbl" Text="Hotel Name" TextColor="#E65100" Grid.Row="0" Grid.Column="0" />
+                        <Entry x:Name="HotelNameEntry"  Text="{Binding HotelName, Mode=TwoWay}" TextColor="#0D47A1" Grid.Row="0" Grid.Column="1" />
+                        <Label x:Name="HotelContactNameLbl" Text="Hotel Contact Name" TextColor="#E65100" Grid.Row="1" Grid.Column="0" />
+                        <Entry x:Name="HotelContactNameEntry"  Text="{Binding HotelContactName, Mode=TwoWay}" TextColor="#0D47A1" Grid.Row="1" Grid.Column="1" />
+                        <Label x:Name="HotelAddressLbl" Text="Hotel Address" TextColor="#E65100" Grid.Row="2" Grid.Column="0" />
+                        <Entry x:Name="HotelAddressEntry"  Text="{Binding Hoteladdress, Mode=TwoWay}" TextColor="#0D47A1" Grid.Row="2" Grid.Column="1" />
+                        <Label x:Name="HotelContactTelLbl" Text="Hotel Tel" TextColor="#E65100" Grid.Row="3" Grid.Column="0" />
+                        <Entry x:Name="HotelContactTelEntry"  Text="{Binding HotelTel, Mode=TwoWay}" TextColor="#0D47A1" Grid.Row="3" Grid.Column="1" />
+                        <Label x:Name="HotelContactEmailLbl" Text="Contact e-mail" TextColor="#E65100" Grid.Row="4" Grid.Column="0" />
+                        <Entry x:Name="HotelContactEmailEntry"  Text="{Binding Contactemail, Mode=TwoWay}" TextColor="#0D47A1" Grid.Row="4" Grid.Column="1" />
+                        <Label x:Name="CallTimeLbl" Text="Call time" TextColor="#E65100" Grid.Row="5" Grid.Column="0" />
+                        <Entry x:Name="CallTimeEntry"  Text="{Binding Calltime, Mode=TwoWay}" TextColor="#0D47A1" Grid.Row="5" Grid.Column="1" />
+                        <Label x:Name="HotelPickUpTimeLbl" Text="Pick up time" TextColor="#E65100" Grid.Row="6" Grid.Column="0" />
+                        <Entry x:Name="HotelPickUpTimeEntry"  Text="{Binding Pickuptime, Mode=TwoWay}" TextColor="#0D47A1" Grid.Row="6" Grid.Column="1" />
+                        <Label x:Name="TransportationContactInfoLbl" Text="Transportation contact info" TextColor="#E65100" Grid.Row="7" Grid.Column="0" />
+                        <Entry x:Name="TransportationContactInfoEntry"  Text="{Binding Transportationcontactinfo, Mode=TwoWay}" TextColor="#0D47A1" Grid.Row="7" Grid.Column="1" />
+                        <Label x:Name="DoctorAtHotelLbl" Text="Doctor at hotel" TextColor="#E65100" Grid.Row="8" Grid.Column="0" />
+                        <Entry x:Name="DoctorAtHotelEntry"  Text="{Binding Doctorathotel, Mode=TwoWay}" TextColor="#0D47A1" Grid.Row="8" Grid.Column="1" />
+                        <Label x:Name="DoctorAtAirportLbl" Text="Doctor at airport" TextColor="#E65100" Grid.Row="9" Grid.Column="0" />
+                        <Entry x:Name="DoctorAtAirportEntry"  Text="{Binding Doctoratairport, Mode=TwoWay}" TextColor="#0D47A1" Grid.Row="9" Grid.Column="1" />
+                        <Label x:Name="RecommendedHospitalLbl" Text="Recommended hospital" TextColor="#E65100" Grid.Row="10" Grid.Column="0" />
+                        <Entry x:Name="RecommendedHospitalEntry"  Text="{Binding Recommendedhospital, Mode=TwoWay}" TextColor="#0D47A1" Grid.Row="10" Grid.Column="1" />
+                        <Label x:Name="HealthConsiderationslbl" Text="Health Considerations" TextColor="#E65100" Grid.Row="11" Grid.Column="0" />
+                        <Entry x:Name="HealthConsiderationsEntry"   Text="{Binding HealthConsiderations, Mode=TwoWay}"  TextColor="#0D47A1" Grid.Row="11" Grid.Column="1" />
+                        <Label x:Name="RestaurantInfolbl" Text="Restaurant Info" TextColor="#E65100" Grid.Row="12" Grid.Column="0" />
+                        <Entry x:Name="RestaurantInfoEntry"   Text="{Binding RestaurantInfo, Mode=TwoWay}"  TextColor="#0D47A1" Grid.Row="12" Grid.Column="1" />
+                    </Grid>
+                    <Frame   BackgroundColor="#FDCE02" >
+                        <Label x:Name="OTHERSlbl" Opacity="5" TextColor="Black"  FontSize="Small" HorizontalOptions="Center" Text="OTHERS" />
+                    </Frame>
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*" />
+                            <RowDefinition Height="*" />
+                            <RowDefinition Height="*" />
+                            <RowDefinition Height="*" />
+                            <RowDefinition Height="*" />
+                            <RowDefinition Height="*" />
+                            <RowDefinition Height="*" />
+                            <RowDefinition Height="*" />
+                            <RowDefinition Height="*" />
+                            <RowDefinition Height="*" />
+                            <RowDefinition Height="*" />
+                            <RowDefinition Height="*" />
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <Label x:Name="AircraftInsecticidebyCabinCrewLbl" Text="Aircraft Insecticide by Cabin Crew" TextColor="#E65100" Grid.Row="0" Grid.Column="0" />
+                        <Entry x:Name="AircraftInsecticidebyCabinCrewEntry"  Text="{Binding AircraftInsecticidebyCabinCrew, Mode=TwoWay}" TextColor="#0D47A1" Grid.Row="0" Grid.Column="1" />
+                        <Label x:Name="BridgeConnectLbl" Text="Bridge Connect" TextColor="#E65100" Grid.Row="1" Grid.Column="0" />
+                        <Entry x:Name="BridgeConnectEntry"  Text="{Binding BridgeConnect, Mode=TwoWay}" TextColor="#0D47A1" Grid.Row="1" Grid.Column="1" />
+                        <Label x:Name="DoorOperationLbl" Text="Door Operation" TextColor="#E65100" Grid.Row="2" Grid.Column="0" />
+                        <Entry x:Name="DoorOperationEntry"  Text="{Binding DoorOperation, Mode=TwoWay}" TextColor="#0D47A1" Grid.Row="2" Grid.Column="1" />
+                        <Label x:Name="FirstLastDoorLbl" Text="First / Last Door" TextColor="#E65100" Grid.Row="3" Grid.Column="0" />
+                        <Entry x:Name="FirstLastDoorEntry"  Text="{Binding FirstLastDoor, Mode=TwoWay}" TextColor="#0D47A1" Grid.Row="3" Grid.Column="1" />
+                        <Label x:Name="EICLbl" Text="# of Equipment in Compartment (EIC)" TextColor="#E65100" Grid.Row="4" Grid.Column="0" />
+                        <Entry x:Name="EICEntry"  Text="{Binding noofEquipmentinCompartment, Mode=TwoWay}" TextColor="#0D47A1" Grid.Row="4" Grid.Column="1" />
+                        <Label x:Name="EOBlbl" Text="Engineer on board (EOB)" TextColor="#E65100" Grid.Row="5" Grid.Column="0" />
+                        <Switch x:Name="EOBchkbx"   HorizontalOptions="EndAndExpand"  IsToggled="{Binding Engineeronboard, Mode=TwoWay}" Grid.Row="5" Grid.Column="1" />
+                        <Label x:Name="DebriefingProceedToLbl" Text="Debriefing proceed to" TextColor="#E65100" Grid.Row="6" Grid.Column="0" />
+                        <Entry x:Name="DebriefingProceedToEntry"  Text="{Binding DebriefingProceedto, Mode=TwoWay}" TextColor="#0D47A1" Grid.Row="6" Grid.Column="1" />
+                        <Label x:Name="SafetyHazardsLbl" Text="Safety Hazards" TextColor="#E65100" Grid.Row="7" Grid.Column="0" />
+                        <Entry x:Name="SafetyHazardsEntry"  Text="{Binding SafetyHazards, Mode=TwoWay}" TextColor="#0D47A1" Grid.Row="7" Grid.Column="1" />
+                        <Label x:Name="RecommendedSafetyPrecautionslbl" Text="Recommended Safety precautions" TextColor="#E65100" Grid.Row="8" Grid.Column="0" />
+                        <Entry x:Name="RecommendedSafetyPrecautionsEntry"   Text="{Binding RecommendedSafetyprecautions, Mode=TwoWay}"  TextColor="#0D47A1" Grid.Row="8" Grid.Column="1" />
+                        <Label x:Name="SecurityThreatsLbl" Text="Security Threats" TextColor="#E65100" Grid.Row="9" Grid.Column="0" />
+                        <Entry x:Name="SecurityThreatsEntry"  Text="{Binding SecurityThreats, Mode=TwoWay}" TextColor="#0D47A1" Grid.Row="9" Grid.Column="1" />
+                        <Label x:Name="RecommendedSecurityPrecautionslbl" Text="Recommended Security Precautions" TextColor="#E65100" Grid.Row="10" Grid.Column="0" />
+                        <Entry x:Name="RecommendedSecurityPrecautionsEntry"   Text="{Binding RecommendedSecurityPrecautions, Mode=TwoWay}"  TextColor="#0D47A1" Grid.Row="10" Grid.Column="1" />
+                        <Label x:Name="ImmigrationCustomsConsiderationslbl" Text="Immigration / Customs Considerations" TextColor="#E65100" Grid.Row="11" Grid.Column="0" />
+                        <Entry x:Name="ImmigrationCustomsConsiderationsEntry"   Text="{Binding ImmigrationCustomsConsiderations, Mode=TwoWay}"  TextColor="#0D47A1" Grid.Row="11" Grid.Column="1" />
+                    </Grid>
+                </StackLayout>
+                <StackLayout>
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*" />
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <Button x:Name="save_btn" HorizontalOptions="CenterAndExpand" Text="SAVE" BackgroundColor="#FDCE02"  Clicked="Save_clicked" Grid.Row="0" Grid.Column="0"/>
+                        <Button x:Name="savedrafts_btn" HorizontalOptions="CenterAndExpand" Text="SAVE AS DRAFT"  BackgroundColor="#FDCE02" Clicked="savedrafts_btn_Clicked" Grid.Row="0" Grid.Column="1"/>
+                    </Grid>
+                </StackLayout>
+            </StackLayout>
+        </ScrollView>
+    </ContentPage.Content>
+</ContentPage>

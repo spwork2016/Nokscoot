@@ -1,5 +1,7 @@
-﻿using System;
+﻿using Rg.Plugins.Popup.Extensions;
+using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -10,7 +12,7 @@ using Xamarin.Forms.Xaml;
 namespace DevEnvAzure
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class FlightSafetyReportView : ContentView
+    public partial class FlightSafetyReportView : ContentView, INotifyPropertyChanged
     {
         public static string CommanderPForPMpickerValue;
         public static string FlightCrew1PFPMOBspickerValue;
@@ -30,7 +32,7 @@ namespace DevEnvAzure
         public static string NumberofbirdspickerValue;
         public static string SizeofWildlifepickerValue;
         public static string AircraftDamagepickerValue;
-
+        private static string name;
 
         public FlightSafetyReportView()
         {
@@ -126,7 +128,41 @@ namespace DevEnvAzure
             if (AircraftDamagepicker.SelectedIndex > 0)
                 AircraftDamagepickerValue = AircraftDamagepicker.Items.ElementAt(AircraftDamagepicker.SelectedIndex);
         }
+        private async void approchType_Focused(object sender, EventArgs e)
+        {
 
+           
+        }
+        private async void approachmulti_clicked(object sender, EventArgs e)
+        {
+            // ApproachTypeEntry.BindingContext = MultiSelectMenuPage1.approachvalue;
+            await Navigation.PushPopupAsync(new MultiSelectMenuPage1());
 
+            MessagingCenter.Subscribe<MultiSelectMenuPage1, string>(this, "Hi", (sender1, arg) => {
+                ApproachTypeEntry.Text = arg.ToString();
+            });
+        }
+        private async void reasondeviamulti_clicked(object sender, EventArgs e)
+        {
+            // ApproachTypeEntry.BindingContext = MultiSelectMenuPage1.approachvalue;
+            await Navigation.PushPopupAsync(new ReasonforDeviationMultiSelect());
+
+            MessagingCenter.Subscribe<ReasonforDeviationMultiSelect, string>(this, "Hi", (sender1, arg) => {
+                ReasonforDeviationEntry.Text = arg.ToString();
+            });
+        }
+        private async void RealtivePosimulti_clicked(object sender, EventArgs e)
+        {
+            // ApproachTypeEntry.BindingContext = MultiSelectMenuPage1.approachvalue;
+            await Navigation.PushPopupAsync(new IntruderRelativePositionMultiSelect());
+
+            MessagingCenter.Subscribe<IntruderRelativePositionMultiSelect, string>(this, "Hi", (sender1, arg) => {
+                RelativepositionEntry.Text = arg.ToString();
+            });
+        }
+        private async void unf(object sender, EventArgs e)
+        {
+            //  
+        }
     }
 }

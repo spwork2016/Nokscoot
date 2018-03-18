@@ -19,29 +19,41 @@ namespace DevEnvAzure
 
         private async void Button_Clicked(object sender, EventArgs e)
         {
-            await Navigation.PushAsync(new SSIRShortForm(new Models.SafetyReportModel(), "safety"));
+            var sft = new Models.FlightSafetyReportModel();
+            sft.DateOfEvent = DateTime.Now;
+            await Navigation.PushAsync(new SSIRShortForm(sft, "safety"));
         }
 
         private async void Security_Clicked(object sender, EventArgs e)
         {
-            await Navigation.PushAsync(new SSIRShortForm(new Models.SecurityModel(), "security"));
+            var scrt = new Models.SecurityModel();
+            scrt.DateOfEvent = DateTime.Now;
+            await Navigation.PushAsync(new SSIRShortForm(scrt, "security"));
         }
         private async void CabinSafety_Clicked(object sender, EventArgs e)
         {
+            var sft = new Models.CabibSafetyReport();
+            sft.DateOfEvent = DateTime.Now;
             await Navigation.PushAsync(new SSIRShortForm(new Models.CabibSafetyReport(), "cabin"));
         }
         private async void Fatigue_Clicked(object sender, EventArgs e)
         {
-            await Navigation.PushAsync(new SSIRShortForm(new Models.FatigueReport(), "fatigue"));
+            var cbn = new Models.FlightSafetyReportModel();
+            cbn.DateOfEvent = DateTime.Now;
+            await Navigation.PushAsync(new SSIRShortForm(cbn, "fatigue"));
         }
         private async void GroundSafety_Clicked(object sender, EventArgs e)
         {
-            await Navigation.PushAsync(new SSIRShortForm(new Models.GroundSafetyReport(), "ground"));
+            var grnd = new Models.GroundSafetyReport();
+            grnd.DateOfEvent = DateTime.Now;
+            await Navigation.PushAsync(new SSIRShortForm(grnd, "ground"));
         }
 
         private async void InjuryIllness_Clicked(object sender, EventArgs e)
         {
-            await Navigation.PushAsync(new SSIRShortForm(new Models.InjuryIllnessReport(), "Injury"));
+            var injr = new Models.InjuryIllnessReport();
+            injr.DateOfEvent = DateTime.Now;
+            await Navigation.PushAsync(new SSIRShortForm(injr, "Injury"));
         }
     }
 }
