@@ -9,8 +9,10 @@
                 <ScrollView>
                     <StackLayout>
                         <StackLayout VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand">
-                            <Label x:Name="lblNoData" IsVisible="False" FontSize="Medium" Style="{DynamicResource TitleStyle}"
+                            <StackLayout IsVisible="False" x:Name="lblNoData" VerticalOptions="Start" HorizontalOptions="FillAndExpand" Margin="10">
+                                <Label FontSize="Medium" Style="{DynamicResource TitleStyle}"
                                                                 VerticalOptions="Center" TextColor="Black" Text="No tasks were assigned!"/>
+                            </StackLayout>
                             <ListView  x:Name="lstTasks" ItemsSource="{Binding Items}"
                                 local:MultiSelectListView.IsMultiSelect="True">
                                 <ListView.ItemTemplate>
