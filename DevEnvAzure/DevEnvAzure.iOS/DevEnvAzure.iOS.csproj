@@ -226,14 +226,14 @@
       <HintPath>..\..\packages\SQLite.Net-PCL.3.1.1\lib\Xamarin.iOS10\SQLite.Net.Platform.XamarinIOS.Unified.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Syncfusion.SfAutoComplete.iOS, Version=16.1451.0.24, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Syncfusion.Xamarin.SfAutoComplete.16.1.0.24\lib\Xamarin.iOS10\Syncfusion.SfAutoComplete.iOS.dll</HintPath>
+    <Reference Include="Syncfusion.SfAutoComplete.iOS, Version=16.1451.0.26, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Syncfusion.Xamarin.SfAutoComplete.16.1.0.26\lib\Xamarin.iOS10\Syncfusion.SfAutoComplete.iOS.dll</HintPath>
     </Reference>
-    <Reference Include="Syncfusion.SfAutoComplete.XForms, Version=16.1451.0.24, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Syncfusion.Xamarin.SfAutoComplete.16.1.0.24\lib\Xamarin.iOS10\Syncfusion.SfAutoComplete.XForms.dll</HintPath>
+    <Reference Include="Syncfusion.SfAutoComplete.XForms, Version=16.1451.0.26, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Syncfusion.Xamarin.SfAutoComplete.16.1.0.26\lib\Xamarin.iOS10\Syncfusion.SfAutoComplete.XForms.dll</HintPath>
     </Reference>
-    <Reference Include="Syncfusion.SfAutoComplete.XForms.iOS, Version=16.1451.0.24, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Syncfusion.Xamarin.SfAutoComplete.16.1.0.24\lib\Xamarin.iOS10\Syncfusion.SfAutoComplete.XForms.iOS.dll</HintPath>
+    <Reference Include="Syncfusion.SfAutoComplete.XForms.iOS, Version=16.1451.0.26, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Syncfusion.Xamarin.SfAutoComplete.16.1.0.26\lib\Xamarin.iOS10\Syncfusion.SfAutoComplete.XForms.iOS.dll</HintPath>
     </Reference>
     <Reference Include="Syncfusion.SfBusyIndicator.iOS, Version=16.1451.0.24, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Syncfusion.Xamarin.SfBusyIndicator.16.1.0.24\lib\Xamarin.iOS10\Syncfusion.SfBusyIndicator.iOS.dll</HintPath>

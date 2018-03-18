@@ -1,6 +1,8 @@
 ﻿using DevEnvAzure.Model;
+using DevEnvAzure.Models;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -16,7 +18,6 @@ namespace DevEnvAzure
     {
         public List<MasterPageItem> menuList { get; set; }
         public string UserTitle { get; set; }
-        public string profilePicUrl { get; set; }
 
         public StartPage()
         {
@@ -54,25 +55,16 @@ namespace DevEnvAzure
 
             // Initial navigation, this can be used for our home page
             Detail = new NavigationPage((Page)Activator.CreateInstance(App.AuthenticationResponse != null ? typeof(MainPage) : typeof(Login)));
-            //    Detail = new NavigationPage(new Login());
-            //    IsPresented = false;
 
-            profilePicUrl = "LoginIco.png";
+
         }
 
         protected override async void OnAppearing()
         {
-            if (App.CurrentUser == null)
+            if (App.AuthenticationResponse != null)
             {
-                //await OAuthHelper.GetUserInfo();
-                //profilePicUrl = App.CurrentUser.PictureUrl;
-                //profilePic.Source = new UriImageSource
-                //{
-                //    Uri = new Uri(App.CurrentUser.PictureUrl),
-                //    CachingEnabled = true,
-                //    CacheValidity = new TimeSpan(5, 0, 0, 0)
-                //};
-
+                var users = await SPUtility.GetUsersForPicker();
+                App.peoplePickerDataSource = new List<PeoplePicker>(users);
             }
 
             loggrInUser.Text = App.CurrentUser?.Name;

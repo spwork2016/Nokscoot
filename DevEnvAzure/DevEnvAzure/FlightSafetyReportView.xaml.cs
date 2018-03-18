@@ -37,6 +37,7 @@ namespace DevEnvAzure
         public FlightSafetyReportView()
         {
             InitializeComponent();
+            peoplePickerCommander.DataSource = App.peoplePickerDataSource;
         }
         private void CommanderPForPMpicker_changed(object sender, EventArgs e)
         {
@@ -131,14 +132,15 @@ namespace DevEnvAzure
         private async void approchType_Focused(object sender, EventArgs e)
         {
 
-           
+
         }
         private async void approachmulti_clicked(object sender, EventArgs e)
         {
             // ApproachTypeEntry.BindingContext = MultiSelectMenuPage1.approachvalue;
             await Navigation.PushPopupAsync(new MultiSelectMenuPage1());
 
-            MessagingCenter.Subscribe<MultiSelectMenuPage1, string>(this, "Hi", (sender1, arg) => {
+            MessagingCenter.Subscribe<MultiSelectMenuPage1, string>(this, "Hi", (sender1, arg) =>
+            {
                 ApproachTypeEntry.Text = arg.ToString();
             });
         }
@@ -147,7 +149,8 @@ namespace DevEnvAzure
             // ApproachTypeEntry.BindingContext = MultiSelectMenuPage1.approachvalue;
             await Navigation.PushPopupAsync(new ReasonforDeviationMultiSelect());
 
-            MessagingCenter.Subscribe<ReasonforDeviationMultiSelect, string>(this, "Hi", (sender1, arg) => {
+            MessagingCenter.Subscribe<ReasonforDeviationMultiSelect, string>(this, "Hi", (sender1, arg) =>
+            {
                 ReasonforDeviationEntry.Text = arg.ToString();
             });
         }
@@ -156,7 +159,8 @@ namespace DevEnvAzure
             // ApproachTypeEntry.BindingContext = MultiSelectMenuPage1.approachvalue;
             await Navigation.PushPopupAsync(new IntruderRelativePositionMultiSelect());
 
-            MessagingCenter.Subscribe<IntruderRelativePositionMultiSelect, string>(this, "Hi", (sender1, arg) => {
+            MessagingCenter.Subscribe<IntruderRelativePositionMultiSelect, string>(this, "Hi", (sender1, arg) =>
+            {
                 RelativepositionEntry.Text = arg.ToString();
             });
         }

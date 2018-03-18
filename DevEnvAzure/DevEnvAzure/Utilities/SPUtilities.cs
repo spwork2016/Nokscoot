@@ -1,5 +1,7 @@
 ﻿using DevEnvAzure.Model;
+using DevEnvAzure.Models;
 using Newtonsoft.Json;
+using Plugin.Connectivity;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -47,26 +49,44 @@ namespace DevEnvAzure
             return null;
         }
 
-        public static async Task<List<string>> GetUsersForPicker()
+        private static List<PeoplePicker> ResponseToUsers(string response)
+        {
+            var spData = JsonConvert.DeserializeObject<SPData>(response, new JsonSerializerSettings { DateParseHandling = DateParseHandling.None });
+            if (spData != null && spData.d.results.Count > 0)
+            {
+                List<PeoplePicker> usrs = new List<PeoplePicker>();
+                foreach (var item in spData.d.results)
+                {
+                    if (!string.IsNullOrEmpty(item.Email) && usrs.FirstOrDefault(x => x.Id == item.Id) == null)
+                        usrs.Add(new PeoplePicker { Name = item.Title, Id = item.Id, LoginName = item.LoginName });
+                }
+
+                return usrs;
+            }
+
+            return null;
+        }
+
+        public static async Task<List<PeoplePicker>> GetUsersForPicker()
         {
             var client = OAuthHelper.GetHTTPClient();
 
             try
             {
+
+                if (!CrossConnectivity.Current.IsConnected)
+                {
+                    var userInfo = App.DAUtil.GetMasterInfoByName("Users");
+                    if (userInfo != null)
+                        return ResponseToUsers(userInfo.content);
+                }
+
                 var response = await client.GetStringAsync(ClientConfiguration.Default.SPRootURL + "web/siteusers?");
                 if (response != null)
                 {
                     App.DAUtil.RefreshMasterInfo(new MasterInfo { Name = "Users", content = response });
-                    var spData = JsonConvert.DeserializeObject<SPData>(response, new JsonSerializerSettings { DateParseHandling = DateParseHandling.None });
-                    if (spData != null && spData.d.results.Count > 0)
-                    {
-                        List<string> usrs = new List<string>();
-                        foreach (var item in spData.d.results)
-                        {
-                            usrs.Add(item.Title);
-                        }
-                        return usrs;
-                    }
+                    return ResponseToUsers(response);
+
                 }
             }
             catch (Exception ex)

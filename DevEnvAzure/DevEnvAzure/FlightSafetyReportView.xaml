@@ -2,6 +2,7 @@
 <ContentView xmlns="http://xamarin.com/schemas/2014/forms" 
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:controls="clr-namespace:XLabs.Forms.Controls;assembly=XLabs.Forms"
+             xmlns:autocomplete="clr-namespace:Syncfusion.SfAutoComplete.XForms;assembly=Syncfusion.SfAutoComplete.XForms"
              x:Class="DevEnvAzure.FlightSafetyReportView">
     <ContentView.Content>
         <StackLayout x:Name="StackLayoutFlightSafetyReport" Orientation="Vertical" VerticalOptions = "FillAndExpand"  BackgroundColor="White">
@@ -32,6 +33,7 @@
                 </Picker>
                 <!-- People Picker-->
                 <Label x:Name="CommandersEmaillbl" Text="Commander's Email" TextColor="#E65100" Grid.Row="1" Grid.Column="0" />
+                <autocomplete:SfAutoComplete x:Name="peoplePickerCommander" DisplayMemberPath="Name" ShowClearButton="True" Grid.Row="1" Grid.Column="1"/>
                 <!-- People Picker-->
                 <Label x:Name="FlightCrew1Emaillbl" Text="Flight Crew 1 Email" TextColor="#E65100" Grid.Row="2" Grid.Column="0" />
 
@@ -162,7 +164,7 @@
                 <Switch x:Name="SeatbeltSignchkbx"  IsToggled="{Binding SeatbeltSign, Mode=TwoWay}"  HorizontalOptions="EndAndExpand"   Grid.Row="12" Grid.Column="2" />
 
             </Grid>
-           <Frame   BackgroundColor="#FDCE02" >
+            <Frame   BackgroundColor="#FDCE02" >
                 <Label x:Name="EnvironmentLbl" Opacity="5" TextColor="Black"  FontSize="Small" HorizontalOptions="Center" Text="Environment" />
             </Frame>
             <Grid>
@@ -231,7 +233,7 @@
                     </Picker.Items>
                 </Picker>
             </Grid>
-             <Frame   BackgroundColor="#FDCE02" >
+            <Frame   BackgroundColor="#FDCE02" >
                 <Label x:Name="AirportLbl" Opacity="5" TextColor="Black"  FontSize="Small" HorizontalOptions="Center" Text="Airport" />
             </Frame>
             <Grid>
@@ -262,7 +264,7 @@
                     </Picker.Items>
                 </Picker>
             </Grid>
-             <Frame   BackgroundColor="#FDCE02" >
+            <Frame   BackgroundColor="#FDCE02" >
                 <Label x:Name="SpecificEventsLbl" Opacity="5" TextColor="Black"  FontSize="Small" HorizontalOptions="Center" Text="Specific Events - ATC / TCAS / Deviation" />
             </Frame>
             <Grid>
@@ -327,7 +329,7 @@
                 <Label x:Name="FrequencyLbl" Text="Frequency" TextColor="#E65100" Grid.Row="14" Grid.Column="0" />
                 <Entry x:Name="FrequencyEntry"   Text="{Binding Frequency, Mode=TwoWay}"  TextColor="#0D47A1" Grid.ColumnSpan="2" Grid.Row="14" Grid.Column="1" />
             </Grid>
-                  <Frame   BackgroundColor="#FDCE02" >
+            <Frame   BackgroundColor="#FDCE02" >
                 <Label x:Name="EGPWSEventLbl" Opacity="5" TextColor="Black"  FontSize="Small" HorizontalOptions="Center" Text="Specific Events - EGPWS Event" />
             </Frame>
             <Grid>

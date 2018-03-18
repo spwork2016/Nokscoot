@@ -20,6 +20,7 @@ namespace DevEnvAzure
         public static User CurrentUser = null;
         static DataAccess dbUtils;
         public static AuthenticationContext authcontext = null;
+        public static List<PeoplePicker> peoplePickerDataSource;
         public static ObservableCollection<Employee> employees = new ObservableCollection<Employee>();
         public static ObservableCollection<DatatableData> fullDataTablecollection = new ObservableCollection<DatatableData>();
         public static ObservableCollection<object> savedDrafts = new ObservableCollection<object>();
