@@ -1,39 +1,32 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="DevEnvAzure.Tasks">
+             x:Class="DevEnvAzure.Tasks"
+             xmlns:local="clr-namespace:DevEnvAzure.Controls">
     <ContentPage.Content>
         <AbsoluteLayout HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
             <StackLayout AbsoluteLayout.LayoutFlags="All" AbsoluteLayout.LayoutBounds="0,0,1,1">
                 <ScrollView>
                     <StackLayout>
                         <StackLayout VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand">
-                            <ListView x:Name="taskList" HasUnevenRows="True" ItemSelected="taskList_ItemSelected">
+                            <Label x:Name="lblNoData" IsVisible="False" FontSize="Medium" Style="{DynamicResource TitleStyle}"
+                                                                VerticalOptions="Center" TextColor="Black" Text="No tasks were assigned!"/>
+                            <ListView  x:Name="lstTasks" ItemsSource="{Binding Items}"
+                                local:MultiSelectListView.IsMultiSelect="True">
                                 <ListView.ItemTemplate>
                                     <DataTemplate>
-                                        <ViewCell>
-                                            <StackLayout VerticalOptions="FillAndExpand"
-                             Orientation="Horizontal" Spacing="10">
-                                                <Grid Padding="10">
-                                                    <Grid.RowDefinitions>
-                                                        <RowDefinition Height="20" />
-                                                        <RowDefinition Height="30" />
-                                                    </Grid.RowDefinitions>
-                                                    <Grid.ColumnDefinitions>
-                                                        <ColumnDefinition Width="Auto" />
-                                                        <ColumnDefinition Width="Auto" />
-                                                    </Grid.ColumnDefinitions>
-
-                                                    <Label Text="{Binding Title}" Grid.Row="0" FontSize="Medium" Style="{DynamicResource TitleStyle}"
-                                                                VerticalOptions="Center" TextColor="Black"/>
-
-                                                    <Label Text="{Binding Status}" Grid.Row="1" Grid.Column="0"
-                         FontSize="Small" VerticalOptions="Center" TextColor="Black"/>
-                                                    <Label Text="{Binding DueDate, StringFormat='{0:MMMM dd, yyyy}'}" Grid.Row="1" Grid.Column="1"
-                         FontSize="Small" VerticalOptions="Center" TextColor="OrangeRed"/>
-                                                </Grid>
-                                            </StackLayout>
-                                        </ViewCell>
+                                        <local:SelectableViewCell Appearing="SelectableViewCell_Appearing">
+                                            <Grid Grid.Row="0">
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="*" />
+                                                    <ColumnDefinition Width="Auto" />
+                                                </Grid.ColumnDefinitions>
+                                                <Label Text="{Binding Title}" Grid.Row="0" Grid.Column="0" FontSize="Small" TextColor="Black"
+                                                                VerticalOptions="StartAndExpand" />
+                                                <Label Text="{Binding DueDate, StringFormat='{0:MMMM dd, yyyy}'}" Grid.Row="1" Grid.Column="0"
+                         FontSize="Micro" VerticalOptions="Center" TextColor="Black" LineBreakMode="TailTruncation"/>
+                                            </Grid>
+                                        </local:SelectableViewCell>
                                     </DataTemplate>
                                 </ListView.ItemTemplate>
                             </ListView>
@@ -52,6 +45,6 @@
         </AbsoluteLayout>
     </ContentPage.Content>
     <ContentPage.ToolbarItems>
-        <ToolbarItem x:Name="tBarItemBackBtn"></ToolbarItem>
+        <ToolbarItem x:Name="tBarItemBackBtn" Text="Mark as Complete" Activated="tBarItemBackBtn_Activated"></ToolbarItem>
     </ContentPage.ToolbarItems>
 </ContentPage>

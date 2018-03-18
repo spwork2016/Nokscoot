@@ -1,4 +1,5 @@
-﻿using DevEnvAzure.Model;
+﻿using DevEnvAzure.Controls;
+using DevEnvAzure.Model;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -7,7 +8,7 @@ using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
-
+using System.Windows.Input;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -17,42 +18,87 @@ namespace DevEnvAzure
     public partial class Tasks : ContentPage
     {
         readonly string SPTasksURL = "{0}GetByTitle('Read and Sign Confirmation')/Items?$filter=PercentComplete eq 0 and AssignedToId eq {1}";
+        private bool enableMultiSelect;
+        private bool EmptyData;
         public Tasks()
         {
             if (!OAuthHelper.IsLoggedIn()) Navigation.PushAsync(new Login());
 
             SPTasksURL = string.Format(SPTasksURL, ClientConfiguration.Default.SPRootURLList, App.CurrentUser.Id);
             InitializeComponent();
+
+            enableMultiSelect = true;
+            Items = new SelectableObservableCollection<Result>(new List<Result>());
+            //AddItemCommand = new Command(OnAddItem);
+            RemoveSelectedCommand = new Command(OnRemoveSelected);
+            ToggleSelectionCommand = new Command(OnToggleSelection);
+
             BindingContext = this;
+        }
+
+        public bool EnableMultiSelect
+        {
+            get { return enableMultiSelect; }
+            set
+            {
+                enableMultiSelect = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public SelectableObservableCollection<Result> Items { get; }
+
+        public ICommand AddItemCommand { get; }
+
+        public ICommand RemoveSelectedCommand { get; }
+
+        public ICommand ToggleSelectionCommand { get; }
+
+        private void OnAddItem()
+        {
+            // Items.Add(Guid.NewGuid().ToString());
+        }
+
+        private void OnRemoveSelected()
+        {
+            var selectedItems = Items.SelectedItems.ToArray();
+            foreach (var item in selectedItems)
+            {
+                Items.Remove(item);
+            }
+        }
+
+        private void OnToggleSelection()
+        {
+            foreach (var item in Items)
+            {
+                item.IsSelected = !item.IsSelected;
+            }
         }
 
         protected override async void OnAppearing()
         {
             IsBusy = true;
-            await GetTasks();
+            var data = await GetTasks();
+            foreach (var item in data)
+            {
+                Items.Add(item);
+            }
+            IsBusy = false;
+            ToggleVisibility();
         }
 
-        private void taskList_ItemSelected(object sender, SelectedItemChangedEventArgs e)
+        private void ToggleVisibility()
         {
-            if (e.SelectedItem == null) return;
-            Device.BeginInvokeOnMainThread(async () =>
-            {
-                var result = await this.DisplayAlert("Alert!", "Set the task status as completed?", "Yes", "No");
-                if (result)
-                {
-                    IsBusy = true;
-                    var item = (Result)e.SelectedItem;
-                    await CompleteTheTask(item);
-                }
-                else
-                {
-                    taskList.SelectedItem = null;
-                }
-            });
+            EmptyData = Items.Count == 0;
+            tBarItemBackBtn.Text = EmptyData ? "" : "Mark as Complete";
+            lblNoData.IsVisible = EmptyData;
+            lstTasks.IsVisible = !EmptyData;
         }
 
         private async Task CompleteTheTask(Result item)
         {
+            IsBusy = true;
             var client = OAuthHelper.GetHTTPClient();
 
             var data = new DataContracts.TaskSp();
@@ -72,28 +118,20 @@ namespace DevEnvAzure
             contents.Headers.Add("X-HTTP-Method", "MERGE");
             client.DefaultRequestHeaders.Add("If-Match", "*");
 
-            var postResult = client.PostAsync(item.__metadata.uri, contents).Result;
+            var postResult = await client.PostAsync(item.__metadata.uri, contents);
             if (!postResult.IsSuccessStatusCode)
             {
                 var httpErrorObject = postResult.Content.ReadAsStringAsync().Result;
             }
             else
             {
-                await GetTasks();
+                IsBusy = false;
+                Items.Remove(item);
+                ToggleVisibility();
             }
-
-            //var body = JsonConvert.SerializeObject(data, Formatting.None,
-            //        new JsonSerializerSettings
-            //        {
-            //            NullValueHandling = NullValueHandling.Ignore
-            //        });
-            //var contents = new System.Net.Http.StringContent(body);
-            //contents.Headers.ContentType = MediaTypeHeaderValue.Parse("application/json;odata=verbose");
-
-            //var response = await client.PostAsync(SPTasksURL, contents);
         }
 
-        private async Task GetTasks()
+        private async Task<IList<Result>> GetTasks()
         {
             try
             {
@@ -105,11 +143,7 @@ namespace DevEnvAzure
                     var spData = JsonConvert.DeserializeObject<SPData>(response, new JsonSerializerSettings { DateParseHandling = DateParseHandling.None });
                     if (spData != null)
                     {
-                        taskList.ItemsSource = spData.d.results;
-                        Device.BeginInvokeOnMainThread(() =>
-                        {
-                            IsBusy = false;
-                        });
+                        return spData.d.results;
                     }
                 }
             }
@@ -120,7 +154,36 @@ namespace DevEnvAzure
                     IsBusy = false;
                 });
             }
+            return null;
+        }
 
+        private async void tBarItemBackBtn_Activated(object sender, EventArgs e)
+        {
+            var lst = Items.SelectedItems.ToArray();
+            if (lst.Length == 0)
+            {
+                DependencyService.Get<IMessage>().ShortAlert("No tasks were selected");
+                return;
+            }
+
+            IsBusy = true;
+            foreach (Result item in lst)
+            {
+                await CompleteTheTask(item);
+            }
+
+        }
+
+        private bool isRowEven;
+        private void SelectableViewCell_Appearing(object sender, EventArgs e)
+        {
+            var viewCell = (ViewCell)sender;
+            if (viewCell.View != null)
+            {
+                viewCell.View.BackgroundColor = Xamarin.Forms.Color.FromHex(isRowEven ? "#FDCE02" : "#FFFFF");
+            }
+
+            this.isRowEven = !this.isRowEven;
         }
     }
 }
