@@ -71,11 +71,6 @@ namespace DevEnvAzure
                 if (authResponse != null)
                 {
                     App.AuthenticationResponse = authResponse;
-                    byte[] picResponse = await GetPicture(username, password);
-                    if (picResponse != null)
-                    {
-                        App.CurrentUser.PictureBytes = picResponse;
-                    }
                 }
 
                 //try
@@ -151,14 +146,14 @@ namespace DevEnvAzure
 
             try
             {
-                var response = await client.GetStringAsync(ClientConfiguration.Default.SPRootURL + "SP.UserProfiles.PeopleManager/GetMyProperties");
+                var response = await client.GetStringAsync(ClientConfiguration.Default.SPRootURL + "web/currentuser");
                 if (response != null)
                 {
                     App.DAUtil.RefreshMasterInfo(new MasterInfo { Name = "UserInfo", content = response });
                     var spData = JsonConvert.DeserializeObject<SPData>(response, new JsonSerializerSettings { DateParseHandling = DateParseHandling.None });
                     if (spData != null)
                     {
-                        App.CurrentUser = new User { Name = spData.d.DisplayName, Email = spData.d.Email, PictureBytes = GetPicture(username, password).Result };
+                        App.CurrentUser = new User { Id = spData.d.Id, Name = spData.d.Title, Email = spData.d.Email, PictureBytes = GetPicture(username, password).Result };
                     }
                 }
 
@@ -211,6 +206,7 @@ namespace DevEnvAzure
                 if (userInfo != null)
                 {
                     var spData = JsonConvert.DeserializeObject<SPData>(auth.content, new JsonSerializerSettings { DateParseHandling = DateParseHandling.None });
+                    if(spData.d!=null)
                     App.CurrentUser = new User { Name = spData.d.Title, Email = spData.d.Email };
                 }
             }

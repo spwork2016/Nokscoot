@@ -28,19 +28,26 @@ namespace DevEnvAzure
             // icon on the left side, and page that you want to open after selection
             //var page1 = new MasterPageItem() { Title = "Login", Icon = "LoginIco.png", TargetType = typeof(Login) };
             var page2 = new MasterPageItem() { Title = "Employee Information", Icon = "EMP_info.png", TargetType = typeof(HomePage) };
-            var page3 = new MasterPageItem() { Title = "Employee Drafts", Icon = "EMP_info.png", TargetType = typeof(DraftsPage) };
+            var page3 = new MasterPageItem() { Title = "Offline Drafts", Icon = "EMP_info.png", TargetType = typeof(DraftsPage) };
             var logout = new MasterPageItem() { Title = "Logout", Icon = "logout.png" };
             var page4 = new MasterPageItem() { Title = "Safety", Icon = "EMP_info.png", TargetType = typeof(ReportsPage) };
+            var KaizenReportPage = new MasterPageItem() { Title = "Kaizen", Icon = "EMP_info.png", TargetType = typeof(KaizenReport) };
+            var StationInformationPage = new MasterPageItem() { Title = "Station Information", Icon = "EMP_info.png", TargetType = typeof(StationInformation) };
+            var FlightCrewVoyageRecordPage = new MasterPageItem() { Title = "Flight Crew Voyage", Icon = "EMP_info.png", TargetType = typeof(FlightCrewVoyageRecord) };
             var editableDraftsPage = new MasterPageItem() { Title = "Editable Drafts", Icon = "EMP_info.png", TargetType = typeof(EditableDrafts) };
-            var docPage = new MasterPageItem() { Title = "Documents", Icon = "EMP_info.png", TargetType = typeof(DocumentLibrary) };
+            var docsPage = new MasterPageItem() { Title = "Documents", Icon = "EMP_info.png", TargetType = typeof(DocumentLibrary) };
+            var tasksPage = new MasterPageItem() { Title = "My Tasks", Icon = "tasks.png", TargetType = typeof(Tasks) };
+            
             menuList.Add(page2);
             menuList.Add(page4);
+            menuList.Add(KaizenReportPage);
+            menuList.Add(StationInformationPage);
+            menuList.Add(FlightCrewVoyageRecordPage);
             menuList.Add(page3);
             menuList.Add(editableDraftsPage);
-            menuList.Add(docPage);
+            menuList.Add(docsPage);
+            menuList.Add(tasksPage);
             menuList.Add(logout);
-
-
 
             // Setting our list to be ItemSource for ListView in MainPage.xaml
             navigationDrawerList.ItemsSource = menuList;
@@ -76,10 +83,10 @@ namespace DevEnvAzure
         private void OnMenuItemSelected(object sender, SelectedItemChangedEventArgs e)
         {
             var item = (MasterPageItem)e.SelectedItem;
-            IsPresented = false;
 
             if (item.Title == "Logout")
             {
+                IsPresented = false;
                 DependencyService.Get<IMessage>().LongAlert("Logged out successfully.");
                 App.AuthenticationResponse = null;
                 Navigation.PushModalAsync(new Login());
@@ -92,7 +99,15 @@ namespace DevEnvAzure
                 return;
             }
 
-            Detail = new NavigationPage((Page)Activator.CreateInstance(item.TargetType));
+            if (item.SubMenuDataSource != null)
+            {
+                //   item.IsSubMenuVisible = !item.IsSubMenuVisible;
+            }
+            else if (item.TargetType != null)
+            {
+                IsPresented = false;
+                Detail = new NavigationPage((Page)Activator.CreateInstance(item.TargetType));
+            }
         }
     }
 
@@ -101,5 +116,7 @@ namespace DevEnvAzure
         public string Title { get; set; }
         public string Icon { get; set; }
         public Type TargetType { get; set; }
+        public bool IsSubMenuVisible { get; set; }
+        public List<MasterPageItem> SubMenuDataSource { get; set; }
     }
 }
