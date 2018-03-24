@@ -13,8 +13,8 @@ namespace DevEnvAzure
             //UserName = "Prasad.parava@sptechnophiles.com",
             //Password = "Vada1608",
 
-            UserName = "sreasty.korada@sptechnophiles.com",      
-            Password = "143@kleen1",
+            //UserName = "sreasty.korada@sptechnophiles.com",      
+            //Password = "143@kleen1",
 
             ActiveDirectoryResource = "https://sptechnophiles.sharepoint.com/",
             ActiveDirectoryTenant = "https://login.microsoftonline.com/542381e6-b9d2-4fe3-a20b-e575f656c08c/oauth2/token",
