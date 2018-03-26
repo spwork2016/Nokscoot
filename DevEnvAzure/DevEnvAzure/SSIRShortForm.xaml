@@ -17,7 +17,7 @@
                                 <ColumnDefinition Width="*" />
                             </Grid.ColumnDefinitions>
                             <Label x:Name="lblname" Opacity="20" TextColor="Black"  FontSize="Medium" Grid.Row="0" Grid.Column="0" Text="Full Report" />
-
+                            <Switch x:Name="Formcheck" HorizontalOptions="EndAndExpand"  Grid.Row="0" Grid.Column="1"  Toggled="Check_Clicked" />
                         </Grid>
                     </Frame>
                     <StackLayout x:Name="Stacklay1" Orientation="Vertical" VerticalOptions = "FillAndExpand" Padding="10,0">
