@@ -14,6 +14,9 @@ namespace DevEnvAzure
             //REMOVE - only dev
             Username.Text = ClientConfiguration.Default.UserName;
             Password.Text = ClientConfiguration.Default.Password;
+            
+            Username.Keyboard = Keyboard.Create(KeyboardFlags.Suggestions);
+            Password.Keyboard = Keyboard.Create(KeyboardFlags.None);
 
             BindingContext = this;
         }
@@ -24,7 +27,7 @@ namespace DevEnvAzure
             {
                 if (string.IsNullOrEmpty(Username.Text.Trim()) || string.IsNullOrEmpty(Username.Text.Trim()))
                 {
-                    DependencyService.Get<IMessage>().LongAlert("Login Failed! Please check email/passowrd");
+                    DependencyService.Get<IMessage>().LongAlert("Login Failed! Please check email/password");
                     return;
                 }
 

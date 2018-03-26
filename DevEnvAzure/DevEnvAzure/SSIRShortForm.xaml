@@ -17,7 +17,7 @@
                                 <ColumnDefinition Width="*" />
                             </Grid.ColumnDefinitions>
                             <Label x:Name="lblname" Opacity="20" TextColor="Black"  FontSize="Medium" Grid.Row="0" Grid.Column="0" Text="Full Report" />
-                            <Switch x:Name="Formcheck" HorizontalOptions="EndAndExpand"  Grid.Row="0" Grid.Column="1"  Toggled="Check_Clicked" />
+
                         </Grid>
                     </Frame>
                     <StackLayout x:Name="Stacklay1" Orientation="Vertical" VerticalOptions = "FillAndExpand" Padding="10,0">
@@ -127,7 +127,7 @@
                             </Grid.ColumnDefinitions>
                             <Label x:Name="ConfiReport" Text="CONFIDENTIAL REPORT?" TextColor="#E65100" Grid.Row="0" Grid.Column="0" />
                             <Switch x:Name="ConfiReportcheck"  HorizontalOptions="EndAndExpand"   IsToggled="{Binding ConfiReport, Mode=TwoWay}" Grid.Row="0" Grid.Column="1" />
-                           
+
                             <Label x:Name="Pax" Text="Others Persons Involved (Staff or Pax)" TextColor="#E65100" Grid.Row="1" Grid.Column="0" />
                             <Entry x:Name="PaxEntry"   Text="{Binding pax, Mode=TwoWay}" TextColor="#0D47A1" Grid.Row="1" Grid.Column="1" />
 
@@ -137,12 +137,23 @@
                             <Entry x:Name="EmailEntry"  Grid.Row="3" Grid.Column="1" TextColor="#0D47A1" />
                             <Label x:Name="SSQ" Text="SSQ USE-Send Notifications" TextColor="#E65100" Grid.Row="4" Grid.Column="0" />
                             <Switch x:Name="SSQEntry"  HorizontalOptions="EndAndExpand"  IsToggled="{Binding ssQ, Mode=TwoWay}"  Grid.Row="4" Grid.Column="1" />
-                           
+
                         </Grid>
                     </StackLayout>
-                </StackLayout >
-                <Button x:Name="save_btn" HorizontalOptions="CenterAndExpand" Text="SAVE" BackgroundColor="#FDCE02"  Clicked="Save_clicked"/>
-                <Button x:Name="savedrafts_btn" HorizontalOptions="CenterAndExpand" Text="SAVE AS DRAFT"  BackgroundColor="#FDCE02" Clicked="savedrafts_btn_Clicked"/>
+                </StackLayout>
+                <StackLayout>
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*" />
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <Button Grid.Row="0" Grid.Column="0" x:Name="save_btn" HorizontalOptions="CenterAndExpand" Text="SAVE" WidthRequest="100" BackgroundColor="#FDCE02"  Clicked="Save_clicked"/>
+                        <Button Grid.Row="0" Grid.Column="1" x:Name="savedrafts_btn" HorizontalOptions="CenterAndExpand" Text="SAVE AS DRAFT"  WidthRequest="130"  BackgroundColor="#FDCE02" Clicked="savedrafts_btn_Clicked"/>
+                    </Grid>
+                </StackLayout>
             </StackLayout>
         </ScrollView>
     </ContentPage.Content>
