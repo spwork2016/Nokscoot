@@ -1,0 +1,90 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<!--<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="DevEnvAzure.MultiSelectMenuPage">
+    <ContentPage.Content>
+        <ListView x:Name="EmployeeView" HasUnevenRows="True">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <Frame  Padding="1" BackgroundColor="#31b0d5" HasShadow="True" OutlineColor="#bbb">
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="50"/>
+                                        <RowDefinition Height="*"/>
+                                    </Grid.RowDefinitions>
+                                    <StackLayout Grid.Row="1" Padding="5,0,5,5" Spacing="1">
+                                        <Label Text="{Binding Itemvalue}" VerticalOptions="Center" HorizontalOptions="Center" FontSize="16" LineBreakMode="TailTruncation" 
+                           TextColor="White" FontAttributes="Bold"/>
+                                        <Switch IsToggled="{Binding selectedVlaue,Mode=TwoWay}" VerticalOptions="Center" HorizontalOptions="Center"  />
+                                    </StackLayout>
+                                </Grid>
+                            </Frame>
+                        </Grid>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+        </ContentPage.Content>
+</ContentPage>-->
+<pages:PopupPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:pages="clr-namespace:Rg.Plugins.Popup.Pages;assembly=Rg.Plugins.Popup"
+             xmlns:animations="clr-namespace:Rg.Plugins.Popup.Animations;assembly=Rg.Plugins.Popup"
+             x:Class="DevEnvAzure.MultiSelectMenuPage1">
+    <pages:PopupPage.Animation>
+        <animations:ScaleAnimation 
+      PositionIn="Center"
+      PositionOut="Center"
+      ScaleIn="1.2"
+      ScaleOut="0.8"
+      DurationIn="400"
+      DurationOut="300"
+      EasingIn="SinOut"
+      EasingOut="SinIn"
+      HasBackgroundAnimation="True"/>
+    </pages:PopupPage.Animation>
+    <StackLayout VerticalOptions="Center" HorizontalOptions="FillAndExpand" Padding="20, 20, 20, 20">
+        <StackLayout BackgroundColor="White" Padding="0, 10, 0, 0">
+            <Label Text="Approach Type" TextColor="Gray" FontSize="20" HorizontalOptions="Center"></Label>
+            <ScrollView>
+                <StackLayout>
+                    <StackLayout Orientation="Horizontal" Padding="10">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="*" />
+                                <RowDefinition Height="*" />
+                                <RowDefinition Height="*" />
+                                <RowDefinition Height="*" />
+                                <RowDefinition Height="*" />
+                                <RowDefinition Height="*" />
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <Label x:Name="autolbl" TextColor="#E65100" Text="Auto - Coupled" Grid.Row="0" Grid.Column="0" />
+                            <Switch x:Name="autolblws"  Grid.Row="0" Grid.Column="1" />
+                            <Label x:Name="ilslbl" TextColor="#E65100" Text="ILS" Grid.Row="1" Grid.Column="0" />
+                            <Switch x:Name="ilslblsw"  Grid.Row="1" Grid.Column="1" />
+                            <Label x:Name="precilbl" TextColor="#E65100" Text="Non-Precision" Grid.Row="2" Grid.Column="0" />
+                            <Switch x:Name="precisw"  Grid.Row="2" Grid.Column="1" />
+                            <Label x:Name="vclbl" TextColor="#E65100" Text="Visual / Circling" Grid.Row="3" Grid.Column="0" />
+                            <Switch x:Name="vclblsw" Grid.Row="3" Grid.Column="1" />
+                            <Label x:Name="rnplbl" TextColor="#E65100" Text="RNP APCH(LNAV)" Grid.Row="4" Grid.Column="0" />
+                            <Switch x:Name="rnplblsw"  Grid.Row="4" Grid.Column="1" />
+                            <Label x:Name="rnpapvlbl" TextColor="#E65100" Text="RNP APCH / APV(LNAV / VNAV)" Grid.Row="5" Grid.Column="0" />
+                            <Switch x:Name="rnpapvlblsw"  Grid.Row="5" Grid.Column="1" />
+                        </Grid>
+                    </StackLayout>
+                    <Button Text="Close" TextColor="#A9D1DE" Clicked="OnClose" BackgroundColor="#FF9800"></Button>
+                    <Button Text="Save" TextColor="#A9D1DE" Clicked="OnSave" BackgroundColor="#FF9800"></Button>
+                </StackLayout>
+            </ScrollView>
+        </StackLayout>
+    </StackLayout>
+</pages:PopupPage>

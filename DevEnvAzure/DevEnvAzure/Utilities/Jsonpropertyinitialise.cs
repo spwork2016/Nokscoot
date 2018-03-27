@@ -181,10 +181,51 @@ namespace DevEnvAzure.Utilities
 
             return sddp;
         }
-
+        //public MetadataMulti __metadata { get; set; }
+        //public class MetadataMulti
+        //{
+          
+        //    public string id { get; set; }
+        //    public string uri { get; set; }
+        //    public string etag { get; set; }
+        //    public String type { get; set; }
+        //    public string[] results { get; set; }
+        //}
+       
         public FlightSafetyReportModelSp getflightSafetyJson(FlightSafetyReportModel sd)
         {
+
             FlightSafetyReportModelSp sddp = new FlightSafetyReportModelSp();
+            string[] strData = sd.ApproachType != null ? sd.ApproachType.Trim(',').Split(',') : null;
+
+            string[] relativeStr = sd.Relativeposition != null ? sd.Relativeposition.Trim(',').Split(',') : null;
+
+            string[] deviation = sd.ReasonforDeviation != null ? sd.ReasonforDeviation.Trim(',').Split(',') : null;
+
+
+            ApproachType sfapp = new ApproachType();
+            sfapp.results = strData.ToList();
+            Metadata1 md1 = new Metadata1();
+            md1.type = "Collection(Edm.String)";
+            sfapp.__metadata = md1;
+            sddp.ApproachType = sfapp;
+
+            ReasonForDeviation rsDev = new ReasonForDeviation();
+            rsDev.results = deviation.ToList();
+            Metadata2 md2 = new Metadata2();
+            md2.type = "Collection(Edm.String)";
+            rsDev.__metadata = md2;
+            sddp.ReasonforDeviation = rsDev;
+
+            IntruderACRelativePosition intru = new IntruderACRelativePosition();
+            intru.results = deviation.ToList();
+            Metadata3 md3 = new Metadata3();
+            md3.type = "Collection(Edm.String)";
+            intru.__metadata = md3;
+            sddp.Relativeposition = intru;
+
+
+
             sddp.ReportType = sd.ReportType;
             sddp.AircraftRegis = SSIRShortForm.airregis;// Convert.ToString(sd.AircraftRegis + 1);
             sddp.EventTitle = sd.EventTitle;
@@ -201,59 +242,60 @@ namespace DevEnvAzure.Utilities
             sddp.ssQ = sd.ssQ == true ? "1" : "0";
             sddp.pax = sd.pax;
 
-            //sddp.CommanderPForPM = FlightSafetyReportView.CommanderPForPMpickerValue;
-            //sddp.CommandersEmail = sd.CommandersEmail;
-            //sddp.FlightCrew1 = sd.FlightCrew1;
-            //sddp.FlightCrew1PFPMOBs = FlightSafetyReportView.FlightCrew1PFPMOBspickerValue;
-            //sddp.FlightCrew2 = sd.FlightCrew2;
-            //sddp.FlightCrew2PFPMOBs = FlightSafetyReportView.FlightCrew2PFPMOBspickerValue;
-            //sddp.Ifflighteventselectphase = FlightSafetyReportView.IfflighteventselectphasepickerValue;
-            //sddp.Ifongroundselectwhere = FlightSafetyReportView.IfongroundselectwherepickerValue;
-            //sddp.Altitude = sd.Altitude;
-            //sddp.IASMach = sd.IASMach;
-            //sddp.AutopilotOn = sd.AutopilotOn == true ? "1" : "0";
-            //sddp.ATOn = sd.ATOn == true ? "1" : "0";
-            //sddp.ApproachType = sd.ApproachType != null ? "<div class=\"ExternalClass733EA004DCC641EFAFED516F5D12CCA7\"><br>\u200b" + sd.ApproachType + "<br><\u002fdiv>" : null;
-            //sddp.Heading = sd.Heading;
-            //sddp.VS = sd.VS;
-            //sddp.Gear = FlightSafetyReportView.GearpickerValue;
-            //sddp.Speedbrake = FlightSafetyReportView.SpeedbrakepickerValue;
-            //sddp.FlapPosition = sd.FlapPosition;
-            //sddp.Weight = sd.Weight;
-            //sddp.FuelDumping = sd.FuelDumping == true ? "1" : "0";
-            //sddp.SeatbeltSign = sd.SeatbeltSign == true ? "1" : "0";
-            //sddp.MeteorologicalReport = FlightSafetyReportView.MeteorologicalReportpickerValue;
-            //sddp.Wind = sd.Wind;
-            //sddp.VisRVR = sd.VisRVR;
-            //sddp.Temp = sd.Temp;
-            //sddp.Light = FlightSafetyReportView.LightpickerValue;
-            //sddp.Weather = FlightSafetyReportView.WeatherpickerValue;
-            //sddp.Precipitation = FlightSafetyReportView.PrecipitationpickerValue;
-            //sddp.Turbulence = FlightSafetyReportView.TurbulencepickerValue;
-            //sddp.RWYDirection = sd.RWYDirection;
-            //sddp.Conditions = FlightSafetyReportView.ConditionspickerValue;
-            //sddp.NAVAIDS = FlightSafetyReportView.NAVAIDSpickerValue;
-            //sddp.ClearedAltitude = sd.ClearedAltitude;
-            //sddp.DeviationHorizontal = sd.DeviationHorizontal;
-            //sddp.Vertical = sd.Vertical;
-            //sddp.ReasonforDeviation = sd.ReasonforDeviation != null ? "<div class=\"ExternalClass733EA004DCC641EFAFED516F5D12CCA7\"><br>\u200b" + sd.ReasonforDeviation + "<br><\u002fdiv>" : null;
-            //sddp.TAAlert = sd.TAAlert == true ? "1" : "0";
-            //sddp.RAAlert = sd.RAAlert == true ? "1" : "0";
-            //sddp.RACommand = sd.RACommand;
-            //sddp.IntruderACType = sd.IntruderACType;
-            //sddp.Callsign = sd.Callsign;
-            //sddp.Relativeposition = sd.Relativeposition != null ? "<div class=\"ExternalClass733EA004DCC641EFAFED516F5D12CCA7\"><br>\u200b" + sd.Relativeposition + "<br><\u002fdiv>" : null;
-            //sddp.Bearing = sd.Bearing;
-            //sddp.Range = sd.Range;
-            //sddp.ATC = FlightSafetyReportView.ATCorAirportReportFiledpickerValue;
-            //sddp.ATCUnit = sd.ATCUnit;
-            //sddp.Frequency = sd.Frequency;
-            //sddp.TypeofWarnings = sd.TypeofWarnings != null ? "<div class=\"ExternalClass733EA004DCC641EFAFED516F5D12CCA7\"><br>\u200b" + sd.TypeofWarnings + "<br><\u002fdiv>" : null;
-            //sddp.WildlifeType = sd.WildlifeType;
-            //sddp.Numberofbirds = FlightSafetyReportView.NumberofbirdspickerValue;
-            //sddp.SizeofWildlife = FlightSafetyReportView.SizeofWildlifepickerValue;
-            //sddp.AircraftDamage = FlightSafetyReportView.AircraftDamagepickerValue;
-            //sddp.ImpactAreaDamage = sd.ImpactAreaDamage != null ? "<div class=\"ExternalClass733EA004DCC641EFAFED516F5D12CCA7\"><br>\u200b" + sd.ImpactAreaDamage + "<br><\u002fdiv>" : null;
+            sddp.CommanderPForPM = FlightSafetyReportView.CommanderPForPMpickerValue;
+            sddp.CommandersEmail = sd.CommandersEmail;
+            sddp.FlightCrew1 = sd.FlightCrew1;
+            sddp.FlightCrew1PFPMOBs = FlightSafetyReportView.FlightCrew1PFPMOBspickerValue;
+            sddp.FlightCrew2 = sd.FlightCrew2;
+            sddp.FlightCrew2PFPMOBs = FlightSafetyReportView.FlightCrew2PFPMOBspickerValue;
+            sddp.Ifflighteventselectphase = FlightSafetyReportView.IfflighteventselectphasepickerValue;
+            sddp.Ifongroundselectwhere = FlightSafetyReportView.IfongroundselectwherepickerValue;
+            sddp.Altitude = sd.Altitude;
+            sddp.IASMach = sd.IASMach;
+            sddp.AutopilotOn = sd.AutopilotOn == true ? "1" : "0";
+            sddp.ATOn = sd.ATOn == true ? "1" : "0";
+
+          //  sddp.ApproachType = "{\"__metadata\":{\"type\":\"Collection(Edm.String)\"},\"results\":\"" + apptypestr + "\"}";
+            sddp.Heading = sd.Heading;
+            sddp.VS = sd.VS;
+            sddp.Gear = FlightSafetyReportView.GearpickerValue;
+            sddp.Speedbrake = FlightSafetyReportView.SpeedbrakepickerValue;
+            sddp.FlapPosition = sd.FlapPosition;
+            sddp.Weight = sd.Weight;
+            sddp.FuelDumping = sd.FuelDumping == true ? "1" : "0";
+            sddp.SeatbeltSign = sd.SeatbeltSign == true ? "1" : "0";
+            sddp.MeteorologicalReport = FlightSafetyReportView.MeteorologicalReportpickerValue;
+            sddp.Wind = sd.Wind;
+            sddp.VisRVR = sd.VisRVR;
+            sddp.Temp = sd.Temp;
+            sddp.Light = FlightSafetyReportView.LightpickerValue;
+            sddp.Weather = FlightSafetyReportView.WeatherpickerValue;
+            sddp.Precipitation = FlightSafetyReportView.PrecipitationpickerValue;
+            sddp.Turbulence = FlightSafetyReportView.TurbulencepickerValue;
+            sddp.RWYDirection = sd.RWYDirection;
+            sddp.Conditions = FlightSafetyReportView.ConditionspickerValue;
+            sddp.NAVAIDS = FlightSafetyReportView.NAVAIDSpickerValue;
+            sddp.ClearedAltitude = sd.ClearedAltitude;
+            sddp.DeviationHorizontal = sd.DeviationHorizontal;
+            sddp.Vertical = sd.Vertical;
+          //  sddp.ReasonforDeviation = sd.ReasonforDeviation != null ? "<div class=\"ExternalClass733EA004DCC641EFAFED516F5D12CCA7\"><br>\u200b" + sd.ReasonforDeviation + "<br><\u002fdiv>" : null;
+            sddp.TAAlert = sd.TAAlert == true ? "1" : "0";
+            sddp.RAAlert = sd.RAAlert == true ? "1" : "0";
+            sddp.RACommand = sd.RACommand;
+            sddp.IntruderACType = sd.IntruderACType;
+            sddp.Callsign = sd.Callsign;
+          //  sddp.Relativeposition = sd.Relativeposition != null ? "<div class=\"ExternalClass733EA004DCC641EFAFED516F5D12CCA7\"><br>\u200b" + sd.Relativeposition + "<br><\u002fdiv>" : null;
+            sddp.Bearing = sd.Bearing;
+            sddp.Range = sd.Range;
+            sddp.ATC = FlightSafetyReportView.ATCorAirportReportFiledpickerValue;
+            sddp.ATCUnit = sd.ATCUnit;
+            sddp.Frequency = sd.Frequency;
+            sddp.TypeofWarnings = sd.TypeofWarnings != null ? "<div class=\"ExternalClass733EA004DCC641EFAFED516F5D12CCA7\"><br>\u200b" + sd.TypeofWarnings + "<br><\u002fdiv>" : null;
+            sddp.WildlifeType = sd.WildlifeType;
+            sddp.Numberofbirds = FlightSafetyReportView.NumberofbirdspickerValue;
+            sddp.SizeofWildlife = FlightSafetyReportView.SizeofWildlifepickerValue;
+            sddp.AircraftDamage = FlightSafetyReportView.AircraftDamagepickerValue;
+            sddp.ImpactAreaDamage = sd.ImpactAreaDamage != null ? "<div class=\"ExternalClass733EA004DCC641EFAFED516F5D12CCA7\"><br>\u200b" + sd.ImpactAreaDamage + "<br><\u002fdiv>" : null;
 
 
             return sddp;

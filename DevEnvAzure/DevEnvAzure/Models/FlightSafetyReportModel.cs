@@ -152,7 +152,7 @@ namespace DevEnvAzure.Models
         public int AircraftDamage
         { get; set; }
         public string ImpactAreaDamage
-        { get; set; }
+        { get; set; } 
 
     }
 

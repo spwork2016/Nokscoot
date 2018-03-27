@@ -31,6 +31,8 @@ namespace DevEnvAzure
         public static ObservableCollection<SecurityModel> security = new ObservableCollection<SecurityModel>();
         public static ObservableCollection<FlightSafetyReportModel> safetyReport = new ObservableCollection<FlightSafetyReportModel>();
 
+        public static ObservableCollection<MultiSelectValues> multiview = new ObservableCollection<MultiSelectValues>();
+
         public App()
         {
             InitializeComponent();

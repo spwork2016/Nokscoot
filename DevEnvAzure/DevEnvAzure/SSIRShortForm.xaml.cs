@@ -29,6 +29,7 @@ namespace DevEnvAzure
         {
             try
             {
+               
                 this.BindingContext = viewObject;
                 _classname = modelname;
                 _viewobject = viewObject;
@@ -116,135 +117,150 @@ namespace DevEnvAzure
         public static int idval;
         private void Save_clicked(object sender, XLabs.EventArgs<bool> e)
         {
-            switch (_classname)
+            try
             {
-                case "safety":
-                  
-                    idval = new Random().Next(1, 1000);
-                    FlightSafetyReportModel sf = (FlightSafetyReportModel)_viewobject;
-                    sf.ReportType = "Safety" + idval.ToString();
-                    CreateItems(jsonInitObj.getflightSafetyJson(sf));
-                    // App.DAUtil.SaveEmployee((SafetyReportModel)_viewobject);
-                    //  App.DAUtil.SaveEmployee<SafetyReportModel>(sf);
-                    break;
-                case "security":
-                    
-                    idval = new Random().Next(1, 1000);
-                    SecurityModel sd = (SecurityModel)_viewobject;
-                    sd.ReportType = "Security" + idval.ToString();
-                    MORTypeID = MORpicker.SelectedIndex;
-                        CreateItems(jsonInitObj.getSecurity(sd));
-                   // App.DAUtil.SaveEmployee<SecurityModel>(sd);
-                    break;
-                case "ground":
-                   // CreateItems();
-                    idval = new Random().Next(1, 1000);
-                    GroundSafetyReport gd = (GroundSafetyReport)_viewobject;
-                    gd.ReportType = "GroundSafety" + idval.ToString();
+                switch (_classname)
+                {
+                    case "safety":
 
-                    
-                   CreateItems(jsonInitObj.getGroundSafety(gd));
-                    //   App.DAUtil.SaveEmployee<GroundSafetyReport>(gd);
-                    break;
-                case "fatigue":
-                 //   CreateItems();
-                    idval = new Random().Next(1, 1000);
-                    FatigueReport ft = (FatigueReport)_viewobject;
-                    ft.ReportType = "Fatigue" + idval.ToString();
-                   
-                    CreateItems(jsonInitObj.getFatigue(ft));
-                   // App.DAUtil.SaveEmployee<FatigueReport>(ft);
-                    break;
-                case "Injury":
-                  //  CreateItems();
-                    idval = new Random().Next(1, 1000);
-                    InjuryIllnessReport injr = (InjuryIllnessReport)_viewobject;
-                    injr.ReportType = "InjuryIllness" + idval.ToString();
-                   
-                    CreateItems(jsonInitObj.getInjuryJson(injr));
-                    //  App.DAUtil.SaveEmployee<InjuryIllnessReport>(injr);
-                    break;
-                case "cabin":
-                 //   CreateItems();
-                    idval = new Random().Next(1, 1000);
-                    CabibSafetyReport cd = (CabibSafetyReport)_viewobject;
-                    cd.ReportType = "Cabin" + idval.ToString();
-                    CreateItems(jsonInitObj.getCabinSfetyJson(cd));
-                    // App.DAUtil.SaveEmployee<CabibSafetyReport>(cd);
-                    break;
+                        idval = new Random().Next(1, 1000);
+                        FlightSafetyReportModel sf = (FlightSafetyReportModel)_viewobject;
+                        sf.ReportType = "Safety" + idval.ToString();
+                        CreateItems(jsonInitObj.getflightSafetyJson(sf));
+                        // App.DAUtil.SaveEmployee((SafetyReportModel)_viewobject);
+                        //  App.DAUtil.SaveEmployee<SafetyReportModel>(sf);
+                        break;
+                    case "security":
+
+                        idval = new Random().Next(1, 1000);
+                        SecurityModel sd = (SecurityModel)_viewobject;
+                        sd.ReportType = "Security" + idval.ToString();
+                        MORTypeID = MORpicker.SelectedIndex;
+                        CreateItems(jsonInitObj.getSecurity(sd));
+                        // App.DAUtil.SaveEmployee<SecurityModel>(sd);
+                        break;
+                    case "ground":
+                        // CreateItems();
+                        idval = new Random().Next(1, 1000);
+                        GroundSafetyReport gd = (GroundSafetyReport)_viewobject;
+                        gd.ReportType = "GroundSafety" + idval.ToString();
+
+
+                        CreateItems(jsonInitObj.getGroundSafety(gd));
+                        //   App.DAUtil.SaveEmployee<GroundSafetyReport>(gd);
+                        break;
+                    case "fatigue":
+                        //   CreateItems();
+                        idval = new Random().Next(1, 1000);
+                        FatigueReport ft = (FatigueReport)_viewobject;
+                        ft.ReportType = "Fatigue" + idval.ToString();
+
+                        CreateItems(jsonInitObj.getFatigue(ft));
+                        // App.DAUtil.SaveEmployee<FatigueReport>(ft);
+                        break;
+                    case "Injury":
+                        //  CreateItems();
+                        idval = new Random().Next(1, 1000);
+                        InjuryIllnessReport injr = (InjuryIllnessReport)_viewobject;
+                        injr.ReportType = "InjuryIllness" + idval.ToString();
+
+                        CreateItems(jsonInitObj.getInjuryJson(injr));
+                        //  App.DAUtil.SaveEmployee<InjuryIllnessReport>(injr);
+                        break;
+                    case "cabin":
+                        //   CreateItems();
+                        idval = new Random().Next(1, 1000);
+                        CabibSafetyReport cd = (CabibSafetyReport)_viewobject;
+                        cd.ReportType = "Cabin" + idval.ToString();
+                        CreateItems(jsonInitObj.getCabinSfetyJson(cd));
+                        // App.DAUtil.SaveEmployee<CabibSafetyReport>(cd);
+                        break;
+                }
+            }
+            catch(Exception ex)
+            {
+
             }
 
         }
      
         private void savedrafts_btn_Clicked(object sender, EventArgs e)
         {
-          
-            switch (_classname)
+            try
             {
-               
-                case "safety":
-                    idval = new Random().Next(1, 1000);
-                    FlightSafetyReportModel sf = (FlightSafetyReportModel)_viewobject;
-                    sf.ReportType = "Safety" + idval.ToString();
-                    //App.safetyReport.Add(sf);
-                    App.DAUtil.SaveEmployee<FlightSafetyReportModel>(sf);
-                    // App.safetyReport.Add((SafetyReportModel)_viewobject);
-                    //  App.DAUtil.SaveEmployee((SafetyReportModel)_viewobject);
-                    break;
-                case "security":
-                    idval = new Random().Next(1, 1000);
-                    SecurityModel sd = (SecurityModel)_viewobject;
-                    sd.ReportType = "Security" + idval.ToString();
-                 //   App.security.Add(sd);
-                    App.DAUtil.SaveEmployee<SecurityModel>(sd);
-                    //  _fullviewobj = new securityReportView();
-                    break;
-                case "ground":
-                    idval = new Random().Next(1, 1000);
-                    // App.groundSafety.Add((GroundSafetyReport)_viewobject);
-                    GroundSafetyReport gd = (GroundSafetyReport)_viewobject;
-                    gd.ReportType = "GroundSafety" + idval.ToString();
-                  //  App.groundSafety.Add(gd);
-                    App.DAUtil.SaveEmployee<GroundSafetyReport>(gd);
-                 //   App.DAUtil.SaveEmployee((GroundSafetyReport)_viewobject);
-                    // _fullviewobj = new GroundSafetyReportView();
-                    break;
-                case "fatigue":
-                    idval = new Random().Next(1, 1000);
-                    // App.fatigue.Add((FatigueReport)_viewobject);
-                    FatigueReport ft = (FatigueReport)_viewobject;
-                    ft.ReportType = "Fatigue" + idval.ToString();
-                  //  App.fatigue.Add(ft);
-                    App.DAUtil.SaveEmployee<FatigueReport>(ft);
-                   // App.DAUtil.SaveEmployee((FatigueReport)_viewobject);
-                    //  _fullviewobj = new FatigueReportView();
-                    break;
-                case "Injury":
-                    idval = new Random().Next(1, 1000);
-                    //  App.injuryIllness.Add((InjuryIllnessReport)_viewobject);
-                    InjuryIllnessReport injr = (InjuryIllnessReport)_viewobject;
-                    injr.ReportType = "InjuryIllness" + idval.ToString();
-                  //  App.injuryIllness.Add(injr);
-                    App.DAUtil.SaveEmployee<InjuryIllnessReport>(injr);
-                    //App.DAUtil.SaveEmployee((InjuryIllnessReport)_viewobject);
-                    // _fullviewobj = new InjuryIllnessReportView();
-                    break;
-                case "cabin":
-                    idval = new Random().Next(1, 1000);
-                    CabibSafetyReport cd = (CabibSafetyReport)_viewobject;
-                    cd.ReportType = "Cabin" + idval.ToString();
-                 //   App.cabinSafety.Add(cd);
-                    App.DAUtil.SaveEmployee<CabibSafetyReport>(cd);
-                    //  App.cabinSafety.Add((CabibSafetyReport)_viewobject);
-                    //  App.DAUtil.SaveEmployee(cd);
-                    // _fullviewobj = new CabinSafetyReportView();
-                    break;
+
+                switch (_classname)
+                {
+
+                    case "safety":
+                        idval = new Random().Next(1, 1000);
+                        FlightSafetyReportModel sf = (FlightSafetyReportModel)_viewobject;
+                        sf.ReportType = "Safety" + idval.ToString();
+                        //App.safetyReport.Add(sf);
+                        App.DAUtil.SaveEmployee<FlightSafetyReportModel>(sf);
+                        // App.safetyReport.Add((SafetyReportModel)_viewobject);
+                        //  App.DAUtil.SaveEmployee((SafetyReportModel)_viewobject);
+                        break;
+                    case "security":
+                        idval = new Random().Next(1, 1000);
+                        SecurityModel sd = (SecurityModel)_viewobject;
+                        sd.ReportType = "Security" + idval.ToString();
+                        //   App.security.Add(sd);
+                        App.DAUtil.SaveEmployee<SecurityModel>(sd);
+                        //  _fullviewobj = new securityReportView();
+                        break;
+                    case "ground":
+                        idval = new Random().Next(1, 1000);
+                        // App.groundSafety.Add((GroundSafetyReport)_viewobject);
+                        GroundSafetyReport gd = (GroundSafetyReport)_viewobject;
+                        gd.ReportType = "GroundSafety" + idval.ToString();
+                        //  App.groundSafety.Add(gd);
+                        App.DAUtil.SaveEmployee<GroundSafetyReport>(gd);
+                        //   App.DAUtil.SaveEmployee((GroundSafetyReport)_viewobject);
+                        // _fullviewobj = new GroundSafetyReportView();
+                        break;
+                    case "fatigue":
+                        idval = new Random().Next(1, 1000);
+                        // App.fatigue.Add((FatigueReport)_viewobject);
+                        FatigueReport ft = (FatigueReport)_viewobject;
+                        ft.ReportType = "Fatigue" + idval.ToString();
+                        //  App.fatigue.Add(ft);
+                        App.DAUtil.SaveEmployee<FatigueReport>(ft);
+                        // App.DAUtil.SaveEmployee((FatigueReport)_viewobject);
+                        //  _fullviewobj = new FatigueReportView();
+                        break;
+                    case "Injury":
+                        idval = new Random().Next(1, 1000);
+                        //  App.injuryIllness.Add((InjuryIllnessReport)_viewobject);
+                        InjuryIllnessReport injr = (InjuryIllnessReport)_viewobject;
+                        injr.ReportType = "InjuryIllness" + idval.ToString();
+                        //  App.injuryIllness.Add(injr);
+                        App.DAUtil.SaveEmployee<InjuryIllnessReport>(injr);
+                        //App.DAUtil.SaveEmployee((InjuryIllnessReport)_viewobject);
+                        // _fullviewobj = new InjuryIllnessReportView();
+                        break;
+                    case "cabin":
+                        idval = new Random().Next(1, 1000);
+                        CabibSafetyReport cd = (CabibSafetyReport)_viewobject;
+                        cd.ReportType = "Cabin" + idval.ToString();
+                        //   App.cabinSafety.Add(cd);
+                        App.DAUtil.SaveEmployee<CabibSafetyReport>(cd);
+                        //  App.cabinSafety.Add((CabibSafetyReport)_viewobject);
+                        //  App.DAUtil.SaveEmployee(cd);
+                        // _fullviewobj = new CabinSafetyReportView();
+                        break;
+                }
+            }
+            catch(Exception ex)
+            {
+
             }
 
             // var v = safetyObject.EventTitle;
         }
         private async void MORattach_clicked(object sender, EventArgs e)
         {
+            if(Device.OS==TargetPlatform.Android)
             try
             {
                 FileData fileData = new FileData();
@@ -292,6 +308,12 @@ namespace DevEnvAzure
         {
             try
             {
+                //string[] str = new string[] { "1","2","3"};
+                //var body1 = JsonConvert.SerializeObject(str, Formatting.None,
+                //       new JsonSerializerSettings
+                //       {
+                //           NullValueHandling = NullValueHandling.Ignore
+                //       });
                 // StringContent contents = null;
                 var client = GetHTTPClient();
                 var data = reportObject;// _viewobject;
@@ -301,6 +323,7 @@ namespace DevEnvAzure
                         {
                             NullValueHandling = NullValueHandling.Ignore
                         });
+             
                 var contents = new StringContent(body);
                 contents.Headers.ContentType = MediaTypeHeaderValue.Parse("application/json;odata=verbose");
                 if (CheckConnection())

@@ -19,7 +19,9 @@ namespace DevEnvAzure
 
         private async void Button_Clicked(object sender, EventArgs e)
         {
-            await Navigation.PushAsync(new SSIRShortForm(new Models.SafetyReportModel(), "safety"));
+            var safetyobj = new Models.FlightSafetyReportModel();
+            safetyobj.DateOfEvent = DateTime.Now;
+            await Navigation.PushAsync(new SSIRShortForm(safetyobj, "safety"));
         }
 
         private async void Security_Clicked(object sender, EventArgs e)

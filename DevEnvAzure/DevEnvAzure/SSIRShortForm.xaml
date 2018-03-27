@@ -141,8 +141,8 @@
                         </Grid>
                     </StackLayout>
                 </StackLayout >
-                <Button x:Name="save_btn" HorizontalOptions="CenterAndExpand" Text="SAVE" Clicked="Save_clicked"/>
-                <Button x:Name="savedrafts_btn" HorizontalOptions="CenterAndExpand" Text="SAVE AS DRAFT" Clicked="savedrafts_btn_Clicked"/>
+                <Button x:Name="save_btn" HorizontalOptions="CenterAndExpand" Text="SAVE" BackgroundColor="#FF9800"  Clicked="Save_clicked"/>
+                <Button x:Name="savedrafts_btn" HorizontalOptions="CenterAndExpand" Text="SAVE AS DRAFT"  BackgroundColor="#FF9800" Clicked="savedrafts_btn_Clicked"/>
             </StackLayout>
         </ScrollView>
     </ContentPage.Content>

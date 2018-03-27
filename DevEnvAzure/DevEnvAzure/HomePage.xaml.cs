@@ -10,7 +10,8 @@ using System.ComponentModel;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using Xamarin.Forms;
-
+using XLabs.Forms.Controls;
+using Rg.Plugins.Popup.Extensions;
 namespace DevEnvAzure
 {
     public class NumericValidationTriggerAction : TriggerAction<Entry>
@@ -329,10 +330,85 @@ namespace DevEnvAzure
                 //  return false;
             }
         }
-
-        private void Button_Clicked(object sender, EventArgs e)
+        private readonly PopupLayout _layout = new PopupLayout();
+        private async void Button_Clicked(object sender, EventArgs e)
         {
-            CreateItems();
+            try
+            {
+
+                App.multiview.Add(new MultiSelectValues("Auto - Coupled", false));
+                App.multiview.Add(new MultiSelectValues("ILS", false));
+                App.multiview.Add(new MultiSelectValues("Visual / Circling", false));
+                App.multiview.Add(new MultiSelectValues("RNP APCH(LNAV)", false));
+                App.multiview.Add(new MultiSelectValues("RNP APCH / APV(LNAV / VNAV)", false));
+                await Navigation.PushPopupAsync(new MultiSelectMenuPage1());
+
+                //var popup = new StackLayout
+                //{
+                //    WidthRequest = 100,
+                //    HeightRequest = 100,
+                //    BackgroundColor = Color.White
+                //};
+
+                //var closebutton = new Button
+                //{
+                //    Text = "Close"
+                //};
+
+                //var label = new Label
+                //{
+                //    Text = "Yay a popup"
+                //};
+
+                //closebutton.Clicked += (object s, EventArgs e1) =>
+                //{
+                //    if (_layout.IsPopupActive)
+                //    {
+                //        _layout.DismissPopup();
+                //    }
+                //};
+
+                //popup.Children.Add(label);
+                //popup.Children.Add(closebutton);
+
+                //_layout.ShowPopup(popup);
+
+
+                //  var pop = new PopupLayout();
+
+                //   var search = new ContentType();
+
+                // MultiSelectView search = new MultiSelectView();
+                // var p = new ContentView();
+                //   p.HeightRequest = 200;
+                //   p.WidthRequest = 200;
+                //   p.BackgroundColor = Color.White;
+                // //search.WidthRequest = 600;
+                // //search.HeightRequest = 500;
+                //// search.BackgroundColor = new Color(1, 1, 1, 0.8);
+                // pop.ShowPopup(p);
+            }
+            catch(Exception ex)
+            {
+
+            }
+
+          //  await Navigation.PushAsync(new MultiSelectMenuPage());
+            //CreateItems();
+        }
+
+        
+    }
+    public class MultiSelectValues
+    {
+
+        private string Itemvalue { set; get; }
+        private bool selectedVlaue { set; get; }
+        public MultiSelectValues(string val, bool selval)
+        {
+            Itemvalue = val;
+            selectedVlaue = selval;
+
         }
     }
 }
