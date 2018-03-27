@@ -34,6 +34,7 @@ namespace DevEnvAzure
                 _viewobject = viewObject;
                 FetchListItems();
                 InitializeComponent();
+              //  App.DAUtil.GetAllEmployees<>
                // lblname.Text = modelname.ToUpper() + "REPORT";
                
             }
@@ -136,10 +137,22 @@ namespace DevEnvAzure
         {
             if(Convert.ToString(EventTitleEntry.Text).Length==0 || dtevntPicker.Date==null || Convert.ToString(MORpicker.SelectedItem).Length==0)
             {
+                if(Convert.ToString(EventTitleEntry.Text).Length == 0)
+                {
+                    EventTitleEntry.BackgroundColor = Color.Red;
+                    EventTitleEntry.Focus();
+                }
+                if(Convert.ToString(MORpicker.SelectedItem).Length == 0)
+                {
+                    MORpicker.BackgroundColor = Color.Red;
+                    MORpicker.Focus();
+                }
                 DependencyService.Get<IMessage>().ShortAlert("Please Fill All Required Fields");
             }
             else
             {
+                EventTitleEntry.BackgroundColor = Color.White;
+                MORpicker.BackgroundColor = Color.White;
                 switch (_classname)
                 {
                     case "safety":
@@ -353,6 +366,7 @@ namespace DevEnvAzure
                     if (postResult.IsSuccessStatusCode)
                     {
                         DependencyService.Get<IMessage>().LongAlert("List updated successfully");
+                        this.Navigation.PopToRootAsync();
                     }
                     else
                     {

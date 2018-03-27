@@ -5,6 +5,8 @@
     <StackLayout Orientation="Vertical" VerticalOptions = "FillAndExpand" Padding="10,0">
         <StackLayout Orientation="Vertical" HorizontalOptions="Center">
             <Image Source="logo.png"  Grid.Row="0"/>
+            <Label x:Name='BackgroundServiceLabel' Text=""/>
+            <Label x:Name='recheck' Text=""/>
         </StackLayout>
     </StackLayout>
 </ContentPage>

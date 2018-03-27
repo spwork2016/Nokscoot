@@ -42,9 +42,9 @@ namespace DevEnvAzure
                 dbConn.CreateTable<InjuryIllnessReport>();
 
                 //New Tables by Sravan
-                dbConn.CreateTable<KaizenReport>();
-                dbConn.CreateTable<StationInformation>();
-                dbConn.CreateTable<Models.FlightCrewVoyageRecordModel>();
+                dbConn.CreateTable<KaizenReportModel>();
+                dbConn.CreateTable<StationInformationModel>();
+                dbConn.CreateTable<FlightCrewVoyageRecordModel>();
 
                 dbConn.CreateTable<DatatableData>();
                 //dbConn.
@@ -58,17 +58,24 @@ namespace DevEnvAzure
 
         public bool createTable<U>() where U : class
         {
-         //   var tableExistsQuery = "SELECT name FROM sqlite_master WHERE type='table' AND name='MovieId';";
-         //   var result = dbConn.ExecuteScalar<string>(tableExistsQuery);
-           // if (result.Length == 0)
+            try
             {
-                dbConn.CreateTable<U>();
-                return true;
+                //   var tableExistsQuery = "SELECT name FROM sqlite_master WHERE type='table' AND name='MovieId';";
+                //   var result = dbConn.ExecuteScalar<string>(tableExistsQuery);
+                // if (result.Length == 0)
+                {
+                    dbConn.CreateTable<U>();
+                    return true;
+                }
+                //   else
+                //  {
+                //      return false;
+                //  }
             }
-         //   else
-          //  {
-          //      return false;
-          //  }
+            catch(Exception ex)
+            {
+                return false;
+            }
 
         }
 

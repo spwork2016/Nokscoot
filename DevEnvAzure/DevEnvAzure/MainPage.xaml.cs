@@ -1,4 +1,5 @@
-﻿using Microsoft.IdentityModel.Clients.ActiveDirectory;
+﻿using DevEnvAzure.Interfaces;
+using Microsoft.IdentityModel.Clients.ActiveDirectory;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,6 +17,14 @@ namespace DevEnvAzure
         public MainPage()
         {
             InitializeComponent();
+            MessagingCenter.Subscribe<object, string>(this, "UpdateLabel", (s, e) =>
+            {
+                Device.BeginInvokeOnMainThread(() =>
+                {
+                    BackgroundServiceLabel.Text = e;
+                });
+            });
+            recheck.Text  = DependencyService.Get<IGetValue>().Height.ToString();
             //auth();
         }
 

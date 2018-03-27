@@ -18,19 +18,6 @@ namespace DevEnvAzure
         {
             InitializeComponent();
             load_saveddrafts();
-            SafetyReportView.ItemsSource = App.safetyReport;
-            SafetyReportView.BindingContext = App.safetyReport;
-            cabinSafetyListView.ItemsSource = App.cabinSafety;
-            cabinSafetyListView.BindingContext = App.cabinSafety;
-            groundSafetyView.ItemsSource = App.groundSafety;
-            groundSafetyView.BindingContext = App.groundSafety;
-            fatigueView.ItemsSource = App.fatigue;
-            fatigueView.BindingContext = App.fatigue;
-            injuryIllnessView.ItemsSource = App.injuryIllness;
-            injuryIllnessView.BindingContext = App.injuryIllness;
-            securityListView.ItemsSource = App.security;
-            securityListView.BindingContext = App.security;
-
         }
         public void load_saveddrafts()
         {
@@ -42,70 +29,133 @@ namespace DevEnvAzure
                 App.injuryIllness = new ObservableCollection<InjuryIllnessReport>(App.DAUtil.GetAllEmployees<InjuryIllnessReport>("InjuryIllnessReport"));
                 App.groundSafety = new ObservableCollection<GroundSafetyReport>(App.DAUtil.GetAllEmployees<GroundSafetyReport>("GroundSafetyReport"));
                 App.fatigue = new ObservableCollection<FatigueReport>(App.DAUtil.GetAllEmployees<FatigueReport>("FatigueReport"));
+                App.kaizen = new ObservableCollection<KaizenReportModel>(App.DAUtil.GetAllEmployees<KaizenReportModel>("KaizenReportModel"));
+                App.statInfo = new ObservableCollection<StationInformationModel>(App.DAUtil.GetAllEmployees<StationInformationModel>("StationInformationModel"));
+                App.fcVoyage = new ObservableCollection<FlightCrewVoyageRecordModel>(App.DAUtil.GetAllEmployees<FlightCrewVoyageRecordModel>("FlightCrewVoyageRecordModel"));
             }
             catch (Exception ex)
             {
 
             }
         }
-        private async void security_Clicked(object sender, EventArgs e)
+        private  void Safety_Expand(object sender, EventArgs e)
         {
-            try
+            removeChildren();
+            if (SafetyLayout.Children.Count<1)
+            SafetyLayout.Children.Add(new DraftsExpandContentView("safety"));
+        }
+        private void groundSafety_Expand(object sender, EventArgs e)
+        {
+            removeChildren();
+
+
+             if (groundSafetyLayout.Children.Count<1)
+            groundSafetyLayout.Children.Add(new DraftsExpandContentView("ground"));
+
+        }
+        private void security_Expand(object sender, EventArgs e)
+        {
+            removeChildren();
+
+
+            if (securityLayout.Children.Count < 1)
+                securityLayout.Children.Add(new DraftsExpandContentView("security"));
+
+        }
+        private void fatigue_Expand(object sender, EventArgs e)
+        {
+            removeChildren();
+
+
+            if (fatigueLayout.Children.Count < 1)
+                fatigueLayout.Children.Add(new DraftsExpandContentView("fatigue"));
+
+        }
+        private void cabin_Expand(object sender, EventArgs e)
+        {
+            removeChildren();
+
+
+            if (cabinSafetyLayout.Children.Count < 1)
+                cabinSafetyLayout.Children.Add(new DraftsExpandContentView("cabin"));
+
+        }
+        private void injuryillness_Expand(object sender, EventArgs e)
+        {
+            removeChildren();
+
+
+            if (injuryillnessLayout.Children.Count < 1)
+                injuryillnessLayout.Children.Add(new DraftsExpandContentView("illness"));
+
+        }
+        //Remaining 3 forms
+        private void KaizenReports_Expand(object sender, EventArgs e)
+        {
+            removeChildren();
+
+
+            if (KaizenReportLayout.Children.Count < 1)
+                KaizenReportLayout.Children.Add(new DraftsExpandContentView("kaizen"));
+
+        }
+        private void StationInformation_Expand(object sender, EventArgs e)
+        {
+            removeChildren();
+
+
+            if (StationInformationLayout.Children.Count < 1)
+                StationInformationLayout.Children.Add(new DraftsExpandContentView("statInfo"));
+
+        }
+        private void FlightCrewVoyageRecord_Expand(object sender, EventArgs e)
+        {
+            removeChildren();
+
+
+            if (FlightCrewVoyageRecordLayout.Children.Count < 1)
+                FlightCrewVoyageRecordLayout.Children.Add(new DraftsExpandContentView("fcVoyage"));
+
+        }
+        public void removeChildren()
+        {
+            if (groundSafetyLayout.Children.Count > 0)
             {
-                var item = (Button)sender;
-                SecurityModel listitem = (from itm in App.security
-                                          where itm.ReportType.ToString() == item.CommandParameter.ToString()
-                                          select itm).FirstOrDefault();
-                await Navigation.PushAsync(new SSIRShortForm(listitem, "security"));
+                groundSafetyLayout.Children.RemoveAt(0);
             }
-            catch(Exception ex)
+            if (securityLayout.Children.Count > 0)
             {
-
+                securityLayout.Children.RemoveAt(0);
             }
-        }
-
-        private async void cabinSafety_Clicked(object sender, EventArgs e)
-        {
-            var item = (Button)sender;
-            CabibSafetyReport listitem = (from itm in App.cabinSafety
-                                          where itm.ReportType.ToString() == item.CommandParameter.ToString()
-                                          select itm).FirstOrDefault();
-            await Navigation.PushAsync(new SSIRShortForm(listitem, "cabin"));
-        }
-
-        private async void SafetyReport_Clicked(object sender, EventArgs e)
-        {
-            var item = (Button)sender;
-            FlightSafetyReportModel listitem = (from itm in App.safetyReport
-                                          where itm.ReportType.ToString() == item.CommandParameter.ToString()
-                                          select itm).FirstOrDefault();
-            await Navigation.PushAsync(new SSIRShortForm(listitem, "safety"));
-        }
-
-        private async void groundSafety_Clicked(object sender, EventArgs e)
-        {
-            var item = (Button)sender;
-            GroundSafetyReport listitem = (from itm in App.groundSafety
-                                          where itm.ReportType.ToString() == item.CommandParameter.ToString()
-                                          select itm).FirstOrDefault();
-            await Navigation.PushAsync(new SSIRShortForm(listitem, "ground"));
-        }
-
-        private async void fatigue_Clicked(object sender, EventArgs e)
-        {
-            var item = (Button)sender;
-            FatigueReport listitem = (from itm in App.fatigue
-                                          where itm.ReportType.ToString() == item.CommandParameter.ToString()
-                                          select itm).FirstOrDefault();
-            await Navigation.PushAsync(new SSIRShortForm(listitem, "fatigue"));
-        }
-        private async void injuryIllness_Clicked(object sender, EventArgs e)
-        {
-            var item = (Button)sender;
-            InjuryIllnessReport listitem = (from itm in App.injuryIllness
-                                      where itm.ReportType.ToString() == item.CommandParameter.ToString()
-                                      select itm).FirstOrDefault();
-            await Navigation.PushAsync(new SSIRShortForm(listitem, "Injury"));
+            if (fatigueLayout.Children.Count > 0)
+            {
+                fatigueLayout.Children.RemoveAt(0);
+            }
+            if (cabinSafetyLayout.Children.Count > 0)
+            {
+                cabinSafetyLayout.Children.RemoveAt(0);
+            }
+            if (injuryillnessLayout.Children.Count > 0)
+            {
+                injuryillnessLayout.Children.RemoveAt(0);
+            }
+            if (SafetyLayout.Children.Count > 0)
+            {
+                SafetyLayout.Children.RemoveAt(0);
+            }
+            //Remaining 3 forms
+            if (KaizenReportLayout.Children.Count > 0)
+            {
+                KaizenReportLayout.Children.RemoveAt(0);
+            }
+            if (FlightCrewVoyageRecordLayout.Children.Count > 0)
+            {
+                FlightCrewVoyageRecordLayout.Children.RemoveAt(0);
+            }
+            if (StationInformationLayout.Children.Count > 0)
+            {
+                StationInformationLayout.Children.RemoveAt(0);
+            }
         }
 
 

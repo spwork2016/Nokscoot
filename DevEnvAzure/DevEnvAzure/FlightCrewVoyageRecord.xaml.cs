@@ -31,6 +31,7 @@ namespace DevEnvAzure
             _flightcrew.ScheduledDeparture = DateTime.Now;
             this.BindingContext = _flightcrew;
             InitializeComponent();
+            ReportRaisedByEntry.DataSource = App.peoplePickerDataSource;
         }
         private void Save_clicked(object sender, XLabs.EventArgs<bool> e)
         {

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace DevEnvAzure.Models
 {
-    [Table(@"KaizenReport")]
+    [Table(@"KaizenReportModel")]
     public class KaizenReportModel
     {
         public string After

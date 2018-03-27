@@ -1,4 +1,5 @@
-﻿using DevEnvAzure.Utilities;
+﻿using DevEnvAzure.Models;
+using DevEnvAzure.Utilities;
 using Newtonsoft.Json;
 using Plugin.Connectivity;
 using System;
@@ -35,7 +36,7 @@ namespace DevEnvAzure
         }
         private void savedrafts_btn_Clicked(object sender, EventArgs e)
         {
-            App.DAUtil.SaveEmployee<Models.KaizenReportModel>(_KaizenReport);
+            App.DAUtil.SaveEmployee<KaizenReportModel>(_KaizenReport);
         }
         private void BenefitsCategorypicker_changed(object sender, EventArgs e)
         {

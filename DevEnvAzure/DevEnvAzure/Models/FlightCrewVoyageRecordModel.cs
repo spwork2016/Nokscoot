@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace DevEnvAzure.Models
 {
-    [Table(@"FlightCrewVoyageReport")]
+    [Table(@"FlightCrewVoyageRecordModel")]
     public class FlightCrewVoyageRecordModel
     {
         public string VoyageRecord

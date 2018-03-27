@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace DevEnvAzure.Models
 {
-    [Table(@"StationInformation")]
+    [Table(@"StationInformationModel")]
     public class StationInformationModel
     {
 

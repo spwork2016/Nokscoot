@@ -1,0 +1,26 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentView xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="DevEnvAzure.DraftsExpandContentView">
+  <ContentView.Content>
+        <!--<ScrollView VerticalOptions="FillAndExpand" Orientation="Vertical">-->
+            <StackLayout>
+                <ListView x:Name="SafetyReportView"  Grid.Row="1" HasUnevenRows="True">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <ViewCell>
+                                <StackLayout>
+                                    <Label Text="{Binding ReportType}"></Label>
+                                    <Label Text="{Binding DateOfEvent}"></Label>
+                                    <Button  Text="Edit" VerticalOptions="Center" BorderRadius="16" FontSize="10" HeightRequest="34" BorderWidth="0" Clicked="SafetyReport_Clicked" CommandParameter="{Binding ReportType}"/>
+                                </StackLayout>
+                            </ViewCell>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+                <Label Text="End of File"/>
+            </StackLayout>
+           
+        <!--</ScrollView>-->
+    </ContentView.Content>
+</ContentView>

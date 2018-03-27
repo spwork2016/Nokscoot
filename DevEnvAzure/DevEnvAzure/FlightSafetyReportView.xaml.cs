@@ -38,6 +38,8 @@ namespace DevEnvAzure
         {
             InitializeComponent();
             peoplePickerCommander.DataSource = App.peoplePickerDataSource;
+            peoplePickercrew1email.DataSource = App.peoplePickerDataSource;
+            peoplePickercrew2email.DataSource = App.peoplePickerDataSource;
         }
         private void CommanderPForPMpicker_changed(object sender, EventArgs e)
         {
