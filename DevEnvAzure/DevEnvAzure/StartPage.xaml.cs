@@ -27,27 +27,31 @@ namespace DevEnvAzure
             // Creating our pages for menu navigation
             // Here you can define title for item, 
             // icon on the left side, and page that you want to open after selection
-            //var page1 = new MasterPageItem() { Title = "Login", Icon = "LoginIco.png", TargetType = typeof(Login) };
-            //var page2 = new MasterPageItem() { Title = "Employee Information", Icon = "EMP_info.png", TargetType = typeof(HomePage) };
-            var page3 = new MasterPageItem() { Title = "Offline Drafts", Icon = "EMP_info.png", TargetType = typeof(DraftsPage) };
+            var homePage = new MasterPageItem() { Title = "Home", Icon = "home.png", TargetType = typeof(MainPage) };
+            var offDrafts = new MasterPageItem() { Title = "Offline Drafts", Icon = "offlinedrafts.png", TargetType = typeof(DraftsPage) };
             var logout = new MasterPageItem() { Title = "Logout", Icon = "logout.png" };
-            var page4 = new MasterPageItem() { Title = "Safety", Icon = "EMP_info.png", TargetType = typeof(ReportsPage) };
-            var KaizenReportPage = new MasterPageItem() { Title = "Kaizen", Icon = "EMP_info.png", TargetType = typeof(KaizenReport) };
-            var StationInformationPage = new MasterPageItem() { Title = "Station Information", Icon = "EMP_info.png", TargetType = typeof(StationInformation) };
-            var FlightCrewVoyageRecordPage = new MasterPageItem() { Title = "Flight Crew Voyage", Icon = "EMP_info.png", TargetType = typeof(FlightCrewVoyageRecord) };
-            var editableDraftsPage = new MasterPageItem() { Title = "Editable Drafts", Icon = "EMP_info.png", TargetType = typeof(EditableDrafts) };
-            var docsPage = new MasterPageItem() { Title = "Documents", Icon = "EMP_info.png", TargetType = typeof(DocumentLibrary) };
-            var tasksPage = new MasterPageItem() { Title = "My Tasks", Icon = "tasks.png", TargetType = typeof(Tasks) };
+            var reportingPage = new MasterPageItem() { Title = "Reporting", Icon = "reporting.png", TargetType = typeof(ReportsPage) };
+            var tasksPage = new MasterPageItem() { Title = "My Tasks", Icon = "mytasks.png", TargetType = typeof(Tasks) };
+            var docsPage = new MasterPageItem() { Title = "Documents", Icon = "documents.png", TargetType = typeof(DocumentLibrary) };
+            var StationInformationPage = new MasterPageItem() { Title = "Station Information", Icon = "stationinfo.png", TargetType = typeof(StationInformation) };
+            var editableDraftsPage = new MasterPageItem() { Title = "Editable Drafts", Icon = "editabledrafts.png", TargetType = typeof(EditableDrafts) };
+            var notificationsPage = new MasterPageItem() { Title = "Notifications", Icon = "notifications.png" };
 
-            //menuList.Add(page2);
-            menuList.Add(page4);
-            menuList.Add(KaizenReportPage);
-            menuList.Add(StationInformationPage);
-            menuList.Add(FlightCrewVoyageRecordPage);
-            menuList.Add(page3);
-            menuList.Add(editableDraftsPage);
-            menuList.Add(docsPage);
+            menuList.Add(homePage);
+            menuList.Add(reportingPage);
+
+            menuList.Add(notificationsPage);
             menuList.Add(tasksPage);
+            menuList.Add(docsPage);
+            menuList.Add(StationInformationPage);
+
+            menuList.Add(new MasterPageItem() { Title = "One Note", Icon = "onenote.png" });
+            menuList.Add(new MasterPageItem() { Title = "One Drive", Icon = "drive.png" });
+            menuList.Add(new MasterPageItem() { Title = "Work Day", Icon = "workday.png" });
+            menuList.Add(new MasterPageItem() { Title = "SABA", Icon = "saba.png" });
+
+            menuList.Add(editableDraftsPage);
+            menuList.Add(offDrafts);
             menuList.Add(logout);
 
             // Setting our list to be ItemSource for ListView in MainPage.xaml

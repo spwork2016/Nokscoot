@@ -5,6 +5,7 @@ using System.Linq;
 using Foundation;
 using Syncfusion.SfBusyIndicator.XForms.iOS;
 using UIKit;
+using ImageCircle.Forms.Plugin.iOS;
 
 namespace DevEnvAzure.iOS
 {
@@ -28,6 +29,7 @@ namespace DevEnvAzure.iOS
 
             new Syncfusion.SfAutoComplete.XForms.iOS.SfAutoCompleteRenderer();
             new SfBusyIndicatorRenderer();
+            ImageCircleRenderer.Init();
             LoadApplication(new App());
 
             return base.FinishedLaunching(app, options);

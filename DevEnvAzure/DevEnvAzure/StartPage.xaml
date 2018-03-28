@@ -1,27 +1,38 @@
 ﻿<MasterDetailPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-                  xmlns:controls="clr-namespace:ImageCircle.Forms.Plugin.Abstractions;assembly=ImageCircle.Forms.Plugin.Abstractions"
+                  xmlns:ci="clr-namespace:ImageCircle.Forms.Plugin.Abstractions;assembly=ImageCircle.Forms.Plugin.Abstractions"  
              x:Class="DevEnvAzure.StartPage" Title="Welcom to Nokscoot">
     <MasterDetailPage.Master>
         <ContentPage Title="Menu">
-            <StackLayout VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand">
-                <Grid BackgroundColor="#FDCE02" Padding="0,30,0,0" >
+            <StackLayout VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" Padding="0,20,0,0" BackgroundColor="#FDCE02">
+                <Grid BackgroundColor="#FDCE02" Padding="10,0,0,0">
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="200"/>
-                        <RowDefinition Height="30"/>
+                        <RowDefinition Height="75"/>
                     </Grid.RowDefinitions>
 
-                    <Frame  Padding="0" IsClippedToBounds="True">
-                        <Image x:Name="profilePic" HeightRequest="100" Aspect="AspectFill" Source="LoginIco.png"/>
-                    </Frame>
-                    
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="75" />
+                        <ColumnDefinition Width="5" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+
+                    <StackLayout Grid.Row="0" Grid.Column="0">
+                        <ci:CircleImage HeightRequest="75" WidthRequest="75" x:Name="profilePic" 
+                                    Aspect="AspectFill">
+                        </ci:CircleImage>
+                    </StackLayout>
+
+                    <!--<Frame Padding="0" IsClippedToBounds="True" Grid.Row="0" Grid.Column="0">
+                        <Image x:Name="profilePic" HeightRequest="50" Aspect="AspectFill" Source="LoginIco.png"/>
+                    </Frame>-->
+
                     <!--<Image  x:Name="profilePic" Source="LoginIco.png" HeightRequest="110" Margin="0,20,0,0" BackgroundColor="#FDCE02" VerticalOptions="Center" HorizontalOptions="Center"/>-->
-                    <Label x:Name="loggrInUser" Grid.Row="1" HorizontalTextAlignment="Center" HorizontalOptions="Center" FontSize="20" TextColor="Black"/>
+                    <Label x:Name="loggrInUser" Grid.Row="0" Grid.Column="2" HorizontalTextAlignment="Start" VerticalTextAlignment="Center" 
+                           HorizontalOptions="Start" VerticalOptions="Center" FontSize="20" TextColor="Black"/>
                 </Grid>
                 <ListView x:Name="navigationDrawerList"
-                  RowHeight="40"
+                  RowHeight="35"
                   SeparatorVisibility="Default" SeparatorColor="#FDCE02"
-                  BackgroundColor="#FFF" 
                   ItemSelected="OnMenuItemSelected">
                     <ListView.ItemTemplate>
                         <DataTemplate>
@@ -29,8 +40,8 @@
                                 <!-- Main design for our menu items -->
                                 <StackLayout VerticalOptions="FillAndExpand"
                              Orientation="Horizontal"
-                             Padding="10,0,0,0"
-                             Spacing="10">
+                             Padding="5,0,0,0"
+                             Spacing="5">
 
                                     <Image Source="{Binding Icon}"
                          WidthRequest="20"

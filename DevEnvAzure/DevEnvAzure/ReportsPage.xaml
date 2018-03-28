@@ -2,14 +2,58 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="DevEnvAzure.ReportsPage" Title="Reports">
-    <ContentPage.Content>
-        <StackLayout Orientation="Vertical" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" Padding="10">
-            <Button Text="Safety Report" TextColor="Black" FontSize="Medium" Clicked="Button_Clicked" BackgroundColor="#FDCE02" />
-            <Button Text="Security Report" TextColor="Black"  FontSize="Medium" Clicked="Security_Clicked" BackgroundColor="#FDCE02" />
-            <Button Text="Cabin Safety Report" TextColor="Black" FontSize="Medium" Clicked="CabinSafety_Clicked" BackgroundColor="#FDCE02" />
-            <Button Text="Fatigue Report" TextColor="Black" FontSize="Medium" Clicked="Fatigue_Clicked" BackgroundColor="#FDCE02" />
-            <Button Text="Ground Safety Report" TextColor="Black" FontSize="Medium" Clicked="GroundSafety_Clicked" BackgroundColor="#FDCE02" />
-            <Button Text="Injury Illness Report" TextColor="Black" FontSize="Medium" Clicked="InjuryIllness_Clicked" BackgroundColor="#FDCE02" />
+    <AbsoluteLayout HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
+        <StackLayout AbsoluteLayout.LayoutFlags="All" AbsoluteLayout.LayoutBounds="0,0,1,1">
+            <ScrollView>
+                <StackLayout Padding="10">
+                    <StackLayout>
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="20"/>
+                                <RowDefinition Height="*"/>
+                            </Grid.RowDefinitions>
+                                <Label  Grid.Row="0" Text="Safety" VerticalOptions="Center" HorizontalOptions="Center" FontSize="16" LineBreakMode="TailTruncation" 
+                           TextColor="Black" FontAttributes="Bold"/>
+                            <StackLayout Grid.Row="1" Padding="20">
+                                <Button Text="Safety Report" TextColor="Black" FontSize="Medium" Clicked="Button_Clicked" BackgroundColor="#FDCE02" />
+                                <Button Text="Security Report" TextColor="Black"  FontSize="Medium" Clicked="Security_Clicked" BackgroundColor="#FDCE02" />
+                                <Button Text="Cabin Safety Report" TextColor="Black" FontSize="Medium" Clicked="CabinSafety_Clicked" BackgroundColor="#FDCE02" />
+                                <Button Text="Fatigue Report" TextColor="Black" FontSize="Medium" Clicked="Fatigue_Clicked" BackgroundColor="#FDCE02" />
+                                <Button Text="Ground Safety Report" TextColor="Black" FontSize="Medium" Clicked="GroundSafety_Clicked" BackgroundColor="#FDCE02" />
+                                <Button Text="Injury Illness Report" TextColor="Black" FontSize="Medium" Clicked="InjuryIllness_Clicked" BackgroundColor="#FDCE02" />
+                            </StackLayout>
+                        </Grid>
+                    </StackLayout>
+                    <StackLayout>
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="20"/>
+                                <RowDefinition Height="*"/>
+                            </Grid.RowDefinitions>
+                                <Label  Grid.Row="0" Text="Operations" VerticalOptions="Center" HorizontalOptions="Center" FontSize="16" LineBreakMode="TailTruncation" 
+                           TextColor="Black" FontAttributes="Bold"/>
+                            <StackLayout Grid.Row="1" Padding="20">
+                                <Button Text="Flight Crew Voyage Report" TextColor="Black" FontSize="Medium" Clicked="Button_Clicked_1" BackgroundColor="#FDCE02" />
+                                <Button Text="Technical Delay" TextColor="Black"  FontSize="Medium" BackgroundColor="#FDCE02" />
+                            </StackLayout>
+                        </Grid>
+                    </StackLayout>
+                    <StackLayout>
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="20"/>
+                                <RowDefinition Height="*"/>
+                            </Grid.RowDefinitions>
+                                <Label  Grid.Row="0" Text="Kaizen" VerticalOptions="Center" HorizontalOptions="Center" FontSize="16" LineBreakMode="TailTruncation" 
+                           TextColor="Black" FontAttributes="Bold"/>
+
+                            <StackLayout Grid.Row="1" Padding="20">
+                                <Button Text="Kaizen Report" TextColor="Black" FontSize="Medium" Clicked="Button_Clicked_2" BackgroundColor="#FDCE02" />
+                            </StackLayout>
+                        </Grid>
+                    </StackLayout>
+                </StackLayout>
+            </ScrollView>
         </StackLayout>
-    </ContentPage.Content>
+    </AbsoluteLayout>
 </ContentPage>

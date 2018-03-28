@@ -8,6 +8,7 @@ using Android.Widget;
 using Android.OS;
 using Microsoft.IdentityModel.Clients.ActiveDirectory;
 using Android.Content;
+using ImageCircle.Forms.Plugin.Droid;
 
 namespace DevEnvAzure.Droid
 {
@@ -23,6 +24,7 @@ namespace DevEnvAzure.Droid
             try
             {
                 global::Xamarin.Forms.Forms.Init(this, bundle);
+                ImageCircleRenderer.Init();
                 LoadApplication(new App());
             }
             catch(Exception ex)

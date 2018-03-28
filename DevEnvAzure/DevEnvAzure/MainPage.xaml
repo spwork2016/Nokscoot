@@ -1,12 +1,10 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="DevEnvAzure.MainPage" Title="Welcome to Nokscoot">
-    <StackLayout Orientation="Vertical" VerticalOptions = "FillAndExpand" Padding="10,0">
-        <StackLayout Orientation="Vertical" HorizontalOptions="Center">
-            <Image Source="logo.png"  Grid.Row="0"/>
-            <Label x:Name='BackgroundServiceLabel' Text=""/>
-            <Label x:Name='recheck' Text=""/>
+             x:Class="DevEnvAzure.MainPage" Title="Welcome to NokScoot">
+    <StackLayout Orientation="Vertical" VerticalOptions="FillAndExpand">
+        <StackLayout VerticalOptions="Start" HorizontalOptions="Center">
+            <Image Source="nokscoot_bg.jpg"  Grid.Row="0"/>
         </StackLayout>
     </StackLayout>
 </ContentPage>

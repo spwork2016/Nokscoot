@@ -55,5 +55,15 @@ namespace DevEnvAzure
             injr.DateOfEvent = DateTime.Now;
             await Navigation.PushAsync(new SSIRShortForm(injr, "Injury"));
         }
+
+        private async void Button_Clicked_1(object sender, EventArgs e)
+        {
+            await Navigation.PushAsync(new FlightCrewVoyageRecord());
+        }
+
+        private async void Button_Clicked_2(object sender, EventArgs e)
+        {
+            await Navigation.PushAsync(new KaizenReport());
+        }
     }
 }

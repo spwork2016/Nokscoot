@@ -17,15 +17,15 @@ namespace DevEnvAzure
         public MainPage()
         {
             InitializeComponent();
-            MessagingCenter.Subscribe<object, string>(this, "UpdateLabel", (s, e) =>
-            {
-                Device.BeginInvokeOnMainThread(() =>
-                {
-                    BackgroundServiceLabel.Text = e;
-                });
-            });
-            recheck.Text  = DependencyService.Get<IGetValue>().Height.ToString();
-            //auth();
+            //MessagingCenter.Subscribe<object, string>(this, "UpdateLabel", (s, e) =>
+            //{
+            //    Device.BeginInvokeOnMainThread(() =>
+            //    {
+            //        BackgroundServiceLabel.Text = e;
+            //    });
+            //});
+            //recheck.Text  = DependencyService.Get<IGetValue>().Height.ToString();
+            ////auth();
         }
 
         public async void  auth()
