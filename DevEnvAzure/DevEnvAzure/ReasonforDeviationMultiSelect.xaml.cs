@@ -14,10 +14,34 @@ namespace DevEnvAzure
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class ReasonforDeviationMultiSelect : PopupPage
     {
-        public static string reasonDeviation;
-        public ReasonforDeviationMultiSelect()
+        public IList<string> selectedValues;
+        public ReasonforDeviationMultiSelect(string prevSelectedValues)
         {
             InitializeComponent();
+
+            if (prevSelectedValues == null) return;
+
+            selectedValues = prevSelectedValues.Split(',');
+            foreach (var item in selectedValues)
+            {
+                if (item == lateclearancelbl.Text)
+                {
+                    lateclearsw.IsToggled = true;
+                }
+                if (item == turblbl.Text)
+                {
+                    turbsw.IsToggled = true;
+                }
+                if (tcaslbl.Text == item)
+                {
+                    tcassw.IsToggled = true;
+                }
+                if (item == automallbl.Text)
+                {
+                    automalsw.IsToggled = true;
+                }
+
+            }
         }
         private async void OnClose(object sender, EventArgs e)
         {
@@ -25,29 +49,26 @@ namespace DevEnvAzure
         }
         private async void OnSave(object sender, EventArgs e)
         {
-            reasonDeviation = "";
+            selectedValues = new List<string>();
+
             if (lateclearsw.IsToggled)
             {
-                reasonDeviation += lateclearancelbl.Text + ",";
+                selectedValues.Add(lateclearancelbl.Text);
             }
             if (turbsw.IsToggled)
             {
-                reasonDeviation += turblbl.Text + ",";
+                selectedValues.Add(turblbl.Text);
             }
             if (tcassw.IsToggled)
             {
-                reasonDeviation += tcaslbl.Text + ",";
-            }
-            if (tcassw.IsToggled)
-            {
-                reasonDeviation += tcaslbl.Text + ",";
+                selectedValues.Add(tcaslbl.Text);
             }
             if (automalsw.IsToggled)
             {
-                reasonDeviation += automallbl.Text + ",";
+                selectedValues.Add(automallbl.Text);
             }
 
-            MessagingCenter.Send<ReasonforDeviationMultiSelect, string>(this, "Hi", reasonDeviation);
+            MessagingCenter.Send<ReasonforDeviationMultiSelect, string>(this, "Hi", string.Join(",", selectedValues));
             await PopupNavigation.PopAsync();
 
         }

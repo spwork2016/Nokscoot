@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using DevEnvAzure.Models;
 using Rg.Plugins.Popup.Pages;
 using Rg.Plugins.Popup.Services;
@@ -8,48 +9,72 @@ namespace DevEnvAzure
 {
     public partial class MultiSelectMenuPage1 : PopupPage
     {
-        public static string approachvalue;
-        public MultiSelectMenuPage1()
+        public IList<string> selectedValues;
+        public MultiSelectMenuPage1(string prevSelectedValues)
         {
             InitializeComponent();
+            if (prevSelectedValues == null) return;
+
+            selectedValues = prevSelectedValues.Split(',');
+
+            foreach (var item in selectedValues)
+            {
+                if (item == autolbl.Text)
+                    autolblws.IsToggled = true;
+                else if (item == ilslbl.Text)
+                    ilslblsw.IsToggled = true;
+                else if (item == autolbl.Text)
+                    autolblws.IsToggled = true;
+                else if (precilbl.Text == item)
+                    precisw.IsToggled = true;
+                else if (vclbl.Text == item)
+                    vclblsw.IsToggled = true;
+                else if (rnplbl.Text == item)
+                    rnplblsw.IsToggled = true;
+                else if (rnpapvlbl.Text == item)
+                    rnpapvlblsw.IsToggled = true;
+            }
         }
 
         private async void OnClose(object sender, EventArgs e)
         {
             await PopupNavigation.PopAsync();
         }
+
         private async void OnSave(object sender, EventArgs e)
         {
-            approachvalue = "";
+            selectedValues = new List<string>();
+
             if (autolblws.IsToggled)
             {
-                approachvalue += autolbl.Text + ",";
+                selectedValues.Add(autolbl.Text);
             }
             if (ilslblsw.IsToggled)
             {
-                approachvalue += ilslbl.Text + ",";
+                selectedValues.Add(ilslbl.Text);
             }
             if (autolblws.IsToggled)
             {
-                approachvalue += autolbl.Text + ",";
+                selectedValues.Add(autolbl.Text);
             }
             if (precisw.IsToggled)
             {
-                approachvalue += precilbl.Text + ",";
+                selectedValues.Add(precilbl.Text);
             }
             if (vclblsw.IsToggled)
             {
-                approachvalue += vclbl.Text + ",";
+                selectedValues.Add(vclbl.Text);
             }
             if (rnplblsw.IsToggled)
             {
-                approachvalue += rnplbl.Text + ",";
+                selectedValues.Add(rnplbl.Text);
             }
             if (rnpapvlblsw.IsToggled)
             {
-                approachvalue += rnpapvlbl.Text;
+                selectedValues.Add(rnpapvlbl.Text);
             }
-            MessagingCenter.Send<MultiSelectMenuPage1, string>(this, "Hi", approachvalue);
+
+            MessagingCenter.Send<MultiSelectMenuPage1, string>(this, "", string.Join(",", selectedValues));
             await PopupNavigation.PopAsync();
 
         }

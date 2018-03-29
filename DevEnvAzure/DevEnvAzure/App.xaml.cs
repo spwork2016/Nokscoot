@@ -1,11 +1,13 @@
 ﻿using DevEnvAzure.Model;
 using DevEnvAzure.Models;
 using Microsoft.IdentityModel.Clients.ActiveDirectory;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 using Xamarin.Forms;
 
 namespace DevEnvAzure
@@ -38,11 +40,12 @@ namespace DevEnvAzure
         public App()
         {
             InitializeComponent();
-            if (App.AuthenticationResponse == null)
+
+           if (App.AuthenticationResponse == null)
                 MainPage = new Login();
-            else
-                MainPage = new DevEnvAzure.StartPage();
+            else MainPage = new DevEnvAzure.StartPage();
         }
+
         public static DataAccess DAUtil
         {
             get

@@ -14,10 +14,42 @@ namespace DevEnvAzure
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class IntruderRelativePositionMultiSelect : PopupPage
     {
-        public static string relativePosition;
-        public IntruderRelativePositionMultiSelect()
+        public IList<string> selectedValues;
+        public IntruderRelativePositionMultiSelect(string prevSelectedValues)
         {
             InitializeComponent();
+
+            if (prevSelectedValues == null) return;
+
+            selectedValues = prevSelectedValues.Split(',');
+
+            foreach (var item in selectedValues)
+            {
+                if (item == levellbl.Text)
+                {
+                    levelsw.IsToggled = true;
+                }
+                if (climbinglbl.Text == item)
+                {
+                    climbingsw.IsToggled = true;
+                }
+                if (Descendinglbl.Text == item)
+                {
+                    Descendingsw.IsToggled = true;
+                }
+                if (abovelbl.Text == item)
+                {
+                    abovesw.IsToggled = true;
+                }
+                if (item == Belowlbl.Text)
+                {
+                    Belowsw.IsToggled = true;
+                }
+                if (coaltilbl.Text == item)
+                {
+                    coaltisw.IsToggled = true;
+                }
+            }
         }
         private async void OnClose(object sender, EventArgs e)
         {
@@ -25,35 +57,34 @@ namespace DevEnvAzure
         }
         private async void OnSave(object sender, EventArgs e)
         {
-            relativePosition = "";
+            selectedValues = new List<string>();
             if (levelsw.IsToggled)
             {
-                relativePosition += levellbl.Text + ",";
+                selectedValues.Add(levellbl.Text);
             }
             if (climbingsw.IsToggled)
             {
-                relativePosition += climbinglbl.Text + ",";
+                selectedValues.Add(climbinglbl.Text);
             }
             if (Descendingsw.IsToggled)
             {
-                relativePosition += Descendinglbl.Text + ",";
+                selectedValues.Add(Descendinglbl.Text);
             }
             if (abovesw.IsToggled)
             {
-                relativePosition += abovelbl.Text + ",";
+                selectedValues.Add(abovelbl.Text);
             }
             if (Belowsw.IsToggled)
             {
-                relativePosition += Belowlbl.Text + ",";
+                selectedValues.Add(Belowlbl.Text);
             }
             if (coaltisw.IsToggled)
             {
-                relativePosition += coaltilbl.Text + ",";
+                selectedValues.Add(coaltilbl.Text);
             }
 
-            MessagingCenter.Send<IntruderRelativePositionMultiSelect, string>(this, "Hi", relativePosition);
+            MessagingCenter.Send<IntruderRelativePositionMultiSelect, string>(this, "Hi", string.Join(",", selectedValues));
             await PopupNavigation.PopAsync();
-
         }
     }
 }

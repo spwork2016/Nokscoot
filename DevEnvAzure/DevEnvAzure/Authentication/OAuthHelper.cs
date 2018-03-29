@@ -70,6 +70,8 @@ namespace DevEnvAzure
                 var authResponse = await GetAccessToken(username, password, aadClientAppId, aadResource, aadTenant);
                 if (authResponse != null)
                 {
+                    var str = JsonConvert.SerializeObject(new { Username = username, Password = password });
+                    App.DAUtil.RefreshMasterInfo(new MasterInfo { content = str, Name = "UserCredentials" });
                     App.AuthenticationResponse = authResponse;
                 }
 
@@ -206,8 +208,8 @@ namespace DevEnvAzure
                 if (userInfo != null)
                 {
                     var spData = JsonConvert.DeserializeObject<SPData>(auth.content, new JsonSerializerSettings { DateParseHandling = DateParseHandling.None });
-                    if(spData.d!=null)
-                    App.CurrentUser = new User { Name = spData.d.Title, Email = spData.d.Email };
+                    if (spData.d != null)
+                        App.CurrentUser = new User { Name = spData.d.Title, Email = spData.d.Email };
                 }
             }
 

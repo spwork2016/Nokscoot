@@ -85,9 +85,9 @@ namespace DevEnvAzure
                 IsPresented = false;
                 DependencyService.Get<IMessage>().LongAlert("Logged out successfully.");
                 App.AuthenticationResponse = null;
-                Detail = new NavigationPage((Page)Activator.CreateInstance(typeof(Login)));
+                App.DAUtil.DeleteMasterInfo("UserCredentials");
 
-                //Navigation.PushModalAsync(new Login());
+                Navigation.PushModalAsync(new Login());
                 return;
             }
 
@@ -97,11 +97,7 @@ namespace DevEnvAzure
                 return;
             }
 
-            if (item.SubMenuDataSource != null)
-            {
-                //   item.IsSubMenuVisible = !item.IsSubMenuVisible;
-            }
-            else if (item.TargetType != null)
+            if (item.TargetType != null)
             {
                 IsPresented = false;
                 Detail = new NavigationPage((Page)Activator.CreateInstance(item.TargetType));

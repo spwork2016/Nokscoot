@@ -33,7 +33,7 @@ namespace DevEnvAzure
                 dbConn.CreateTable<Employee>();
                 dbConn.CreateTable<MasterInfo>();
 
-               // dbConn.CreateTable<MasterInfo>();
+                // dbConn.CreateTable<MasterInfo>();
                 dbConn.CreateTable<FlightSafetyReportModel>();
                 dbConn.CreateTable<SecurityModel>();
                 dbConn.CreateTable<CabibSafetyReport>();
@@ -54,7 +54,7 @@ namespace DevEnvAzure
 
             }
         }
-        
+
 
         public bool createTable<U>() where U : class
         {
@@ -72,14 +72,14 @@ namespace DevEnvAzure
                 //      return false;
                 //  }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 return false;
             }
 
         }
 
-        public List<U>GetAllEmployees<U>(string classObj) where U:class
+        public List<U> GetAllEmployees<U>(string classObj) where U : class
         {
             return dbConn.Query<U>("Select * From " + classObj + "");
         }
@@ -90,14 +90,14 @@ namespace DevEnvAzure
                 dbConn.CreateTable<U>();
                 return dbConn.Insert(reportData);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 return 0;
             }
 
-          
+
         }
-        public int DeleteEmployee<U>(U aEmployee) where U:class
+        public int DeleteEmployee<U>(U aEmployee) where U : class
         {
             return dbConn.Delete(aEmployee);
         }
@@ -121,10 +121,14 @@ namespace DevEnvAzure
             return dbConn.Insert(info);
         }
 
+        public void DeleteMasterInfo(string name)
+        {
+            dbConn.Query<MasterInfo>(string.Format("delete from [MasterInfo] where Name='{0}'", name));
+        }
+
         public int RefreshMasterInfo(MasterInfo info)
         {
-            //info.Created = DateTime.Now;
-            dbConn.Query<MasterInfo>(string.Format("delete from [MasterInfo] where Name='{0}'", info.Name));
+            DeleteMasterInfo(info.Name);
             var d = SaveMasterInfo(info);
             return d;
         }
@@ -168,7 +172,7 @@ namespace DevEnvAzure
         [NotNull]
         public string content
         { get; set; }
-       // [NotNull]
+        // [NotNull]
         //public DateTime Created
         //{ get; set; }
     }

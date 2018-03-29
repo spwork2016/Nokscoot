@@ -139,19 +139,19 @@ namespace DevEnvAzure
         private async void approachmulti_clicked(object sender, EventArgs e)
         {
             // ApproachTypeEntry.BindingContext = MultiSelectMenuPage1.approachvalue;
-            await Navigation.PushPopupAsync(new MultiSelectMenuPage1());
+            await Navigation.PushPopupAsync(new MultiSelectMenuPage1(ApproachTypeEntry.Text));
 
-            MessagingCenter.Subscribe<MultiSelectMenuPage1, string>(this, "Hi", (sender1, arg) =>
+            MessagingCenter.Subscribe<MultiSelectMenuPage1, string>(this, "", (sender1, arg) =>
             {
-                ApproachTypeEntry.Text = arg.ToString();
+                ApproachTypeEntry.Text = arg.ToString().TrimEnd(',');
             });
         }
         private async void reasondeviamulti_clicked(object sender, EventArgs e)
         {
             // ApproachTypeEntry.BindingContext = MultiSelectMenuPage1.approachvalue;
-            await Navigation.PushPopupAsync(new ReasonforDeviationMultiSelect());
+            await Navigation.PushPopupAsync(new ReasonforDeviationMultiSelect(ReasonforDeviationEntry.Text));
 
-            MessagingCenter.Subscribe<ReasonforDeviationMultiSelect, string>(this, "Hi", (sender1, arg) =>
+            MessagingCenter.Subscribe<ReasonforDeviationMultiSelect, string>(this, "", (sender1, arg) =>
             {
                 ReasonforDeviationEntry.Text = arg.ToString();
             });
@@ -159,9 +159,9 @@ namespace DevEnvAzure
         private async void RealtivePosimulti_clicked(object sender, EventArgs e)
         {
             // ApproachTypeEntry.BindingContext = MultiSelectMenuPage1.approachvalue;
-            await Navigation.PushPopupAsync(new IntruderRelativePositionMultiSelect());
+            await Navigation.PushPopupAsync(new IntruderRelativePositionMultiSelect(RelativepositionEntry.Text));
 
-            MessagingCenter.Subscribe<IntruderRelativePositionMultiSelect, string>(this, "Hi", (sender1, arg) =>
+            MessagingCenter.Subscribe<IntruderRelativePositionMultiSelect, string>(this, "", (sender1, arg) =>
             {
                 RelativepositionEntry.Text = arg.ToString();
             });

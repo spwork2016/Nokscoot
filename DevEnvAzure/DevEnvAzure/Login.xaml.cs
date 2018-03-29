@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.ComponentModel;
 using System.Threading.Tasks;
 using Xamarin.Forms;
@@ -14,11 +15,24 @@ namespace DevEnvAzure
             //REMOVE - only dev
             Username.Text = ClientConfiguration.Default.UserName;
             Password.Text = ClientConfiguration.Default.Password;
-            
+
             Username.Keyboard = Keyboard.Create(KeyboardFlags.None);
             Password.Keyboard = Keyboard.Create(KeyboardFlags.None);
 
             BindingContext = this;
+
+            var userCredentials = App.DAUtil.GetMasterInfoByName("UserCredentials");
+            if (userCredentials != null)
+            {
+                var cred = JsonConvert.DeserializeObject<dynamic>(userCredentials.content);
+                string uName = cred.Username;
+                string pwd = cred.Password;
+
+                Username.Text = uName;
+                Password.Text = pwd;
+
+                Login_OnClicked(btnLogin, null);
+            }
         }
 
         private async void Login_OnClicked(object sender, EventArgs e)

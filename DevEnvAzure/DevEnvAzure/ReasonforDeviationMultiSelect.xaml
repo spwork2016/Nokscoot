@@ -4,14 +4,15 @@
              xmlns:pages="clr-namespace:Rg.Plugins.Popup.Pages;assembly=Rg.Plugins.Popup"
              xmlns:animations="clr-namespace:Rg.Plugins.Popup.Animations;assembly=Rg.Plugins.Popup"
              x:Class="DevEnvAzure.ReasonforDeviationMultiSelect">
-    <StackLayout VerticalOptions="Center" HorizontalOptions="FillAndExpand" Padding="20, 20, 20, 20">
+    <StackLayout VerticalOptions="Center" HorizontalOptions="FillAndExpand" Padding="20">
         <StackLayout BackgroundColor="White" Padding="0, 10, 0, 0">
             <Label Text="Reason for Deviation" TextColor="Gray" FontSize="20" HorizontalOptions="Center"></Label>
             <ScrollView>
                 <StackLayout>
-                    <StackLayout Orientation="Horizontal" Padding="10">
+                    <StackLayout HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" Padding="10">
                         <Grid>
                             <Grid.RowDefinitions>
+                                <RowDefinition Height="*" />
                                 <RowDefinition Height="*" />
                                 <RowDefinition Height="*" />
                                 <RowDefinition Height="*" />
@@ -22,17 +23,18 @@
                                 <ColumnDefinition Width="*" />
                             </Grid.ColumnDefinitions>
                             <Label x:Name="lateclearancelbl" TextColor="#E65100" Text="Late Clearance" Grid.Row="0" Grid.Column="0" />
-                            <Switch x:Name="lateclearsw"  Grid.Row="0" Grid.Column="1" />
+                            <Switch x:Name="lateclearsw"  Grid.Row="0" Grid.Column="1" HorizontalOptions="EndAndExpand" />
                             <Label x:Name="turblbl" TextColor="#E65100" Text="Turbulence / WX" Grid.Row="1" Grid.Column="0" />
-                            <Switch x:Name="turbsw"  Grid.Row="1" Grid.Column="1" />
+                            <Switch x:Name="turbsw"  Grid.Row="1" Grid.Column="1" HorizontalOptions="EndAndExpand"/>
                             <Label x:Name="tcaslbl" TextColor="#E65100" Text="TCAS" Grid.Row="2" Grid.Column="0" />
-                            <Switch x:Name="tcassw" Grid.Row="2" Grid.Column="1" />
+                            <Switch x:Name="tcassw" Grid.Row="2" Grid.Column="1" HorizontalOptions="EndAndExpand"/>
                             <Label x:Name="automallbl" TextColor="#E65100" Text="Autopilot Malfunction" Grid.Row="3" Grid.Column="0" />
-                            <Switch x:Name="automalsw"  Grid.Row="3" Grid.Column="1" />
+                            <Switch x:Name="automalsw"  Grid.Row="3" Grid.Column="1" HorizontalOptions="EndAndExpand"/>
+                            
+                            <Button Text="Close" TextColor="Black" Clicked="OnClose" BackgroundColor="#FDCE02" Grid.Row="4" Grid.Column="0"></Button>
+                            <Button Text="Save" TextColor="Black" Clicked="OnSave" BackgroundColor="#FDCE02" Grid.Row="4" Grid.Column="1"></Button>
                         </Grid>
                     </StackLayout>
-                    <Button Text="Close" TextColor="#A9D1DE" Clicked="OnClose" BackgroundColor="#FDCE02"></Button>
-                    <Button Text="Save" TextColor="#A9D1DE" Clicked="OnSave" BackgroundColor="#FDCE02"></Button>
                 </StackLayout>
             </ScrollView>
         </StackLayout>

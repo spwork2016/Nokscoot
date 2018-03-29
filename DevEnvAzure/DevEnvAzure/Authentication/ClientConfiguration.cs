@@ -10,7 +10,6 @@ namespace DevEnvAzure
         public static ClientConfiguration Default { get { return ClientConfiguration.OneBox; } }
         public static ClientConfiguration OneBox = new ClientConfiguration()
         {
-            
             ActiveDirectoryResource = "https://sptechnophiles.sharepoint.com/",
             ActiveDirectoryTenant = "https://login.microsoftonline.com/542381e6-b9d2-4fe3-a20b-e575f656c08c/oauth2/token",
             ActiveDirectoryClientAppId = "d4c9dc64-803f-4dce-842c-380ce91f60d4", //sptechnophiles            // Insert here the application secret when authenticate with AAD by the application  
@@ -20,8 +19,6 @@ namespace DevEnvAzure
             GraphAPIRootURL = "https://graph.windows.net/",
             GraphAPIURL = "https://graph.windows.net/542381e6-b9d2-4fe3-a20b-e575f656c08c",
 
-            //UserName = "Prasad.Par@nokscoot.com",            // Insert the correct password here for the actual test.           
-            //Password = "Nokfly2018",
             //ActiveDirectoryResource = "https://nok365.sharepoint.com/",
             //ActiveDirectoryTenant = "https://login.microsoftonline.com/9c32f22b-4146-43ec-b31c-b65699517707/oauth2/token",
             //SPRootURL = "https://nok365.sharepoint.com/_api/",
