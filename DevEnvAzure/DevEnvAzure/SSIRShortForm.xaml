@@ -78,7 +78,7 @@
                             <Entry x:Name="AreaFIREntry" Placeholder="Area_FIR of Event" PlaceholderColor="#F1F1F1" Text="{Binding Area_FIR, Mode=TwoWay}" TextColor="#03A9F4" Grid.Row="17" />
                         </Grid>
                     </StackLayout>
-                    <StackLayout x:Name="Stacklay2" Orientation="Vertical" VerticalOptions = "FillAndExpand" Padding="5,5">
+                    <StackLayout x:Name="Stacklay2" Orientation="Vertical" VerticalOptions="FillAndExpand" Padding="5,5">
                         <Grid>
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="16" />
@@ -104,7 +104,7 @@
                                    TextColor="#03A9F4" Grid.Row="5"/>
                         </Grid>
                     </StackLayout>
-                    <StackLayout x:Name="Stacklay3" Orientation="Vertical" VerticalOptions="FillAndExpand" Padding="5,5">
+                    <StackLayout x:Name="Stacklay3" Orientation="Vertical" VerticalOptions="FillAndExpand" Margin="0,15">
                         <Grid>
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="16" />
@@ -123,7 +123,7 @@
                             </Picker>
                         </Grid>
                     </StackLayout>
-                    <StackLayout x:Name="StackLayoutSecurityReport" Orientation="Vertical" VerticalOptions="FillAndExpand" BackgroundColor="White">
+                    <StackLayout x:Name="StackLayoutSecurityReport" Orientation="Vertical" VerticalOptions="FillAndExpand" BackgroundColor="White" Margin="0,15">
                         <Label x:Name="lblname1" TextColor="Black" FontSize="Medium" HorizontalOptions="Start" Text="Submitter Information" />
                         <BoxView Color="#FDCE02" HorizontalOptions="FillAndExpand" HeightRequest="1"/>
                         <Grid>

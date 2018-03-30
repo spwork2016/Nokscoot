@@ -87,9 +87,9 @@
 
                 </Grid>
             </StackLayout>
-            <StackLayout x:Name="Stacklay2" Orientation="Vertical" VerticalOptions = "FillAndExpand" Padding="10,0">
+            <StackLayout x:Name="Stacklay2" Orientation="Vertical" VerticalOptions="FillAndExpand" Margin="0,15">
                 <Frame BackgroundColor="#FDCE02">
-                    <Label x:Name="lblname2" Opacity="5" TextColor="Black"  FontSize="Small" HorizontalOptions="Center" Text="Details Of Event/Hazard" />
+                    <Label x:Name="lblname2" TextColor="Black"  FontSize="Small" HorizontalOptions="Start" Text="Details Of Event/Hazard" />
                 </Frame>
                 <Grid>
                     <Grid.RowDefinitions>

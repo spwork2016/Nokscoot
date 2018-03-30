@@ -4,25 +4,34 @@
               xmlns:controls="clr-namespace:XLabs.Forms.Controls;assembly=XLabs.Forms"
              x:Class="DevEnvAzure.CabinSafetyReportView">
     <ContentView.Content>
-        <StackLayout x:Name="StackLayoutCabinSafetyReport" Orientation="Vertical" VerticalOptions = "FillAndExpand"  BackgroundColor="White">
-            <Frame   BackgroundColor="#FDCE02" >
-                <Label x:Name="lblSpecificEvents" Opacity="5" TextColor="Black"  FontSize="Small" HorizontalOptions="Center" Text="Specific Events" />
-            </Frame>
+        <StackLayout x:Name="StackLayoutCabinSafetyReport" Margin="0,15" VerticalOptions="FillAndExpand"  BackgroundColor="White">
+            <Label x:Name="lblSpecificEvents" TextColor="Black" FontSize="Medium" HorizontalOptions="Start" Text="Specific Events" />
+            <BoxView Color="#FDCE02" HorizontalOptions="FillAndExpand" HeightRequest="1"/>
+
             <Grid>
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="*" />
-                    <RowDefinition Height="*" />
-                    <RowDefinition Height="*" />
-                    <RowDefinition Height="*" />
-                    <RowDefinition Height="*" />
-                    <RowDefinition Height="*" />
+                    <RowDefinition Height="14" />
+                    <RowDefinition Height="30" />
+
+                    <RowDefinition Height="30" />
+                    <RowDefinition Height="30" />
+                    
+                    <RowDefinition Height="14" />
+                    <RowDefinition Height="30" />
+                    
+                    <RowDefinition Height="14" />
+                    <RowDefinition Height="30" />
+                    
+                    <RowDefinition Height="14" />
+                    <RowDefinition Height="30" />
                 </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*" />
                     <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
-                <Label x:Name="turbulancelbl" Text="Turbulence" TextColor="#E65100" Grid.Row="0" Grid.Column="0" />
-                <Picker x:Name="turbulancepicker" SelectedIndex="{Binding turbulenceIndex,Mode=TwoWay}" SelectedIndexChanged="turbulence_Changed" TextColor="#0D47A1" Grid.Row="0" Grid.Column="1" HorizontalOptions="FillAndExpand">
+                <Label x:Name="turbulancelbl" Text="Turbulence" TextColor="Black" FontSize="Micro" Grid.Row="0" Grid.ColumnSpan="2" />
+                <Picker x:Name="turbulancepicker" SelectedIndex="{Binding turbulenceIndex,Mode=TwoWay}" 
+                        SelectedIndexChanged="turbulence_Changed" TextColor="#03A9F4" Grid.Row="1" HorizontalOptions="FillAndExpand" Grid.ColumnSpan="2">
                     <Picker.Items>
                         <x:String>Light</x:String>
                         <x:String>Moderate</x:String>
@@ -31,29 +40,33 @@
                     </Picker.Items>
                 </Picker>
 
-                <Label x:Name="seatbeltsign" Text="Seatbelt Sign ON" TextColor="#E65100" Grid.Row="1" Grid.Column="0" />
-                <Switch x:Name="seatbeltsignchkbx"  IsToggled="{Binding seatBeltsign, Mode=TwoWay}"  HorizontalOptions="EndAndExpand"   Grid.Row="1" Grid.Column="1" />
+                <Label x:Name="seatbeltsign" Text="Seatbelt Sign ON" TextColor="Black" FontSize="Micro" Grid.Row="2" Grid.Column="0"/>
+                <Switch x:Name="seatbeltsignchkbx"  IsToggled="{Binding seatBeltsign, Mode=TwoWay}" 
+                        HorizontalOptions="EndAndExpand" Grid.Row="2" Grid.Column="1" />
 
-                <Label x:Name="adviseStop" Text="Advised to stop service" TextColor="#E65100" Grid.Row="2" Grid.Column="0" />
-                <Switch x:Name="adviseStopchkbx"  IsToggled="{Binding adviceStop, Mode=TwoWay}"  HorizontalOptions="EndAndExpand"  Grid.Row="2" Grid.Column="1" />
+                <Label x:Name="adviseStop" Text="Advised to stop service" TextColor="Black" FontSize="Micro" Grid.Row="3" />
+                <Switch x:Name="adviseStopchkbx"  IsToggled="{Binding adviceStop, Mode=TwoWay}" HorizontalOptions="EndAndExpand" Grid.Row="3" Grid.Column="1" />
 
-                <Label x:Name="pax" Text="Dangerous Goods Event - Pax or Cargo" TextColor="#E65100" Grid.Row="3" Grid.Column="0" />
-                <Picker x:Name="paxpicker" SelectedIndex="{Binding dangerPaxIndex,Mode=TwoWay}" SelectedIndexChanged="dangergoods_Changed" TextColor="#0D47A1" Grid.Row="3" Grid.Column="1" HorizontalOptions="FillAndExpand">
+                <Label x:Name="pax" Text="Dangerous Goods Event - Pax or Cargo" TextColor="Black" FontSize="Micro" Grid.Row="4" Grid.ColumnSpan="2"/>
+                <Picker x:Name="paxpicker" SelectedIndex="{Binding dangerPaxIndex,Mode=TwoWay}" 
+                        SelectedIndexChanged="dangergoods_Changed" TextColor="#03A9F4" Grid.Row="5" HorizontalOptions="FillAndExpand" Grid.ColumnSpan="2">
                     <Picker.Items>
                         <x:String>pax</x:String>
                         <x:String>cargo</x:String>
                     </Picker.Items>
                 </Picker>
-                <Label x:Name="identified" Text="Identified When" TextColor="#E65100" Grid.Row="4" Grid.Column="0" />
-                <Picker x:Name="identifiedpicker" SelectedIndex="{Binding identifiedWhenCabinIndex,Mode=TwoWay}" SelectedIndexChanged="dangerwhen_Changed" TextColor="#0D47A1" Grid.Row="4" Grid.Column="1" HorizontalOptions="FillAndExpand">
+                <Label x:Name="identified" Text="Identified When" TextColor="Black" Grid.Row="6" Grid.ColumnSpan="2"/>
+                <Picker x:Name="identifiedpicker" SelectedIndex="{Binding identifiedWhenCabinIndex,Mode=TwoWay}" 
+                        SelectedIndexChanged="dangerwhen_Changed" TextColor="#03A9F4" Grid.Row="7" Grid.ColumnSpan="2" HorizontalOptions="FillAndExpand">
                     <Picker.Items>
                         <x:String>Before flight</x:String>
                         <x:String>During flight</x:String>
                         <x:String>After flight</x:String>
                     </Picker.Items>
                 </Picker>
-                <Label x:Name="idenwhere" TextColor="#E65100" Text="Identified Where" Grid.Row="5" Grid.Column="0" />
-                <Picker x:Name="identifiedwherepicker" SelectedIndex="{Binding identifiedWhereCabinIndex,Mode=TwoWay}" SelectedIndexChanged="dangerwhere_Changed" TextColor="#0D47A1" Grid.Row="5" Grid.Column="1" HorizontalOptions="FillAndExpand">
+                <Label x:Name="idenwhere" TextColor="Black" Text="Identified Where" Grid.Row="8" Grid.ColumnSpan="2" />
+                <Picker x:Name="identifiedwherepicker" SelectedIndex="{Binding identifiedWhereCabinIndex,Mode=TwoWay}" 
+                        SelectedIndexChanged="dangerwhere_Changed" TextColor="#03A9F4" Grid.Row="9" HorizontalOptions="FillAndExpand" Grid.ColumnSpan="2">
                     <Picker.Items>
                         <x:String>Check-in/preboard</x:String>
                         <x:String>Cabin bags</x:String>
