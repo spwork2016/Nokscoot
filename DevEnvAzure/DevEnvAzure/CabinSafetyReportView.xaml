@@ -4,7 +4,7 @@
               xmlns:controls="clr-namespace:XLabs.Forms.Controls;assembly=XLabs.Forms"
              x:Class="DevEnvAzure.CabinSafetyReportView">
     <ContentView.Content>
-        <StackLayout x:Name="StackLayoutCabinSafetyReport" Margin="0,15" VerticalOptions="FillAndExpand"  BackgroundColor="White">
+        <StackLayout x:Name="StackLayoutCabinSafetyReport" Padding="5,5" Margin="0,15" VerticalOptions="FillAndExpand"  BackgroundColor="White">
             <Label x:Name="lblSpecificEvents" TextColor="Black" FontSize="Medium" HorizontalOptions="Start" Text="Specific Events" />
             <BoxView Color="#FDCE02" HorizontalOptions="FillAndExpand" HeightRequest="1"/>
 

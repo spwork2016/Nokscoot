@@ -36,21 +36,21 @@
                                 <ColumnDefinition Width="*" />
                                 <ColumnDefinition Width="*" />
                             </Grid.ColumnDefinitions>
-                            <Label x:Name="autolbl" TextColor="#E65100" Text="Auto - Coupled" Grid.Row="0" Grid.Column="0" />
+                            <Label x:Name="autolbl" TextColor="Black" FontSize="Small" Text="Auto - Coupled" Grid.Row="0" Grid.Column="0" />
                             <Switch x:Name="autolblws"  Grid.Row="0" Grid.Column="1" HorizontalOptions="EndAndExpand"/>
-                            <Label x:Name="ilslbl" TextColor="#E65100" Text="ILS" Grid.Row="1" Grid.Column="0" />
+                            <Label x:Name="ilslbl" TextColor="Black" FontSize="Small" Text="ILS" Grid.Row="1" Grid.Column="0" />
                             <Switch x:Name="ilslblsw"  Grid.Row="1" Grid.Column="1" HorizontalOptions="EndAndExpand"/>
-                            <Label x:Name="precilbl" TextColor="#E65100" Text="Non-Precision" Grid.Row="2" Grid.Column="0" />
+                            <Label x:Name="precilbl" TextColor="Black" FontSize="Small" Text="Non-Precision" Grid.Row="2" Grid.Column="0" />
                             <Switch x:Name="precisw"  Grid.Row="2" Grid.Column="1" HorizontalOptions="EndAndExpand"/>
-                            <Label x:Name="vclbl" TextColor="#E65100" Text="Visual / Circling" Grid.Row="3" Grid.Column="0" />
+                            <Label x:Name="vclbl" TextColor="Black" FontSize="Small" Text="Visual / Circling" Grid.Row="3" Grid.Column="0" />
                             <Switch x:Name="vclblsw" Grid.Row="3" Grid.Column="1" HorizontalOptions="EndAndExpand" />
-                            <Label x:Name="rnplbl" TextColor="#E65100" Text="RNP APCH(LNAV)" Grid.Row="4" Grid.Column="0" />
+                            <Label x:Name="rnplbl" TextColor="Black" FontSize="Small" Text="RNP APCH(LNAV)" Grid.Row="4" Grid.Column="0" />
                             <Switch x:Name="rnplblsw"  Grid.Row="4" Grid.Column="1" HorizontalOptions="EndAndExpand"/>
-                            <Label x:Name="rnpapvlbl" TextColor="#E65100" Text="RNP APCH / APV(LNAV / VNAV)" Grid.Row="5" Grid.Column="0" />
+                            <Label x:Name="rnpapvlbl" TextColor="Black" FontSize="Small" Text="RNP APCH / APV(LNAV / VNAV)" Grid.Row="5" Grid.Column="0" />
                             <Switch x:Name="rnpapvlblsw"  Grid.Row="5" Grid.Column="1" HorizontalOptions="EndAndExpand"/>
 
                             <Button Text="Close" TextColor="Black" Clicked="OnClose" BackgroundColor="#FDCE02" Grid.Row="6" Grid.Column="0"></Button>
-                            <Button Text="Save" TextColor="Black" Clicked="OnSave" BackgroundColor="#FDCE02" Grid.Row="6" Grid.Column="1"></Button>
+                            <Button Text="OK" TextColor="Black" Clicked="OnSave" BackgroundColor="#FDCE02" Grid.Row="6" Grid.Column="1"></Button>
                         </Grid>
                     </StackLayout>
                 </StackLayout>

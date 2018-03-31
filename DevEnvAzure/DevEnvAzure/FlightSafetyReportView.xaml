@@ -6,7 +6,7 @@
              x:Class="DevEnvAzure.FlightSafetyReportView">
     <ContentView.Content>
         <StackLayout x:Name="StackLayoutFlightSafetyReport" Orientation="Vertical" VerticalOptions="FillAndExpand" BackgroundColor="White">
-            <StackLayout HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" Padding="0,15,0,0">
+            <StackLayout HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" Margin="0,15">
                 <Label x:Name="lblCrewInformation" TextColor="Black" FontSize="Medium" HorizontalOptions="Start" Text="Crew Information" />
                 <BoxView Color="#FDCE02" HorizontalOptions="FillAndExpand" HeightRequest="1" />
                 <Grid>
@@ -68,7 +68,7 @@
                 </Grid>
             </StackLayout>
 
-            <StackLayout HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" Padding="0,15,0,0">
+            <StackLayout HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" Margin="0,15">
                 <Label x:Name="lblPhaseConditions" TextColor="Black" FontSize="Medium" HorizontalOptions="Start" Text="Phase and Conditions" />
                 <BoxView Color="#FDCE02" HorizontalOptions="FillAndExpand" HeightRequest="1"/>
 
@@ -119,7 +119,7 @@
                 </Grid>
             </StackLayout>
 
-            <StackLayout HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" Padding="0,15,0,0">
+            <StackLayout HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" Padding="5,5" Margin="0,15">
                 <Label x:Name="lblAircraftConfigurationTechnical" TextColor="Black" FontSize="Medium" HorizontalOptions="Start" Text="Aircraft Configuration and Technical" />
                 <BoxView Color="#FDCE02" HorizontalOptions="FillAndExpand" HeightRequest="1"/>
 
@@ -302,7 +302,7 @@
                 </Grid>
             </StackLayout>
 
-            <StackLayout HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" Padding="0,15,0,0">
+            <StackLayout HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" Padding="5,5" Margin="0,15">
                 <Label x:Name="AirportLbl" TextColor="Black" FontSize="Medium" HorizontalOptions="Start" Text="Airport" />
                 <BoxView Color="#FDCE02" HorizontalOptions="FillAndExpand" HeightRequest="1"/>
 
