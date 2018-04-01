@@ -18,19 +18,6 @@ namespace DevEnvAzure
         {
             InitializeComponent();
             Load_saveddrafts();
-            //SafetyReportView.ItemsSource = App.safetyReport;
-            //SafetyReportView.BindingContext = App.safetyReport;
-            //cabinSafetyListView.ItemsSource = App.cabinSafety;
-            //  cabinSafetyListView.BindingContext = App.cabinSafety;
-            // groundSafetyView.ItemsSource = App.groundSafety;
-            // groundSafetyView.BindingContext = App.groundSafety;
-            //  fatigueView.ItemsSource = App.fatigue;
-            //  fatigueView.BindingContext = App.fatigue;
-            //   injuryIllnessView.ItemsSource = App.injuryIllness;
-            //   injuryIllnessView.BindingContext = App.injuryIllness;
-            //   securityListView.ItemsSource = App.security;
-            //   securityListView.BindingContext = App.security;
-
             BindingContext = this;
 
         }
@@ -72,10 +59,10 @@ namespace DevEnvAzure
         private void ExpandCollapsePanel(object sender, StackLayout layout, string rptType)
         {
             var btn = (Button)sender;
-
             if (btn.Text == "+")
             {
                 btn.Text = "-";
+                removeChildren();
                 layout.Children.Add(new DraftsExpandContentView(rptType));
             }
             else
@@ -120,26 +107,32 @@ namespace DevEnvAzure
             if (groundSafetyLayout.Children.Count > 0)
             {
                 groundSafetyLayout.Children.RemoveAt(0);
+                btnGroundSafetyPanel.Text = "+";
             }
             if (securityLayout.Children.Count > 0)
             {
                 securityLayout.Children.RemoveAt(0);
+                btnSecurityPanel.Text = "+";
             }
             if (fatigueLayout.Children.Count > 0)
             {
                 fatigueLayout.Children.RemoveAt(0);
+                btnFatiguePanel.Text = "+";
             }
             if (cabinSafetyLayout.Children.Count > 0)
             {
                 cabinSafetyLayout.Children.RemoveAt(0);
+                btnCabinPanel.Text = "+";
             }
             if (injuryillnessLayout.Children.Count > 0)
             {
                 injuryillnessLayout.Children.RemoveAt(0);
+                btnInjuryIllnessPanel.Text = "+";
             }
             if (SafetyLayout.Children.Count > 0)
             {
                 SafetyLayout.Children.RemoveAt(0);
+                btnSafetyPanel.Text = "+";
             }
         }
 
