@@ -12,9 +12,15 @@ namespace DevEnvAzure
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class FatigueReportView : ContentView
     {
+        public static string RatehowyoufeltValue;
         public FatigueReportView()
         {
             InitializeComponent();
         }
+        private void Ratehowyoufelt_changed(object sender, EventArgs e)
+        {
+            RatehowyoufeltValue = Ratehowyoufeltpicker.Items.ElementAt(Ratehowyoufeltpicker.SelectedIndex);
+        }
+        
     }
 }

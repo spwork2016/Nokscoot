@@ -17,106 +17,104 @@ namespace DevEnvAzure
         public EditableDrafts()
         {
             InitializeComponent();
-            load_saveddrafts();
+            Load_saveddrafts();
+            //SafetyReportView.ItemsSource = App.safetyReport;
+            //SafetyReportView.BindingContext = App.safetyReport;
+            //cabinSafetyListView.ItemsSource = App.cabinSafety;
+            //  cabinSafetyListView.BindingContext = App.cabinSafety;
+            // groundSafetyView.ItemsSource = App.groundSafety;
+            // groundSafetyView.BindingContext = App.groundSafety;
+            //  fatigueView.ItemsSource = App.fatigue;
+            //  fatigueView.BindingContext = App.fatigue;
+            //   injuryIllnessView.ItemsSource = App.injuryIllness;
+            //   injuryIllnessView.BindingContext = App.injuryIllness;
+            //   securityListView.ItemsSource = App.security;
+            //   securityListView.BindingContext = App.security;
+
+            BindingContext = this;
+
         }
-        public void load_saveddrafts()
+
+        public void Load_saveddrafts()
         {
             try
             {
                 App.security = new ObservableCollection<SecurityModel>(App.DAUtil.GetAllEmployees<SecurityModel>("SecurityModel"));
+                lblSecurityReportCount.Text = string.Format("({0})", App.security.Count.ToString());
+                stkSecurityReports.IsVisible = App.security.Count == 0 ? false : true;
+
                 App.safetyReport = new ObservableCollection<FlightSafetyReportModel>(App.DAUtil.GetAllEmployees<FlightSafetyReportModel>("SafetyReportModel"));
+                lblSafetyReportCount.Text = string.Format("({0})", App.safetyReport.Count.ToString());
+                stkSafetyReports.IsVisible = App.safetyReport.Count == 0 ? false : true;
+
                 App.cabinSafety = new ObservableCollection<CabibSafetyReport>(App.DAUtil.GetAllEmployees<CabibSafetyReport>("CabibSafetyReport"));
+                lblcabinSafetyReportCount.Text = string.Format("({0})", App.cabinSafety.Count.ToString());
+                stkcabinSafetyReports.IsVisible = App.cabinSafety.Count == 0 ? false : true;
+
                 App.injuryIllness = new ObservableCollection<InjuryIllnessReport>(App.DAUtil.GetAllEmployees<InjuryIllnessReport>("InjuryIllnessReport"));
+                lblinjuryIllnessReportCount.Text = string.Format("({0})", App.injuryIllness.Count.ToString());
+                stkinjuryIllnessReports.IsVisible = App.injuryIllness.Count == 0 ? false : true;
+
                 App.groundSafety = new ObservableCollection<GroundSafetyReport>(App.DAUtil.GetAllEmployees<GroundSafetyReport>("GroundSafetyReport"));
+                lblGroundSafetyReportCount.Text = string.Format("({0})", App.groundSafety.Count.ToString());
+                stkGroundSafetyReports.IsVisible = App.groundSafety.Count == 0 ? false : true;
+
                 App.fatigue = new ObservableCollection<FatigueReport>(App.DAUtil.GetAllEmployees<FatigueReport>("FatigueReport"));
-                App.kaizen = new ObservableCollection<KaizenReportModel>(App.DAUtil.GetAllEmployees<KaizenReportModel>("KaizenReportModel"));
-                App.statInfo = new ObservableCollection<StationInformationModel>(App.DAUtil.GetAllEmployees<StationInformationModel>("StationInformationModel"));
-                App.fcVoyage = new ObservableCollection<FlightCrewVoyageRecordModel>(App.DAUtil.GetAllEmployees<FlightCrewVoyageRecordModel>("FlightCrewVoyageRecordModel"));
+                lblFatigueReportCount.Text = string.Format("({0})", App.fatigue.Count.ToString());
+                stkFatigueReports.IsVisible = App.fatigue.Count == 0 ? false : true;
             }
             catch (Exception ex)
             {
 
             }
         }
-        private  void Safety_Expand(object sender, EventArgs e)
+
+        private void ExpandCollapsePanel(object sender, StackLayout layout, string rptType)
         {
-            removeChildren();
-            if (SafetyLayout.Children.Count<1)
-            SafetyLayout.Children.Add(new DraftsExpandContentView("safety"));
+            var btn = (Button)sender;
+
+            if (btn.Text == "+")
+            {
+                btn.Text = "-";
+                layout.Children.Add(new DraftsExpandContentView(rptType));
+            }
+            else
+            {
+                btn.Text = "+";
+                layout.Children.RemoveAt(0);
+            }
         }
-        private void groundSafety_Expand(object sender, EventArgs e)
+
+        private void Safety_Expand(object sender, EventArgs e)
         {
-            removeChildren();
-
-
-             if (groundSafetyLayout.Children.Count<1)
-            groundSafetyLayout.Children.Add(new DraftsExpandContentView("ground"));
-
+            ExpandCollapsePanel(sender, SafetyLayout, "safety");
         }
-        private void security_Expand(object sender, EventArgs e)
+
+        private void GroundSafety_Expand(object sender, EventArgs e)
         {
-            removeChildren();
-
-
-            if (securityLayout.Children.Count < 1)
-                securityLayout.Children.Add(new DraftsExpandContentView("security"));
-
+            ExpandCollapsePanel(sender, groundSafetyLayout, "ground");
         }
-        private void fatigue_Expand(object sender, EventArgs e)
+
+        private void Security_Expand(object sender, EventArgs e)
         {
-            removeChildren();
-
-
-            if (fatigueLayout.Children.Count < 1)
-                fatigueLayout.Children.Add(new DraftsExpandContentView("fatigue"));
-
+            ExpandCollapsePanel(sender, securityLayout, "security");
         }
-        private void cabin_Expand(object sender, EventArgs e)
+
+        private void Fatigue_Expand(object sender, EventArgs e)
         {
-            removeChildren();
-
-
-            if (cabinSafetyLayout.Children.Count < 1)
-                cabinSafetyLayout.Children.Add(new DraftsExpandContentView("cabin"));
-
+            ExpandCollapsePanel(sender, fatigueLayout, "fatigue");
         }
-        private void injuryillness_Expand(object sender, EventArgs e)
+
+        private void Cabin_Expand(object sender, EventArgs e)
         {
-            removeChildren();
-
-
-            if (injuryillnessLayout.Children.Count < 1)
-                injuryillnessLayout.Children.Add(new DraftsExpandContentView("illness"));
-
+            ExpandCollapsePanel(sender, cabinSafetyLayout, "cabin");
         }
-        //Remaining 3 forms
-        private void KaizenReports_Expand(object sender, EventArgs e)
+
+        private void Injuryillness_Expand(object sender, EventArgs e)
         {
-            removeChildren();
-
-
-            if (KaizenReportLayout.Children.Count < 1)
-                KaizenReportLayout.Children.Add(new DraftsExpandContentView("kaizen"));
-
+            ExpandCollapsePanel(sender, injuryillnessLayout, "illness");
         }
-        private void StationInformation_Expand(object sender, EventArgs e)
-        {
-            removeChildren();
 
-
-            if (StationInformationLayout.Children.Count < 1)
-                StationInformationLayout.Children.Add(new DraftsExpandContentView("statInfo"));
-
-        }
-        private void FlightCrewVoyageRecord_Expand(object sender, EventArgs e)
-        {
-            removeChildren();
-
-
-            if (FlightCrewVoyageRecordLayout.Children.Count < 1)
-                FlightCrewVoyageRecordLayout.Children.Add(new DraftsExpandContentView("fcVoyage"));
-
-        }
         public void removeChildren()
         {
             if (groundSafetyLayout.Children.Count > 0)
@@ -142,19 +140,6 @@ namespace DevEnvAzure
             if (SafetyLayout.Children.Count > 0)
             {
                 SafetyLayout.Children.RemoveAt(0);
-            }
-            //Remaining 3 forms
-            if (KaizenReportLayout.Children.Count > 0)
-            {
-                KaizenReportLayout.Children.RemoveAt(0);
-            }
-            if (FlightCrewVoyageRecordLayout.Children.Count > 0)
-            {
-                FlightCrewVoyageRecordLayout.Children.RemoveAt(0);
-            }
-            if (StationInformationLayout.Children.Count > 0)
-            {
-                StationInformationLayout.Children.RemoveAt(0);
             }
         }
 

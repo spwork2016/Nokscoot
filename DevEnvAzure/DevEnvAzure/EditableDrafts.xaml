@@ -3,55 +3,259 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="DevEnvAzure.EditableDrafts" Title="Edit Drafts">
     <ContentPage.Content>
-        <ScrollView Orientation="Vertical">
-        <StackLayout  Orientation="Vertical" VerticalOptions="FillAndExpand" >
-        <StackLayout Orientation="Vertical" VerticalOptions = "FillAndExpand" Padding="10,0" BackgroundColor="White">
-                <Button Text="Safety Report" TextColor="White" Clicked="Safety_Expand" />
-                <StackLayout x:Name="SafetyLayout" Orientation="Vertical"/>
-            </StackLayout>
-        <StackLayout Orientation="Vertical"  VerticalOptions = "FillAndExpand"  Padding="10,0" BackgroundColor="White">
-            <Button Text="Ground Safety Report" TextColor="White" Clicked="groundSafety_Expand"/>
-                <StackLayout x:Name="groundSafetyLayout" Orientation="Vertical" VerticalOptions = "FillAndExpand" Padding="10,0">
-                </StackLayout>
-        </StackLayout>
-            <StackLayout Orientation="Vertical"  VerticalOptions = "FillAndExpand"  Padding="10,0" BackgroundColor="White">
-                <Button Text="Security Report" TextColor="White" Clicked="security_Expand"/>
-                <StackLayout x:Name="securityLayout" Orientation="Vertical" VerticalOptions = "FillAndExpand" Padding="10,0">
-                </StackLayout>
-            </StackLayout>
-            <StackLayout Orientation="Vertical"  VerticalOptions = "FillAndExpand"  Padding="10,0" BackgroundColor="White">
-                <Button Text="Fatigue Report" TextColor="White" Clicked="fatigue_Expand"/>
-                <StackLayout x:Name="fatigueLayout" Orientation="Vertical" VerticalOptions = "FillAndExpand" Padding="10,0">
-                </StackLayout>
-            </StackLayout>
-            <StackLayout Orientation="Vertical"  VerticalOptions = "FillAndExpand"  Padding="10,0" BackgroundColor="White">
-                <Button Text="Cabin Safety Report" TextColor="White" Clicked="cabin_Expand"/>
-                <StackLayout x:Name="cabinSafetyLayout" Orientation="Vertical" VerticalOptions = "FillAndExpand" Padding="10,0">
-                </StackLayout>
-            </StackLayout>
-            <StackLayout Orientation="Vertical"  VerticalOptions = "FillAndExpand"  Padding="10,0" BackgroundColor="White">
-                <Button Text="Injury Illness Report" TextColor="White" Clicked="injuryillness_Expand"/>
-                <StackLayout x:Name="injuryillnessLayout" Orientation="Vertical" VerticalOptions = "FillAndExpand" Padding="10,0">
-                </StackLayout>
-            </StackLayout>
-            <!-- Other 3 Forms-->
-            <StackLayout Orientation="Vertical"  VerticalOptions = "FillAndExpand"  Padding="10,0" BackgroundColor="White">
-                <Button Text="Kaizen Report" TextColor="White" Clicked="KaizenReports_Expand"/>
-                <StackLayout x:Name="KaizenReportLayout" Orientation="Vertical" VerticalOptions = "FillAndExpand" Padding="10,0">
-                </StackLayout>
-            </StackLayout>
-            <StackLayout Orientation="Vertical"  VerticalOptions = "FillAndExpand"  Padding="10,0" BackgroundColor="White">
-                <Button Text="Station Information" TextColor="White" Clicked="StationInformation_Expand"/>
-                <StackLayout x:Name="StationInformationLayout" Orientation="Vertical" VerticalOptions = "FillAndExpand" Padding="10,0">
-                </StackLayout>
-            </StackLayout>
-            <StackLayout Orientation="Vertical"  VerticalOptions = "FillAndExpand"  Padding="10,0" BackgroundColor="White">
-                <Button Text="Flight Crew Voyage Record" TextColor="White" Clicked="FlightCrewVoyageRecord_Expand"/>
-                <StackLayout x:Name="FlightCrewVoyageRecordLayout" Orientation="Vertical" VerticalOptions = "FillAndExpand" Padding="10,0">
-                </StackLayout>
+        <StackLayout  Orientation="Vertical" VerticalOptions="FillAndExpand">
+            <!--<ScrollView VerticalOptions="FillAndExpand" Orientation="Vertical">-->
+            <!--<Grid VerticalOptions="FillAndExpand">
+                <Grid.RowDefinitions>
+                <RowDefinition Height="30" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="30" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="30" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="30" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="30" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="30" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>-->
+            <StackLayout x:Name="stkSafetyReports" Orientation="Vertical" HorizontalOptions="FillAndExpand" VerticalOptions="Fill" Padding="5,5" BackgroundColor="White">
+                <Grid HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="30" />
+                        <RowDefinition Height="1" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="30" />
+                        <ColumnDefinition Width="30" />
+                    </Grid.ColumnDefinitions>
+
+                    <Label TextColor="Black" Grid.Row="0" Grid.Column="0" FontSize="Medium" VerticalTextAlignment="End" Text="Safety Reports" />
+                    <Label x:Name="lblSafetyReportCount" TextColor="Black" FontSize="Micro" Grid.Row="0" Grid.Column="1" 
+                           VerticalTextAlignment="Center" Text="{Binding SafetyReportCount}" />
+                    <Button Text="+" TextColor="Black" Clicked="Safety_Expand" Grid.Row="0" Grid.Column="2" BackgroundColor="#FDCE02" />
+                    <BoxView Color="#FDCE02" HorizontalOptions="FillAndExpand" Grid.Row="1" Grid.ColumnSpan="3" HeightRequest="1"/>
+
+                    <StackLayout x:Name="SafetyLayout" Orientation="Vertical" Grid.Row="2" Grid.ColumnSpan="3"/>
+                </Grid>
             </StackLayout>
 
+            <StackLayout x:Name="stkGroundSafetyReports" Orientation="Vertical"  VerticalOptions="Fill" Padding="5,5" BackgroundColor="White">
+                <Grid HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="30" />
+                        <RowDefinition Height="1" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="30" />
+                        <ColumnDefinition Width="30" />
+                    </Grid.ColumnDefinitions>
+
+                    <Label TextColor="Black" Grid.Row="0" Grid.Column="0" FontSize="Medium" VerticalTextAlignment="End" Text="Ground Safety Reports" />
+                    <Label x:Name="lblGroundSafetyReportCount" TextColor="Black" FontSize="Micro" Grid.Row="0" Grid.Column="1" 
+                           VerticalTextAlignment="Center" />
+                    <Button Text="+" TextColor="Black" Clicked="GroundSafety_Expand" Grid.Row="0" Grid.Column="2" BackgroundColor="#FDCE02" />
+                    <BoxView Color="#FDCE02" HorizontalOptions="FillAndExpand" Grid.Row="1" Grid.ColumnSpan="3" HeightRequest="1"/>
+
+                    <StackLayout x:Name="groundSafetyLayout" Orientation="Vertical" Grid.Row="2" Grid.ColumnSpan="3"/>
+                </Grid>
+            </StackLayout>
+
+            <StackLayout x:Name="stkSecurityReports" Orientation="Vertical"  VerticalOptions="Fill"  Padding="5,5" BackgroundColor="White">
+                <Grid HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="30" />
+                        <RowDefinition Height="1" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="30" />
+                        <ColumnDefinition Width="30" />
+                    </Grid.ColumnDefinitions>
+
+                    <Label TextColor="Black" Grid.Row="0" Grid.Column="0" FontSize="Medium" VerticalTextAlignment="End" Text="Security Reports" />
+                    <Label x:Name="lblSecurityReportCount" TextColor="Black" FontSize="Micro" Grid.Row="0" Grid.Column="1" 
+                           VerticalTextAlignment="Center" />
+                    <Button Text="+" TextColor="Black" Clicked="Security_Expand" Grid.Row="0" Grid.Column="2" BackgroundColor="#FDCE02" />
+                    <BoxView Color="#FDCE02" HorizontalOptions="FillAndExpand" Grid.Row="1" Grid.ColumnSpan="3" HeightRequest="1"/>
+
+                    <StackLayout x:Name="securityLayout" Orientation="Vertical" Grid.Row="2" Grid.ColumnSpan="3"/>
+                </Grid>
+            </StackLayout>
+
+            <StackLayout x:Name="stkFatigueReports" Orientation="Vertical"  VerticalOptions="Fill"  Padding="5,5" BackgroundColor="White">
+                <Grid HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="30" />
+                        <RowDefinition Height="1" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="30" />
+                        <ColumnDefinition Width="30" />
+                    </Grid.ColumnDefinitions>
+
+                    <Label TextColor="Black" Grid.Row="0" Grid.Column="0" FontSize="Medium" VerticalTextAlignment="End" Text="Fatigue Reports" />
+                    <Label x:Name="lblFatigueReportCount" TextColor="Black" FontSize="Micro" Grid.Row="0" Grid.Column="1" 
+                           VerticalTextAlignment="Center" />
+                    <Button Text="+" TextColor="Black" Clicked="Fatigue_Expand" Grid.Row="0" Grid.Column="2" BackgroundColor="#FDCE02" />
+                    <BoxView Color="#FDCE02" HorizontalOptions="FillAndExpand" Grid.Row="1" Grid.ColumnSpan="3" HeightRequest="1"/>
+
+                    <StackLayout x:Name="fatigueLayout" Orientation="Vertical" Grid.Row="2" Grid.ColumnSpan="3"/>
+                </Grid>
+            </StackLayout>
+
+            <StackLayout x:Name="stkcabinSafetyReports" Orientation="Vertical"  VerticalOptions="Fill"  Padding="5,5" BackgroundColor="White">
+                <Grid HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="30" />
+                        <RowDefinition Height="1" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="30" />
+                        <ColumnDefinition Width="30" />
+                    </Grid.ColumnDefinitions>
+
+                    <Label TextColor="Black" Grid.Row="0" Grid.Column="0" FontSize="Medium" VerticalTextAlignment="End" Text="Cabin Safety Reports" />
+                    <Label x:Name="lblcabinSafetyReportCount" TextColor="Black" FontSize="Micro" Grid.Row="0" Grid.Column="1" 
+                           VerticalTextAlignment="Center" />
+                    <Button Text="+" TextColor="Black" Clicked="Cabin_Expand" Grid.Row="0" Grid.Column="2" BackgroundColor="#FDCE02" />
+                    <BoxView Color="#FDCE02" HorizontalOptions="FillAndExpand" Grid.Row="1" Grid.ColumnSpan="3" HeightRequest="1"/>
+
+                    <StackLayout x:Name="cabinSafetyLayout" Orientation="Vertical" Grid.Row="2" Grid.ColumnSpan="3"/>
+                </Grid>
+                
+                <!--<Button Text="Cabin Safety Report" TextColor="Black" Clicked="cabin_Expand"/>
+                <StackLayout x:Name="cabinSafetyLayout" Orientation="Vertical" VerticalOptions="FillAndExpand" Padding="10,0">
+                </StackLayout>-->
+            </StackLayout>
+            <StackLayout x:Name="stkinjuryIllnessReports" Orientation="Vertical"  VerticalOptions="Fill" Padding="5,5" BackgroundColor="White">
+                <Grid HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="30" />
+                        <RowDefinition Height="1" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="30" />
+                        <ColumnDefinition Width="30" />
+                    </Grid.ColumnDefinitions>
+
+                    <Label TextColor="Black" Grid.Row="0" Grid.Column="0" FontSize="Medium" VerticalTextAlignment="End" Text="Injury Illness Reports" />
+                    <Label x:Name="lblinjuryIllnessReportCount" TextColor="Black" FontSize="Micro" Grid.Row="0" Grid.Column="1" 
+                           VerticalTextAlignment="Center" />
+                    <Button Text="+" TextColor="Black" Clicked="Injuryillness_Expand" Grid.Row="0" Grid.Column="2" BackgroundColor="#FDCE02" />
+                    <BoxView Color="#FDCE02" HorizontalOptions="FillAndExpand" Grid.Row="1" Grid.ColumnSpan="3" HeightRequest="1"/>
+
+                    <StackLayout x:Name="injuryillnessLayout" Orientation="Vertical" Grid.Row="2" Grid.ColumnSpan="3"/>
+                </Grid>
+                
+                <!--<Button Text="Injury Illness Report" TextColor="Black" Clicked="injuryillness_Expand"/>
+                <StackLayout x:Name="injuryillnessLayout" Orientation="Vertical" VerticalOptions="FillAndExpand" Padding="10,0">
+                </StackLayout>-->
+            </StackLayout>
+            <!--<ListView x:Name="SafetyReportView" Grid.Row="1" HasUnevenRows="True">
+                <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <ViewCell>
+                                <StackLayout>
+                                    <Label Text="{Binding ReportType}"></Label>
+                                    <Label Text="{Binding DateOfEvent}"></Label>
+                                    <Button  Text="Edit" VerticalOptions="Center" BorderRadius="16" FontSize="10" HeightRequest="34" BorderWidth="0" Clicked="SafetyReport_Clicked" CommandParameter="{Binding ReportType}"/>
+                                </StackLayout>
+                            </ViewCell>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>-->
+
+            <!--<ListView x:Name="groundSafetyView"   Grid.Row="3" HasUnevenRows="True">
+                <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <ViewCell>ss
+                                <StackLayout>
+                                    <Label Text="{Binding ReportType}"></Label>
+                                    <Label Text="{Binding DateOfEvent}"></Label>
+                                    <Button  Text="Edit" VerticalOptions="Center" BorderRadius="16" FontSize="10" HeightRequest="34" BorderWidth="0" Clicked="groundSafety_Clicked" CommandParameter="{Binding ReportType}"/>
+                                </StackLayout>
+                            </ViewCell>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>-->
+            <!--<StackLayout Orientation="Horizontal"  Grid.Row="4" Padding="10,5,5,10" BackgroundColor="#31b0d5">
+                <Label Text="Security Report"  TextColor="Black"/>
+            </StackLayout>
+            <ListView x:Name="securityListView"  Grid.Row="5" HasUnevenRows="True">
+                <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <ViewCell>ss
+                                <StackLayout>
+                                    <Label Text="{Binding ReportType}"></Label>
+                                    <Label Text="{Binding DateOfEvent}"></Label>
+                                    <Button  Text="Edit" VerticalOptions="Center" BorderRadius="16" FontSize="10" HeightRequest="34" BorderWidth="0" Clicked="security_Clicked" CommandParameter="{Binding ReportType}"/>
+                                </StackLayout>
+                            </ViewCell>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+            <StackLayout Orientation="Horizontal"  Grid.Row="6" Padding="10,5,5,10" BackgroundColor="#31b0d5">
+                <Label Text="Fatigue Report"  TextColor="Black"/>
+            </StackLayout>
+            <ListView x:Name="fatigueView"   Grid.Row="7" HasUnevenRows="True">
+                <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <ViewCell>ss
+                                <StackLayout>
+                                    <Label Text="{Binding ReportType}"></Label>
+                                    <Label Text="{Binding DateOfEvent}"></Label>
+                                    <Button  Text="Edit" VerticalOptions="Center" BorderRadius="16" FontSize="10" HeightRequest="34" BorderWidth="0" Clicked="fatigue_Clicked" CommandParameter="{Binding ReportType}"/>
+                                </StackLayout>
+                            </ViewCell>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+            <StackLayout Orientation="Horizontal"  Grid.Row="8" Padding="10,5,5,10" BackgroundColor="#31b0d5">
+                <Label Text="Cabin Safety Report"  TextColor="Black"/>
+            </StackLayout>
+            <ListView x:Name="cabinSafetyListView"  Grid.Row="9" HasUnevenRows="True">
+                <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <ViewCell>ss
+                                <StackLayout>
+                                    <Label Text="{Binding ReportType}"></Label>
+                                    <Label Text="{Binding DateOfEvent}"></Label>
+                                    <Button  Text="Edit" VerticalOptions="Center" BorderRadius="16" FontSize="10" HeightRequest="34" BorderWidth="0" Clicked="cabinSafety_Clicked" CommandParameter="{Binding ReportType}"/>
+                                </StackLayout>
+                            </ViewCell>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+            <StackLayout Orientation="Horizontal"  Grid.Row="10" Padding="10,5,5,10" BackgroundColor="#31b0d5">
+                <Label Text="Injury Illness Report"  TextColor="Black"/>
+            </StackLayout>
+            <ListView x:Name="injuryIllnessView"  Grid.Row="11" HasUnevenRows="True">
+                <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <ViewCell>
+                                <StackLayout>
+                                    <Label Text="{Binding ReportType}"></Label>
+                                    <Label Text="{Binding DateOfEvent}"></Label>
+                                    <Button  Text="Edit" VerticalOptions="Center" BorderRadius="16" FontSize="10" HeightRequest="34" BorderWidth="0" Clicked="injuryIllness_Clicked" CommandParameter="{Binding ReportType}"/>
+                                </StackLayout>
+                            </ViewCell>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+            </Grid>-->
         </StackLayout>
-        </ScrollView>
     </ContentPage.Content>
 </ContentPage>

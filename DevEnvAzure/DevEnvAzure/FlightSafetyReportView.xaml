@@ -220,7 +220,7 @@
             </StackLayout>
 
             <StackLayout HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" Padding="0,15,0,0">
-                <Label x:Name="EnvironmentLbl" Opacity="5" TextColor="Black"  FontSize="Medium" HorizontalOptions="Start" Text="Environment" />
+                <Label x:Name="EnvironmentLbl" TextColor="Black"  FontSize="Medium" HorizontalOptions="Start" Text="Environment" />
                 <BoxView Color="#FDCE02" HorizontalOptions="FillAndExpand" HeightRequest="1"/>
 
                 <Grid>

@@ -4,108 +4,118 @@
              xmlns:controls="clr-namespace:XLabs.Forms.Controls;assembly=XLabs.Forms"
              x:Class="DevEnvAzure.FatigueReportView">
     <ContentView.Content>
-        <StackLayout x:Name="StackLayoutFatigueReport" Orientation="Vertical" VerticalOptions = "FillAndExpand"  BackgroundColor="White">
-            <Frame   BackgroundColor="#FDCE02" >
-                <Label x:Name="Whendidithappenlbl" Opacity="5" TextColor="Black"  FontSize="Small" HorizontalOptions="Center" Text="When did it happen?" />
-            </Frame>
-            <Grid>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="*" />
-                    <RowDefinition Height="*" />
-                    <RowDefinition Height="*" />
-                </Grid.RowDefinitions>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*" />
-                    <ColumnDefinition Width="*" />
-                </Grid.ColumnDefinitions>
-                <Label x:Name="LocalReportDatelbl" TextColor="#E65100" Text="Local Report Date" Grid.Row="0" Grid.Column="0" />
-                <DatePicker x:Name="LocalReportDatepkr" Date="{Binding localReportDate,Mode=TwoWay}"  Grid.Row="0" Grid.Column="1" TextColor="#0D47A1"  >
-                    <DatePicker.Format>MM/dd/yyyy</DatePicker.Format>
-                </DatePicker>
-                <Label x:Name="Hourswhenfatigueoccurredlbl" Text="Hours when fatigue occurred" TextColor="#E65100" Grid.Row="1" Grid.Column="0" />
-                <Entry x:Name="HourswhenfatigueoccurredEntry"   Text="{Binding hoursFromReport, Mode=TwoWay}"  TextColor="#0D47A1" Grid.Row="1" Grid.Column="1" />
-                <Label x:Name="Disruptlbl" Text="Disrupt" TextColor="#E65100" Grid.Row="2" Grid.Column="0" />
-                <Switch x:Name="Disruptchkbx"   HorizontalOptions="EndAndExpand"  IsToggled="{Binding disrupt, Mode=TwoWay}" Grid.Row="2" Grid.Column="1" />
-            </Grid>
-            <Frame   BackgroundColor="#FDCE02" >
-                <Label x:Name="Whathappenedlbl" Opacity="5" TextColor="Black"  FontSize="Small" HorizontalOptions="Center" Text="What happened?" />
-            </Frame>
-            <Grid>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="*" />
-                    <RowDefinition Height="*" />
-                </Grid.RowDefinitions>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*" />
-                    <ColumnDefinition Width="*" />
-                </Grid.ColumnDefinitions>
-                <Label x:Name="Describehowyoufeltlbl" Text="Describe how you felt" TextColor="#E65100" Grid.Row="0" Grid.Column="0" />
-                <Entry x:Name="DescribehowyoufeltEntry"   Text="{Binding describeFeel, Mode=TwoWay}"  TextColor="#0D47A1" Grid.Row="0" Grid.Column="1" />
-                <Label x:Name="Ratehowyoufeltlbl" Text="Rate how you felt" TextColor="#E65100" Grid.Row="1" Grid.Column="0" />
-                <Picker x:Name="Ratehowyoufeltpicker"  SelectedIndex="{Binding rateFeelIndex,Mode=TwoWay}"  TextColor="#0D47A1" Grid.Row="1" Grid.Column="1" HorizontalOptions="FillAndExpand">
-                    <Picker.Items>
-                        <x:String>1</x:String>
-                        <x:String>2</x:String>
-                        <x:String>3</x:String>
-                        <x:String>4</x:String>
-                        <x:String>5</x:String>
-                        <x:String>6</x:String>
-                        <x:String>7</x:String>
-                        <x:String>8</x:String>
-                        <x:String>9</x:String>
-                        <x:String>10</x:String>
-                    </Picker.Items>
-                </Picker>
-            </Grid>
-            <Frame   BackgroundColor="#FDCE02" >
-                <Label x:Name="Whydidithappenlbl" Opacity="5" TextColor="Black"  FontSize="Small" HorizontalOptions="Center" Text="Why did it happen ?" />
-            </Frame>
-            <Grid>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="*" />
-                    <RowDefinition Height="*" />
-                    <RowDefinition Height="*" />
-                    <RowDefinition Height="*" />
-                    <RowDefinition Height="*" />
-                    <RowDefinition Height="*" />
-                    <RowDefinition Height="*" />
-                </Grid.RowDefinitions>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*" />
-                    <ColumnDefinition Width="*" />
-                </Grid.ColumnDefinitions>
-                <Label x:Name="FatiguedpriortoDutylbl" Text="Fatigued prior to Duty" TextColor="#E65100" Grid.Row="0" Grid.Column="0" />
-                <Switch x:Name="FatiguedpriortoDutychkbx" IsToggled="{Binding fatiguePrior, Mode=TwoWay}"  HorizontalOptions="EndAndExpand" Grid.Row="0" Grid.Column="1" />
-                <Label x:Name="PoorInFlightRestlbl" Text="Poor In-Flight Rest" TextColor="#E65100" Grid.Row="1" Grid.Column="0" />
-                <Switch x:Name="PoorInFlightRestchkbx" IsToggled="{Binding poorFlightRest, Mode=TwoWay}" HorizontalOptions="EndAndExpand"  Grid.Row="1" Grid.Column="1" />
-                <Label x:Name="DutyItselflbl" Text="Duty Itself" TextColor="#E65100" Grid.Row="2" Grid.Column="0" />
-                <Switch x:Name="DutyItselfchkbx" IsToggled="{Binding dutyItself, Mode=TwoWay}"   HorizontalOptions="EndAndExpand"  Grid.Row="2" Grid.Column="1" />
-                <Label x:Name="RosterCombinationofDutieslbl" Text="Roster/Combination of Duties" TextColor="#E65100" Grid.Row="3" Grid.Column="0" />
-                <Switch x:Name="RostercombinationofDutieschkbx" IsToggled="{Binding roaster, Mode=TwoWay}"  HorizontalOptions="EndAndExpand"  Grid.Row="3" Grid.Column="1" />
-                <Label x:Name="PersonalStresslbl" Text="Personal Stress" TextColor="#E65100" Grid.Row="4" Grid.Column="0" />
-                <Switch x:Name="PersonalStresschkbx"   HorizontalOptions="EndAndExpand"  IsToggled="{Binding personalStress,Mode=TwoWay}" Grid.Row="4" Grid.Column="1" />
-                <Label x:Name="HotelDisturbancelbl" Text="Hotel Disturbance" TextColor="#E65100" Grid.Row="5" Grid.Column="0" />
-                <Switch x:Name="HotelDisturbancechkbx" IsToggled="{Binding hotelDisturbance, Mode=TwoWay}"  HorizontalOptions="EndAndExpand"  Grid.Row="5" Grid.Column="1" />
-                <Label x:Name="OtherCommentslbl" Text="Other/Comments" TextColor="#E65100" Grid.Row="6" Grid.Column="0" />
-                <Entry x:Name="OtherCommentsEntry"   Text="{Binding otherComments, Mode=TwoWay}"  TextColor="#0D47A1" Grid.Row="6" Grid.Column="1" />
-            </Grid>
+        <StackLayout x:Name="StackLayoutFlightSafetyReport" Orientation="Vertical" VerticalOptions="FillAndExpand" BackgroundColor="White">
+            <StackLayout HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" Margin="0,15">
+                <Label x:Name="lblCrewInformation" TextColor="Black" FontSize="Medium" HorizontalOptions="Start" Text="Crew Information" />
+                <BoxView Color="#FDCE02" HorizontalOptions="FillAndExpand" HeightRequest="1" />
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="14" />
+                        <RowDefinition Height="30" />
+                        <RowDefinition Height="14" />
+                        <RowDefinition Height="30" />
+                        <RowDefinition Height="30" />
+                    </Grid.RowDefinitions>
 
-            <Frame   BackgroundColor="#FDCE02" >
-                <Label x:Name="Whatdidyoudolbl" Opacity="5" TextColor="Black"  FontSize="Small" HorizontalOptions="Center" Text="What did you do ?" />
-            </Frame>
-            <Grid>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="*" />
-                    <RowDefinition Height="*" />
-                </Grid.RowDefinitions>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*" />
-                    <ColumnDefinition Width="*" />
-                </Grid.ColumnDefinitions>
-                <Label x:Name="Actionstakentomanageorreducefatiguelbl" Text="Actions taken to manage or reduce fatigue" TextColor="#E65100" Grid.Row="0" Grid.Column="0" />
-                <Entry x:Name="ActionstakentomanageorreducefatigueEntry"   Text="{Binding actionToreduce, Mode=TwoWay}"  TextColor="#0D47A1" Grid.Row="0" Grid.Column="1" />
-                <Label x:Name="Attachanyphotoortextualreferenceslbl" Text="Attach any photo or textual references" TextColor="#E65100" Grid.Row="1" Grid.Column="0" />
-            </Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <Label x:Name="LocalReportDatelbl" TextColor="Black" FontSize="Micro" Text="Local Report Date" Grid.Row="0" Grid.ColumnSpan="2" />
+                    <DatePicker x:Name="LocalReportDatepkr" Date="{Binding localReportDate, Mode=TwoWay}" Grid.Row="1" TextColor="#03A9F4" Grid.ColumnSpan="2">
+                        <DatePicker.Format>MM/dd/yyyy</DatePicker.Format>
+                    </DatePicker>
+                    <Label x:Name="Hourswhenfatigueoccurredlbl" Text="Hours when fatigue occurred" FontSize="Micro" TextColor="Black" Grid.Row="2" Grid.ColumnSpan="2" />
+                    <Entry x:Name="HourswhenfatigueoccurredEntry" Placeholder="Hours when fatigue occurred" PlaceholderColor="#F1F1F1" Text="{Binding FlightNumber, Mode=TwoWay}" TextColor="#03A9F4" Grid.Row="3" Grid.ColumnSpan="2"/>
+                    <Label x:Name="Disruptlbl" TextColor="Black"  Grid.Row="4" Grid.Column="0" Text="Disrupt" />
+                    <Switch x:Name="Disruptchkbx"   HorizontalOptions="EndAndExpand" IsToggled="{Binding disrupt, Mode=TwoWay}" Grid.Row="4" Grid.Column="1" />
+                </Grid>
+            </StackLayout>
+            <StackLayout HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" Margin="0,15">
+                <Label x:Name="Whathappenedlbl" TextColor="Black" FontSize="Medium" HorizontalOptions="Start" Text="What happened?" Grid.ColumnSpan="2"/>
+                <BoxView Color="#FDCE02" HorizontalOptions="FillAndExpand" HeightRequest="1" />
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="14" />
+                        <RowDefinition Height="30" />
+                        <RowDefinition Height="14" />
+                        <RowDefinition Height="30" />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <Label x:Name="Describehowyoufeltlbl" Text="Describe how you felt" FontSize="Micro" TextColor="Black" Grid.Row="0" Grid.ColumnSpan="2" />
+                    <Entry x:Name="DescribehowyoufeltEntry" Placeholder="Describe how you felt" PlaceholderColor="#F1F1F1" Text="{Binding describeFeel, Mode=TwoWay}" TextColor="#03A9F4" Grid.Row="1" Grid.ColumnSpan="2" />
+                    <Label x:Name="Ratehowyoufeltlbl" Text="Rate how you felt" TextColor="Black" Grid.Row="2" FontSize="Micro" Grid.ColumnSpan="2"/>
+                    <Picker x:Name="Ratehowyoufeltpicker"  SelectedIndex="{Binding rateFeelIndex,Mode=TwoWay}" 
+                            SelectedIndexChanged="Ratehowyoufelt_changed" TextColor="#03A9F4" Grid.Row="3" HorizontalOptions="FillAndExpand" Grid.ColumnSpan="2">
+                        <Picker.Items>
+                            <x:String>Select</x:String>
+                            <x:String>1</x:String>
+                            <x:String>2</x:String>
+                            <x:String>3</x:String>
+                            <x:String>4</x:String>
+                            <x:String>5</x:String>
+                            <x:String>6</x:String>
+                            <x:String>7</x:String>
+                            <x:String>8</x:String>
+                            <x:String>9</x:String>
+                            <x:String>10</x:String>
+                        </Picker.Items>
+                    </Picker>
+                </Grid>
+            </StackLayout>
+            <StackLayout HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" Margin="0,15">
+                <Label x:Name="Whydidithappenlbl" TextColor="Black" FontSize="Medium" HorizontalOptions="Start" Text="Why did it happen ?" Grid.ColumnSpan="2"/>
+                <BoxView Color="#FDCE02" HorizontalOptions="FillAndExpand" HeightRequest="1" />
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="30" />
+                        <RowDefinition Height="30" />
+                        <RowDefinition Height="30" />
+                        <RowDefinition Height="30" />
+                        <RowDefinition Height="30" />
+                        <RowDefinition Height="30" />
+                        <RowDefinition Height="14" />
+                        <RowDefinition Height="30" />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                </Grid>
+                <Label x:Name="FatiguedpriortoDutylbl" Text="Fatigued prior to Duty" TextColor="Black" FontSize="Micro" Grid.Row="0" Grid.Column="0" />
+                <Switch x:Name="FatiguedpriortoDutychkbx" IsToggled="{Binding fatiguePrior, Mode=TwoWay}"  HorizontalOptions="EndAndExpand" Grid.Row="0" Grid.Column="1" />
+                <Label x:Name="PoorInFlightRestlbl" Text="Poor In-Flight Rest" TextColor="Black" FontSize="Micro" Grid.Row="1" Grid.Column="0" />
+                <Switch x:Name="PoorInFlightRestchkbx" IsToggled="{Binding poorFlightRest, Mode=TwoWay}" HorizontalOptions="EndAndExpand"  Grid.Row="1" Grid.Column="1" />
+                <Label x:Name="DutyItselflbl" Text="Duty Itself" TextColor="Black" Grid.Row="2" FontSize="Micro" Grid.Column="0" />
+                <Switch x:Name="DutyItselfchkbx" IsToggled="{Binding dutyItself, Mode=TwoWay}"   HorizontalOptions="EndAndExpand"  Grid.Row="2" Grid.Column="1" />
+                <Label x:Name="RosterCombinationofDutieslbl" Text="Roster/Combination of Duties" FontSize="Micro" TextColor="Black" Grid.Row="3" Grid.Column="0" />
+                <Switch x:Name="RostercombinationofDutieschkbx" IsToggled="{Binding roaster, Mode=TwoWay}"  HorizontalOptions="EndAndExpand"  Grid.Row="3" Grid.Column="1" />
+                <Label x:Name="PersonalStresslbl" Text="Personal Stress" TextColor="Black" FontSize="Micro" Grid.Row="4" Grid.Column="0" />
+                <Switch x:Name="PersonalStresschkbx"   HorizontalOptions="EndAndExpand"  IsToggled="{Binding personalStress,Mode=TwoWay}" Grid.Row="4" Grid.Column="1" />
+                <Label x:Name="HotelDisturbancelbl" Text="Hotel Disturbance" TextColor="Black" FontSize="Micro" Grid.Row="5" Grid.Column="0" />
+                <Switch x:Name="HotelDisturbancechkbx" IsToggled="{Binding hotelDisturbance, Mode=TwoWay}"  HorizontalOptions="EndAndExpand"  Grid.Row="5" Grid.Column="1" />
+                <Label x:Name="OtherCommentslbl" Text="Other/Comments" TextColor="Black" Grid.Row="6" FontSize="Micro" Grid.ColumnSpan="2"/>
+                <Entry x:Name="OtherCommentsEntry"   Text="{Binding otherComments, Mode=TwoWay}"  Placeholder="Other/Comments" PlaceholderColor="#F1F1F1"  TextColor="#03A9F4" Grid.Row="7" Grid.ColumnSpan="2"/>
+            </StackLayout>
+            <StackLayout HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" Margin="0,15">
+                <Label x:Name="Whatdidyoudolbl" TextColor="Black" FontSize="Medium" HorizontalOptions="Start" Text="What did you do ?" Grid.ColumnSpan="2"/>
+                <BoxView Color="#FDCE02" HorizontalOptions="FillAndExpand" HeightRequest="1" />
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="14" />
+                        <RowDefinition Height="30" />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <Label x:Name="Actionstakentomanageorreducefatiguelbl" Text="Actions taken to manage or reduce fatigue" FontSize="Micro" TextColor="Black" Grid.Row="0" Grid.ColumnSpan="2"/>
+                    <Entry x:Name="ActionstakentomanageorreducefatigueEntry"   Text="{Binding actionToreduce, Mode=TwoWay}"  Placeholder="Actions taken to manage or reduce fatigue" PlaceholderColor="#F1F1F1"  TextColor="#03A9F4" Grid.Row="1" Grid.ColumnSpan="2"/>
+                </Grid>
+            </StackLayout>
         </StackLayout>
     </ContentView.Content>
 </ContentView>
