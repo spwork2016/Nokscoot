@@ -12,17 +12,17 @@
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="14" />
-                        <RowDefinition Height="30" />
+                        <RowDefinition Height="*" />
                         <RowDefinition Height="14" />
-                        <RowDefinition Height="30" />
+                        <RowDefinition Height="*" />
                         <RowDefinition Height="14" />
-                        <RowDefinition Height="30" />
+                        <RowDefinition Height="*" />
                         <RowDefinition Height="14" />
-                        <RowDefinition Height="30" />
+                        <RowDefinition Height="*" />
                         <RowDefinition Height="14" />
-                        <RowDefinition Height="30" />
+                        <RowDefinition Height="*" />
                         <RowDefinition Height="14" />
-                        <RowDefinition Height="30" />
+                        <RowDefinition Height="*" />
                     </Grid.RowDefinitions>
 
                     <Grid.ColumnDefinitions>
@@ -33,21 +33,23 @@
                     <Picker x:Name="CommanderPForPMpicker" Grid.Row="1" SelectedIndex="{Binding CommanderPForPM, Mode=TwoWay}" 
                         SelectedIndexChanged="CommanderPForPMpicker_changed" TextColor="#03A9F4" HorizontalOptions="FillAndExpand">
                         <Picker.Items>
+                            <x:String>Select</x:String>
                             <x:String>PF</x:String>
                             <x:String>PM</x:String>
                         </Picker.Items>
                     </Picker>
 
                     <Label x:Name="CommandersEmaillbl" Text="Commander's Email" TextColor="Black" Grid.Row="2" FontSize="Micro" />
-                    <autocomplete:SfAutoComplete x:Name="peoplePickerCommander" TextColor="#03A9F4" DisplayMemberPath="Name" ShowClearButton="True" Grid.Row="3" HorizontalOptions="FillAndExpand"/>
-
+                    <autocomplete:SfAutoComplete x:Name="peoplePickerCommander"  TextColor="#03A9F4" DisplayMemberPath="Name" ShowClearButton="True" Grid.Row="3" HorizontalOptions="FillAndExpand"/>
+                   
                     <Label x:Name="FlightCrew1Emaillbl" Text="Flight Crew 1 Email" TextColor="Black" Grid.Row="4" FontSize="Micro"/>
-                    <autocomplete:SfAutoComplete x:Name="peoplePickercrew1email" TextColor="#03A9F4" DisplayMemberPath="Name" ShowClearButton="True" Grid.Row="5"  HorizontalOptions="FillAndExpand"/>
+                    <autocomplete:SfAutoComplete x:Name="peoplePickercrew1email"   TextColor="#03A9F4" DisplayMemberPath="Name" ShowClearButton="True" Grid.Row="5"  HorizontalOptions="FillAndExpand"/>
 
                     <Label x:Name="FlightCrew1PFPMOBslbl" Text="Flight Crew 1 PF PM OBs" TextColor="Black" Grid.Row="6" FontSize="Micro"/>
                     <Picker x:Name="FlightCrew1PFPMOBspicker" SelectedIndex="{Binding FlightCrew1PFPMOBs,Mode=TwoWay}" SelectedIndexChanged="FlightCrew1PFPMOBspicker_changed" TextColor="#03A9F4" 
                         Grid.Row="7" HorizontalOptions="FillAndExpand">
                         <Picker.Items>
+                            <x:String>Select</x:String>
                             <x:String>PF</x:String>
                             <x:String>PM</x:String>
                             <x:String>Obs</x:String>
@@ -60,6 +62,7 @@
                     <Picker x:Name="FlightCrew2PFPMOBspicker" SelectedIndex="{Binding FlightCrew2PFPMOBs,Mode=TwoWay}" SelectedIndexChanged="FlightCrew2PFPMOBspicker_changed" 
                         TextColor="#03A9F4" Grid.Row="11" HorizontalOptions="FillAndExpand">
                         <Picker.Items>
+                            <x:String>Select</x:String>
                             <x:String>PF</x:String>
                             <x:String>PM</x:String>
                             <x:String>Obs</x:String>
@@ -75,9 +78,9 @@
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="14" />
-                        <RowDefinition Height="30" />
+                        <RowDefinition Height="*" />
                         <RowDefinition Height="14" />
-                        <RowDefinition Height="30" />
+                        <RowDefinition Height="*" />
                     </Grid.RowDefinitions>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*" />
@@ -86,6 +89,7 @@
                     <Picker x:Name="Ifflighteventselectphasepicker" SelectedIndex="{Binding Ifflighteventselectphase,Mode=TwoWay}" 
                             SelectedIndexChanged="Ifflighteventselectphasepicker_changed" TextColor="#03A9F4" Grid.Row="1" HorizontalOptions="FillAndExpand">
                         <Picker.Items>
+                            <x:String>Select</x:String>
                             <x:String>Parked</x:String>
                             <x:String>Pre-flight</x:String>
                             <x:String>Pushback</x:String>
@@ -106,6 +110,7 @@
                     <Picker x:Name="Ifongroundselectwherepicker"  SelectedIndex="{Binding Ifongroundselectwhere,Mode=TwoWay}" 
                             SelectedIndexChanged="Ifongroundselectwherepicker_changed" TextColor="#03A9F4" Grid.Row="3" HorizontalOptions="FillAndExpand">
                         <Picker.Items>
+                            <x:String>Select</x:String>
                             <x:String>Baggage Carousel</x:String>
                             <x:String>Ramp</x:String>
                             <x:String>Remote Bay</x:String>
@@ -126,34 +131,34 @@
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="14" />
+                        <RowDefinition Height="*" />
+                        
+                        <RowDefinition Height="14" />
+                        <RowDefinition Height="*" />
+                        
+                        <RowDefinition Height="30" />
                         <RowDefinition Height="30" />
                         
                         <RowDefinition Height="14" />
-                        <RowDefinition Height="30" />
-                        
-                        <RowDefinition Height="30" />
-                        <RowDefinition Height="30" />
+                        <RowDefinition Height="*" />
                         
                         <RowDefinition Height="14" />
-                        <RowDefinition Height="30" />
-                        
-                        <RowDefinition Height="14" />
-                        <RowDefinition Height="30" />
+                        <RowDefinition Height="*" />
 
                         <RowDefinition Height="14" />
-                        <RowDefinition Height="30" />
+                        <RowDefinition Height="*" />
                         
                         <RowDefinition Height="14" />
-                        <RowDefinition Height="30" />
+                        <RowDefinition Height="*" />
 
                         <RowDefinition Height="14" />
-                        <RowDefinition Height="30" />
+                        <RowDefinition Height="*" />
 
                         <RowDefinition Height="14" />
-                        <RowDefinition Height="30" />
+                        <RowDefinition Height="*" />
 
                         <RowDefinition Height="14" />
-                        <RowDefinition Height="30" />
+                        <RowDefinition Height="*" />
 
                         <RowDefinition Height="30" />
                         
@@ -166,31 +171,32 @@
                     </Grid.ColumnDefinitions>
                     
                     <Label x:Name="AltitudeLbl" Text="Altitude" TextColor="Black" Grid.Row="0" Grid.ColumnSpan="2" FontSize="Micro"/>
-                    <Entry x:Name="AltitudeEntry"  Text="{Binding Altitude, Mode=TwoWay}" TextColor="#03A9F4" Grid.Row="1" Grid.ColumnSpan="2" HorizontalOptions="FillAndExpand" />
+                    <Entry x:Name="AltitudeEntry"  Text="{Binding Altitude, Mode=TwoWay}" Placeholder="Altitude" PlaceholderColor="#F1F1F1" TextColor="#03A9F4" Grid.Row="1" Grid.ColumnSpan="2" HorizontalOptions="FillAndExpand" />
 
                     <Label x:Name="IASMachLbl" Text="IAS/Mach" TextColor="Black" Grid.Row="2" Grid.ColumnSpan="2" FontSize="Micro"/>
-                    <Entry x:Name="IASMachEntry"  Text="{Binding IASMach, Mode=TwoWay}" TextColor="#03A9F4" Grid.Row="3" Grid.ColumnSpan="2" HorizontalOptions="FillAndExpand"/>
+                    <Entry x:Name="IASMachEntry"  Text="{Binding IASMach, Mode=TwoWay}" Placeholder="IAS/Mach" PlaceholderColor="#F1F1F1" TextColor="#03A9F4" Grid.Row="3" Grid.ColumnSpan="2" HorizontalOptions="FillAndExpand"/>
 
                     <Label x:Name="AutopilotOnLbl" Text="Autopilot On" TextColor="Black" Grid.Row="4" Grid.Column="0" FontSize="Micro"/>
-                    <Switch x:Name="AutopilotOnchkbx"  IsToggled="{Binding AutopilotOn, Mode=TwoWay}"  HorizontalOptions="EndAndExpand" Grid.Row="4" Grid.Column="1" />
+                    <Switch x:Name="AutopilotOnchkbx"  IsToggled="{Binding AutopilotOn, Mode=TwoWay}" HorizontalOptions="EndAndExpand" Grid.Row="4" Grid.Column="1" />
 
                     <Label x:Name="AutothrottlesOnLbl" Text="Autothrottles On" TextColor="Black" Grid.Row="5" Grid.Column="0" FontSize="Micro"/>
                     <Switch x:Name="AutothrottlesOnchkbx"  IsToggled="{Binding ATOn, Mode=TwoWay}" HorizontalOptions="EndAndExpand" Grid.Row="5" Grid.Column="1" />
 
                     <Label x:Name="ApproachTypeLbl" Text="Approach Type" TextColor="Black" Grid.Row="6" Grid.Column="0" FontSize="Micro"/>
                     <Button x:Name="ApproachTypebtn" Text="Choose" HorizontalOptions="EndAndExpand" Clicked="approachmulti_clicked" TextColor="#03A9F4" Grid.Row="6" Grid.Column="1" />
-                    <Entry IsEnabled="False" x:Name="ApproachTypeEntry" Text="{Binding ApproachType}"  TextColor="#03A9F4" Grid.Row="7" Grid.ColumnSpan="2" />
+                    <Entry IsEnabled="False" x:Name="ApproachTypeEntry" Text="{Binding ApproachType}" Placeholder="Approach Type" PlaceholderColor="#F1F1F1"  TextColor="#03A9F4" Grid.Row="7" Grid.ColumnSpan="2" />
 
                     <Label x:Name="HeadingLbl" Text="Heading" TextColor="Black" Grid.Row="8" Grid.ColumnSpan="2" FontSize="Micro"/>
-                    <Entry x:Name="HeadingEntry"  Text="{Binding Heading, Mode=TwoWay}" TextColor="#03A9F4" Grid.Row="9" Grid.ColumnSpan="2"/>
+                    <Entry x:Name="HeadingEntry"  Text="{Binding Heading, Mode=TwoWay}" TextColor="#03A9F4" Placeholder="Heading" PlaceholderColor="#F1F1F1" Grid.Row="9" Grid.ColumnSpan="2"/>
 
                     <Label x:Name="VerticalSpeedLbl" Text="Vertical Speed" TextColor="Black" Grid.Row="10" Grid.ColumnSpan="2" FontSize="Micro"/>
-                    <Entry x:Name="VerticalSpeedEntry"  Text="{Binding VS, Mode=TwoWay}" TextColor="#03A9F4" Grid.Row="11" Grid.ColumnSpan="2"/>
+                    <Entry x:Name="VerticalSpeedEntry"  Text="{Binding VS, Mode=TwoWay}" TextColor="#03A9F4" Placeholder="Vertical Speed" PlaceholderColor="#F1F1F1" Grid.Row="11" Grid.ColumnSpan="2"/>
 
                     <Label x:Name="Gearlbl" Text="Gear" TextColor="Black" Grid.Row="12" Grid.ColumnSpan="2" FontSize="Micro"/>
                     <Picker x:Name="Gearpicker" SelectedIndex="{Binding Gear,Mode=TwoWay}" SelectedIndexChanged="Gearpicker_changed" TextColor="#03A9F4" Grid.Row="13" Grid.ColumnSpan="2" 
                             HorizontalOptions="FillAndExpand">
                         <Picker.Items>
+                            <x:String>Select</x:String>
                             <x:String>Up</x:String>
                             <x:String>Down</x:String>
                         </Picker.Items>
@@ -200,16 +206,17 @@
                     <Picker x:Name="Speedbrakepicker"  SelectedIndex="{Binding Speedbrake,Mode=TwoWay}" SelectedIndexChanged="Speedbrakepicker_changed" TextColor="#03A9F4" Grid.Row="15" 
                             HorizontalOptions="FillAndExpand" Grid.ColumnSpan="2">
                         <Picker.Items>
+                            <x:String>Select</x:String>
                             <x:String>Up</x:String>
                             <x:String>Down</x:String>
                         </Picker.Items>
                     </Picker>
 
                     <Label x:Name="FlapPositionLbl" Text="Flap Position" TextColor="Black" Grid.Row="16" Grid.ColumnSpan="2" FontSize="Micro"/>
-                    <Entry x:Name="FlapPositionEntry"  Text="{Binding FlapPosition, Mode=TwoWay}" TextColor="#03A9F4" Grid.Row="17" Grid.ColumnSpan="2"/>
+                    <Entry x:Name="FlapPositionEntry"  Text="{Binding FlapPosition, Mode=TwoWay}" Placeholder="Flap Position" PlaceholderColor="#F1F1F1" TextColor="#03A9F4" Grid.Row="17" Grid.ColumnSpan="2"/>
 
                     <Label x:Name="WeightLbl" Text="Weight" TextColor="Black" Grid.Row="18" Grid.ColumnSpan="2" FontSize="Micro"/>
-                    <Entry x:Name="WeightEntry"  Text="{Binding Weight, Mode=TwoWay}" TextColor="#03A9F4" Grid.Row="19" Grid.ColumnSpan="2"/>
+                    <Entry x:Name="WeightEntry"  Text="{Binding Weight, Mode=TwoWay}" TextColor="#03A9F4" Placeholder="Weight" PlaceholderColor="#F1F1F1"  Grid.Row="19" Grid.ColumnSpan="2"/>
 
                     <Label x:Name="FuelDumpingLbl" Text="Fuel Dumping" TextColor="Black" Grid.Row="20" Grid.Column="0" FontSize="Micro"/>
                     <Switch x:Name="FuelDumpingchkbx"  IsToggled="{Binding FuelDumping, Mode=TwoWay}" HorizontalOptions="EndAndExpand" Grid.Row="20" Grid.Column="1" />
@@ -226,21 +233,21 @@
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="14" />
-                        <RowDefinition Height="30" />
+                        <RowDefinition Height="*" />
                         <RowDefinition Height="14" />
-                        <RowDefinition Height="30" />
+                        <RowDefinition Height="*" />
                         <RowDefinition Height="14" />
-                        <RowDefinition Height="30" />
+                        <RowDefinition Height="*" />
                         <RowDefinition Height="14" />
-                        <RowDefinition Height="30" />
+                        <RowDefinition Height="*" />
                         <RowDefinition Height="14" />
-                        <RowDefinition Height="30" />
+                        <RowDefinition Height="*" />
                         <RowDefinition Height="14" />
-                        <RowDefinition Height="30" />
+                        <RowDefinition Height="*" />
                         <RowDefinition Height="14" />
-                        <RowDefinition Height="30" />
+                        <RowDefinition Height="*" />
                         <RowDefinition Height="14" />
-                        <RowDefinition Height="30" />
+                        <RowDefinition Height="*" />
                     </Grid.RowDefinitions>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*" />
@@ -249,21 +256,23 @@
                     <Picker x:Name="MeteorologicalReportpicker" SelectedIndex="{Binding MeteorologicalReport,Mode=TwoWay}"
                             SelectedIndexChanged="MeteorologicalReportpicker_changed"  TextColor="#03A9F4" Grid.Row="1" HorizontalOptions="FillAndExpand">
                         <Picker.Items>
+                            <x:String>Select</x:String>
                             <x:String>IMC</x:String>
                             <x:String>VMC</x:String>
                         </Picker.Items>
                     </Picker>
                     <Label x:Name="WindLbl" Text="Wind" TextColor="Black" Grid.Row="2" FontSize="Micro"/>
-                    <Entry x:Name="WindEntry"  Text="{Binding Wind, Mode=TwoWay}" TextColor="#03A9F4" Grid.Row="3" />
+                    <Entry x:Name="WindEntry"  Text="{Binding Wind, Mode=TwoWay}" Placeholder="Wind" PlaceholderColor="#F1F1F1" TextColor="#03A9F4" Grid.Row="3" />
                     <Label x:Name="VisRVRLbl" Text="Vis/RVR" TextColor="Black" Grid.Row="4" FontSize="Micro"/>
-                    <Entry x:Name="VisRVREntry"  Text="{Binding VisRVR, Mode=TwoWay}" TextColor="#03A9F4" Grid.Row="5" />
+                    <Entry x:Name="VisRVREntry"  Text="{Binding VisRVR, Mode=TwoWay}"   Placeholder="Vis/RVR" PlaceholderColor="#F1F1F1" TextColor="#03A9F4" Grid.Row="5" />
                     <Label x:Name="TempLbl" Text="Temp" TextColor="Black" Grid.Row="6" FontSize="Micro"/>
-                    <Entry x:Name="TempEntry"  Text="{Binding Temp, Mode=TwoWay}" TextColor="#03A9F4" Grid.Row="7" />
+                    <Entry x:Name="TempEntry"  Text="{Binding Temp, Mode=TwoWay}"  Placeholder="Temp" PlaceholderColor="#F1F1F1" TextColor="#03A9F4" Grid.Row="7" />
 
                     <Label x:Name="Lightlbl" Text="Light" TextColor="Black" Grid.Row="8" FontSize="Micro"/>
                     <Picker x:Name="Lightpicker" SelectedIndex="{Binding Light,Mode=TwoWay}" SelectedIndexChanged="Lightpicker_changed" 
                             TextColor="#03A9F4" Grid.Row="9" HorizontalOptions="FillAndExpand">
                         <Picker.Items>
+                            <x:String>Select</x:String>
                             <x:String>Day</x:String>
                             <x:String>Night</x:String>
                             <x:String>Twilight</x:String>
@@ -273,6 +282,7 @@
                     <Picker x:Name="Weatherpicker" SelectedIndex="{Binding Weather,Mode=TwoWay}" 
                             SelectedIndexChanged="Weatherpicker_changed" TextColor="#03A9F4" Grid.Row="11" HorizontalOptions="FillAndExpand">
                         <Picker.Items>
+                            <x:String>Select</x:String>
                             <x:String>Dry</x:String>
                             <x:String>Rain</x:String>
                             <x:String>Snow</x:String>
@@ -283,6 +293,7 @@
                     <Picker x:Name="Precipitationpicker" SelectedIndex="{Binding Precipitation,Mode=TwoWay}" 
                             SelectedIndexChanged="Precipitationpicker_changed" TextColor="#03A9F4" Grid.Row="13" HorizontalOptions="FillAndExpand">
                         <Picker.Items>
+                            <x:String>Select</x:String>
                             <x:String>Light</x:String>
                             <x:String>Moderate</x:String>
                             <x:String>Heavy</x:String>
@@ -293,6 +304,7 @@
                     <Picker x:Name="Turbulencepicker" SelectedIndex="{Binding Turbulence,Mode=TwoWay}" 
                             SelectedIndexChanged="Turbulencepicker_changed" TextColor="#03A9F4" Grid.Row="15" HorizontalOptions="FillAndExpand">
                         <Picker.Items>
+                            <x:String>Select</x:String>
                             <x:String>Light</x:String>
                             <x:String>Moderate</x:String>
                             <x:String>Severe</x:String>
@@ -309,21 +321,22 @@
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="14" />
-                        <RowDefinition Height="30" />
+                        <RowDefinition Height="*" />
                         <RowDefinition Height="14" />
-                        <RowDefinition Height="30" />
+                        <RowDefinition Height="*" />
                         <RowDefinition Height="14" />
-                        <RowDefinition Height="30" />
+                        <RowDefinition Height="*" />
                     </Grid.RowDefinitions>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
                     <Label x:Name="RWYDirectionLbl" Text="RWY Direction" TextColor="Black" FontSize="Micro" Grid.Row="0" />
-                    <Entry x:Name="RWYDirectionEntry"  Text="{Binding RWYDirection, Mode=TwoWay}" TextColor="#03A9F4" Grid.Row="1" />
+                    <Entry x:Name="RWYDirectionEntry"  Text="{Binding RWYDirection, Mode=TwoWay}" Placeholder="RWY Direction" PlaceholderColor="#F1F1F1" TextColor="#03A9F4" Grid.Row="1" />
                     <Label x:Name="Conditionslbl" Text="Conditions" TextColor="Black" Grid.Row="2" FontSize="Micro" />
                     <Picker x:Name="Conditionspicker" SelectedIndex="{Binding Conditions,Mode=TwoWay}" SelectedIndexChanged="Conditionspicker_changed" TextColor="#03A9F4" 
                             Grid.Row="3" HorizontalOptions="FillAndExpand">
                         <Picker.Items>
+                            <x:String>Select</x:String>
                             <x:String>Dry</x:String>
                             <x:String>Wet</x:String>
                             <x:String>Contaminated</x:String>
@@ -333,6 +346,7 @@
                     <Picker x:Name="NAVAIDSpicker" SelectedIndex="{Binding NAVAIDS,Mode=TwoWay}" SelectedIndexChanged="NAVAIDSpicker_changed" TextColor="#03A9F4" 
                             Grid.Row="5" HorizontalOptions="FillAndExpand">
                         <Picker.Items>
+                            <x:String>Select</x:String>
                             <x:String>In Service</x:String>
                             <x:String>Out of Service</x:String>
                         </Picker.Items>
@@ -346,46 +360,46 @@
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="14" />
-                        <RowDefinition Height="30" />
+                        <RowDefinition Height="*" />
                         
                         <RowDefinition Height="14" />
-                        <RowDefinition Height="30" />
+                        <RowDefinition Height="*" />
                         
                         <RowDefinition Height="14" />
-                        <RowDefinition Height="30" />
+                        <RowDefinition Height="*" />
                         
                         <RowDefinition Height="14" />
-                        <RowDefinition Height="30" />
+                        <RowDefinition Height="*" />
                         
                         <RowDefinition Height="30" />
                         <RowDefinition Height="30" />
 
                         <RowDefinition Height="14" />
-                        <RowDefinition Height="30" />
+                        <RowDefinition Height="*" />
 
                         <RowDefinition Height="14" />
-                        <RowDefinition Height="30" />
+                        <RowDefinition Height="*" />
 
                         <RowDefinition Height="14" />
-                        <RowDefinition Height="30" />
+                        <RowDefinition Height="*" />
 
                         <RowDefinition Height="14" />
-                        <RowDefinition Height="30" />
+                        <RowDefinition Height="*" />
 
                         <RowDefinition Height="14" />
-                        <RowDefinition Height="30" />
+                        <RowDefinition Height="*" />
 
                         <RowDefinition Height="14" />
-                        <RowDefinition Height="30" />
+                        <RowDefinition Height="*" />
 
                         <RowDefinition Height="14" />
-                        <RowDefinition Height="30" />
+                        <RowDefinition Height="*" />
 
                         <RowDefinition Height="14" />
-                        <RowDefinition Height="30" />
+                        <RowDefinition Height="*" />
 
                         <RowDefinition Height="14" />
-                        <RowDefinition Height="30" />
+                        <RowDefinition Height="*" />
 
                     </Grid.RowDefinitions>
                     <Grid.ColumnDefinitions>
@@ -393,11 +407,11 @@
                         <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
                     <Label x:Name="ClearedAltitudeLbl" Text="Cleared Altitude" FontSize="Micro" TextColor="Black" Grid.Row="0" Grid.ColumnSpan="2" />
-                    <Entry x:Name="ClearedAltitudeEntry"  Text="{Binding ClearedAltitude , Mode=TwoWay}" Grid.ColumnSpan="2" TextColor="#03A9F4" Grid.Row="1" />
+                    <Entry x:Name="ClearedAltitudeEntry"  Text="{Binding ClearedAltitude , Mode=TwoWay}" Placeholder="Cleared Altitude" PlaceholderColor="#F1F1F1" Grid.ColumnSpan="2" TextColor="#03A9F4" Grid.Row="1" />
                     <Label x:Name="DeviationHorizontalLbl" Text="Deviation Horizontal (NM)" FontSize="Micro" TextColor="Black" Grid.Row="2" Grid.ColumnSpan="2" />
-                    <Entry x:Name="DeviationHorizontalEntry"  Text="{Binding DeviationHorizontal, Mode=TwoWay}"  TextColor="#03A9F4" Grid.ColumnSpan="2" Grid.Row="3"/>
+                    <Entry x:Name="DeviationHorizontalEntry"  Text="{Binding DeviationHorizontal, Mode=TwoWay}" Placeholder="Deviation Horizontal (NM)" PlaceholderColor="#F1F1F1" TextColor="#03A9F4" Grid.ColumnSpan="2" Grid.Row="3"/>
                     <Label x:Name="VerticalLbl" Text="Vertical (FT)" TextColor="Black" Grid.Row="4" FontSize="Micro" Grid.ColumnSpan="2" />
-                    <Entry x:Name="VerticalEntry" Text="{Binding Vertical, Mode=TwoWay}"  TextColor="#03A9F4" Grid.Row="5" Grid.ColumnSpan="2"/>
+                    <Entry x:Name="VerticalEntry" Text="{Binding Vertical, Mode=TwoWay}" Placeholder="Vertical (FT)" PlaceholderColor="#F1F1F1" TextColor="#03A9F4" Grid.Row="5" Grid.ColumnSpan="2"/>
                     <Label FontSize="Micro" x:Name="ReasonforDeviationLbl" Text="Reason for Deviation" TextColor="Black" Grid.Row="6" Grid.Column="0" />
                     <Button x:Name="ReasonforDeviationbtn" Text="Choose" HorizontalOptions="EndAndExpand" Clicked="reasondeviamulti_clicked" TextColor="#03A9F4" Grid.Row="6" Grid.Column="1" />
                     <Entry IsEnabled="False" x:Name="ReasonforDeviationEntry"   Text="{Binding ReasonforDeviation, Mode=TwoWay}" TextColor="Black" Grid.Row="7" Grid.ColumnSpan="2" />
@@ -406,31 +420,32 @@
                     <Label FontSize="Micro" x:Name="RAAlertLbl" Text="RA Alert" TextColor="Black" Grid.Row="9" Grid.Column="0" />
                     <Switch x:Name="RAAlertchkbx"  IsToggled="{Binding RAAlert, Mode=TwoWay}"  HorizontalOptions="EndAndExpand" Grid.Row="9" Grid.Column="1" />
                     <Label FontSize="Micro" x:Name="RACommandLbl" Text="RA Command" TextColor="Black" Grid.Row="10" Grid.ColumnSpan="2" />
-                    <Entry x:Name="RACommandEntry" Text="{Binding RACommand, Mode=TwoWay}"  TextColor="#03A9F4" Grid.Row="11" Grid.ColumnSpan="2"/>
+                    <Entry x:Name="RACommandEntry" Text="{Binding RACommand, Mode=TwoWay}"  Placeholder="RA Command" PlaceholderColor="#F1F1F1" TextColor="#03A9F4" Grid.Row="11" Grid.ColumnSpan="2"/>
                     <Label FontSize="Micro" x:Name="IntruderTypeLbl" Text="Intruder A/C Type" TextColor="Black" Grid.Row="12" Grid.ColumnSpan="2"/>
-                    <Entry x:Name="IntruderTypeEntry"   Text="{Binding IntruderACType, Mode=TwoWay}"  TextColor="#03A9F4" Grid.Row="13" Grid.ColumnSpan="2"/>
+                    <Entry x:Name="IntruderTypeEntry"   Text="{Binding IntruderACType, Mode=TwoWay}" Placeholder="Intruder A/C Type" PlaceholderColor="#F1F1F1"  TextColor="#03A9F4" Grid.Row="13" Grid.ColumnSpan="2"/>
                     <Label FontSize="Micro" x:Name="CallsignLbl" Text="Call sign" TextColor="Black" Grid.Row="14" Grid.ColumnSpan="2"/>
-                    <Entry x:Name="CallsignEntry"  Text="{Binding Callsign, Mode=TwoWay}"  TextColor="#03A9F4" Grid.Row="15" Grid.ColumnSpan="2" />
+                    <Entry x:Name="CallsignEntry"  Text="{Binding Callsign, Mode=TwoWay}" Placeholder="Call sign" PlaceholderColor="#F1F1F1" TextColor="#03A9F4" Grid.Row="15" Grid.ColumnSpan="2" />
                     <Label FontSize="Micro" x:Name="RelativepositionLbl" Text="Relative position" TextColor="Black" Grid.Row="16" Grid.Column="0" />
                     <Button x:Name="relativemultibutton" Text="Choose" HorizontalOptions="EndAndExpand" Clicked="RealtivePosimulti_clicked"  TextColor="#03A9F4" Grid.Row="16" Grid.Column="1" />
                     <Entry IsEnabled="False" x:Name="RelativepositionEntry"   Text="{Binding Relativeposition, Mode=TwoWay}" TextColor="#03A9F4" Grid.Row="17" Grid.ColumnSpan="2" />
                     <Label FontSize="Micro" x:Name="BearingLbl" Text="Bearing" TextColor="Black" Grid.Row="18" Grid.ColumnSpan="2" />
-                    <Entry x:Name="BearingEntry"  Text="{Binding  Bearing, Mode=TwoWay}"  TextColor="#03A9F4" Grid.Row="19" Grid.ColumnSpan="2" />
+                    <Entry x:Name="BearingEntry"  Text="{Binding  Bearing, Mode=TwoWay}"  Placeholder="Bearing" PlaceholderColor="#F1F1F1" TextColor="#03A9F4" Grid.Row="19" Grid.ColumnSpan="2" />
                     <Label FontSize="Micro" x:Name="RangeLbl" Text="Range" TextColor="Black" Grid.Row="20" />
-                    <Entry x:Name="RangeEntry"   Text="{Binding Range, Mode=TwoWay}" TextColor="#03A9F4" Grid.Row="21" Grid.ColumnSpan="2" />
+                    <Entry x:Name="RangeEntry"   Text="{Binding Range, Mode=TwoWay}" Placeholder="Range" PlaceholderColor="#F1F1F1" TextColor="#03A9F4" Grid.Row="21" Grid.ColumnSpan="2" />
                     <Label FontSize="Micro" x:Name="ATCorAirportReportFiledlbl" Text="ATC or Airport Report Filed?" TextColor="Black" Grid.Row="22" Grid.ColumnSpan="2"/>
                     <Picker x:Name="ATCorAirportReportFiledpicker" SelectedIndex="{Binding ATC,Mode=TwoWay}" 
                             SelectedIndexChanged="ATCorAirportReportFiledpicker_changed" TextColor="#03A9F4" Grid.Row="23" Grid.ColumnSpan="2" HorizontalOptions="FillAndExpand">
                         <Picker.Items>
+                            <x:String>Select</x:String>
                             <x:String>Yes</x:String>
                             <x:String>No</x:String>
                             <x:String>N/A</x:String>
                         </Picker.Items>
                     </Picker>
                     <Label FontSize="Micro" x:Name="ATCUnitLbl" Text="ATC Unit" TextColor="Black" Grid.Row="24" Grid.ColumnSpan="2"/>
-                    <Entry x:Name="ATCUnitEntry"   Text="{Binding ATCUnit, Mode=TwoWay}"  TextColor="Black" Grid.Row="25" Grid.ColumnSpan="2" />
+                    <Entry x:Name="ATCUnitEntry"   Text="{Binding ATCUnit, Mode=TwoWay}" Placeholder="ATC Unit" PlaceholderColor="#F1F1F1" TextColor="Black" Grid.Row="25" Grid.ColumnSpan="2" />
                     <Label FontSize="Micro" x:Name="FrequencyLbl" Text="Frequency" TextColor="Black" Grid.Row="26" />
-                    <Entry x:Name="FrequencyEntry"   Text="{Binding Frequency, Mode=TwoWay}" TextColor="#03A9F4" Grid.ColumnSpan="2" Grid.Row="27" />
+                    <Entry x:Name="FrequencyEntry"   Text="{Binding Frequency, Mode=TwoWay}" Placeholder="Frequency" PlaceholderColor="#F1F1F1" TextColor="#03A9F4" Grid.ColumnSpan="2" Grid.Row="27" />
                 </Grid>
             </StackLayout>
 
@@ -441,7 +456,7 @@
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="14" />
-                        <RowDefinition Height="30" />
+                        <RowDefinition Height="*" />
                     </Grid.RowDefinitions>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*" />
@@ -459,30 +474,31 @@
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="14" />
-                        <RowDefinition Height="30" />
+                        <RowDefinition Height="*" />
                         
                         <RowDefinition Height="14" />
-                        <RowDefinition Height="30" />
+                        <RowDefinition Height="*" />
                         
                         <RowDefinition Height="14" />
-                        <RowDefinition Height="30" />
+                        <RowDefinition Height="*" />
                         
                         <RowDefinition Height="14" />
-                        <RowDefinition Height="30" />
+                        <RowDefinition Height="*" />
                         
                         <RowDefinition Height="14" />
-                        <RowDefinition Height="30" />
+                        <RowDefinition Height="*" />
                     </Grid.RowDefinitions>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
                     <Label FontSize="Micro" x:Name="WildlifeTypeLbl" Text="Wildlife Type" TextColor="Black" Grid.Row="0" />
-                    <Entry x:Name="WildlifeTypeEntry"   Text="{Binding WildlifeType, Mode=TwoWay}"  TextColor="#03A9F4" Grid.Row="1" />
+                    <Entry x:Name="WildlifeTypeEntry"   Text="{Binding WildlifeType, Mode=TwoWay}" Placeholder="Wildlife Type" PlaceholderColor="#F1F1F1" TextColor="#03A9F4" Grid.Row="1" />
                     
                     <Label FontSize="Micro" x:Name="Numberofbirdslbl" Text="Number of birds" TextColor="Black" Grid.Row="2" />
                     <Picker x:Name="Numberofbirdspicker" SelectedIndex="{Binding Numberofbirds,Mode=TwoWay}" SelectedIndexChanged="Numberofbirdspicker_changed" TextColor="#03A9F4" 
                             Grid.Row="3" HorizontalOptions="FillAndExpand">
                         <Picker.Items>
+                            <x:String>Select</x:String>
                             <x:String>Single</x:String>
                             <x:String>Multiple</x:String>
                             <x:String>Unknown</x:String>
@@ -492,6 +508,7 @@
                     <Picker x:Name="SizeofWildlifepicker" SelectedIndex="{Binding SizeofWildlife,Mode=TwoWay}" SelectedIndexChanged="SizeofWildlifepicker_changed" TextColor="#03A9F4" 
                             Grid.Row="5" HorizontalOptions="FillAndExpand">
                         <Picker.Items>
+                            <x:String>Select</x:String>
                             <x:String>Small</x:String>
                             <x:String>Medium</x:String>
                             <x:String>Large</x:String>
@@ -501,13 +518,14 @@
                     <Picker x:Name="AircraftDamagepicker" SelectedIndex="{Binding AircraftDamage,Mode=TwoWay}" SelectedIndexChanged="AircraftDamagepicker_changed" 
                             TextColor="#03A9F4" Grid.Row="7" HorizontalOptions="FillAndExpand">
                         <Picker.Items>
+                            <x:String>Select</x:String>
                             <x:String>Yes</x:String>
                             <x:String>No</x:String>
                             <x:String>Unknown</x:String>
                         </Picker.Items>
                     </Picker>
                     <Label FontSize="Micro" x:Name="ImpactAreaDamageLbl" Text="Impact Area and Damage" TextColor="Black" Grid.Row="8"  />
-                    <Entry x:Name="ImpactAreaDamageEntry"   Text="{Binding ImpactAreaDamage, Mode=TwoWay}"  TextColor="#03A9F4" Grid.Row="9" />
+                    <Entry x:Name="ImpactAreaDamageEntry"   Text="{Binding ImpactAreaDamage, Mode=TwoWay}"  Placeholder="Impact Area and Damage" PlaceholderColor="#F1F1F1" TextColor="#03A9F4" Grid.Row="9" />
                 </Grid>
             </StackLayout>
         </StackLayout>

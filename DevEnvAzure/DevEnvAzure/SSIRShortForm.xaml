@@ -61,6 +61,7 @@
                             <Picker x:Name="FlightPhasepicker" SelectedIndexChanged="aircraftRegis_Changed" SelectedIndex="{Binding AircraftRegis,Mode=TwoWay}"
                                     TextColor="#03A9F4" Grid.Row="9" HorizontalOptions="FillAndExpand">
                                 <Picker.Items>
+                                    <x:String>Select</x:String>
                                     <x:String>HS-XBA</x:String>
                                     <x:String>HS-XBB</x:String>
                                     <x:String>HS-XBC</x:String>
@@ -84,7 +85,7 @@
                     <StackLayout x:Name="Stacklay2" Orientation="Vertical" VerticalOptions="FillAndExpand" Padding="5,5" Margin="0,15">
                         <Grid>
                             <Grid.RowDefinitions>
-                                <RowDefinition Height="16" />
+                                <RowDefinition Height="30" />
                                 <RowDefinition Height="1" />
                                 <RowDefinition Height="14" />
                                 <RowDefinition Height="*" />
@@ -110,7 +111,7 @@
                     <StackLayout x:Name="Stacklay3" Orientation="Vertical" VerticalOptions="FillAndExpand" Margin="0,15"  Padding="5,5">
                         <Grid>
                             <Grid.RowDefinitions>
-                                <RowDefinition Height="16" />
+                                <RowDefinition Height="30" />
                                 <RowDefinition Height="1" />
                                 <RowDefinition Height="14" />
                                 <RowDefinition Height="*" />
@@ -134,13 +135,13 @@
                                 <RowDefinition Height="30" />
                                 
                                 <RowDefinition Height="14" />
-                                <RowDefinition Height="30" />
+                                <RowDefinition Height="*" />
                                 
                                 <RowDefinition Height="14" />
-                                <RowDefinition Height="30" />
+                                <RowDefinition Height="*" />
 
                                 <RowDefinition Height="14" />
-                                <RowDefinition Height="30" />
+                                <RowDefinition Height="*" />
                                 
                                 <RowDefinition Height="30" />
                             </Grid.RowDefinitions>
