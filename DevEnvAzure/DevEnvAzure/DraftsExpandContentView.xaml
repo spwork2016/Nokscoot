@@ -8,7 +8,7 @@
             <ListView x:Name="ItemsListView" VerticalOptions="Fill">
                 <ListView.ItemTemplate>
                     <DataTemplate>
-                        <ViewCell Tapped="SafetyReport_Clicked">
+                        <ViewCell>
                             <ViewCell.ContextActions>
                                 <MenuItem Clicked="MenuItem_Delete_Clicked" CommandParameter="{Binding .}" Text="Delete" IsDestructive="True" />
                             </ViewCell.ContextActions>

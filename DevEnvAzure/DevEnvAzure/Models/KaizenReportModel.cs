@@ -10,6 +10,9 @@ namespace DevEnvAzure.Models
     [Table(@"KaizenReportModel")]
     public class KaizenReportModel
     {
+        [PrimaryKey, AutoIncrement]
+        public int Id
+        { get; set; }
         public string After
         { get; set; }
         public string ApprovedBy

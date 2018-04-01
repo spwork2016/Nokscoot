@@ -13,6 +13,9 @@ namespace DevEnvAzure.Models
         //public long injuryIllId
         //{ get; set; }
         //[NotNull]
+        [PrimaryKey, AutoIncrement]
+        public int Id
+        { get; set; }
         public string ReportType
         { get; set; }
         public string EventTitle

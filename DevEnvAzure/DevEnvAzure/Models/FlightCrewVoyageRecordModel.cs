@@ -10,6 +10,9 @@ namespace DevEnvAzure.Models
     [Table(@"FlightCrewVoyageRecordModel")]
     public class FlightCrewVoyageRecordModel
     {
+        [PrimaryKey, AutoIncrement]
+        public int Id
+        { get; set; }
         public string VoyageRecord
         { get; set; }
         public int SectorNumber

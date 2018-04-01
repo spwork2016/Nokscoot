@@ -17,9 +17,12 @@ namespace DevEnvAzure
         public EditableDrafts()
         {
             InitializeComponent();
-            Load_saveddrafts();
             BindingContext = this;
+        }
 
+        protected override async void OnAppearing()
+        {
+            Load_saveddrafts();
         }
 
         public void Load_saveddrafts()

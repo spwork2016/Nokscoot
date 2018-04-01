@@ -10,7 +10,9 @@ namespace DevEnvAzure.Models
     [Table(@"StationInformationModel")]
     public class StationInformationModel
     {
-
+        [PrimaryKey, AutoIncrement]
+        public int Id
+        { get; set; }
         public string IATACode
         { get; set; }
         public string NameofAirport

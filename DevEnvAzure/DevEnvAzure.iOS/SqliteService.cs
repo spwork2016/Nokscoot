@@ -17,7 +17,7 @@ namespace DevEnvAzure.iOS
         #region ISQLite implementation
         public SQLite.Net.SQLiteConnection GetConnection()
         {
-            var sqliteFilename = "SQLiteEx.db3";
+            var sqliteFilename = "NokScoot.db3";
             string documentsPath = Environment.GetFolderPath(Environment.SpecialFolder.Personal); // Documents folder
             string libraryPath = Path.Combine(documentsPath, "..", "Library"); // Library folder
             var path = Path.Combine(libraryPath, sqliteFilename);

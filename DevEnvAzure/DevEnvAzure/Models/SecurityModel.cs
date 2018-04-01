@@ -30,6 +30,10 @@ namespace DevEnvAzure.Models
         //public long SecurityID
         //{ get; set; }
 
+        [PrimaryKey, AutoIncrement]
+        public int Id
+        { get; set; }
+
         public string ReportType
         { get; set; }
         public string EventTitle

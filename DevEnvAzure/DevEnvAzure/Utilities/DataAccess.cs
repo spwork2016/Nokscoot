@@ -41,6 +41,8 @@ namespace DevEnvAzure
                 dbConn.CreateTable<GroundSafetyReport>();
                 dbConn.CreateTable<InjuryIllnessReport>();
 
+                //dbConn.MigrateTable<FlightSafetyReportView>();
+
                 //New Tables by Sravan
                 dbConn.CreateTable<KaizenReportModel>();
                 dbConn.CreateTable<StationInformationModel>();
@@ -101,6 +103,12 @@ namespace DevEnvAzure
         {
             return dbConn.Delete(aEmployee);
         }
+
+        public int Delete<Y>(Y entity) where Y : class
+        {
+            return dbConn.Delete(entity);
+        }
+
         public int DeleteEmployeeAdded(long empid)
         {
             return dbConn.Delete(empid);
