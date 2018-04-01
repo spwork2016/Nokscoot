@@ -8,7 +8,7 @@
             <ListView x:Name="ItemsListView" VerticalOptions="Fill">
                 <ListView.ItemTemplate>
                     <DataTemplate>
-                        <ViewCell Tapped="SafetyReport_Clicked">
+                        <ViewCell>
                             <ViewCell.ContextActions>
                                 <MenuItem Clicked="MenuItem_Delete_Clicked" CommandParameter="{Binding .}" Text="Delete" IsDestructive="True" />
                             </ViewCell.ContextActions>
@@ -24,7 +24,7 @@
                                     </Grid.ColumnDefinitions>
 
                                     <Label Text="{Binding ReportType}" FontSize="Small" Grid.Row="0" Grid.Column="0" HorizontalOptions="StartAndExpand"></Label>
-                                    <Button Image="edit.png" HeightRequest="30" WidthRequest="30" HorizontalOptions="EndAndExpand" Grid.RowSpan="2"
+                                    <Button Text="Edit" FontSize="Small" HorizontalOptions="EndAndExpand" Grid.RowSpan="2"
                                              Clicked="SafetyReport_Clicked" CommandParameter="{Binding ReportType}" Grid.Row="0" Grid.Column="1"/>
 
                                     <Label Text="{Binding DateOfEvent}" FontSize="Small" Grid.Row="1" Grid.ColumnSpan="2"/>

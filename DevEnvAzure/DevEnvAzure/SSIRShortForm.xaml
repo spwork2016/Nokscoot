@@ -66,6 +66,8 @@
                                     <x:String>HS-XBB</x:String>
                                     <x:String>HS-XBC</x:String>
                                     <x:String>HS-XBD</x:String>
+                                    <x:String>B-777</x:String>
+                                    <x:String>B-737</x:String>
                                     <x:String>N/A</x:String>
                                 </Picker.Items>
                             </Picker>

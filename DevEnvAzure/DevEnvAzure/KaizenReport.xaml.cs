@@ -24,8 +24,8 @@ namespace DevEnvAzure
         public KaizenReport()
         {
             _KaizenReport = new Models.KaizenReportModel();
-            _KaizenReport.DateofCompletion = DateTime.Now;
-            _KaizenReport.ImplementationDate = DateTime.Now;
+            //_KaizenReport.DateofCompletion = DateTime.Now;
+            //_KaizenReport.ImplementationDate = DateTime.Now;
 
             this.BindingContext = _KaizenReport;
             InitializeComponent();

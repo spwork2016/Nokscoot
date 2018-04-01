@@ -316,24 +316,12 @@ namespace DevEnvAzure.Utilities
         public KaizenReportSp getKaizenReportJson(KaizenReportModel sd)
         {
             KaizenReportSp sddp = new KaizenReportSp();
-            sddp.After = sd.After != null ? "<div class=\"ExternalClass0BEAFDC2A1E241468E41749B6BA3B011\"><br>\u200b" + sd.After + "<br><\u002fdiv>" : null;
-            sddp.ApprovedBy = "14" /*sd.ApprovedBy*/;
+
             sddp.AreaLocation = sd.AreaLocation;
             sddp.Before = sd.Before != null ? "<div class=\"ExternalClass7A1654F355EA4DB8AE0EFF5A3A06BE7C\"><br>\u200b" + sd.Before + "<br><\u002fdiv>" : null;
             sddp.BenefitsCategory = KaizenReport.BenefitsCategorypickerValue;
-            sddp.BenefitsDescription = sd.BenefitsDescription != null ? "<div class=\"ExternalClass2ABD2EF7393B4905A0676A91A7A97F3B\"><br>\u200b" + sd.BenefitsDescription + "<br><\u002fdiv>" : null;
-            sddp.ContactDetails = sd.ContactDetails != null ? "<div class=\"ExternalClass839355D8F9A544319596CBBE0C3E3AE7\"><br>\u200b" + sd.ContactDetails + "<br><\u002fdiv>" : null;
-            sddp.DateofCompletion = sd.DateofCompletion.ToString("yyyy-MM-dd") + "T07:00:00Z";
-            sddp.DepartmentDivision = sd.DepartmentDivision;
-            sddp.ImplementationDate = sd.ImplementationDate.ToString("yyyy-MM-dd") + "T07:00:00Z";
             sddp.InitialCondition = sd.InitialCondition != null ? "<div class=\"ExternalClass975C4DB74D7B48519471F19A3D26C255\"><br>\u200b" + sd.InitialCondition + "<br><\u002fdiv>" : null;
-            sddp.ProcessProject = sd.ProcessProject;
-            sddp.Reference = sd.Reference;
-            sddp.SolutionDescription = sd.SolutionDescription != null ? "<div class=\"ExternalClass768F66ECCE8B46E58C34B0753FD4CD08\"><br>\u200b" + sd.SolutionDescription + "<br><\u002fdiv>" : null;
-            sddp.StandardizationRemarks = sd.StandardizationRemarks != null ? "<div class=\"ExternalClassCCAB644CA43D46ECAA9381C2ED00230B\"><br>\u200b" + sd.StandardizationRemarks + "<br><\u002fdiv>" : null;
             sddp.Subject = sd.Subject;
-            sddp.TeamMembers = sd.TeamMembers != null ? "<div class=\"ExternalClass094102D6AAB047D1B1F1812A2A33D298\"><br>\u200b" + sd.TeamMembers + "<br><\u002fdiv>" : null;
-            sddp.ValidatedBy = "14" /*sd.ValidatedBy*/;
             return sddp;
         }
         public StationInformationSp getStationInformationJson(StationInformationModel sd)

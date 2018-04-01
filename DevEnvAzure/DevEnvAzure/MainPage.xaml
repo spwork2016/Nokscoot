@@ -3,8 +3,9 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="DevEnvAzure.MainPage" Title="Welcome to NokScoot">
     <StackLayout Orientation="Vertical" VerticalOptions="FillAndExpand">
-        <StackLayout VerticalOptions="Start" HorizontalOptions="Center">
-            <Image Source="nokscoot_bg.jpg"  Grid.Row="0"/>
+        <StackLayout VerticalOptions="FillAndExpand" BackgroundColor="#ffcb05" HorizontalOptions="FillAndExpand">
+            <Image Source="mobilehome-top.png" VerticalOptions="StartAndExpand" />
+            <Image Source="mobilehome-bottom.png" VerticalOptions="EndAndExpand" />
         </StackLayout>
     </StackLayout>
 </ContentPage>
