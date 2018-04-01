@@ -26,6 +26,7 @@
                 <Picker x:Name="FlightPhasepicker" SelectedIndex="{Binding flightEvent,Mode=TwoWay}" 
                         SelectedIndexChanged="flightphase_selected" TextColor="#03A9F4" Grid.Row="1" HorizontalOptions="FillAndExpand">
                     <Picker.Items>
+                        <x:String>Select</x:String>
                         <x:String>Parked</x:String>
                         <x:String>Pre-fligh</x:String>
                         <x:String>Pushback</x:String>
@@ -46,6 +47,7 @@
                 <Picker x:Name="flightwherepicker" SelectedIndex="{Binding onGround,Mode=TwoWay}" 
                         SelectedIndexChanged="flightwhere_selected" TextColor="#03A9F4" Grid.Row="3" HorizontalOptions="FillAndExpand">
                     <Picker.Items>
+                        <x:String>Select</x:String>
                         <x:String>Baggage Carousel</x:String>
                         <x:String>Ramp</x:String>
                         <x:String>Remote Bay</x:String>
@@ -57,10 +59,10 @@
                     </Picker.Items>
                 </Picker>
                 <Label x:Name="secEvent" Text="Security Event - Type" TextColor="Black" FontSize="Micro" Grid.Row="4" />
-                <Entry x:Name="secEventEntry"   Text="{Binding securityEvent, Mode=TwoWay}"  TextColor="#03A9F4" Grid.Row="5" />
+                <Entry x:Name="secEventEntry"   Text="{Binding securityEvent, Mode=TwoWay}" Placeholder="Security Event - Type" PlaceholderColor="#F1F1F1" TextColor="#03A9F4" Grid.Row="5" />
+                <!--Hyper Link-->
                 <Label x:Name="policereport" TextColor="Black" FontSize="Micro" Text="Reported to Police" Grid.Row="6" />
-                <!--<controls:HyperLinkLabel x:Name="policereportEntry" Text="www.google.com"  Grid.Row="3" Grid.Column="1" TextColor="#03A9F4" />-->
-                <Entry x:Name="policereportEntry"   Text="{Binding policereport, Mode=TwoWay}"  TextColor="#03A9F4" Grid.Row="7" />
+                <Entry x:Name="policereportEntry"   Text="{Binding policereport, Mode=TwoWay}" Placeholder="Reported to Police" PlaceholderColor="#F1F1F1" TextColor="#03A9F4" Grid.Row="7" />
             </Grid>
         </StackLayout>
     </ContentView.Content>

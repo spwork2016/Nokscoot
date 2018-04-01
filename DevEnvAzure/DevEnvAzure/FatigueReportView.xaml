@@ -11,9 +11,9 @@
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="14" />
-                        <RowDefinition Height="30" />
+                        <RowDefinition Height="*" />
                         <RowDefinition Height="14" />
-                        <RowDefinition Height="30" />
+                        <RowDefinition Height="*" />
                         <RowDefinition Height="30" />
                     </Grid.RowDefinitions>
 
@@ -37,9 +37,9 @@
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="14" />
-                        <RowDefinition Height="30" />
+                        <RowDefinition Height="*" />
                         <RowDefinition Height="14" />
-                        <RowDefinition Height="30" />
+                        <RowDefinition Height="*" />
                     </Grid.RowDefinitions>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*" />
@@ -77,8 +77,9 @@
                         <RowDefinition Height="30" />
                         <RowDefinition Height="30" />
                         <RowDefinition Height="30" />
+                        
                         <RowDefinition Height="14" />
-                        <RowDefinition Height="30" />
+                        <RowDefinition Height="*" />
                     </Grid.RowDefinitions>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*" />
@@ -106,7 +107,7 @@
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="14" />
-                        <RowDefinition Height="30" />
+                        <RowDefinition Height="*" />
                     </Grid.RowDefinitions>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*" />

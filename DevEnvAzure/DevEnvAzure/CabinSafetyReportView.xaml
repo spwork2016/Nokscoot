@@ -11,19 +11,19 @@
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="14" />
-                    <RowDefinition Height="30" />
+                    <RowDefinition Height="*" />
 
                     <RowDefinition Height="30" />
                     <RowDefinition Height="30" />
                     
                     <RowDefinition Height="14" />
-                    <RowDefinition Height="30" />
+                    <RowDefinition Height="*" />
                     
                     <RowDefinition Height="14" />
-                    <RowDefinition Height="30" />
+                    <RowDefinition Height="*" />
                     
                     <RowDefinition Height="14" />
-                    <RowDefinition Height="30" />
+                    <RowDefinition Height="*" />
                 </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*" />
@@ -33,6 +33,7 @@
                 <Picker x:Name="turbulancepicker" SelectedIndex="{Binding turbulenceIndex,Mode=TwoWay}" 
                         SelectedIndexChanged="turbulence_Changed" TextColor="#03A9F4" Grid.Row="1" HorizontalOptions="FillAndExpand" Grid.ColumnSpan="2">
                     <Picker.Items>
+                        <x:String>Select</x:String>
                         <x:String>Light</x:String>
                         <x:String>Moderate</x:String>
                         <x:String>Severe</x:String>
@@ -51,23 +52,26 @@
                 <Picker x:Name="paxpicker" SelectedIndex="{Binding dangerPaxIndex,Mode=TwoWay}" 
                         SelectedIndexChanged="dangergoods_Changed" TextColor="#03A9F4" Grid.Row="5" HorizontalOptions="FillAndExpand" Grid.ColumnSpan="2">
                     <Picker.Items>
+                        <x:String>Select</x:String>
                         <x:String>pax</x:String>
                         <x:String>cargo</x:String>
                     </Picker.Items>
                 </Picker>
-                <Label x:Name="identified" Text="Identified When" TextColor="Black" Grid.Row="6" Grid.ColumnSpan="2"/>
+                <Label x:Name="identified" Text="Identified When" TextColor="Black" FontSize="Micro" Grid.Row="6" Grid.ColumnSpan="2"/>
                 <Picker x:Name="identifiedpicker" SelectedIndex="{Binding identifiedWhenCabinIndex,Mode=TwoWay}" 
                         SelectedIndexChanged="dangerwhen_Changed" TextColor="#03A9F4" Grid.Row="7" Grid.ColumnSpan="2" HorizontalOptions="FillAndExpand">
                     <Picker.Items>
+                        <x:String>Select</x:String>
                         <x:String>Before flight</x:String>
                         <x:String>During flight</x:String>
                         <x:String>After flight</x:String>
                     </Picker.Items>
                 </Picker>
-                <Label x:Name="idenwhere" TextColor="Black" Text="Identified Where" Grid.Row="8" Grid.ColumnSpan="2" />
+                <Label x:Name="idenwhere" TextColor="Black" Text="Identified Where" FontSize="Micro" Grid.Row="8" Grid.ColumnSpan="2" />
                 <Picker x:Name="identifiedwherepicker" SelectedIndex="{Binding identifiedWhereCabinIndex,Mode=TwoWay}" 
                         SelectedIndexChanged="dangerwhere_Changed" TextColor="#03A9F4" Grid.Row="9" HorizontalOptions="FillAndExpand" Grid.ColumnSpan="2">
                     <Picker.Items>
+                        <x:String>Select</x:String>
                         <x:String>Check-in/preboard</x:String>
                         <x:String>Cabin bags</x:String>
                         <x:String>Checked bags</x:String>

@@ -32,14 +32,16 @@ namespace DevEnvAzure
         }
         private async void CabinSafety_Clicked(object sender, EventArgs e)
         {
-            var sft = new Models.CabibSafetyReport();
-            sft.DateOfEvent = DateTime.Now;
-            await Navigation.PushAsync(new SSIRShortForm(new Models.CabibSafetyReport(), "cabin"));
+            var csft = new Models.CabibSafetyReport();
+           csft.DateOfEvent = DateTime.Now;
+           
+            await Navigation.PushAsync(new SSIRShortForm(csft, "cabin"));
         }
         private async void Fatigue_Clicked(object sender, EventArgs e)
         {
-            var cbn = new Models.FlightSafetyReportModel();
+            var cbn = new Models.FatigueReport();
             cbn.DateOfEvent = DateTime.Now;
+            cbn.localReportDate = DateTime.Now;
             await Navigation.PushAsync(new SSIRShortForm(cbn, "fatigue"));
         }
         private async void GroundSafety_Clicked(object sender, EventArgs e)
