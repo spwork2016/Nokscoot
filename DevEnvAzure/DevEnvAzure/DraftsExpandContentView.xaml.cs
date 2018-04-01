@@ -57,6 +57,21 @@ namespace DevEnvAzure
                     ItemsListView.BindingContext = App.fatigue;
                     ItemsListView.HeightRequest = App.fatigue.Count * 45;
                     break;
+                case "kaizen":
+                    ItemsListView.ItemsSource = App.kaizen;
+                    ItemsListView.BindingContext = App.kaizen;
+                    ItemsListView.HeightRequest = App.kaizen.Count * 45;
+                    break;
+                case "fcVoyage":
+                    ItemsListView.ItemsSource = App.fcVoyage;
+                    ItemsListView.BindingContext = App.fcVoyage;
+                    ItemsListView.HeightRequest = App.fcVoyage.Count * 45;
+                    break;
+                case "stsnInfo":
+                    ItemsListView.ItemsSource = App.statInfo;
+                    ItemsListView.BindingContext = App.statInfo;
+                    ItemsListView.HeightRequest = App.statInfo.Count * 45;
+                    break;
             }
         }
 
@@ -110,6 +125,24 @@ namespace DevEnvAzure
                                                select itm).FirstOrDefault();
                     await Navigation.PushAsync(new SSIRShortForm(listitem5, "fatigue"));
                     break;
+                case "kaizen":
+                    KaizenReportModel listitem6 = (from itm in App.kaizen
+                                               where itm.Id.ToString() == item.CommandParameter.ToString()
+                                               select itm).FirstOrDefault();
+                    await Navigation.PushAsync(new SSIRShortForm(listitem6, "fatigue"));
+                    break;
+                case "fcVoyage":
+                    FlightCrewVoyageRecordModel listitem7 = (from itm in App.fcVoyage
+                                               where itm.Id.ToString() == item.CommandParameter.ToString()
+                                               select itm).FirstOrDefault();
+                    await Navigation.PushAsync(new SSIRShortForm(listitem7, "fatigue"));
+                    break;
+                case "stsnInfo":
+                    StationInformationModel listitem8 = (from itm in App.statInfo
+                                               where itm.Id.ToString() == item.CommandParameter.ToString()
+                                               select itm).FirstOrDefault();
+                    await Navigation.PushAsync(new SSIRShortForm(listitem8, "fatigue"));
+                    break;
             }
 
         }
@@ -118,10 +151,40 @@ namespace DevEnvAzure
         {
             var cp = ((MenuItem)sender).CommandParameter;
             if (cp == null) return;
-
+            string reportName = cp.ToString();
+           
             //TODO - delete appropriate report
-            App.DAUtil.DeleteEmployee(cp);
-            App.security = new ObservableCollection<SecurityModel>(App.DAUtil.GetAllEmployees<SecurityModel>("SecurityModel"));
+            App.DAUtil.DeleteEmployee(cp);          
+            if (reportName == "DevEnvAzure.Models.FlightSafetyReportModel")
+            {
+                App.safetyReport = new ObservableCollection<FlightSafetyReportModel>(App.DAUtil.GetAllEmployees<FlightSafetyReportModel>("SafetyReportModel"));
+                MessagingCenter.Send<DraftsExpandContentView, string>(this, "Hi", string.Join(",", ""));
+            }
+            if (reportName == "DevEnvAzure.Models.SecurityModel")
+            {
+                App.security = new ObservableCollection<SecurityModel>(App.DAUtil.GetAllEmployees<SecurityModel>("SecurityModel"));
+            }
+            if (reportName == "DevEnvAzure.Models.CabibSafetyReport")
+            {
+                App.cabinSafety = new ObservableCollection<CabibSafetyReport>(App.DAUtil.GetAllEmployees<CabibSafetyReport>("CabibSafetyReport"));
+            }
+            if (reportName == "DevEnvAzure.Models.GroundSafetyReport")
+            {
+                App.groundSafety = new ObservableCollection<GroundSafetyReport>(App.DAUtil.GetAllEmployees<GroundSafetyReport>("GroundSafetyReport"));
+            }
+            if (reportName == "DevEnvAzure.Models.InjuryIllnessReport")
+            {
+                App.injuryIllness = new ObservableCollection<InjuryIllnessReport>(App.DAUtil.GetAllEmployees<InjuryIllnessReport>("InjuryIllnessReport"));
+            }
+            if (reportName == "DevEnvAzure.Models.FatigueReport")
+            {
+                App.fatigue = new ObservableCollection<FatigueReport>(App.DAUtil.GetAllEmployees<FatigueReport>("FatigueReport"));
+            }
+            if (reportName == "DevEnvAzure.Models.FlightCrewVoyageRecordModel")
+            {
+                App.fcVoyage = new ObservableCollection<FlightCrewVoyageRecordModel>(App.DAUtil.GetAllEmployees<FlightCrewVoyageRecordModel>("FlightCrewVoyageRecordModel"));
+            }
+
             DataBind(_reportType);
             DependencyService.Get<IMessage>().LongAlert("Draft deleted");
         }

@@ -33,6 +33,7 @@ namespace DevEnvAzure
         public static ObservableCollection<InjuryIllnessReport> injuryIllness = new ObservableCollection<InjuryIllnessReport>();
         public static ObservableCollection<SecurityModel> security = new ObservableCollection<SecurityModel>();
         public static ObservableCollection<FlightSafetyReportModel> safetyReport = new ObservableCollection<FlightSafetyReportModel>();
+
         public static ObservableCollection<KaizenReportModel> kaizen = new ObservableCollection<KaizenReportModel>();
         public static ObservableCollection<FlightCrewVoyageRecordModel> fcVoyage = new ObservableCollection<FlightCrewVoyageRecordModel>();
         public static ObservableCollection<StationInformationModel> statInfo = new ObservableCollection<StationInformationModel>();

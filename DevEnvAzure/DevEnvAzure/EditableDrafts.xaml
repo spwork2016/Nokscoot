@@ -32,12 +32,12 @@
                     <Grid.RowDefinitions>
                         <RowDefinition Height="30" />
                         <RowDefinition Height="1" />
-                        <RowDefinition Height="*" />
+                        <RowDefinition Height="30" />
                     </Grid.RowDefinitions>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*" />
-                        <ColumnDefinition Width="30" />
-                        <ColumnDefinition Width="30" />
+                        <ColumnDefinition Width="50" />
+                        <ColumnDefinition Width="50" />
                     </Grid.ColumnDefinitions>
 
                     <Label TextColor="Black" Grid.Row="0" Grid.Column="0" FontSize="Medium" VerticalTextAlignment="End" Text="Ground Safety Reports" />
@@ -143,6 +143,74 @@
 
                     <StackLayout x:Name="injuryillnessLayout" Orientation="Vertical" Grid.Row="2" Grid.ColumnSpan="3"/>
                 </Grid>
+                <StackLayout x:Name="stkKaizen" Orientation="Vertical"  VerticalOptions="Fill" Padding="5,5" BackgroundColor="White">
+                    <Grid HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="30" />
+                            <RowDefinition Height="1" />
+                            <RowDefinition Height="*" />
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="30" />
+                            <ColumnDefinition Width="30" />
+                        </Grid.ColumnDefinitions>
+
+                        <Label TextColor="Black" Grid.Row="0" Grid.Column="0" FontSize="Medium" VerticalTextAlignment="End" Text="Injury Illness Reports" />
+                        <Label x:Name="kaizencnt" TextColor="Black" FontSize="Micro" Grid.Row="0" Grid.Column="1" 
+                           VerticalTextAlignment="Center" />
+                        <Button x:Name="btnkaizen" Text="+" TextColor="Black" Clicked="kaizen_Expand" Grid.Row="0" Grid.Column="2" BackgroundColor="#FDCE02" />
+                        <BoxView Color="#FDCE02" HorizontalOptions="FillAndExpand" Grid.Row="1" Grid.ColumnSpan="3" HeightRequest="1"/>
+
+                        <StackLayout x:Name="kaizenLayout" Orientation="Vertical" Grid.Row="2" Grid.ColumnSpan="3"/>
+                    </Grid>
+                </StackLayout>
+
+                <StackLayout x:Name="fcVoyage" Orientation="Vertical"  VerticalOptions="Fill" Padding="5,5" BackgroundColor="White">
+                    <Grid HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="30" />
+                            <RowDefinition Height="1" />
+                            <RowDefinition Height="*" />
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="30" />
+                            <ColumnDefinition Width="30" />
+                        </Grid.ColumnDefinitions>
+
+                        <Label TextColor="Black" Grid.Row="0" Grid.Column="0" FontSize="Medium" VerticalTextAlignment="End" Text="Injury Illness Reports" />
+                        <Label x:Name="fcVoyageCnt" TextColor="Black" FontSize="Micro" Grid.Row="0" Grid.Column="1" 
+                           VerticalTextAlignment="Center" />
+                        <Button x:Name="btnfcVoyage" Text="+" TextColor="Black" Clicked="fcVoyage_Expand" Grid.Row="0" Grid.Column="2" BackgroundColor="#FDCE02" />
+                        <BoxView Color="#FDCE02" HorizontalOptions="FillAndExpand" Grid.Row="1" Grid.ColumnSpan="3" HeightRequest="1"/>
+
+                        <StackLayout x:Name="fcVoyageLayout" Orientation="Vertical" Grid.Row="2" Grid.ColumnSpan="3"/>
+                    </Grid>
+                </StackLayout>
+
+                <StackLayout x:Name="StatnInfo" Orientation="Vertical"  VerticalOptions="Fill" Padding="5,5" BackgroundColor="White">
+                    <Grid HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="30" />
+                            <RowDefinition Height="1" />
+                            <RowDefinition Height="*" />
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="30" />
+                            <ColumnDefinition Width="30" />
+                        </Grid.ColumnDefinitions>
+
+                        <Label TextColor="Black" Grid.Row="0" Grid.Column="0" FontSize="Medium" VerticalTextAlignment="End" Text="Injury Illness Reports" />
+                        <Label x:Name="StatnInfoCnt" TextColor="Black" FontSize="Micro" Grid.Row="0" Grid.Column="1" 
+                           VerticalTextAlignment="Center" />
+                        <Button x:Name="btnStatnInfo" Text="+" TextColor="Black" Clicked="StatnInfo_Expand" Grid.Row="0" Grid.Column="2" BackgroundColor="#FDCE02" />
+                        <BoxView Color="#FDCE02" HorizontalOptions="FillAndExpand" Grid.Row="1" Grid.ColumnSpan="3" HeightRequest="1"/>
+
+                        <StackLayout x:Name="StatnInfoLayout" Orientation="Vertical" Grid.Row="2" Grid.ColumnSpan="3"/>
+                    </Grid>
+                </StackLayout>
 
                 <!--<Button Text="Injury Illness Report" TextColor="Black" Clicked="injuryillness_Expand"/>
                 <StackLayout x:Name="injuryillnessLayout" Orientation="Vertical" VerticalOptions="FillAndExpand" Padding="10,0">

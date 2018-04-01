@@ -37,6 +37,12 @@ namespace DevEnvAzure
                 lblSafetyReportCount.Text = string.Format("({0})", App.safetyReport.Count.ToString());
                 stkSafetyReports.IsVisible = App.safetyReport.Count == 0 ? false : true;
 
+                MessagingCenter.Subscribe<DraftsExpandContentView, string>(this, "", (sender1, arg) =>
+                {
+                    lblSafetyReportCount.Text = string.Format("({0})", App.safetyReport.Count.ToString());
+                });
+
+
                 App.cabinSafety = new ObservableCollection<CabibSafetyReport>(App.DAUtil.GetAllEmployees<CabibSafetyReport>("CabibSafetyReport"));
                 lblcabinSafetyReportCount.Text = string.Format("({0})", App.cabinSafety.Count.ToString());
                 stkcabinSafetyReports.IsVisible = App.cabinSafety.Count == 0 ? false : true;
@@ -52,6 +58,10 @@ namespace DevEnvAzure
                 App.fatigue = new ObservableCollection<FatigueReport>(App.DAUtil.GetAllEmployees<FatigueReport>("FatigueReport"));
                 lblFatigueReportCount.Text = string.Format("({0})", App.fatigue.Count.ToString());
                 stkFatigueReports.IsVisible = App.fatigue.Count == 0 ? false : true;
+
+                App.kaizen = new ObservableCollection<KaizenReportModel>(App.DAUtil.GetAllEmployees<KaizenReportModel>("KaizenReportModel"));
+                kaizencnt.Text = string.Format("({0})", App.kaizen.Count.ToString());
+                stkKaizen.IsVisible = App.kaizen.Count == 0 ? false : true;
             }
             catch (Exception ex)
             {
@@ -104,7 +114,18 @@ namespace DevEnvAzure
         {
             ExpandCollapsePanel(sender, injuryillnessLayout, "illness");
         }
-
+        private void kaizen_Expand(object sender, EventArgs e)
+        {
+            ExpandCollapsePanel(sender, kaizenLayout, "kaizen");
+        }
+        private void fcVoyage_Expand(object sender, EventArgs e)
+        {
+            ExpandCollapsePanel(sender, fcVoyageLayout, "fcVoyage");
+        }
+        private void StatnInfo_Expand(object sender, EventArgs e)
+        {
+            ExpandCollapsePanel(sender, StatnInfoLayout, "stsnInfo");
+        }
         public void removeChildren()
         {
             if (groundSafetyLayout.Children.Count > 0)
