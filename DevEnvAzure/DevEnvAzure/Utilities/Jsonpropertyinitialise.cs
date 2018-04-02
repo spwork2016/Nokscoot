@@ -185,7 +185,7 @@ namespace DevEnvAzure.Utilities
             List<string> deviation = sd.ReasonforDeviation != null ? sd.ReasonforDeviation.Trim(',').Split(',').ToList() : null;
 
 
-           
+
             if (strData != null)
             {
                 ApproachType sfapp = new ApproachType();
@@ -195,9 +195,9 @@ namespace DevEnvAzure.Utilities
                 sfapp.__metadata = md1;
                 sddp.ApproachType = sfapp;
             }
-          
 
-          
+
+
             if (relativeStr != null)
             {
                 ReasonForDeviation rsDev = new ReasonForDeviation();
@@ -207,7 +207,7 @@ namespace DevEnvAzure.Utilities
                 rsDev.__metadata = md2;
                 sddp.ReasonforDeviation = rsDev;
             }
-          
+
             if (deviation != null)
             {
                 IntruderACRelativePosition intru = new IntruderACRelativePosition();
@@ -217,7 +217,7 @@ namespace DevEnvAzure.Utilities
                 intru.__metadata = md3;
                 sddp.Relativeposition = intru;
             }
-           
+
 
             sddp.ReportType = "Flight Safety Report";// sd.ReportType;
             sddp.AircraftRegis = SSIRShortForm.airregis;// Convert.ToString(sd.AircraftRegis + 1);
@@ -236,10 +236,16 @@ namespace DevEnvAzure.Utilities
             sddp.pax = sd.pax;
 
             sddp.CommanderPForPM = FlightSafetyReportView.CommanderPForPMpickerValue;
-            sddp.CommandersEmail = sd.CommandersEmail;
-            sddp.FlightCrew1 = sd.FlightCrew1;
+            if (FlightSafetyReportView.PeoplePickerCommander != null)
+                sddp.CommandersEmail = FlightSafetyReportView.PeoplePickerCommander.LoginName.ToString();
+
+            if (FlightSafetyReportView.PeoplePickercrew1email != null)
+                sddp.FlightCrew1 = FlightSafetyReportView.PeoplePickercrew1email.LoginName.ToString();
+
+            if (FlightSafetyReportView.PeoplePickercrew2email != null)
+                sddp.FlightCrew2 = FlightSafetyReportView.PeoplePickercrew2email.LoginName.ToString();
+
             sddp.FlightCrew1PFPMOBs = FlightSafetyReportView.FlightCrew1PFPMOBspickerValue;
-            sddp.FlightCrew2 = sd.FlightCrew2;
             sddp.FlightCrew2PFPMOBs = FlightSafetyReportView.FlightCrew2PFPMOBspickerValue;
             sddp.Ifflighteventselectphase = FlightSafetyReportView.IfflighteventselectphasepickerValue;
             sddp.Ifongroundselectwhere = FlightSafetyReportView.IfongroundselectwherepickerValue;
@@ -248,7 +254,7 @@ namespace DevEnvAzure.Utilities
             sddp.AutopilotOn = sd.AutopilotOn == true ? "1" : "0";
             sddp.ATOn = sd.ATOn == true ? "1" : "0";
 
-          //  sddp.ApproachType = "{\"__metadata\":{\"type\":\"Collection(Edm.String)\"},\"results\":\"" + apptypestr + "\"}";
+            //  sddp.ApproachType = "{\"__metadata\":{\"type\":\"Collection(Edm.String)\"},\"results\":\"" + apptypestr + "\"}";
             sddp.Heading = sd.Heading;
             sddp.VS = sd.VS;
             sddp.Gear = FlightSafetyReportView.GearpickerValue;
@@ -271,13 +277,13 @@ namespace DevEnvAzure.Utilities
             sddp.ClearedAltitude = sd.ClearedAltitude;
             sddp.DeviationHorizontal = sd.DeviationHorizontal;
             sddp.Vertical = sd.Vertical;
-          //  sddp.ReasonforDeviation = sd.ReasonforDeviation != null ? "<div class=\"ExternalClass733EA004DCC641EFAFED516F5D12CCA7\"><br>\u200b" + sd.ReasonforDeviation + "<br><\u002fdiv>" : null;
+            //  sddp.ReasonforDeviation = sd.ReasonforDeviation != null ? "<div class=\"ExternalClass733EA004DCC641EFAFED516F5D12CCA7\"><br>\u200b" + sd.ReasonforDeviation + "<br><\u002fdiv>" : null;
             sddp.TAAlert = sd.TAAlert == true ? "1" : "0";
             sddp.RAAlert = sd.RAAlert == true ? "1" : "0";
             sddp.RACommand = sd.RACommand;
             sddp.IntruderACType = sd.IntruderACType;
             sddp.Callsign = sd.Callsign;
-          //  sddp.Relativeposition = sd.Relativeposition != null ? "<div class=\"ExternalClass733EA004DCC641EFAFED516F5D12CCA7\"><br>\u200b" + sd.Relativeposition + "<br><\u002fdiv>" : null;
+            //  sddp.Relativeposition = sd.Relativeposition != null ? "<div class=\"ExternalClass733EA004DCC641EFAFED516F5D12CCA7\"><br>\u200b" + sd.Relativeposition + "<br><\u002fdiv>" : null;
             sddp.Bearing = sd.Bearing;
             sddp.Range = sd.Range;
             sddp.ATC = FlightSafetyReportView.ATCorAirportReportFiledpickerValue;
@@ -288,6 +294,7 @@ namespace DevEnvAzure.Utilities
             sddp.Numberofbirds = FlightSafetyReportView.NumberofbirdspickerValue;
             sddp.SizeofWildlife = FlightSafetyReportView.SizeofWildlifepickerValue;
             sddp.AircraftDamage = FlightSafetyReportView.AircraftDamagepickerValue;
+
             sddp.ImpactAreaDamage = sd.ImpactAreaDamage != null ? "<div class=\"ExternalClass733EA004DCC641EFAFED516F5D12CCA7\"><br>\u200b" + sd.ImpactAreaDamage + "<br><\u002fdiv>" : null;
             return sddp;
         }
@@ -306,7 +313,7 @@ namespace DevEnvAzure.Utilities
             sddp.TitleofReport = sd.TitleofReport;
             sddp.ReportCategories = FlightCrewVoyageRecord.ReportCategoriespickerValue;
             sddp.ReportDetails = sd.ReportDetails;// != null ? "<div class=\"ExternalClass733EA004DCC641EFAFED516F5D12CCA7\"><br>\u200b" + sd.ReportDetails + "<br><\u002fdiv>" : null;
-            sddp.ReportRaisedBy = "14"; //sd.ReportRaisedBy;
+            sddp.ReportRaisedBy = sd.ReportRaisedBy;
             sddp.ReplyRequired = FlightCrewVoyageRecord.ReplyRequiredpickerValue;
             sddp.StaffNumber = sd.StaffNumber;
             sddp.Rank = FlightCrewVoyageRecord.RankpickerValue;

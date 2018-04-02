@@ -40,10 +40,10 @@
                     </Picker>
 
                     <Label x:Name="CommandersEmaillbl" Text="Commander's Email" TextColor="Black" Grid.Row="2" FontSize="Micro" />
-                    <autocomplete:SfAutoComplete x:Name="peoplePickerCommander"  TextColor="#03A9F4" DisplayMemberPath="Name" ShowClearButton="True" Grid.Row="3" HorizontalOptions="FillAndExpand"/>
+                    <autocomplete:SfAutoComplete x:Name="peoplePickerCommander" ValueChanged="peoplePickerCommander_ValueChanged" SelectionChanged="PeoplePickerCommander_SelectionChanged"  TextColor="#03A9F4" DisplayMemberPath="Name" ShowClearButton="True" Grid.Row="3" HorizontalOptions="FillAndExpand"/>
                    
                     <Label x:Name="FlightCrew1Emaillbl" Text="Flight Crew 1 Email" TextColor="Black" Grid.Row="4" FontSize="Micro"/>
-                    <autocomplete:SfAutoComplete x:Name="peoplePickercrew1email"   TextColor="#03A9F4" DisplayMemberPath="Name" ShowClearButton="True" Grid.Row="5"  HorizontalOptions="FillAndExpand"/>
+                    <autocomplete:SfAutoComplete x:Name="peoplePickercrew1email" ValueChanged="peoplePickercrew1email_ValueChanged"  SelectionChanged="PeoplePickercrew1email_SelectionChanged"  TextColor="#03A9F4" DisplayMemberPath="Name" ShowClearButton="True" Grid.Row="5"  HorizontalOptions="FillAndExpand"/>
 
                     <Label x:Name="FlightCrew1PFPMOBslbl" Text="Flight Crew 1 PF PM OBs" TextColor="Black" Grid.Row="6" FontSize="Micro"/>
                     <Picker x:Name="FlightCrew1PFPMOBspicker" SelectedIndex="{Binding FlightCrew1PFPMOBs,Mode=TwoWay}" SelectedIndexChanged="FlightCrew1PFPMOBspicker_changed" TextColor="#03A9F4" 
@@ -57,7 +57,7 @@
                     </Picker>
                     <!-- People Picker-->
                     <Label x:Name="FlightCrew2Emaillbl" Text="Flight Crew 2 Email" TextColor="Black" Grid.Row="8" FontSize="Micro" />
-                    <autocomplete:SfAutoComplete x:Name="peoplePickercrew2email" TextColor="#03A9F4" DisplayMemberPath="Name" ShowClearButton="True" Grid.Row="9" HorizontalOptions="FillAndExpand"/>
+                    <autocomplete:SfAutoComplete x:Name="peoplePickercrew2email" ValueChanged="peoplePickercrew2email_ValueChanged" SelectionChanged="PeoplePickercrew2email_SelectionChanged" TextColor="#03A9F4" DisplayMemberPath="Name" ShowClearButton="True" Grid.Row="9" HorizontalOptions="FillAndExpand"/>
                     <Label x:Name="FlightCrew2PFPMOBslbl" Text="Flight Crew 2 PF PM OBs" TextColor="Black" Grid.Row="10" FontSize="Micro" />
                     <Picker x:Name="FlightCrew2PFPMOBspicker" SelectedIndex="{Binding FlightCrew2PFPMOBs,Mode=TwoWay}" SelectedIndexChanged="FlightCrew2PFPMOBspicker_changed" 
                         TextColor="#03A9F4" Grid.Row="11" HorizontalOptions="FillAndExpand">

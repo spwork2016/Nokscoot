@@ -79,8 +79,8 @@ namespace DevEnvAzure
 
                     if (!postResult.IsSuccessStatusCode)
                     {
-                        // Unwrap the response and throw as an Api Exception:
-                        var ex = OAuthHelper.CreateExceptionFromResponseErrors(postResult);
+                        var ex = postResult.Content.ReadAsStringAsync().Result;
+                        DisplayAlert("Error", ex, "Ok");
 
                     }
                     if (postResult.IsSuccessStatusCode)

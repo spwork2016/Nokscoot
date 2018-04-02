@@ -41,9 +41,19 @@ namespace DevEnvAzure
         {
             InitializeComponent();
 
-           if (App.AuthenticationResponse == null)
+            if (App.AuthenticationResponse == null)
                 MainPage = new Login();
             else MainPage = new DevEnvAzure.StartPage();
+        }
+
+        public static PeoplePicker validatePeoplePicker(string name)
+        {
+            var found = peoplePickerDataSource.Find((x) =>
+            {
+                return x.Name.ToLower() == name.ToLower();
+            });
+
+            return found;
         }
 
         public static DataAccess DAUtil

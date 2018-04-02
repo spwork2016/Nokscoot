@@ -6,7 +6,7 @@
              x:Class="DevEnvAzure.IntruderRelativePositionMultiSelect">
     <StackLayout VerticalOptions="Center" HorizontalOptions="FillAndExpand" Padding="20">
         <StackLayout BackgroundColor="White" Padding="0, 10, 0, 0">
-            <Label Text="Reason for Deviation" TextColor="Gray" FontSize="20" HorizontalOptions="Center"></Label>
+            <Label Text="Relative Position" TextColor="Gray" FontSize="20" HorizontalOptions="Center"></Label>
             <ScrollView>
                 <StackLayout>
                     <StackLayout Orientation="Horizontal" Padding="10">
