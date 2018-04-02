@@ -46,6 +46,13 @@ namespace DevEnvAzure
             else MainPage = new DevEnvAzure.StartPage();
         }
 
+        public static void ResetToHome()
+        {
+            //TODO
+            //MasterDetailPage masterDetailRootPage = (MasterDetailPage)Current.MainPage;
+            //masterDetailRootPage.Detail = new NavigationPage();
+        }
+
         public static PeoplePicker validatePeoplePicker(string name)
         {
             var found = peoplePickerDataSource.Find((x) =>

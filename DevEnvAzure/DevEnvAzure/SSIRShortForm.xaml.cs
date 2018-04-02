@@ -363,7 +363,6 @@ namespace DevEnvAzure
                         if (!postResult.IsSuccessStatusCode)
                         {
                             // Unwrap the response and throw as an Api Exception:
-                            //var ex = OAuthHelper.CreateExceptionFromResponseErrors(postResult);
                             var ex = await postResult.Content.ReadAsStringAsync();
                             await DisplayAlert("Error", ex, "Ok");
                         }
@@ -379,6 +378,7 @@ namespace DevEnvAzure
                             // dt.Value = contents;
                             App.DAUtil.SaveEmployee<DatatableData>(dt);
                             DependencyService.Get<IMessage>().LongAlert("List data stored in local storage");
+                            await Navigation.PopToRootAsync();
                         }
                         ToggleBusy(false);
                     }
@@ -391,6 +391,7 @@ namespace DevEnvAzure
 
                         var vList = App.DAUtil.GetAllEmployees<DatatableData>("DatatableData1");
                         DependencyService.Get<IMessage>().LongAlert("List data stored in local storage");
+                        await Navigation.PopToRootAsync();
                     }
                 });
             }
@@ -506,7 +507,6 @@ namespace DevEnvAzure
             if (FlightPhasepicker.SelectedIndex > 0)
                 airregis = FlightPhasepicker.Items.ElementAt(FlightPhasepicker.SelectedIndex);
         }
-
 
         private void ToggleBusy(bool flag)
         {

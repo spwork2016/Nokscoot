@@ -3,80 +3,92 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="DevEnvAzure.KaizenReport" Title="Kaizen Report">
     <ContentPage.Content>
-        <ScrollView  Orientation="Vertical" VerticalOptions="FillAndExpand" IsClippedToBounds="True">
-            <StackLayout Orientation="Vertical" VerticalOptions = "FillAndExpand" Padding="10,0" BackgroundColor="White">
-                
-                
-                <StackLayout HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" Margin="0,15">
-                    <Label x:Name="Overviewlbl" TextColor="Black" FontSize="Medium" HorizontalOptions="Start" Text="Overview :" />
-                    <Label x:Name="Desc1lbl" TextColor="Black" FontSize="Medium" HorizontalOptions="Start" 
+        <AbsoluteLayout HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
+            <StackLayout AbsoluteLayout.LayoutFlags="All" AbsoluteLayout.LayoutBounds="0,0,1,1">
+                <ScrollView  Orientation="Vertical" VerticalOptions="FillAndExpand" IsClippedToBounds="True">
+                    <StackLayout Orientation="Vertical" VerticalOptions = "FillAndExpand" Padding="10,0" BackgroundColor="White">
+                        <StackLayout HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" Margin="0,15">
+                            <Label x:Name="Overviewlbl" TextColor="Black" FontSize="Medium" HorizontalOptions="Start" Text="Overview :" />
+                            <Label x:Name="Desc1lbl" TextColor="Black" FontSize="Medium" HorizontalOptions="Start" 
                            Text="Kaizen (改善), is the Japanese word for improvement. In business, kaizen refers to activities that continuously improve all functions and involve all employees from the CEO to all employees." />
-                    <Label x:Name="Desc2lbl" TextColor="Black" FontSize="Medium" HorizontalOptions="Start" Text="The Japanese word kaizen simply means change for better, with inherent meaning of either continuous or one-time improvement, large or small. " />
-                    <BoxView Color="White" HorizontalOptions="FillAndExpand" HeightRequest="2" />
-                    <Label x:Name="KaizenReportlbl" TextColor="Black" FontSize="Medium" HorizontalOptions="Start" Text="Kaizen Report" />
-                    <BoxView Color="#FDCE02" HorizontalOptions="FillAndExpand" HeightRequest="1" />
-                    <Grid>
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="14" />
-                            <RowDefinition Height="*" />
-                            <RowDefinition Height="14" />
-                            <RowDefinition Height="*" />
-                            <RowDefinition Height="14" />
-                            <RowDefinition Height="*" />
-                            <RowDefinition Height="14" />
-                            <RowDefinition Height="*" />
-                            <RowDefinition Height="14" />
-                            <RowDefinition Height="*" />
-                        </Grid.RowDefinitions>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*" />
-                            <ColumnDefinition Width="*" />
-                        </Grid.ColumnDefinitions>
-                        <Label x:Name="SubjectLbl" Text="Subject" TextColor="Black" Grid.Row="0" Grid.ColumnSpan="2" FontSize="Micro"/>
-                        <Entry x:Name="SubjectEntry"  Text="{Binding Subject, Mode=TwoWay}" TextColor="#03A9F4" Grid.Row="1" Grid.ColumnSpan="2"  />
+                            <Label x:Name="Desc2lbl" TextColor="Black" FontSize="Medium" HorizontalOptions="Start" Text="The Japanese word kaizen simply means change for better, with inherent meaning of either continuous or one-time improvement, large or small. " />
+                            <BoxView Color="White" HorizontalOptions="FillAndExpand" HeightRequest="2" />
+                            <Label x:Name="KaizenReportlbl" TextColor="Black" FontSize="Medium" HorizontalOptions="Start" Text="Kaizen Report" />
+                            <BoxView Color="#FDCE02" HorizontalOptions="FillAndExpand" HeightRequest="1" />
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="14" />
+                                    <RowDefinition Height="*" />
+                                    <RowDefinition Height="14" />
+                                    <RowDefinition Height="*" />
+                                    <RowDefinition Height="14" />
+                                    <RowDefinition Height="*" />
+                                    <RowDefinition Height="14" />
+                                    <RowDefinition Height="*" />
+                                    <RowDefinition Height="14" />
+                                    <RowDefinition Height="*" />
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+                                <Label x:Name="SubjectLbl" Text="Subject" TextColor="Black" Grid.Row="0" Grid.ColumnSpan="2" FontSize="Micro"/>
+                                <Entry x:Name="SubjectEntry"  Text="{Binding Subject, Mode=TwoWay}" TextColor="#03A9F4" Grid.Row="1" Grid.ColumnSpan="2"  />
 
-                        <Label x:Name="AreaLocationLbl" Text="Area / Location" TextColor="Black" Grid.Row="2" Grid.ColumnSpan="2"  FontSize="Micro"/>
-                        <Entry x:Name="AreaLocationEntry"  Text="{Binding AreaLocation, Mode=TwoWay}" TextColor="#03A9F4" Grid.Row="3" Grid.ColumnSpan="2"  />
+                                <Label x:Name="AreaLocationLbl" Text="Area / Location" TextColor="Black" Grid.Row="2" Grid.ColumnSpan="2"  FontSize="Micro"/>
+                                <Entry x:Name="AreaLocationEntry"  Text="{Binding AreaLocation, Mode=TwoWay}" TextColor="#03A9F4" Grid.Row="3" Grid.ColumnSpan="2"  />
 
-                        <Label x:Name="InitialConditionlbl" Text="Initial Condition" TextColor="Black" Grid.Row="8" Grid.ColumnSpan="2" FontSize="Micro" />
-                        <Entry x:Name="InitialConditionEntry"   Text="{Binding InitialCondition, Mode=TwoWay}"  TextColor="#03A9F4" Grid.Row="9" Grid.ColumnSpan="2" />
+                                <Label x:Name="InitialConditionlbl" Text="Initial Condition" TextColor="Black" Grid.Row="8" Grid.ColumnSpan="2" FontSize="Micro" />
+                                <Entry x:Name="InitialConditionEntry"   Text="{Binding InitialCondition, Mode=TwoWay}"  TextColor="#03A9F4" Grid.Row="9" Grid.ColumnSpan="2" />
 
-                        <Label x:Name="Beforelbl" Text="Before" TextColor="Black" Grid.Row="4" Grid.ColumnSpan="2" FontSize="Micro" />
-                        <Entry x:Name="BeforeEntry"   Text="{Binding Before, Mode=TwoWay}"  TextColor="#03A9F4" Grid.Row="5" Grid.ColumnSpan="2" />
+                                <Label x:Name="Beforelbl" Text="Before" TextColor="Black" Grid.Row="4" Grid.ColumnSpan="2" FontSize="Micro" />
+                                <Entry x:Name="BeforeEntry"   Text="{Binding Before, Mode=TwoWay}"  TextColor="#03A9F4" Grid.Row="5" Grid.ColumnSpan="2" />
 
-                        <Label x:Name="BenefitsCategorylbl" Text="Benefits Category" TextColor="Black" Grid.Row="6" Grid.ColumnSpan="2" FontSize="Micro" />
-                        <Picker x:Name="BenefitsCategorypicker" SelectedIndex="{Binding BenefitsCategory,Mode=TwoWay}" SelectedIndexChanged="BenefitsCategorypicker_changed"
+                                <Label x:Name="BenefitsCategorylbl" Text="Benefits Category" TextColor="Black" Grid.Row="6" Grid.ColumnSpan="2" FontSize="Micro" />
+                                <Picker x:Name="BenefitsCategorypicker" SelectedIndex="{Binding BenefitsCategory,Mode=TwoWay}" SelectedIndexChanged="BenefitsCategorypicker_changed"
                                 TextColor="#03A9F4" Grid.Row="7" Grid.ColumnSpan="2" HorizontalOptions="FillAndExpand">
-                            <Picker.Items>
-                                <x:String>Cost</x:String>
-                                <x:String>Customer responsiveness</x:String>
-                                <x:String>Delivery</x:String>
-                                <x:String>Efficiency</x:String>
-                                <x:String>Environment / Energy</x:String>
-                                <x:String>Morale</x:String>
-                                <x:String>Quality</x:String>
-                                <x:String>Safety / Health</x:String>
-                                <x:String>Waste</x:String>
-                                <x:String>Other</x:String>
-                            </Picker.Items>
-                        </Picker>
-                    </Grid>
-                </StackLayout>
+                                    <Picker.Items>
+                                        <x:String>Cost</x:String>
+                                        <x:String>Customer responsiveness</x:String>
+                                        <x:String>Delivery</x:String>
+                                        <x:String>Efficiency</x:String>
+                                        <x:String>Environment / Energy</x:String>
+                                        <x:String>Morale</x:String>
+                                        <x:String>Quality</x:String>
+                                        <x:String>Safety / Health</x:String>
+                                        <x:String>Waste</x:String>
+                                        <x:String>Other</x:String>
+                                    </Picker.Items>
+                                </Picker>
+                            </Grid>
+                        </StackLayout>
 
-                <StackLayout>
-                    <Grid>
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="*" />
-                        </Grid.RowDefinitions>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*" />
-                            <ColumnDefinition Width="*" />
-                        </Grid.ColumnDefinitions>
-                        <Button x:Name="save_btn" HorizontalOptions="CenterAndExpand" Text="SAVE" BackgroundColor="#FDCE02"  Clicked="Save_clicked" Grid.Row="0" Grid.Column="0"/>
-                        <Button x:Name="savedrafts_btn" HorizontalOptions="CenterAndExpand" Text="SAVE AS DRAFT"  BackgroundColor="#FDCE02" Clicked="savedrafts_btn_Clicked" Grid.Row="0" Grid.Column="1"/>
-                    </Grid>
-                </StackLayout>
+                        <StackLayout>
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="*" />
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+                                <Button x:Name="save_btn" WidthRequest="100" TextColor="Black" HorizontalOptions="CenterAndExpand" Text="Save" BackgroundColor="#FDCE02"  Clicked="Save_clicked" Grid.Row="0" Grid.Column="0"/>
+                                <Button x:Name="savedrafts_btn" WidthRequest="130" TextColor="Black" HorizontalOptions="CenterAndExpand" Text="Save Draft"  BackgroundColor="#FDCE02" Clicked="savedrafts_btn_Clicked" Grid.Row="0" Grid.Column="1"/>
+                            </Grid>
+                        </StackLayout>
+                    </StackLayout>
+                </ScrollView>
             </StackLayout>
-        </ScrollView>
+            <StackLayout x:Name="activityStack" IsVisible="False" Padding="20" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" 
+                 AbsoluteLayout.LayoutFlags="PositionProportional"
+                 AbsoluteLayout.LayoutBounds="0.5,0.5,-1,-1">
+                <Frame  Padding="20" IsClippedToBounds="True" BackgroundColor="Black" Opacity="0.5" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
+                    <ActivityIndicator x:Name="activityIndicator" IsRunning="False" Color="White" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand"/>
+                </Frame>
+            </StackLayout>
+        </AbsoluteLayout>
     </ContentPage.Content>
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="Draft" Activated="savedrafts_btn_Clicked" />
+    </ContentPage.ToolbarItems>
 </ContentPage>

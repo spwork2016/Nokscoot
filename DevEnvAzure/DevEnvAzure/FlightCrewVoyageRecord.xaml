@@ -184,4 +184,7 @@
             </StackLayout>
         </AbsoluteLayout>
     </ContentPage.Content>
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="Draft" Activated="savedrafts_btn_Clicked" />
+    </ContentPage.ToolbarItems>
 </ContentPage>
