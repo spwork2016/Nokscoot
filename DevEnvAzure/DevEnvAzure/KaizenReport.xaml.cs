@@ -27,20 +27,21 @@ namespace DevEnvAzure
             _KaizenReport = (KaizenReportModel)viewObject; //new Models.KaizenReportModel();
 
             this.BindingContext = _KaizenReport;
-          
+
             Title = "Kaizen Report";
         }
         private void Save_clicked(object sender, XLabs.EventArgs<bool> e)
         {
             _KaizenReport.ReportType = null;
             _KaizenReport.DateOfEvent = null;
-             CreateItems(jsonInitObj.getKaizenReportJson(_KaizenReport));
+            CreateItems(jsonInitObj.getKaizenReportJson(_KaizenReport));
         }
         private void savedrafts_btn_Clicked(object sender, EventArgs e)
         {
-            _KaizenReport.ReportType = "Kaizen Report" + _KaizenReport.Id.ToString();
+            _KaizenReport.ReportType = string.IsNullOrEmpty(_KaizenReport.ReportType) ? "Kaizen Report" + _KaizenReport.Id.ToString() : _KaizenReport.ReportType;
             _KaizenReport.DateOfEvent = DateTime.Now;
-            App.DAUtil.Save<KaizenReportModel>(_KaizenReport);
+            _KaizenReport = _KaizenReport.Id == 0 ? App.DAUtil.Save(_KaizenReport) : App.DAUtil.Update(_KaizenReport);
+            DependencyService.Get<IMessage>().ShortAlert("Kaizen report drafted");
         }
         private void BenefitsCategorypicker_changed(object sender, EventArgs e)
         {
@@ -86,7 +87,9 @@ namespace DevEnvAzure
 
                         if (postResult.IsSuccessStatusCode)
                         {
+                            App.DAUtil.Delete(_KaizenReport);
                             DependencyService.Get<IMessage>().LongAlert("List updated successfully");
+                            MessagingCenter.Send(this, "home");
                         }
                         else
                         {

@@ -260,7 +260,6 @@
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\drawable\Nokscoot.png" />
-    <AndroidResource Include="Resources\drawable\LoginIco.png" />
     <AndroidResource Include="Resources\drawable\logo.png" />
     <AndroidResource Include="Resources\drawable\logout.png" />
     <AndroidResource Include="Resources\drawable\folder.png" />

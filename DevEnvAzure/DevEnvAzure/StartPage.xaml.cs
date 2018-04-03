@@ -79,30 +79,45 @@ namespace DevEnvAzure
         private void OnMenuItemSelected(object sender, SelectedItemChangedEventArgs e)
         {
             var item = (MasterPageItem)e.SelectedItem;
-            MessagingCenter.Subscribe<SSIRShortForm>(this, "Popout", (sender5) =>
+            MessagingCenter.Subscribe<KaizenReport>(this, "home", (arg) =>
             {
                 IsPresented = false;
                 try
                 {
-                    Detail = new NavigationPage(( new MainPage()));
-                }
-                catch(Exception ex)
-                {
-
-                }
-            });
-            MessagingCenter.Subscribe<SSIRShortForm>(this, "draftspopout", (senderp) =>
-            {
-                IsPresented = false;
-                try
-                {
-                    Detail = new NavigationPage((new EditableDrafts()));
+                    Detail = new NavigationPage((new MainPage()));
                 }
                 catch (Exception ex)
                 {
 
                 }
             });
+
+            MessagingCenter.Subscribe<FlightCrewVoyageRecord>(this, "home", (arg) =>
+            {
+                IsPresented = false;
+                try
+                {
+                    Detail = new NavigationPage((new MainPage()));
+                }
+                catch (Exception ex)
+                {
+
+                }
+            });
+
+            MessagingCenter.Subscribe<SSIRShortForm>(this, "Popout", (sender5) =>
+            {
+                IsPresented = false;
+                try
+                {
+                    Detail = new NavigationPage((new MainPage()));
+                }
+                catch (Exception ex)
+                {
+
+                }
+            });
+
             if (item.Title == "Logout")
             {
                 IsPresented = false;
@@ -121,9 +136,9 @@ namespace DevEnvAzure
             }
             if (item.Title == "Station Information")
             {
-               
-                IsPresented = false; 
-                Detail = new NavigationPage((Page)Activator.CreateInstance(item.TargetType,new StationInformationModel(), "StationInfo"));
+
+                IsPresented = false;
+                Detail = new NavigationPage((Page)Activator.CreateInstance(item.TargetType, new StationInformationModel(), "StationInfo"));
             }
 
             else if (item.TargetType != null)

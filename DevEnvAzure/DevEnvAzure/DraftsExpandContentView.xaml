@@ -25,7 +25,7 @@
 
                                     <Label Text="{Binding ReportType}" FontSize="Small" Grid.Row="0" Grid.Column="0" HorizontalOptions="StartAndExpand"></Label>
                                     <Button Text="Edit" FontSize="Small" HorizontalOptions="EndAndExpand" Grid.RowSpan="2"
-                                             Clicked="SafetyReport_Clicked" CommandParameter="{Binding ReportType}" Grid.Row="0" Grid.Column="1"/>
+                                             Clicked="SafetyReport_Clicked" CommandParameter="{Binding Id}" Grid.Row="0" Grid.Column="1"/>
 
                                     <Label Text="{Binding DateOfEvent}" FontSize="Small" Grid.Row="1" Grid.ColumnSpan="2"/>
                                 </Grid>

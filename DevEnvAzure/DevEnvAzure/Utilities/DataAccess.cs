@@ -32,24 +32,17 @@ namespace DevEnvAzure
             {
                 dbConn.CreateTable<Employee>();
                 dbConn.CreateTable<MasterInfo>();
-
-                // dbConn.CreateTable<MasterInfo>();
                 dbConn.CreateTable<FlightSafetyReportModel>();
                 dbConn.CreateTable<SecurityModel>();
                 dbConn.CreateTable<CabibSafetyReport>();
                 dbConn.CreateTable<FatigueReport>();
                 dbConn.CreateTable<GroundSafetyReport>();
                 dbConn.CreateTable<InjuryIllnessReport>();
-
-                //dbConn.MigrateTable<FlightSafetyReportView>();
-
-                //New Tables by Sravan
                 dbConn.CreateTable<KaizenReportModel>();
                 dbConn.CreateTable<StationInformationModel>();
                 dbConn.CreateTable<FlightCrewVoyageRecordModel>();
 
                 dbConn.CreateTable<DatatableData>();
-                //dbConn.
             }
             catch (Exception ex)
             {
@@ -62,17 +55,9 @@ namespace DevEnvAzure
         {
             try
             {
-                //   var tableExistsQuery = "SELECT name FROM sqlite_master WHERE type='table' AND name='MovieId';";
-                //   var result = dbConn.ExecuteScalar<string>(tableExistsQuery);
-                // if (result.Length == 0)
-                {
-                    dbConn.CreateTable<U>();
-                    return true;
-                }
-                //   else
-                //  {
-                //      return false;
-                //  }
+                dbConn.CreateTable<U>();
+                return true;
+
             }
             catch (Exception ex)
             {
@@ -112,24 +97,9 @@ namespace DevEnvAzure
             }
         }
 
-
-        public int DeleteEmployee<U>(U aEmployee) where U : class
-        {
-            return dbConn.Delete(aEmployee);
-        }
-
         public int Delete<Y>(Y entity) where Y : class
         {
             return dbConn.Delete(entity);
-        }
-
-        public int DeleteEmployeeAdded(long empid)
-        {
-            return dbConn.Delete(empid);
-        }
-        public int EditEmployee(Employee aEmployee)
-        {
-            return dbConn.Update(aEmployee);
         }
 
         public MasterInfo GetMasterInfoByName(string name)

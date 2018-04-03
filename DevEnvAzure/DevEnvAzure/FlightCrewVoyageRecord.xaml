@@ -2,7 +2,7 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:autocomplete="clr-namespace:Syncfusion.SfAutoComplete.XForms;assembly=Syncfusion.SfAutoComplete.XForms"
-             x:Class="DevEnvAzure.FlightCrewVoyageRecord">
+             x:Class="DevEnvAzure.FlightCrewVoyageRecord" Title="Flight Crew Voyage">
     <ContentPage.Content>
         <AbsoluteLayout HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
             <StackLayout AbsoluteLayout.LayoutFlags="All" AbsoluteLayout.LayoutBounds="0,0,1,1">
@@ -172,8 +172,8 @@
                                     <ColumnDefinition Width="*" />
                                     <ColumnDefinition Width="*" />
                                 </Grid.ColumnDefinitions>
-                                <Button x:Name="save_btn" HorizontalOptions="CenterAndExpand" Text="SAVE" BackgroundColor="#FDCE02"  Clicked="Save_clicked" Grid.Row="0" Grid.Column="0"/>
-                                <Button x:Name="savedrafts_btn" HorizontalOptions="CenterAndExpand" Text="SAVE AS DRAFT"  BackgroundColor="#FDCE02" Clicked="savedrafts_btn_Clicked" Grid.Row="0" Grid.Column="1"/>
+                                <Button x:Name="save_btn" WidthRequest="100" HorizontalOptions="CenterAndExpand" Text="Submit" BackgroundColor="#FDCE02"  Clicked="Save_clicked" Grid.Row="0" Grid.Column="0"/>
+                                <Button x:Name="savedrafts_btn" WidthRequest="130" HorizontalOptions="CenterAndExpand" Text="Save Draft"  BackgroundColor="#FDCE02" Clicked="savedrafts_btn_Clicked" Grid.Row="0" Grid.Column="1"/>
                             </Grid>
                         </StackLayout>
                     </StackLayout>
@@ -188,4 +188,7 @@
             </StackLayout>
         </AbsoluteLayout>
     </ContentPage.Content>
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Name="Draft" Activated="savedrafts_btn_Clicked" />
+    </ContentPage.ToolbarItems>
 </ContentPage>

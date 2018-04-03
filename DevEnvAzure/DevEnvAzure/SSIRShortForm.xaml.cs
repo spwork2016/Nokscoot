@@ -35,9 +35,6 @@ namespace DevEnvAzure
                 _viewobject = viewObject;
                 FetchListItems();
                 InitializeComponent();
-                //  App.DAUtil.GetAllEmployees<>
-                // lblname.Text = modelname.ToUpper() + "REPORT";
-
             }
             catch (Exception ex)
             {
@@ -86,9 +83,7 @@ namespace DevEnvAzure
                 }
                 DependencyService.Get<IMessage>().LongAlert("Network Connection detected");
             }
-            // var answer =  DisplayAlert("Question?", "Would you like to play a game", "Yes", "No");
         }
-        //  _classname secViewfull = null;
         ContentView _fullviewobj = null;
         private void Check_Clicked(object sender, XLabs.EventArgs<bool> e)
         {
@@ -212,12 +207,10 @@ namespace DevEnvAzure
                         idval = new Random().Next(1, 1000);
                         FlightSafetyReportModel sf = (FlightSafetyReportModel)_viewobject;
                         sf.ReportType = "Safety" + idval.ToString();
-                        //  sf.AircraftRegis = null;
-                        //App.safetyReport.Add(sf);
-                        var updatedRecord = sf.Id == 0 ? App.DAUtil.Save(sf) : App.DAUtil.Update(sf);
-                        if (updatedRecord != null)
+                        sf = sf.Id == 0 ? App.DAUtil.Save(sf) : App.DAUtil.Update(sf);
+                        if (sf != null)
                         {
-                            _viewobject = updatedRecord;
+                            _viewobject = sf;
                         }
 
                         DependencyService.Get<IMessage>().ShortAlert("Safety report Drafted");
@@ -226,41 +219,58 @@ namespace DevEnvAzure
                         idval = new Random().Next(1, 1000);
                         SecurityModel sd = (SecurityModel)_viewobject;
                         sd.ReportType = "Security" + idval.ToString();
-                        App.DAUtil.Save<SecurityModel>(sd);
+                        sd = sd.Id == 0 ? App.DAUtil.Save(sd) : App.DAUtil.Update(sd);
+                        if (sd != null)
+                        {
+                            _viewobject = sd;
+                        }
                         DependencyService.Get<IMessage>().ShortAlert("Security report Drafted");
                         break;
                     case "ground":
                         idval = new Random().Next(1, 1000);
-                        // App.groundSafety.Add((GroundSafetyReport)_viewobject);
                         GroundSafetyReport gd = (GroundSafetyReport)_viewobject;
                         gd.ReportType = "GroundSafety" + idval.ToString();
-                        App.DAUtil.Save<GroundSafetyReport>(gd);
+                        gd = gd.Id == 0 ? App.DAUtil.Save(gd) : App.DAUtil.Update(gd);
+                        if (gd != null)
+                        {
+                            _viewobject = gd;
+                        }
                         DependencyService.Get<IMessage>().ShortAlert("Groung Safety report Drafted");
                         break;
                     case "fatigue":
                         idval = new Random().Next(1, 1000);
-                        // App.fatigue.Add((FatigueReport)_viewobject);
                         FatigueReport ft = (FatigueReport)_viewobject;
                         ft.ReportType = "Fatigue" + idval.ToString();
-                        App.DAUtil.Save<FatigueReport>(ft);
+                        ft = ft.Id == 0 ? App.DAUtil.Save(ft) : App.DAUtil.Update(ft);
+                        if (ft != null)
+                        {
+                            _viewobject = ft;
+                        }
                         DependencyService.Get<IMessage>().ShortAlert("Fatigue report Drafted");
                         break;
                     case "Injury":
                         idval = new Random().Next(1, 1000);
                         InjuryIllnessReport injr = (InjuryIllnessReport)_viewobject;
                         injr.ReportType = "InjuryIllness" + idval.ToString();
-                        App.DAUtil.Save<InjuryIllnessReport>(injr);
+                        injr = injr.Id == 0 ? App.DAUtil.Save(injr) : App.DAUtil.Update(injr);
+                        if (injr != null)
+                        {
+                            _viewobject = injr;
+                        }
                         DependencyService.Get<IMessage>().ShortAlert("Injury Illness report Drafted");
                         break;
                     case "cabin":
                         idval = new Random().Next(1, 1000);
                         CabibSafetyReport cd = (CabibSafetyReport)_viewobject;
                         cd.ReportType = "Cabin" + idval.ToString();
-                        App.DAUtil.Save<CabibSafetyReport>(cd);
+                        cd = cd.Id == 0 ? App.DAUtil.Save(cd) : App.DAUtil.Update(cd);
+                        if (cd != null)
+                        {
+                            _viewobject = cd;
+                        }
                         DependencyService.Get<IMessage>().ShortAlert("Cabin report Drafted");
                         break;
                 }
-                // MessagingCenter.Send<SSIRShortForm>(this, "draftspopout");
             }
             catch (Exception)
             {
@@ -275,7 +285,6 @@ namespace DevEnvAzure
             {
                 FileData fileData = new FileData();
                 fileData = await CrossFilePicker.Current.PickFile();
-                //  var x = fileData.DataArray;
                 if (fileData != null)
                 {
                     var y = fileData.FileName;
@@ -292,16 +301,11 @@ namespace DevEnvAzure
             catch (Exception ex)
             {
                 DependencyService.Get<IMessage>().ShortAlert("Upload Error");
-                //ExceptionHandler.ShowException(ex.Message);
             }
         }
         private bool CheckConnection()
         {
             return CrossConnectivity.Current.IsConnected;
-
-            //var networkConnection = DependencyService.Get<INetworkConnection>();
-            //networkConnection.CheckNetworkConnection();
-            //return networkConnection.IsConnected;
         }
         private HttpClient GetHTTPClient()
         {
@@ -322,10 +326,8 @@ namespace DevEnvAzure
 
                 Device.BeginInvokeOnMainThread(async () =>
                 {
-
-                    // StringContent contents = null;
                     var client = GetHTTPClient();
-                    var data = reportObject;// _viewobject;
+                    var data = reportObject;
 
                     var body = JsonConvert.SerializeObject(data, Formatting.None,
                             new JsonSerializerSettings
@@ -341,7 +343,7 @@ namespace DevEnvAzure
                         if (postResult.IsSuccessStatusCode)
                         {
                             DependencyService.Get<IMessage>().ShortAlert("Success");
-                            await this.Navigation.PopToRootAsync();
+                            MessagingCenter.Send(this, "home");
                         }
                         else
                         {
@@ -354,12 +356,12 @@ namespace DevEnvAzure
                     {
                         ToggleBusy(false);
                         DatatableData dt = new DatatableData();
-                        dt.Value = body;// contents.ToString();
+                        dt.Value = body;
                         App.DAUtil.Save<DatatableData>(dt);
 
                         var vList = App.DAUtil.GetAll<DatatableData>("DatatableData1");
                         DependencyService.Get<IMessage>().ShortAlert("List data stored in local storage");
-                        await Navigation.PopToRootAsync();
+                        MessagingCenter.Send(this, "home");
                     }
                 });
             }
@@ -413,58 +415,37 @@ namespace DevEnvAzure
                     idval = new Random().Next(1, 1000);
                     FlightSafetyReportModel sf = (FlightSafetyReportModel)_viewobject;
                     sf.ReportType = "Safety" + idval.ToString();
-                    //App.safetyReport.Add(sf);
                     App.DAUtil.Save<FlightSafetyReportModel>(sf);
-                    // App.safetyReport.Add((SafetyReportModel)_viewobject);
-                    //  App.DAUtil.SaveEmployee((SafetyReportModel)_viewobject);
                     break;
                 case "security":
                     idval = new Random().Next(1, 1000);
                     SecurityModel sd = (SecurityModel)_viewobject;
                     sd.ReportType = "Security" + idval.ToString();
-                    //   App.security.Add(sd);
                     App.DAUtil.Save<SecurityModel>(sd);
-                    //  _fullviewobj = new securityReportView();
                     break;
                 case "ground":
                     idval = new Random().Next(1, 1000);
-                    // App.groundSafety.Add((GroundSafetyReport)_viewobject);
                     GroundSafetyReport gd = (GroundSafetyReport)_viewobject;
                     gd.ReportType = "GroundSafety" + idval.ToString();
-                    //  App.groundSafety.Add(gd);
                     App.DAUtil.Save<GroundSafetyReport>(gd);
-                    //   App.DAUtil.SaveEmployee((GroundSafetyReport)_viewobject);
-                    // _fullviewobj = new GroundSafetyReportView();
                     break;
                 case "fatigue":
                     idval = new Random().Next(1, 1000);
-                    // App.fatigue.Add((FatigueReport)_viewobject);
                     FatigueReport ft = (FatigueReport)_viewobject;
                     ft.ReportType = "Fatigue" + idval.ToString();
-                    //  App.fatigue.Add(ft);
                     App.DAUtil.Save<FatigueReport>(ft);
-                    // App.DAUtil.SaveEmployee((FatigueReport)_viewobject);
-                    //  _fullviewobj = new FatigueReportView();
                     break;
                 case "Injury":
                     idval = new Random().Next(1, 1000);
-                    //  App.injuryIllness.Add((InjuryIllnessReport)_viewobject);
                     InjuryIllnessReport injr = (InjuryIllnessReport)_viewobject;
                     injr.ReportType = "InjuryIllness" + idval.ToString();
-                    //  App.injuryIllness.Add(injr);
                     App.DAUtil.Save<InjuryIllnessReport>(injr);
-                    //App.DAUtil.SaveEmployee((InjuryIllnessReport)_viewobject);
-                    // _fullviewobj = new InjuryIllnessReportView();
                     break;
                 case "cabin":
                     idval = new Random().Next(1, 1000);
                     CabibSafetyReport cd = (CabibSafetyReport)_viewobject;
                     cd.ReportType = "Cabin" + idval.ToString();
-                    //   App.cabinSafety.Add(cd);
                     App.DAUtil.Save<CabibSafetyReport>(cd);
-                    //  App.cabinSafety.Add((CabibSafetyReport)_viewobject);
-                    //  App.DAUtil.SaveEmployee(cd);
-                    // _fullviewobj = new CabinSafetyReportView();
                     break;
             }
 

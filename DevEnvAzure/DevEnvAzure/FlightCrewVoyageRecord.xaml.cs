@@ -35,7 +35,6 @@ namespace DevEnvAzure
                 _flightcrew.ScheduledDeparture = DateTime.Now;
                 this.BindingContext = _flightcrew;
 
-                Title = "Flightcrew Voyage Record";
                 ReportRaisedByEntry.DataSource = App.peoplePickerDataSource;
             }
             catch (Exception ex)
@@ -73,11 +72,12 @@ namespace DevEnvAzure
         }
         private void savedrafts_btn_Clicked(object sender, EventArgs e)
         {
-            _flightcrew.ReportType = "Flight Crew" + _flightcrew.Id.ToString();
+            _flightcrew.ReportType = string.IsNullOrEmpty(_flightcrew.ReportType) ? "Flight Crew" + _flightcrew.Id.ToString() : _flightcrew.ReportType;
             _flightcrew.DateOfEvent = DateTime.Now;
             if (!ValidatePeoplePickers()) return;
 
-            App.DAUtil.Save<Models.FlightCrewVoyageRecordModel>(_flightcrew);
+            _flightcrew = _flightcrew.Id == 0 ? App.DAUtil.Save(_flightcrew) : App.DAUtil.Update(_flightcrew);
+            DependencyService.Get<IMessage>().ShortAlert("Flight Crew report drafted");
         }
         private void SectorNumber_changed(object sender, EventArgs e)
         {
@@ -152,13 +152,12 @@ namespace DevEnvAzure
                     {
 
                         var postResult = await client.PostAsync("https://sptechnophiles.sharepoint.com/_api/web/lists/GetByTitle('Flight Crew Voyage Record')/items", contents);
-                        //var result = postResult.EnsureSuccessStatusCode();
-
                         if (postResult.IsSuccessStatusCode)
                         {
+                            App.DAUtil.Delete(_flightcrew);
                             DependencyService.Get<IMessage>().LongAlert("List updated successfully");
                             ToggleBusy(false);
-                            await Navigation.PopToRootAsync();
+                            MessagingCenter.Send(this, "home");
                         }
                         else
                         {
