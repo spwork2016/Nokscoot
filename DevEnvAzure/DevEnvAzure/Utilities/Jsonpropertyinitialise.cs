@@ -237,13 +237,13 @@ namespace DevEnvAzure.Utilities
 
             sddp.CommanderPForPM = FlightSafetyReportView.CommanderPForPMpickerValue;
             if (FlightSafetyReportView.PeoplePickerCommander != null)
-                sddp.CommandersEmail = FlightSafetyReportView.PeoplePickerCommander.LoginName.ToString();
+                sddp.CommandersEmail = FlightSafetyReportView.PeoplePickerCommander.Id.ToString();
 
             if (FlightSafetyReportView.PeoplePickercrew1email != null)
-                sddp.FlightCrew1 = FlightSafetyReportView.PeoplePickercrew1email.LoginName.ToString();
+                sddp.FlightCrew1 = FlightSafetyReportView.PeoplePickercrew1email.Id.ToString();
 
             if (FlightSafetyReportView.PeoplePickercrew2email != null)
-                sddp.FlightCrew2 = FlightSafetyReportView.PeoplePickercrew2email.LoginName.ToString();
+                sddp.FlightCrew2 = FlightSafetyReportView.PeoplePickercrew2email.Id.ToString();
 
             sddp.FlightCrew1PFPMOBs = FlightSafetyReportView.FlightCrew1PFPMOBspickerValue;
             sddp.FlightCrew2PFPMOBs = FlightSafetyReportView.FlightCrew2PFPMOBspickerValue;
@@ -317,7 +317,7 @@ namespace DevEnvAzure.Utilities
             sddp.ReplyRequired = FlightCrewVoyageRecord.ReplyRequiredpickerValue;
             sddp.StaffNumber = sd.StaffNumber;
             sddp.Rank = FlightCrewVoyageRecord.RankpickerValue;
-            sddp.CmdEmail = "14";
+           // sddp.CmdEmail = "14";
             return sddp;
         }
         public KaizenReportSp getKaizenReportJson(KaizenReportModel sd)

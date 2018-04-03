@@ -44,8 +44,11 @@ namespace DevEnvAzure
         {
             InitializeComponent();
             peoplePickerCommander.DataSource = App.peoplePickerDataSource;
+            PeoplePickerCommander = null;
             peoplePickercrew1email.DataSource = App.peoplePickerDataSource;
+            PeoplePickercrew1email = null;
             peoplePickercrew2email.DataSource = App.peoplePickerDataSource;
+            PeoplePickercrew2email = null;
         }
         private void CommanderPForPMpicker_changed(object sender, EventArgs e)
         {
@@ -181,21 +184,21 @@ namespace DevEnvAzure
         {
             PeoplePickerCommander = (PeoplePicker)e.Value;
             var picker = ((SfAutoComplete)sender);
-            picker.ShowBorder = false;
+            picker.BorderColor = Color.Green;
         }
 
         private void PeoplePickercrew1email_SelectionChanged(object sender, Syncfusion.SfAutoComplete.XForms.SelectionChangedEventArgs e)
         {
             PeoplePickercrew1email = (PeoplePicker)e.Value;
             var picker = ((SfAutoComplete)sender);
-            picker.ShowBorder = false;
+            picker.BorderColor = Color.Green;
         }
 
         private void PeoplePickercrew2email_SelectionChanged(object sender, Syncfusion.SfAutoComplete.XForms.SelectionChangedEventArgs e)
         {
             PeoplePickercrew2email = (PeoplePicker)e.Value;
             var picker = ((SfAutoComplete)sender);
-            picker.ShowBorder = false;
+            picker.BorderColor = Color.Green;
         }
 
         private void peoplePickerCommander_ValueChanged(object sender, Syncfusion.SfAutoComplete.XForms.ValueChangedEventArgs e)
@@ -208,7 +211,6 @@ namespace DevEnvAzure
 
                 if (!string.IsNullOrEmpty(e.Value))
                 {
-                    picker.ShowBorder = true;
                     picker.BorderColor = Color.OrangeRed;
                 }
             }
@@ -229,7 +231,6 @@ namespace DevEnvAzure
 
                 if (!string.IsNullOrEmpty(e.Value))
                 {
-                    picker.ShowBorder = true;
                     picker.BorderColor = Color.OrangeRed;
                 }
             }
@@ -250,7 +251,6 @@ namespace DevEnvAzure
 
                 if (!string.IsNullOrEmpty(e.Value))
                 {
-                    picker.ShowBorder = true;
                     picker.BorderColor = Color.OrangeRed;
                 }
             }

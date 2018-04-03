@@ -48,9 +48,7 @@ namespace DevEnvAzure
 
         public static void ResetToHome()
         {
-            //TODO
-            //MasterDetailPage masterDetailRootPage = (MasterDetailPage)Current.MainPage;
-            //masterDetailRootPage.Detail = new NavigationPage();
+            App.Current.MainPage = new DevEnvAzure.StartPage();
         }
 
         public static PeoplePicker validatePeoplePicker(string name)

@@ -80,12 +80,6 @@ namespace DevEnvAzure
                     {
                         var postResult = await client.PostAsync("https://sptechnophiles.sharepoint.com/_api/web/lists/GetByTitle('Kaizen Report')/items", contents);
 
-                        if (!postResult.IsSuccessStatusCode)
-                        {
-                            var ex = await postResult.Content.ReadAsStringAsync();
-                            await DisplayAlert("Error", ex, "Ok");
-
-                        }
                         if (postResult.IsSuccessStatusCode)
                         {
                             DependencyService.Get<IMessage>().LongAlert("List updated successfully");
@@ -93,10 +87,8 @@ namespace DevEnvAzure
                         }
                         else
                         {
-                            DatatableData dt = new DatatableData();
-                            App.DAUtil.SaveEmployee<DatatableData>(dt);
-                            DependencyService.Get<IMessage>().LongAlert("List data stored in local storage");
-                            App.ResetToHome();
+                            var ex = await postResult.Content.ReadAsStringAsync();
+                            await DisplayAlert("Error", ex, "Ok");
                         }
                         ToggleBusy(false);
                     }

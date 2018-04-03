@@ -360,12 +360,7 @@ namespace DevEnvAzure
                     if (CheckConnection())
                     {
                         var postResult = await client.PostAsync("https://sptechnophiles.sharepoint.com/_api/web/lists/GetByTitle('Operational_Hazard_Event_Register_04042018')/items", contents);
-                        if (!postResult.IsSuccessStatusCode)
-                        {
-                            // Unwrap the response and throw as an Api Exception:
-                            var ex = await postResult.Content.ReadAsStringAsync();
-                            await DisplayAlert("Error", ex, "Ok");
-                        }
+                       
                         if (postResult.IsSuccessStatusCode)
                         {
                             DependencyService.Get<IMessage>().LongAlert("List updated successfully");
@@ -373,12 +368,8 @@ namespace DevEnvAzure
                         }
                         else
                         {
-                            //  FullReportTableModel fullRep = new FullReportTableModel();
-                            DatatableData dt = new DatatableData();
-                            // dt.Value = contents;
-                            App.DAUtil.SaveEmployee<DatatableData>(dt);
-                            DependencyService.Get<IMessage>().LongAlert("List data stored in local storage");
-                            await Navigation.PopToRootAsync();
+                            var ex = await postResult.Content.ReadAsStringAsync();
+                            await DisplayAlert("Error", ex, "Ok");
                         }
                         ToggleBusy(false);
                     }
