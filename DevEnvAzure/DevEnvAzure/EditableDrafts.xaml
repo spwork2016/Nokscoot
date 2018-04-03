@@ -143,7 +143,8 @@
 
                     <StackLayout x:Name="injuryillnessLayout" Orientation="Vertical" Grid.Row="2" Grid.ColumnSpan="3"/>
                 </Grid>
-                <StackLayout x:Name="stkKaizen" Orientation="Vertical"  VerticalOptions="Fill" Padding="5,5" BackgroundColor="White">
+            </StackLayout>
+            <StackLayout x:Name="stkKaizen" Orientation="Vertical"  VerticalOptions="Fill" Padding="5,5" BackgroundColor="White">
                     <Grid HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
                         <Grid.RowDefinitions>
                             <RowDefinition Height="30" />
@@ -156,7 +157,7 @@
                             <ColumnDefinition Width="30" />
                         </Grid.ColumnDefinitions>
 
-                        <Label TextColor="Black" Grid.Row="0" Grid.Column="0" FontSize="Medium" VerticalTextAlignment="End" Text="Injury Illness Reports" />
+                        <Label TextColor="Black" Grid.Row="0" Grid.Column="0" FontSize="Medium" VerticalTextAlignment="End" Text="Kaizen Reports" />
                         <Label x:Name="kaizencnt" TextColor="Black" FontSize="Micro" Grid.Row="0" Grid.Column="1" 
                            VerticalTextAlignment="Center" />
                         <Button x:Name="btnkaizen" Text="+" TextColor="Black" Clicked="kaizen_Expand" Grid.Row="0" Grid.Column="2" BackgroundColor="#FDCE02" />
@@ -166,7 +167,7 @@
                     </Grid>
                 </StackLayout>
 
-                <StackLayout x:Name="fcVoyage" Orientation="Vertical"  VerticalOptions="Fill" Padding="5,5" BackgroundColor="White">
+                <StackLayout x:Name="sktfcVoyage" Orientation="Vertical"  VerticalOptions="Fill" Padding="5,5" BackgroundColor="White">
                     <Grid HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
                         <Grid.RowDefinitions>
                             <RowDefinition Height="30" />
@@ -179,7 +180,7 @@
                             <ColumnDefinition Width="30" />
                         </Grid.ColumnDefinitions>
 
-                        <Label TextColor="Black" Grid.Row="0" Grid.Column="0" FontSize="Medium" VerticalTextAlignment="End" Text="Injury Illness Reports" />
+                        <Label TextColor="Black" Grid.Row="0" Grid.Column="0" FontSize="Medium" VerticalTextAlignment="End" Text="Flight Screw Voyage Reports" />
                         <Label x:Name="fcVoyageCnt" TextColor="Black" FontSize="Micro" Grid.Row="0" Grid.Column="1" 
                            VerticalTextAlignment="Center" />
                         <Button x:Name="btnfcVoyage" Text="+" TextColor="Black" Clicked="fcVoyage_Expand" Grid.Row="0" Grid.Column="2" BackgroundColor="#FDCE02" />
@@ -189,7 +190,7 @@
                     </Grid>
                 </StackLayout>
 
-                <StackLayout x:Name="StatnInfo" Orientation="Vertical"  VerticalOptions="Fill" Padding="5,5" BackgroundColor="White">
+                <StackLayout x:Name="sktStatnInfo" Orientation="Vertical"  VerticalOptions="Fill" Padding="5,5" BackgroundColor="White">
                     <Grid HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
                         <Grid.RowDefinitions>
                             <RowDefinition Height="30" />
@@ -202,7 +203,7 @@
                             <ColumnDefinition Width="30" />
                         </Grid.ColumnDefinitions>
 
-                        <Label TextColor="Black" Grid.Row="0" Grid.Column="0" FontSize="Medium" VerticalTextAlignment="End" Text="Injury Illness Reports" />
+                        <Label TextColor="Black" Grid.Row="0" Grid.Column="0" FontSize="Medium" VerticalTextAlignment="End" Text="Station Information Reports" />
                         <Label x:Name="StatnInfoCnt" TextColor="Black" FontSize="Micro" Grid.Row="0" Grid.Column="1" 
                            VerticalTextAlignment="Center" />
                         <Button x:Name="btnStatnInfo" Text="+" TextColor="Black" Clicked="StatnInfo_Expand" Grid.Row="0" Grid.Column="2" BackgroundColor="#FDCE02" />
@@ -215,7 +216,6 @@
                 <!--<Button Text="Injury Illness Report" TextColor="Black" Clicked="injuryillness_Expand"/>
                 <StackLayout x:Name="injuryillnessLayout" Orientation="Vertical" VerticalOptions="FillAndExpand" Padding="10,0">
                 </StackLayout>-->
-            </StackLayout>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

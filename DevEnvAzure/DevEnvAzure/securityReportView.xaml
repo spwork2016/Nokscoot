@@ -11,13 +11,13 @@
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="14" />
-                    <RowDefinition Height="30" />
+                    <RowDefinition Height="*" />
                     <RowDefinition Height="14" />
-                    <RowDefinition Height="30" />
+                    <RowDefinition Height="*" />
                     <RowDefinition Height="14" />
-                    <RowDefinition Height="30" />
+                    <RowDefinition Height="*" />
                     <RowDefinition Height="14" />
-                    <RowDefinition Height="30" />
+                    <RowDefinition Height="*" />
                 </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*" />
@@ -26,7 +26,7 @@
                 <Picker x:Name="FlightPhasepicker" SelectedIndex="{Binding flightEvent,Mode=TwoWay}" 
                         SelectedIndexChanged="flightphase_selected" TextColor="#03A9F4" Grid.Row="1" HorizontalOptions="FillAndExpand">
                     <Picker.Items>
-                        <x:String>Select</x:String>
+                        <!--<x:String>Select</x:String>-->
                         <x:String>Parked</x:String>
                         <x:String>Pre-fligh</x:String>
                         <x:String>Pushback</x:String>
@@ -47,7 +47,7 @@
                 <Picker x:Name="flightwherepicker" SelectedIndex="{Binding onGround,Mode=TwoWay}" 
                         SelectedIndexChanged="flightwhere_selected" TextColor="#03A9F4" Grid.Row="3" HorizontalOptions="FillAndExpand">
                     <Picker.Items>
-                        <x:String>Select</x:String>
+                        <!--<x:String>Select</x:String>-->
                         <x:String>Baggage Carousel</x:String>
                         <x:String>Ramp</x:String>
                         <x:String>Remote Bay</x:String>

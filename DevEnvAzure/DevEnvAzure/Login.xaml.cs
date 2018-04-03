@@ -59,6 +59,7 @@ namespace DevEnvAzure
                             if (App.AuthenticationResponse != null)
                             {
                                 await this.Navigation.PushModalAsync(new StartPage());
+                                MessagingCenter.Send<object>(this, App.EVENT_LAUNCH_MAIN_PAGE);
                             }
                             else
                             {

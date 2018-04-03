@@ -13,6 +13,11 @@ namespace DevEnvAzure.Models
         [PrimaryKey, AutoIncrement]
         public int Id
         { get; set; }
+        public string ReportType
+        { get; set; }
+        public DateTime? DateOfEvent
+        { get; set; }
+
         public string After
         { get; set; }
         public string ApprovedBy
@@ -21,7 +26,7 @@ namespace DevEnvAzure.Models
         { get; set; }
         public string Before
         { get; set; }
-        public int BenefitsCategory
+        public int? BenefitsCategory
         { get; set; }
         public string BenefitsDescription
         { get; set; }

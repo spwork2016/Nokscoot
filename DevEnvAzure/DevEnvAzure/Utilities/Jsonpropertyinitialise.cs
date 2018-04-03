@@ -27,7 +27,7 @@ namespace DevEnvAzure.Utilities
             sddp.Location_Station_Area_FIR_x0020_of_x0020_Event = sd.Area_FIR;
             // sddp.Details_x0020_of_x0020_Event_x0020__x0020_Hazard = sd.DescribeEvent;
             sddp.Attachments = sd.Attachment;
-            sddp.MOR_x0020_TypeId = SSIRShortForm.MORTypeID != 0 ? Convert.ToString(SSIRShortForm.MORTypeID + 1) : null;
+            sddp.MOR_x0020_TypeId = SSIRShortForm.MORTypeID != null ? Convert.ToString(SSIRShortForm.MORTypeID + 1) : null;
             sddp.CONFIDENTIAL_x0020_REPORT = sd.ConfiReport == true ? "1" : "0";
             sddp.Send_x0020_Notifications = sd.ssQ == true ? "1" : "0";
             sddp.Others_x0020_Persons_x0020_Invol = sd.pax;
@@ -52,7 +52,7 @@ namespace DevEnvAzure.Utilities
             sddp.Area_FIR = sd.Area_FIR;
             sddp.DescribeEvent = sd.DescribeEvent != null ? "<div class=\"ExternalClass733EA004DCC641EFAFED516F5D12CCA7\"><br>\u200b" + sd.DescribeEvent + "<br><\u002fdiv>" : null;
             sddp.Attachment = sd.Attachment;
-            sddp.MOR = SSIRShortForm.MORTypeID != 0 ? Convert.ToString(SSIRShortForm.MORTypeID + 1) : null;//Convert.ToString(sd.MOR + 1);
+            sddp.MOR = SSIRShortForm.MORTypeID != null ? Convert.ToString(SSIRShortForm.MORTypeID + 1) : null;//Convert.ToString(sd.MOR + 1);
             sddp.ConfiReport = sd.ConfiReport == true ? "1" : "0";
             sddp.ssQ = sd.ssQ == true ? "1" : "0";
             sddp.pax = sd.pax;
@@ -89,7 +89,7 @@ namespace DevEnvAzure.Utilities
             sddp.Area_FIR = sd.Area_FIR;
             sddp.DescribeEvent = sd.DescribeEvent != null ? "<div class=\"ExternalClass733EA004DCC641EFAFED516F5D12CCA7\"><br>\u200b" + sd.DescribeEvent + "<br><\u002fdiv>" : null;
             sddp.Attachment = sd.Attachment;
-            sddp.MOR = SSIRShortForm.MORTypeID != 0 ? Convert.ToString(SSIRShortForm.MORTypeID + 1) : null;//Convert.ToString(sd.MOR + 1);
+            sddp.MOR = SSIRShortForm.MORTypeID != null ? Convert.ToString(SSIRShortForm.MORTypeID + 1) : null;//Convert.ToString(sd.MOR + 1);
 
             sddp.ConfiReport = sd.ConfiReport == true ? "1" : "0";
             sddp.ssQ = sd.ssQ == true ? "1" : "0";
@@ -125,7 +125,7 @@ namespace DevEnvAzure.Utilities
             sddp.DivertStation = sd.DivertStation;
             sddp.Area_FIR = sd.Area_FIR;
             sddp.Attachment = sd.Attachment;
-            sddp.MOR = SSIRShortForm.MORTypeID != 0 ? Convert.ToString(SSIRShortForm.MORTypeID + 1) : null;
+            sddp.MOR = SSIRShortForm.MORTypeID != null ? Convert.ToString(SSIRShortForm.MORTypeID + 1) : null;
             sddp.ConfiReport = sd.ConfiReport == true ? "1" : "0";
             sddp.ssQ = sd.ssQ == true ? "1" : "0";
             sddp.pax = sd.pax;
@@ -156,7 +156,7 @@ namespace DevEnvAzure.Utilities
             sddp.Area_FIR = sd.Area_FIR;
             sddp.DescribeEvent = sd.DescribeEvent != null ? "<div class=\"ExternalClass733EA004DCC641EFAFED516F5D12CCA7\"><br>\u200b" + sd.DescribeEvent + "<br><\u002fdiv>" : null;
             sddp.Attachment = sd.Attachment;
-            sddp.MOR = SSIRShortForm.MORTypeID != 0 ? Convert.ToString(SSIRShortForm.MORTypeID + 1) : null;//Convert.ToString(sd.MOR + 1);
+            sddp.MOR = SSIRShortForm.MORTypeID != null ? Convert.ToString(SSIRShortForm.MORTypeID + 1) : null;//Convert.ToString(sd.MOR + 1);
             sddp.ConfiReport = sd.ConfiReport == true ? "1" : "0";
             sddp.ssQ = sd.ssQ == true ? "1" : "0";
             sddp.pax = sd.pax;
@@ -230,7 +230,7 @@ namespace DevEnvAzure.Utilities
             sddp.Area_FIR = sd.Area_FIR;
             sddp.DescribeEvent = sd.DescribeEvent != null ? "<div class=\"ExternalClass733EA004DCC641EFAFED516F5D12CCA7\"><br>\u200b" + sd.DescribeEvent + "<br><\u002fdiv>" : null;
             sddp.Attachment = sd.Attachment;
-            sddp.MOR = SSIRShortForm.MORTypeID != 0 ? Convert.ToString(SSIRShortForm.MORTypeID + 1) : null;//Convert.ToString(sd.MOR + 1);
+            sddp.MOR = SSIRShortForm.MORTypeID != null ? Convert.ToString(SSIRShortForm.MORTypeID + 1) : null;//Convert.ToString(sd.MOR + 1);
             sddp.ConfiReport = sd.ConfiReport == true ? "1" : "0";
             sddp.ssQ = sd.ssQ == true ? "1" : "0";
             sddp.pax = sd.pax;

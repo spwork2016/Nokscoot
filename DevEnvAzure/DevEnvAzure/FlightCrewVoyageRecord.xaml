@@ -28,6 +28,7 @@
                             <Picker x:Name="SectorNumberpicker" SelectedIndex="{Binding SectorNumber,Mode=TwoWay}" 
                                     SelectedIndexChanged="SectorNumber_changed" TextColor="#03A9F4" Grid.Row="3" Grid.ColumnSpan="2" HorizontalOptions="FillAndExpand">
                                 <Picker.Items>
+                                    <x:String></x:String>
                                     <x:String>1</x:String>
                                     <x:String>2</x:String>
                                     <x:String>3</x:String>
@@ -72,6 +73,7 @@
                             <Picker x:Name="AircraftRegistrationpicker" SelectedIndex="{Binding AircraftRegistration,Mode=TwoWay}" SelectedIndexChanged="AircraftRegistration_changed"
                                     TextColor="#03A9F4" Grid.Row="5" Grid.ColumnSpan="2" HorizontalOptions="FillAndExpand">
                                 <Picker.Items>
+                                    <x:String></x:String>
                                     <x:String>HS-XBA</x:String>
                                     <x:String>HS-XBB</x:String>
                                     <x:String>HS-XBC</x:String>
@@ -87,6 +89,7 @@
                             <Picker x:Name="ManualorAutopicker" SelectedIndex="{Binding ManualorAuto,Mode=TwoWay}" SelectedIndexChanged="ManualorAuto_changed"
                                     TextColor="#03A9F4" Grid.Row="13" Grid.ColumnSpan="2" HorizontalOptions="FillAndExpand">
                                 <Picker.Items>
+                                    <x:String></x:String>
                                     <x:String>Manual</x:String>
                                     <x:String>Auto</x:String>
                                 </Picker.Items>
@@ -124,6 +127,7 @@
                             <Picker x:Name="ReportCategoriespicker" SelectedIndex="{Binding ReportCategories,Mode=TwoWay}"
                                     SelectedIndexChanged="ReportCategories_changed" TextColor="#03A9F4" Grid.Row="3" Grid.ColumnSpan="2"  HorizontalOptions="FillAndExpand">
                                 <Picker.Items>
+                                    <x:String></x:String>
                                     <x:String>Flight Delay</x:String>
                                     <x:String>Flight Operations</x:String>
                                     <x:String>Ground Operations</x:String>
@@ -137,6 +141,7 @@
                             <Label x:Name="ReplyRequiredlbl" Text="Reply Required" TextColor="Black" Grid.Row="8" Grid.ColumnSpan="2" FontSize="Micro" />
                             <Picker x:Name="ReplyRequiredpicker" SelectedIndex="{Binding ReplyRequired,Mode=TwoWay}" SelectedIndexChanged="ReplyRequired_changed" TextColor="#03A9F4" Grid.Row="9" Grid.ColumnSpan="2"  HorizontalOptions="FillAndExpand">
                                 <Picker.Items>
+                                    <x:String></x:String>
                                     <x:String>Yes</x:String>
                                     <x:String>No (for info only)</x:String>
                                 </Picker.Items>
@@ -147,6 +152,7 @@
                             <Picker x:Name="Rankpicker" SelectedIndex="{Binding Rank,Mode=TwoWay}" SelectedIndexChanged="Rank_changed" TextColor="#03A9F4"
                                     Grid.Row="13" Grid.ColumnSpan="2"  HorizontalOptions="FillAndExpand">
                                 <Picker.Items>
+                                    <x:String></x:String>
                                     <x:String>Captain</x:String>
                                     <x:String>First Officer</x:String>
                                     <x:String>Observer</x:String>

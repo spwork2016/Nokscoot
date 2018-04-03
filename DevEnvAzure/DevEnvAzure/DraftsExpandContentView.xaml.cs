@@ -127,21 +127,21 @@ namespace DevEnvAzure
                     break;
                 case "kaizen":
                     KaizenReportModel listitem6 = (from itm in App.kaizen
-                                               where itm.Id.ToString() == item.CommandParameter.ToString()
+                                               where itm.ReportType.ToString() == item.CommandParameter.ToString()
                                                select itm).FirstOrDefault();
-                    await Navigation.PushAsync(new SSIRShortForm(listitem6, "fatigue"));
+                    await Navigation.PushAsync(new KaizenReport(listitem6, "kaizen"));
                     break;
                 case "fcVoyage":
                     FlightCrewVoyageRecordModel listitem7 = (from itm in App.fcVoyage
-                                               where itm.Id.ToString() == item.CommandParameter.ToString()
+                                               where itm.ReportType.ToString() == item.CommandParameter.ToString()
                                                select itm).FirstOrDefault();
-                    await Navigation.PushAsync(new SSIRShortForm(listitem7, "fatigue"));
+                    await Navigation.PushAsync(new FlightCrewVoyageRecord(listitem7, "fcVoyage"));
                     break;
                 case "stsnInfo":
                     StationInformationModel listitem8 = (from itm in App.statInfo
-                                               where itm.Id.ToString() == item.CommandParameter.ToString()
+                                               where itm.ReportType.ToString() == item.CommandParameter.ToString()
                                                select itm).FirstOrDefault();
-                    await Navigation.PushAsync(new SSIRShortForm(listitem8, "fatigue"));
+                    await Navigation.PushAsync(new StationInformation(listitem8, "stsnInfo"));
                     break;
             }
 

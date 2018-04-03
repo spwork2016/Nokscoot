@@ -51,7 +51,7 @@
                     <Picker x:Name="Ratehowyoufeltpicker"  SelectedIndex="{Binding rateFeelIndex,Mode=TwoWay}" 
                             SelectedIndexChanged="Ratehowyoufelt_changed" TextColor="#03A9F4" Grid.Row="3" HorizontalOptions="FillAndExpand" Grid.ColumnSpan="2">
                         <Picker.Items>
-                            <x:String>Select</x:String>
+                            <!--<x:String>Select</x:String>-->
                             <x:String>1</x:String>
                             <x:String>2</x:String>
                             <x:String>3</x:String>

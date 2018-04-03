@@ -38,6 +38,7 @@ namespace DevEnvAzure
         public static ObservableCollection<FlightCrewVoyageRecordModel> fcVoyage = new ObservableCollection<FlightCrewVoyageRecordModel>();
         public static ObservableCollection<StationInformationModel> statInfo = new ObservableCollection<StationInformationModel>();
 
+        public static string EVENT_LAUNCH_MAIN_PAGE = "EVENT_LAUNCH_MAIN_PAGE";
         public App()
         {
             InitializeComponent();
@@ -45,8 +46,13 @@ namespace DevEnvAzure
            if (App.AuthenticationResponse == null)
                 MainPage = new Login();
             else MainPage = new DevEnvAzure.StartPage();
-        }
 
+            MessagingCenter.Subscribe<object>(this, EVENT_LAUNCH_MAIN_PAGE, SetMainPageAsRootPage);
+        }
+        private void SetMainPageAsRootPage(object sender)
+        {
+            MainPage = new DevEnvAzure.StartPage();
+        }
         public static DataAccess DAUtil
         {
             get
@@ -60,6 +66,7 @@ namespace DevEnvAzure
         }
         protected override void OnStart()
         {
+           
             // Handle when your app starts
         }
 
@@ -70,6 +77,7 @@ namespace DevEnvAzure
 
         protected override void OnResume()
         {
+          
             // Handle when your app resumes
         }
     }

@@ -50,6 +50,7 @@
                         <Label x:Name="BenefitsCategorylbl" Text="Benefits Category" TextColor="#E65100" Grid.Row="4" Grid.Column="0" />
                         <Picker x:Name="BenefitsCategorypicker" SelectedIndex="{Binding BenefitsCategory,Mode=TwoWay}" SelectedIndexChanged="BenefitsCategorypicker_changed" TextColor="#0D47A1" Grid.Row="4" Grid.Column="1" HorizontalOptions="FillAndExpand">
                             <Picker.Items>
+                                <x:String></x:String>
                                 <x:String>Cost</x:String>
                                 <x:String>Customer responsiveness</x:String>
                                 <x:String>Delivery</x:String>

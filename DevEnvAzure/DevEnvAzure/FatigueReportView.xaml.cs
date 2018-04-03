@@ -16,7 +16,7 @@ namespace DevEnvAzure
       //  Models.FatigueReport _FatigueReport;
         public FatigueReportView()
         {
-            InitializeComponent();
+             InitializeComponent();
           //  _FatigueReport = new Models.FatigueReport();
           //  _FatigueReport.localReportDate = DateTime.Now;
         }

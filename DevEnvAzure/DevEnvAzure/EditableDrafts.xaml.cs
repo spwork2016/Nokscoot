@@ -62,6 +62,14 @@ namespace DevEnvAzure
                 App.kaizen = new ObservableCollection<KaizenReportModel>(App.DAUtil.GetAllEmployees<KaizenReportModel>("KaizenReportModel"));
                 kaizencnt.Text = string.Format("({0})", App.kaizen.Count.ToString());
                 stkKaizen.IsVisible = App.kaizen.Count == 0 ? false : true;
+
+                App.fcVoyage = new ObservableCollection<FlightCrewVoyageRecordModel>(App.DAUtil.GetAllEmployees<FlightCrewVoyageRecordModel>("FlightCrewVoyageRecordModel"));
+                fcVoyageCnt.Text = string.Format("({0})", App.fcVoyage.Count.ToString());
+                sktfcVoyage.IsVisible = App.fcVoyage.Count == 0 ? false : true;
+
+                App.statInfo = new ObservableCollection<StationInformationModel>(App.DAUtil.GetAllEmployees<StationInformationModel>("StationInformationModel"));
+                StatnInfoCnt.Text = string.Format("({0})", App.statInfo.Count.ToString());
+                sktStatnInfo.IsVisible = App.statInfo.Count == 0 ? false : true;
             }
             catch (Exception ex)
             {
@@ -157,6 +165,21 @@ namespace DevEnvAzure
             {
                 SafetyLayout.Children.RemoveAt(0);
                 btnSafetyPanel.Text = "+";
+            }
+            if (fcVoyageLayout.Children.Count > 0)
+            {
+                fcVoyageLayout.Children.RemoveAt(0);
+                btnfcVoyage.Text = "+";
+            }
+            if (kaizenLayout.Children.Count > 0)
+            {
+                kaizenLayout.Children.RemoveAt(0);
+                btnkaizen.Text = "+";
+            }
+            if (StatnInfoLayout.Children.Count > 0)
+            {
+                StatnInfoLayout.Children.RemoveAt(0);
+                btnStatnInfo.Text = "+";
             }
         }
 

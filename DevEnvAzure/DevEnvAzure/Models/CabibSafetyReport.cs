@@ -26,7 +26,7 @@ namespace DevEnvAzure.Models
         { get; set; }
         public string FlightNumber
         { get; set; }
-        public int AircraftRegis
+        public int? AircraftRegis
         { get; set; }
         public string DepartureStation
         { get; set; }

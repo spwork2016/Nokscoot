@@ -141,20 +141,20 @@ namespace DevEnvAzure
             {
                 if (Convert.ToString(EventTitleEntry.Text).Length == 0)
                 {
-                    EventTitleEntry.BackgroundColor = Color.OrangeRed;
+                    EventTitle.TextColor = Color.OrangeRed;
                     EventTitleEntry.Focus();
                 }
                 else if (Convert.ToString(MORpicker.SelectedItem).Length == 0)
                 {
-                    MORpicker.BackgroundColor = Color.OrangeRed;
+                    MORlbl.TextColor = Color.OrangeRed;
                     MORpicker.Focus();
                 }
                 DependencyService.Get<IMessage>().ShortAlert("Please Fill All Required Fields");
             }
             else
             {
-                EventTitleEntry.BackgroundColor = Color.White;
-                MORpicker.BackgroundColor = Color.White;
+                EventTitle.TextColor = Color.Black;
+                MORlbl.TextColor = Color.Black;
                 switch (_classname)
                 {
                     case "safety":
@@ -198,60 +198,76 @@ namespace DevEnvAzure
                         break;
                 }
 
+
+                MessagingCenter.Send<SSIRShortForm>(this, "Popout");
                 this.Navigation.PopToRootAsync();
+                //  if (result.Status)
+                //    this.Navigation.PopAsync(); // or anything else         });         return true;     }
+
+                // this.Navigation.PopModalAsync();
+                // this.Navigation.PushAsync(new HomePage());
             }
 
         }
 
         private void savedrafts_btn_Clicked(object sender, EventArgs e)
         {
-            switch (_classname)
+            try
             {
-                case "safety":
-                    idval = new Random().Next(1, 1000);
-                    FlightSafetyReportModel sf = (FlightSafetyReportModel)_viewobject;
-                    sf.ReportType = "Safety" + idval.ToString();
-                    //App.safetyReport.Add(sf);
-                    App.DAUtil.SaveEmployee<FlightSafetyReportModel>(sf);
-                    DependencyService.Get<IMessage>().ShortAlert("Safety report Drafted");
-                    break;
-                case "security":
-                    idval = new Random().Next(1, 1000);
-                    SecurityModel sd = (SecurityModel)_viewobject;
-                    sd.ReportType = "Security" + idval.ToString();
-                    App.DAUtil.SaveEmployee<SecurityModel>(sd);
-                    DependencyService.Get<IMessage>().ShortAlert("Security report Drafted");
-                    break;
-                case "ground":
-                    idval = new Random().Next(1, 1000);
-                    // App.groundSafety.Add((GroundSafetyReport)_viewobject);
-                    GroundSafetyReport gd = (GroundSafetyReport)_viewobject;
-                    gd.ReportType = "GroundSafety" + idval.ToString();
-                    App.DAUtil.SaveEmployee<GroundSafetyReport>(gd);
-                    DependencyService.Get<IMessage>().ShortAlert("Groung Safety report Drafted");
-                    break;
-                case "fatigue":
-                    idval = new Random().Next(1, 1000);
-                    // App.fatigue.Add((FatigueReport)_viewobject);
-                    FatigueReport ft = (FatigueReport)_viewobject;
-                    ft.ReportType = "Fatigue" + idval.ToString();
-                    App.DAUtil.SaveEmployee<FatigueReport>(ft);
-                    DependencyService.Get<IMessage>().ShortAlert("Fatigue report Drafted");
-                    break;
-                case "Injury":
-                    idval = new Random().Next(1, 1000);
-                    InjuryIllnessReport injr = (InjuryIllnessReport)_viewobject;
-                    injr.ReportType = "InjuryIllness" + idval.ToString();
-                    App.DAUtil.SaveEmployee<InjuryIllnessReport>(injr);
-                    DependencyService.Get<IMessage>().ShortAlert("Injury Illness report Drafted");
-                    break;
-                case "cabin":
-                    idval = new Random().Next(1, 1000);
-                    CabibSafetyReport cd = (CabibSafetyReport)_viewobject;
-                    cd.ReportType = "Cabin" + idval.ToString();
-                    App.DAUtil.SaveEmployee<CabibSafetyReport>(cd);
-                    DependencyService.Get<IMessage>().ShortAlert("Cabin report Drafted");
-                    break;
+                switch (_classname)
+                {
+                    case "safety":
+                        idval = new Random().Next(1, 1000);
+                        FlightSafetyReportModel sf = (FlightSafetyReportModel)_viewobject;
+                        sf.ReportType = "Safety" + idval.ToString();
+                        //  sf.AircraftRegis = null;
+                        //App.safetyReport.Add(sf);
+                        App.DAUtil.SaveEmployee<FlightSafetyReportModel>(sf);
+                        DependencyService.Get<IMessage>().ShortAlert("Safety report Drafted");
+                        break;
+                    case "security":
+                        idval = new Random().Next(1, 1000);
+                        SecurityModel sd = (SecurityModel)_viewobject;
+                        sd.ReportType = "Security" + idval.ToString();
+                        App.DAUtil.SaveEmployee<SecurityModel>(sd);
+                        DependencyService.Get<IMessage>().ShortAlert("Security report Drafted");
+                        break;
+                    case "ground":
+                        idval = new Random().Next(1, 1000);
+                        // App.groundSafety.Add((GroundSafetyReport)_viewobject);
+                        GroundSafetyReport gd = (GroundSafetyReport)_viewobject;
+                        gd.ReportType = "GroundSafety" + idval.ToString();
+                        App.DAUtil.SaveEmployee<GroundSafetyReport>(gd);
+                        DependencyService.Get<IMessage>().ShortAlert("Groung Safety report Drafted");
+                        break;
+                    case "fatigue":
+                        idval = new Random().Next(1, 1000);
+                        // App.fatigue.Add((FatigueReport)_viewobject);
+                        FatigueReport ft = (FatigueReport)_viewobject;
+                        ft.ReportType = "Fatigue" + idval.ToString();
+                        App.DAUtil.SaveEmployee<FatigueReport>(ft);
+                        DependencyService.Get<IMessage>().ShortAlert("Fatigue report Drafted");
+                        break;
+                    case "Injury":
+                        idval = new Random().Next(1, 1000);
+                        InjuryIllnessReport injr = (InjuryIllnessReport)_viewobject;
+                        injr.ReportType = "InjuryIllness" + idval.ToString();
+                        App.DAUtil.SaveEmployee<InjuryIllnessReport>(injr);
+                        DependencyService.Get<IMessage>().ShortAlert("Injury Illness report Drafted");
+                        break;
+                    case "cabin":
+                        idval = new Random().Next(1, 1000);
+                        CabibSafetyReport cd = (CabibSafetyReport)_viewobject;
+                        cd.ReportType = "Cabin" + idval.ToString();
+                        App.DAUtil.SaveEmployee<CabibSafetyReport>(cd);
+                        DependencyService.Get<IMessage>().ShortAlert("Cabin report Drafted");
+                        break;
+                }
+            }
+            catch (Exception ex)
+            {
+                DependencyService.Get<IMessage>().ShortAlert("Error in Saving");
+                //ExceptionHandler.ShowException(ex.Message);
             }
         }
 
@@ -335,7 +351,8 @@ namespace DevEnvAzure
                     }
                     else if (postResult.IsSuccessStatusCode)
                     {
-                        DependencyService.Get<IMessage>().LongAlert("List updated successfully");
+                        var result = this.DisplayAlert("Info", "Data Updated Succesfully", "OK");
+                        //   DependencyService.Get<IMessage>().LongAlert("List updated successfully");
                     }
                     //else
                     //{

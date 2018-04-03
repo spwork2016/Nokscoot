@@ -21,21 +21,27 @@ namespace DevEnvAzure
         public static string BenefitsCategorypickerValue;
         Models.KaizenReportModel _KaizenReport;
         Jsonpropertyinitialise jsonInitObj = new Jsonpropertyinitialise();
-        public KaizenReport()
+        public KaizenReport(object viewObject, string modelname)
         {
-            _KaizenReport = new Models.KaizenReportModel();
+            InitializeComponent();
+            _KaizenReport = (KaizenReportModel)viewObject; //new Models.KaizenReportModel();
             _KaizenReport.DateofCompletion = DateTime.Now;
             _KaizenReport.ImplementationDate = DateTime.Now;
 
             this.BindingContext = _KaizenReport;
-            InitializeComponent();
+          
+            Title = "Kaizen Report";
         }
         private void Save_clicked(object sender, XLabs.EventArgs<bool> e)
         {
-            CreateItems(jsonInitObj.getKaizenReportJson(_KaizenReport));
+            _KaizenReport.ReportType = null;
+            _KaizenReport.DateOfEvent = null;
+             CreateItems(jsonInitObj.getKaizenReportJson(_KaizenReport));
         }
         private void savedrafts_btn_Clicked(object sender, EventArgs e)
         {
+            _KaizenReport.ReportType = "Kaizen Report" + _KaizenReport.Id.ToString();
+            _KaizenReport.DateOfEvent = DateTime.Now;
             App.DAUtil.SaveEmployee<KaizenReportModel>(_KaizenReport);
         }
         private void BenefitsCategorypicker_changed(object sender, EventArgs e)

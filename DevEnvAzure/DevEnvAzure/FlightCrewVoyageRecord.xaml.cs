@@ -1,4 +1,5 @@
-﻿using DevEnvAzure.Utilities;
+﻿using DevEnvAzure.Models;
+using DevEnvAzure.Utilities;
 using Newtonsoft.Json;
 using Plugin.Connectivity;
 using System;
@@ -25,21 +26,28 @@ namespace DevEnvAzure
         public static string RankpickerValue;
         Models.FlightCrewVoyageRecordModel _flightcrew;
         Jsonpropertyinitialise jsonInitObj = new Jsonpropertyinitialise();
-        public FlightCrewVoyageRecord()
+        public FlightCrewVoyageRecord(object viewObject, string modelname)
         {
-            _flightcrew = new Models.FlightCrewVoyageRecordModel();
+            InitializeComponent();
+            _flightcrew = (FlightCrewVoyageRecordModel)viewObject;
             _flightcrew.ScheduledDeparture = DateTime.Now;
             this.BindingContext = _flightcrew;
-            InitializeComponent();
+           
+            Title = "Flightcrew Voyage Record";
             ReportRaisedByEntry.DataSource = App.peoplePickerDataSource;
         }
         private void Save_clicked(object sender, XLabs.EventArgs<bool> e)
         {
-           CreateItems(jsonInitObj.getFlightCrewVoyageJson(_flightcrew));
+            _flightcrew.ReportType = null;
+           _flightcrew.DateOfEvent = null;
+
+            CreateItems(jsonInitObj.getFlightCrewVoyageJson(_flightcrew));
         }
         private void savedrafts_btn_Clicked(object sender, EventArgs e)
         {
-            App.DAUtil.SaveEmployee<Models.FlightCrewVoyageRecordModel>(_flightcrew);
+            _flightcrew.ReportType = "Flight Crew" + _flightcrew.Id.ToString();
+            _flightcrew.DateOfEvent = DateTime.Now;
+           App.DAUtil.SaveEmployee<Models.FlightCrewVoyageRecordModel>(_flightcrew);
         }
         private void SectorNumber_changed(object sender, EventArgs e)
         {

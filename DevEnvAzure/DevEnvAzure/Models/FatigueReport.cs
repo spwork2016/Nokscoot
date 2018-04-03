@@ -24,7 +24,7 @@ namespace DevEnvAzure.Models
         { get; set; }
         public string FlightNumber
         { get; set; }
-        public int AircraftRegis
+        public int? AircraftRegis
         { get; set; }
         public string DepartureStation
         { get; set; }
@@ -58,7 +58,7 @@ namespace DevEnvAzure.Models
         { get; set; }
         public string describeFeel
         { get; set; }
-        public int rateFeelIndex
+        public int? rateFeelIndex
         { get; set; }
         public bool fatiguePrior
         { get; set; }

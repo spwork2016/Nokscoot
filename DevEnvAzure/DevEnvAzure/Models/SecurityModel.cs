@@ -42,7 +42,7 @@ namespace DevEnvAzure.Models
         { get; set; }
         public string FlightNumber
         { get; set; }
-        public int AircraftRegis
+        public int? AircraftRegis
         { get; set; }
         public string DepartureStation
         { get; set; }
@@ -65,9 +65,9 @@ namespace DevEnvAzure.Models
         public bool ssQ
         { get; set; }
 
-        public int flightEvent
+        public int? flightEvent
         { get; set; }
-        public int onGround
+        public int? onGround
         { get; set; }
         public string securityEvent
         { get; set; }

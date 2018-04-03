@@ -13,15 +13,20 @@ namespace DevEnvAzure.Models
         [PrimaryKey, AutoIncrement]
         public int Id
         { get; set; }
+
+        public string ReportType
+        { get; set; }
+        public DateTime? DateOfEvent
+        { get; set; }
         public string VoyageRecord
         { get; set; }
-        public int SectorNumber
+        public int? SectorNumber
         { get; set; }
         public DateTime ScheduledDeparture
         { get; set; }
         public string FlightNumber
         { get; set; }
-        public int AircraftRegistration
+        public int? AircraftRegistration
         { get; set; }
         public string DepartureStation
         { get; set; }
@@ -29,21 +34,21 @@ namespace DevEnvAzure.Models
         { get; set; }
         public string LandingBy
         { get; set; }
-        public int ManualorAuto
+        public int? ManualorAuto
         { get; set; }
         public string TitleofReport
         { get; set; }
-        public int ReportCategories
+        public int? ReportCategories
         { get; set; }
         public string ReportDetails
         { get; set; }
         public string ReportRaisedBy
         { get; set; }
-        public int ReplyRequired
+        public int? ReplyRequired
         { get; set; }
         public string StaffNumber
         { get; set; }
-        public int Rank
+        public int? Rank
         { get; set; }
     }
 }
