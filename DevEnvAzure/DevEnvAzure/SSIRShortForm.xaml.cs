@@ -217,7 +217,7 @@ namespace DevEnvAzure
 
         }
 
-        private void savedrafts_btn_Clicked(object sender, EventArgs e)
+        private async void savedrafts_btn_Clicked(object sender, EventArgs e)
         {
 
             switch (_classname)
@@ -231,10 +231,8 @@ namespace DevEnvAzure
                     App.DAUtil.SaveEmployee<FlightSafetyReportModel>(sf);
                     // App.safetyReport.Add((SafetyReportModel)_viewobject);
                     //  App.DAUtil.SaveEmployee((SafetyReportModel)_viewobject);
-                    Device.BeginInvokeOnMainThread(() =>
-                    {
-                        DependencyService.Get<IMessage>().ShortAlert("Safety report Drafted");
-                    });
+
+                    await DisplayAlert("Safety report Drafted", "", "Ok");
                     break;
                 case "security":
                     idval = new Random().Next(1, 1000);
@@ -243,7 +241,9 @@ namespace DevEnvAzure
                     //   App.security.Add(sd);
                     App.DAUtil.SaveEmployee<SecurityModel>(sd);
                     //  _fullviewobj = new securityReportView();
-                    DependencyService.Get<IMessage>().ShortAlert("Security report Drafted");
+
+                    await DisplayAlert("Security report Drafted", "", "Ok");
+                    //DependencyService.Get<IMessage>().ShortAlert("Security report Drafted");
                     break;
                 case "ground":
                     idval = new Random().Next(1, 1000);
@@ -254,7 +254,9 @@ namespace DevEnvAzure
                     App.DAUtil.SaveEmployee<GroundSafetyReport>(gd);
                     //   App.DAUtil.SaveEmployee((GroundSafetyReport)_viewobject);
                     // _fullviewobj = new GroundSafetyReportView();
-                    DependencyService.Get<IMessage>().ShortAlert("Groung Safety report Drafted");
+
+                    await DisplayAlert("Groung Safety report Drafted", "", "Ok");
+                    //DependencyService.Get<IMessage>().ShortAlert("Groung Safety report Drafted");
                     break;
                 case "fatigue":
                     idval = new Random().Next(1, 1000);
@@ -265,7 +267,8 @@ namespace DevEnvAzure
                     App.DAUtil.SaveEmployee<FatigueReport>(ft);
                     // App.DAUtil.SaveEmployee((FatigueReport)_viewobject);
                     //  _fullviewobj = new FatigueReportView();
-                    DependencyService.Get<IMessage>().ShortAlert("Fatigue report Drafted");
+                    //DependencyService.Get<IMessage>().ShortAlert("Fatigue report Drafted");
+                    await DisplayAlert("Fatigue report Drafted", "", "Ok");
                     break;
                 case "Injury":
                     idval = new Random().Next(1, 1000);
@@ -276,7 +279,9 @@ namespace DevEnvAzure
                     App.DAUtil.SaveEmployee<InjuryIllnessReport>(injr);
                     //App.DAUtil.SaveEmployee((InjuryIllnessReport)_viewobject);
                     // _fullviewobj = new InjuryIllnessReportView();
-                    DependencyService.Get<IMessage>().ShortAlert("Injury Illness report Drafted");
+                    //DependencyService.Get<IMessage>().ShortAlert("Injury Illness report Drafted");
+                    await DisplayAlert("Injury Illness report Drafted", "", "Ok");
+
                     break;
                 case "cabin":
                     idval = new Random().Next(1, 1000);
@@ -287,7 +292,8 @@ namespace DevEnvAzure
                     //  App.cabinSafety.Add((CabibSafetyReport)_viewobject);
                     //  App.DAUtil.SaveEmployee(cd);
                     // _fullviewobj = new CabinSafetyReportView();
-                    DependencyService.Get<IMessage>().ShortAlert("Cabin report Drafted");
+                    await DisplayAlert("Cabin report Drafted", "", "Ok");
+                    //DependencyService.Get<IMessage>().ShortAlert("Cabin report Drafted");
                     break;
             }
         }
@@ -360,7 +366,7 @@ namespace DevEnvAzure
                     if (CheckConnection())
                     {
                         var postResult = await client.PostAsync("https://sptechnophiles.sharepoint.com/_api/web/lists/GetByTitle('Operational_Hazard_Event_Register_04042018')/items", contents);
-                       
+
                         if (postResult.IsSuccessStatusCode)
                         {
                             DependencyService.Get<IMessage>().LongAlert("List updated successfully");
