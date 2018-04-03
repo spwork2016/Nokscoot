@@ -33,23 +33,23 @@
                     <Picker x:Name="CommanderPForPMpicker" Grid.Row="1" SelectedIndex="{Binding CommanderPForPM, Mode=TwoWay}" 
                         SelectedIndexChanged="CommanderPForPMpicker_changed" TextColor="#03A9F4" HorizontalOptions="FillAndExpand">
                         <Picker.Items>
-                            <!--<x:String>Select</x:String>-->
+                            <x:String></x:String>
                             <x:String>PF</x:String>
                             <x:String>PM</x:String>
                         </Picker.Items>
                     </Picker>
 
                     <Label x:Name="CommandersEmaillbl" Text="Commander's Email" TextColor="Black" Grid.Row="2" FontSize="Micro" />
-                    <autocomplete:SfAutoComplete x:Name="peoplePickerCommander"  TextColor="#03A9F4" DisplayMemberPath="Name" ShowClearButton="True" Grid.Row="3" HorizontalOptions="FillAndExpand"/>
+                    <autocomplete:SfAutoComplete x:Name="peoplePickerCommander" ValueChanged="peoplePickerCommander_ValueChanged" SelectionChanged="PeoplePickerCommander_SelectionChanged"  TextColor="#03A9F4" DisplayMemberPath="Name" ShowClearButton="True" Grid.Row="3" HorizontalOptions="FillAndExpand"/>
                    
                     <Label x:Name="FlightCrew1Emaillbl" Text="Flight Crew 1 Email" TextColor="Black" Grid.Row="4" FontSize="Micro"/>
-                    <autocomplete:SfAutoComplete x:Name="peoplePickercrew1email"   TextColor="#03A9F4" DisplayMemberPath="Name" ShowClearButton="True" Grid.Row="5"  HorizontalOptions="FillAndExpand"/>
+                    <autocomplete:SfAutoComplete x:Name="peoplePickercrew1email" ValueChanged="peoplePickercrew1email_ValueChanged"  SelectionChanged="PeoplePickercrew1email_SelectionChanged"  TextColor="#03A9F4" DisplayMemberPath="Name" ShowClearButton="True" Grid.Row="5"  HorizontalOptions="FillAndExpand"/>
 
                     <Label x:Name="FlightCrew1PFPMOBslbl" Text="Flight Crew 1 PF PM OBs" TextColor="Black" Grid.Row="6" FontSize="Micro"/>
                     <Picker x:Name="FlightCrew1PFPMOBspicker" SelectedIndex="{Binding FlightCrew1PFPMOBs,Mode=TwoWay}" SelectedIndexChanged="FlightCrew1PFPMOBspicker_changed" TextColor="#03A9F4" 
                         Grid.Row="7" HorizontalOptions="FillAndExpand">
                         <Picker.Items>
-                            <!--<x:String>Select</x:String>-->
+                            <x:String></x:String>
                             <x:String>PF</x:String>
                             <x:String>PM</x:String>
                             <x:String>Obs</x:String>
@@ -57,12 +57,12 @@
                     </Picker>
                     <!-- People Picker-->
                     <Label x:Name="FlightCrew2Emaillbl" Text="Flight Crew 2 Email" TextColor="Black" Grid.Row="8" FontSize="Micro" />
-                    <autocomplete:SfAutoComplete x:Name="peoplePickercrew2email" TextColor="#03A9F4" DisplayMemberPath="Name" ShowClearButton="True" Grid.Row="9" HorizontalOptions="FillAndExpand"/>
+                    <autocomplete:SfAutoComplete x:Name="peoplePickercrew2email" ValueChanged="peoplePickercrew2email_ValueChanged" SelectionChanged="PeoplePickercrew2email_SelectionChanged" TextColor="#03A9F4" DisplayMemberPath="Name" ShowClearButton="True" Grid.Row="9" HorizontalOptions="FillAndExpand"/>
                     <Label x:Name="FlightCrew2PFPMOBslbl" Text="Flight Crew 2 PF PM OBs" TextColor="Black" Grid.Row="10" FontSize="Micro" />
                     <Picker x:Name="FlightCrew2PFPMOBspicker" SelectedIndex="{Binding FlightCrew2PFPMOBs,Mode=TwoWay}" SelectedIndexChanged="FlightCrew2PFPMOBspicker_changed" 
                         TextColor="#03A9F4" Grid.Row="11" HorizontalOptions="FillAndExpand">
                         <Picker.Items>
-                            <!--<x:String>Select</x:String>-->
+                            <x:String></x:String>
                             <x:String>PF</x:String>
                             <x:String>PM</x:String>
                             <x:String>Obs</x:String>
@@ -89,7 +89,7 @@
                     <Picker x:Name="Ifflighteventselectphasepicker" SelectedIndex="{Binding Ifflighteventselectphase,Mode=TwoWay}" 
                             SelectedIndexChanged="Ifflighteventselectphasepicker_changed" TextColor="#03A9F4" Grid.Row="1" HorizontalOptions="FillAndExpand">
                         <Picker.Items>
-                            <!--<x:String>Select</x:String>-->
+                            <x:String></x:String>
                             <x:String>Parked</x:String>
                             <x:String>Pre-flight</x:String>
                             <x:String>Pushback</x:String>
@@ -110,7 +110,7 @@
                     <Picker x:Name="Ifongroundselectwherepicker"  SelectedIndex="{Binding Ifongroundselectwhere,Mode=TwoWay}" 
                             SelectedIndexChanged="Ifongroundselectwherepicker_changed" TextColor="#03A9F4" Grid.Row="3" HorizontalOptions="FillAndExpand">
                         <Picker.Items>
-                            <!--<x:String>Select</x:String>-->
+                            <x:String></x:String>
                             <x:String>Baggage Carousel</x:String>
                             <x:String>Ramp</x:String>
                             <x:String>Remote Bay</x:String>
@@ -196,7 +196,7 @@
                     <Picker x:Name="Gearpicker" SelectedIndex="{Binding Gear,Mode=TwoWay}" SelectedIndexChanged="Gearpicker_changed" TextColor="#03A9F4" Grid.Row="13" Grid.ColumnSpan="2" 
                             HorizontalOptions="FillAndExpand">
                         <Picker.Items>
-                            <!--<x:String>Select</x:String>-->
+                            <x:String></x:String>
                             <x:String>Up</x:String>
                             <x:String>Down</x:String>
                         </Picker.Items>
@@ -206,7 +206,7 @@
                     <Picker x:Name="Speedbrakepicker"  SelectedIndex="{Binding Speedbrake,Mode=TwoWay}" SelectedIndexChanged="Speedbrakepicker_changed" TextColor="#03A9F4" Grid.Row="15" 
                             HorizontalOptions="FillAndExpand" Grid.ColumnSpan="2">
                         <Picker.Items>
-                            <x:String>Select</x:String>
+                            <x:String></x:String>
                             <x:String>Up</x:String>
                             <x:String>Down</x:String>
                         </Picker.Items>
@@ -256,7 +256,7 @@
                     <Picker x:Name="MeteorologicalReportpicker" SelectedIndex="{Binding MeteorologicalReport,Mode=TwoWay}"
                             SelectedIndexChanged="MeteorologicalReportpicker_changed"  TextColor="#03A9F4" Grid.Row="1" HorizontalOptions="FillAndExpand">
                         <Picker.Items>
-                            <!--<x:String>Select</x:String>-->
+                            <x:String></x:String>
                             <x:String>IMC</x:String>
                             <x:String>VMC</x:String>
                         </Picker.Items>
@@ -272,7 +272,7 @@
                     <Picker x:Name="Lightpicker" SelectedIndex="{Binding Light,Mode=TwoWay}" SelectedIndexChanged="Lightpicker_changed" 
                             TextColor="#03A9F4" Grid.Row="9" HorizontalOptions="FillAndExpand">
                         <Picker.Items>
-                            <!--<x:String>Select</x:String>-->
+                            <x:String></x:String>
                             <x:String>Day</x:String>
                             <x:String>Night</x:String>
                             <x:String>Twilight</x:String>
@@ -282,7 +282,7 @@
                     <Picker x:Name="Weatherpicker" SelectedIndex="{Binding Weather,Mode=TwoWay}" 
                             SelectedIndexChanged="Weatherpicker_changed" TextColor="#03A9F4" Grid.Row="11" HorizontalOptions="FillAndExpand">
                         <Picker.Items>
-                            <!--<x:String>Select</x:String>-->
+                            <x:String></x:String>
                             <x:String>Dry</x:String>
                             <x:String>Rain</x:String>
                             <x:String>Snow</x:String>
@@ -293,7 +293,7 @@
                     <Picker x:Name="Precipitationpicker" SelectedIndex="{Binding Precipitation,Mode=TwoWay}" 
                             SelectedIndexChanged="Precipitationpicker_changed" TextColor="#03A9F4" Grid.Row="13" HorizontalOptions="FillAndExpand">
                         <Picker.Items>
-                            <!--<x:String>Select</x:String>-->
+                            <x:String></x:String>
                             <x:String>Light</x:String>
                             <x:String>Moderate</x:String>
                             <x:String>Heavy</x:String>
@@ -304,7 +304,7 @@
                     <Picker x:Name="Turbulencepicker" SelectedIndex="{Binding Turbulence,Mode=TwoWay}" 
                             SelectedIndexChanged="Turbulencepicker_changed" TextColor="#03A9F4" Grid.Row="15" HorizontalOptions="FillAndExpand">
                         <Picker.Items>
-                            <x:String>Select</x:String>
+                            <x:String></x:String>
                             <x:String>Light</x:String>
                             <x:String>Moderate</x:String>
                             <x:String>Severe</x:String>
@@ -336,7 +336,7 @@
                     <Picker x:Name="Conditionspicker" SelectedIndex="{Binding Conditions,Mode=TwoWay}" SelectedIndexChanged="Conditionspicker_changed" TextColor="#03A9F4" 
                             Grid.Row="3" HorizontalOptions="FillAndExpand">
                         <Picker.Items>
-                            <!--<x:String>Select</x:String>-->
+                            <x:String></x:String>
                             <x:String>Dry</x:String>
                             <x:String>Wet</x:String>
                             <x:String>Contaminated</x:String>
@@ -346,7 +346,7 @@
                     <Picker x:Name="NAVAIDSpicker" SelectedIndex="{Binding NAVAIDS,Mode=TwoWay}" SelectedIndexChanged="NAVAIDSpicker_changed" TextColor="#03A9F4" 
                             Grid.Row="5" HorizontalOptions="FillAndExpand">
                         <Picker.Items>
-                            <x:String>Select</x:String>
+                            <x:String></x:String>
                             <x:String>In Service</x:String>
                             <x:String>Out of Service</x:String>
                         </Picker.Items>
@@ -436,7 +436,7 @@
                     <Picker x:Name="ATCorAirportReportFiledpicker" SelectedIndex="{Binding ATC,Mode=TwoWay}" 
                             SelectedIndexChanged="ATCorAirportReportFiledpicker_changed" TextColor="#03A9F4" Grid.Row="23" Grid.ColumnSpan="2" HorizontalOptions="FillAndExpand">
                         <Picker.Items>
-                            <!--<x:String>Select</x:String>-->
+                            <x:String></x:String>
                             <x:String>Yes</x:String>
                             <x:String>No</x:String>
                             <x:String>N/A</x:String>
@@ -498,7 +498,7 @@
                     <Picker x:Name="Numberofbirdspicker" SelectedIndex="{Binding Numberofbirds,Mode=TwoWay}" SelectedIndexChanged="Numberofbirdspicker_changed" TextColor="#03A9F4" 
                             Grid.Row="3" HorizontalOptions="FillAndExpand">
                         <Picker.Items>
-                            <!--<x:String>Select</x:String>-->
+                            <x:String></x:String>
                             <x:String>Single</x:String>
                             <x:String>Multiple</x:String>
                             <x:String>Unknown</x:String>
@@ -508,7 +508,7 @@
                     <Picker x:Name="SizeofWildlifepicker" SelectedIndex="{Binding SizeofWildlife,Mode=TwoWay}" SelectedIndexChanged="SizeofWildlifepicker_changed" TextColor="#03A9F4" 
                             Grid.Row="5" HorizontalOptions="FillAndExpand">
                         <Picker.Items>
-                            <!--<x:String>Select</x:String>-->
+                            <x:String></x:String>
                             <x:String>Small</x:String>
                             <x:String>Medium</x:String>
                             <x:String>Large</x:String>
@@ -518,7 +518,7 @@
                     <Picker x:Name="AircraftDamagepicker" SelectedIndex="{Binding AircraftDamage,Mode=TwoWay}" SelectedIndexChanged="AircraftDamagepicker_changed" 
                             TextColor="#03A9F4" Grid.Row="7" HorizontalOptions="FillAndExpand">
                         <Picker.Items>
-                            <!--<x:String>Select</x:String>-->
+                            <x:String></x:String>
                             <x:String>Yes</x:String>
                             <x:String>No</x:String>
                             <x:String>Unknown</x:String>

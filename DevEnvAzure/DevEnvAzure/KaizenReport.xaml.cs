@@ -25,8 +25,6 @@ namespace DevEnvAzure
         {
             InitializeComponent();
             _KaizenReport = (KaizenReportModel)viewObject; //new Models.KaizenReportModel();
-            _KaizenReport.DateofCompletion = DateTime.Now;
-            _KaizenReport.ImplementationDate = DateTime.Now;
 
             this.BindingContext = _KaizenReport;
           
@@ -68,48 +66,48 @@ namespace DevEnvAzure
         {
             try
             {
-                // StringContent contents = null;
-                var client = GetHTTPClient();
-                var data = reportObject;// _viewobject;
-
-                var body = JsonConvert.SerializeObject(data, Formatting.None,
-                        new JsonSerializerSettings
-                        {
-                            NullValueHandling = NullValueHandling.Ignore
-                        });
-                var contents = new StringContent(body);
-                contents.Headers.ContentType = MediaTypeHeaderValue.Parse("application/json;odata=verbose");
-                if (CheckConnection())
+                ToggleBusy(true);
+                Device.BeginInvokeOnMainThread(async () =>
                 {
-                    var postResult = client.PostAsync("https://sptechnophiles.sharepoint.com/_api/web/lists/GetByTitle('Kaizen Report')/items", contents).Result;
+                    // StringContent contents = null;
+                    var client = GetHTTPClient();
+                    var data = reportObject;// _viewobject;
 
-                    if (!postResult.IsSuccessStatusCode)
+                    var body = JsonConvert.SerializeObject(data, Formatting.None,
+                            new JsonSerializerSettings
+                            {
+                                NullValueHandling = NullValueHandling.Ignore
+                            });
+                    var contents = new StringContent(body);
+                    contents.Headers.ContentType = MediaTypeHeaderValue.Parse("application/json;odata=verbose");
+                    if (CheckConnection())
                     {
-                        // Unwrap the response and throw as an Api Exception:
-                        var ex = OAuthHelper.CreateExceptionFromResponseErrors(postResult);
+                        var postResult = await client.PostAsync("https://sptechnophiles.sharepoint.com/_api/web/lists/GetByTitle('Kaizen Report')/items", contents);
 
-                    }
-                    if (postResult.IsSuccessStatusCode)
-                    {
-                        DependencyService.Get<IMessage>().LongAlert("List updated successfully");
+                        if (postResult.IsSuccessStatusCode)
+                        {
+                            DependencyService.Get<IMessage>().LongAlert("List updated successfully");
+                        }
+                        else
+                        {
+                            var ex = await postResult.Content.ReadAsStringAsync();
+                            await DisplayAlert("Error", ex, "Ok");
+                        }
+                        ToggleBusy(false);
                     }
                     else
                     {
+
                         DatatableData dt = new DatatableData();
+                        dt.Value = body;// contents.ToString();
                         App.DAUtil.SaveEmployee<DatatableData>(dt);
+
+                        var vList = App.DAUtil.GetAllEmployees<DatatableData>("DatatableData1");
                         DependencyService.Get<IMessage>().LongAlert("List data stored in local storage");
+                        ToggleBusy(false);
+                        await Navigation.PushAsync(new HomePage());
                     }
-                }
-                else
-                {
-
-                    DatatableData dt = new DatatableData();
-                    dt.Value = body;// contents.ToString();
-                    App.DAUtil.SaveEmployee<DatatableData>(dt);
-
-                    var vList = App.DAUtil.GetAllEmployees<DatatableData>("DatatableData1");
-                    DependencyService.Get<IMessage>().LongAlert("List data stored in local storage");
-                }
+                });
             }
             catch (HttpRequestException ex)
             {
@@ -119,6 +117,11 @@ namespace DevEnvAzure
             {
                 DependencyService.Get<IMessage>().ShortAlert("Upload Error" + ex.Message);
             }
+        }
+        private void ToggleBusy(bool flag)
+        {
+            activityStack.IsVisible = flag;
+            activityIndicator.IsRunning = flag;
         }
     }
 }

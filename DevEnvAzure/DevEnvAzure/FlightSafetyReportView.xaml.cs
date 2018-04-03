@@ -1,4 +1,6 @@
-﻿using Rg.Plugins.Popup.Extensions;
+﻿using DevEnvAzure.Models;
+using Rg.Plugins.Popup.Extensions;
+using Syncfusion.SfAutoComplete.XForms;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -32,14 +34,21 @@ namespace DevEnvAzure
         public static string NumberofbirdspickerValue;
         public static string SizeofWildlifepickerValue;
         public static string AircraftDamagepickerValue;
+
+        public static PeoplePicker PeoplePickerCommander;
+        public static PeoplePicker PeoplePickercrew1email;
+        public static PeoplePicker PeoplePickercrew2email;
         private static string name;
 
         public FlightSafetyReportView()
         {
             InitializeComponent();
             peoplePickerCommander.DataSource = App.peoplePickerDataSource;
+            PeoplePickerCommander = null;
             peoplePickercrew1email.DataSource = App.peoplePickerDataSource;
+            PeoplePickercrew1email = null;
             peoplePickercrew2email.DataSource = App.peoplePickerDataSource;
+            PeoplePickercrew2email = null;
         }
         private void CommanderPForPMpicker_changed(object sender, EventArgs e)
         {
@@ -169,6 +178,87 @@ namespace DevEnvAzure
         private async void unf(object sender, EventArgs e)
         {
             //  
+        }
+
+        private void PeoplePickerCommander_SelectionChanged(object sender, Syncfusion.SfAutoComplete.XForms.SelectionChangedEventArgs e)
+        {
+            PeoplePickerCommander = (PeoplePicker)e.Value;
+            var picker = ((SfAutoComplete)sender);
+            picker.BorderColor = Color.Green;
+        }
+
+        private void PeoplePickercrew1email_SelectionChanged(object sender, Syncfusion.SfAutoComplete.XForms.SelectionChangedEventArgs e)
+        {
+            PeoplePickercrew1email = (PeoplePicker)e.Value;
+            var picker = ((SfAutoComplete)sender);
+            picker.BorderColor = Color.Green;
+        }
+
+        private void PeoplePickercrew2email_SelectionChanged(object sender, Syncfusion.SfAutoComplete.XForms.SelectionChangedEventArgs e)
+        {
+            PeoplePickercrew2email = (PeoplePicker)e.Value;
+            var picker = ((SfAutoComplete)sender);
+            picker.BorderColor = Color.Green;
+        }
+
+        private void peoplePickerCommander_ValueChanged(object sender, Syncfusion.SfAutoComplete.XForms.ValueChangedEventArgs e)
+        {
+            var found = App.validatePeoplePicker(e.Value);
+            var picker = ((SfAutoComplete)sender);
+            if (found == null)
+            {
+                PeoplePickercrew1email = null;
+
+                if (!string.IsNullOrEmpty(e.Value))
+                {
+                    picker.BorderColor = Color.OrangeRed;
+                }
+            }
+            else
+            {
+                PeoplePickerCommander = found;
+                picker.BorderColor = Color.Green;
+            }
+        }
+
+        private void peoplePickercrew1email_ValueChanged(object sender, Syncfusion.SfAutoComplete.XForms.ValueChangedEventArgs e)
+        {
+            var found = App.validatePeoplePicker(e.Value);
+            var picker = ((SfAutoComplete)sender);
+            if (found == null)
+            {
+                PeoplePickercrew1email = null;
+
+                if (!string.IsNullOrEmpty(e.Value))
+                {
+                    picker.BorderColor = Color.OrangeRed;
+                }
+            }
+            else
+            {
+                PeoplePickercrew1email = found;
+                picker.BorderColor = Color.Green;
+            }
+        }
+
+        private void peoplePickercrew2email_ValueChanged(object sender, Syncfusion.SfAutoComplete.XForms.ValueChangedEventArgs e)
+        {
+            var found = App.validatePeoplePicker(e.Value);
+            var picker = ((SfAutoComplete)sender);
+            if (found == null)
+            {
+                PeoplePickercrew1email = null;
+
+                if (!string.IsNullOrEmpty(e.Value))
+                {
+                    picker.BorderColor = Color.OrangeRed;
+                }
+            }
+            else
+            {
+                PeoplePickercrew1email = found;
+                picker.BorderColor = Color.Green;
+            }
         }
     }
 }

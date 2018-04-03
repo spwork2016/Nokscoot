@@ -14,8 +14,6 @@ using Plugin.FilePicker.Abstractions;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 using DevEnvAzure.Utilities;
-using System.Collections.ObjectModel;
-
 namespace DevEnvAzure
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
@@ -52,19 +50,19 @@ namespace DevEnvAzure
                 switch (_classname)
                 {
                     case "safety":
-                        Title = "FLIGHT " + _classname.ToUpper() + " REPORT";
+                        Title = "Flight Safety";
                         break;
                     case "ground":
-                        Title = _classname.ToUpper() + " SAFETY REPORT";
+                        Title = "Ground Safety";
                         break;
                     case "cabin":
-                        Title = _classname.ToUpper() + " SAFETY REPORT";
+                        Title = "Cabin Safety";
                         break;
                     case "Injury":
-                        Title = _classname.ToUpper() + " ILLNESS REPORT";
+                        Title = "Injury Illness";
                         break;
                     default:
-                        Title = _classname.ToUpper() + " REPORT";
+                        Title = char.ToUpper(_classname[0]) + _classname.Substring(1);
                         break;
                 }
                 base.OnAppearing();
@@ -198,14 +196,7 @@ namespace DevEnvAzure
                         break;
                 }
 
-
                 MessagingCenter.Send<SSIRShortForm>(this, "Popout");
-               // this.Navigation.PopToRootAsync();
-                //  if (result.Status)
-                //    this.Navigation.PopAsync(); // or anything else         });         return true;     }
-
-                // this.Navigation.PopModalAsync();
-                // this.Navigation.PushAsync(new HomePage());
             }
 
         }
@@ -265,11 +256,11 @@ namespace DevEnvAzure
                 }
                 MessagingCenter.Send<SSIRShortForm>(this, "draftspopout");
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                DependencyService.Get<IMessage>().ShortAlert("Error in Saving");
-                //ExceptionHandler.ShowException(ex.Message);
+
             }
+
         }
 
         private async void MORattach_clicked(object sender, EventArgs e)
@@ -278,6 +269,7 @@ namespace DevEnvAzure
             {
                 FileData fileData = new FileData();
                 fileData = await CrossFilePicker.Current.PickFile();
+                //  var x = fileData.DataArray;
                 if (fileData != null)
                 {
                     var y = fileData.FileName;
@@ -287,6 +279,9 @@ namespace DevEnvAzure
                 {
                     eventAttachEntry.Text = "";
                 }
+                //  SourceImg.Source = ImageSource.FromFile(y);
+
+
             }
             catch (Exception ex)
             {
@@ -317,64 +312,50 @@ namespace DevEnvAzure
         {
             try
             {
-                // StringContent contents = null;
-                var client = GetHTTPClient();
-                var data = reportObject;// _viewobject;
+                ToggleBusy(true);
 
-                var body = JsonConvert.SerializeObject(data, Formatting.None,
-                        new JsonSerializerSettings
+                Device.BeginInvokeOnMainThread(async () =>
+                {
+
+                    // StringContent contents = null;
+                    var client = GetHTTPClient();
+                    var data = reportObject;// _viewobject;
+
+                    var body = JsonConvert.SerializeObject(data, Formatting.None,
+                            new JsonSerializerSettings
+                            {
+                                NullValueHandling = NullValueHandling.Ignore
+                            });
+                    var contents = new StringContent(body);
+                    contents.Headers.ContentType = MediaTypeHeaderValue.Parse("application/json;odata=verbose");
+                    if (CheckConnection())
+                    {
+                        var postResult = await client.PostAsync("https://sptechnophiles.sharepoint.com/_api/web/lists/GetByTitle('Operational_Hazard_Event_Register_04042018')/items", contents);
+
+                        if (postResult.IsSuccessStatusCode)
                         {
-                            NullValueHandling = NullValueHandling.Ignore
-                        });
-                var contents = new StringContent(body);
-                contents.Headers.ContentType = MediaTypeHeaderValue.Parse("application/json;odata=verbose");
-                if (CheckConnection())
-                {
-
-                    // var body = "{\"__metadata\":{\"type\":\"SP.Data.Operational_x005f_Hazard_x005f_Event_x005f_Register_x005f_04042018ListItem\"},\"Title_x0020_of_x0020_Event_Hazar\":\"" + empdetails + "\"}";
-                    // SecurityModel sd = (SecurityModel)_viewobject;
-                    //sd.ReportType = "Security" + idval.ToString();
-
-                    // jsonInitObj.getSecurity(reportObject);
-                    // sd.DateOfEvent = null ;
-
-                    //contents.Headers.Add("Accept", "application/json");
-
-                    var postResult = client.PostAsync("https://sptechnophiles.sharepoint.com/_api/web/lists/GetByTitle('Operational_Hazard_Event_Register_04042018')/items", contents).Result;
-                    //var result = postResult.EnsureSuccessStatusCode();
-
-                    if (!postResult.IsSuccessStatusCode)
-                    {
-                        // Unwrap the response and throw as an Api Exception:
-                        // var ex = OAuthHelper.CreateExceptionFromResponseErrors(postResult);
-                        var exResult = postResult.Content.ReadAsStringAsync().Result;
-                        throw new Exception(exResult);
+                            DependencyService.Get<IMessage>().ShortAlert("Success");
+                            await this.Navigation.PopToRootAsync();
+                        }
+                        else
+                        {
+                            var ex = await postResult.Content.ReadAsStringAsync();
+                            await DisplayAlert("Error", ex, "Ok");
+                        }
+                        ToggleBusy(false);
                     }
-                    else if (postResult.IsSuccessStatusCode)
+                    else
                     {
-                        var result = this.DisplayAlert("Info", "Data Updated Succesfully", "OK");
-                        //   DependencyService.Get<IMessage>().LongAlert("List updated successfully");
+                        ToggleBusy(false);
+                        DatatableData dt = new DatatableData();
+                        dt.Value = body;// contents.ToString();
+                        App.DAUtil.SaveEmployee<DatatableData>(dt);
+
+                        var vList = App.DAUtil.GetAllEmployees<DatatableData>("DatatableData1");
+                        DependencyService.Get<IMessage>().LongAlert("List data stored in local storage");
+                        await Navigation.PopToRootAsync();
                     }
-                    //else
-                    //{
-                    //    //App.employees.Add(_viewobject);
-                    //    //  FullReportTableModel fullRep = new FullReportTableModel();
-                    //    DatatableData dt = new DatatableData();
-                    //    // dt.Value = contents;
-                    //    App.DAUtil.SaveEmployee<DatatableData>(dt);
-                    //    DependencyService.Get<IMessage>().LongAlert("List data stored in local storage");
-                    //}
-                }
-                else
-                {
-
-                    DatatableData dt = new DatatableData();
-                    dt.Value = body;// contents.ToString();
-                    App.DAUtil.SaveEmployee<DatatableData>(dt);
-
-                    var vList = App.DAUtil.GetAllEmployees<DatatableData>("DatatableData1");
-                    DependencyService.Get<IMessage>().LongAlert("List data stored in local storage");
-                }
+                });
             }
             catch (HttpRequestException ex)
             {
@@ -489,5 +470,10 @@ namespace DevEnvAzure
                 airregis = FlightPhasepicker.Items.ElementAt(FlightPhasepicker.SelectedIndex);
         }
 
+        private void ToggleBusy(bool flag)
+        {
+            activityStack.IsVisible = flag;
+            activityIndicator.IsRunning = flag;
+        }
     }
 }

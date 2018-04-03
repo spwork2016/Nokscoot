@@ -43,16 +43,28 @@ namespace DevEnvAzure
         {
             InitializeComponent();
 
-           if (App.AuthenticationResponse == null)
+            if (App.AuthenticationResponse == null)
                 MainPage = new Login();
             else MainPage = new DevEnvAzure.StartPage();
 
             MessagingCenter.Subscribe<object>(this, EVENT_LAUNCH_MAIN_PAGE, SetMainPageAsRootPage);
         }
-        private void SetMainPageAsRootPage(object sender)
+
+        public void SetMainPageAsRootPage(object sender)
         {
             MainPage = new DevEnvAzure.StartPage();
         }
+
+        public static PeoplePicker validatePeoplePicker(string name)
+        {
+            var found = peoplePickerDataSource.Find((x) =>
+            {
+                return x.Name.ToLower() == name.ToLower();
+            });
+
+            return found;
+        }
+
         public static DataAccess DAUtil
         {
             get
@@ -66,7 +78,7 @@ namespace DevEnvAzure
         }
         protected override void OnStart()
         {
-           
+
             // Handle when your app starts
         }
 
@@ -77,7 +89,7 @@ namespace DevEnvAzure
 
         protected override void OnResume()
         {
-          
+
             // Handle when your app resumes
         }
     }

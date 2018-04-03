@@ -102,16 +102,16 @@ namespace DevEnvAzure.DataContracts
         [JsonProperty(PropertyName = "Commander_x0020_PF_x0020_or_x002")]
         public string CommanderPForPM
         { get; set; }
-        [JsonProperty(PropertyName = "CommandersEmail")]
+        [JsonProperty(PropertyName = "CommandersEmailStringId")]
         public string CommandersEmail
         { get; set; }
-        [JsonProperty(PropertyName = "FlightCrew1Email")]
+        [JsonProperty(PropertyName = "FlightCrew1EmailStringId")]
         public string FlightCrew1
         { get; set; }
         [JsonProperty(PropertyName = "Flight_x0020_Crew_x0020_1_x0020_")]
         public string FlightCrew1PFPMOBs
         { get; set; }
-        [JsonProperty(PropertyName = "FlightCrew2Email")]
+        [JsonProperty(PropertyName = "FlightCrew2EmailStringId")]
         public string FlightCrew2
         { get; set; }
         [JsonProperty(PropertyName = "Flight_x0020_Crew_x0020_2_x0020_")]

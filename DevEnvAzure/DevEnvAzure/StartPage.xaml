@@ -31,7 +31,7 @@
                            HorizontalOptions="Start" VerticalOptions="Center" FontSize="20" TextColor="Black"/>
                 </Grid>
                 <ListView x:Name="navigationDrawerList"
-                  RowHeight="35"
+                  RowHeight="35" BackgroundColor="White"
                   SeparatorVisibility="Default" SeparatorColor="#FDCE02"
                   ItemSelected="OnMenuItemSelected">
                     <ListView.ItemTemplate>

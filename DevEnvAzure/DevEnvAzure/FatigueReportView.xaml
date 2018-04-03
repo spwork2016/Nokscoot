@@ -6,7 +6,7 @@
     <ContentView.Content>
         <StackLayout x:Name="StackLayoutFlightSafetyReport" Orientation="Vertical" VerticalOptions="FillAndExpand" BackgroundColor="White">
             <StackLayout HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" Margin="0,15">
-                <Label x:Name="lblCrewInformation" TextColor="Black" FontSize="Medium" HorizontalOptions="Start" Text="Crew Information" />
+                <Label x:Name="lblCrewInformation" TextColor="Black" FontSize="Medium" HorizontalOptions="Start" Text="When did it happen?" />
                 <BoxView Color="#FDCE02" HorizontalOptions="FillAndExpand" HeightRequest="1" />
                 <Grid>
                     <Grid.RowDefinitions>
@@ -51,7 +51,7 @@
                     <Picker x:Name="Ratehowyoufeltpicker"  SelectedIndex="{Binding rateFeelIndex,Mode=TwoWay}" 
                             SelectedIndexChanged="Ratehowyoufelt_changed" TextColor="#03A9F4" Grid.Row="3" HorizontalOptions="FillAndExpand" Grid.ColumnSpan="2">
                         <Picker.Items>
-                            <!--<x:String>Select</x:String>-->
+                            <x:String></x:String>
                             <x:String>1</x:String>
                             <x:String>2</x:String>
                             <x:String>3</x:String>
@@ -85,21 +85,22 @@
                         <ColumnDefinition Width="*" />
                         <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
+
+                    <Label x:Name="FatiguedpriortoDutylbl" Text="Fatigued prior to Duty" TextColor="Black" FontSize="Micro" Grid.Row="0" Grid.Column="0" />
+                    <Switch x:Name="FatiguedpriortoDutychkbx" IsToggled="{Binding fatiguePrior, Mode=TwoWay}"  HorizontalOptions="EndAndExpand" Grid.Row="0" Grid.Column="1" />
+                    <Label x:Name="PoorInFlightRestlbl" Text="Poor In-Flight Rest" TextColor="Black" FontSize="Micro" Grid.Row="1" Grid.Column="0" />
+                    <Switch x:Name="PoorInFlightRestchkbx" IsToggled="{Binding poorFlightRest, Mode=TwoWay}" HorizontalOptions="EndAndExpand"  Grid.Row="1" Grid.Column="1" />
+                    <Label x:Name="DutyItselflbl" Text="Duty Itself" TextColor="Black" Grid.Row="2" FontSize="Micro" Grid.Column="0" />
+                    <Switch x:Name="DutyItselfchkbx" IsToggled="{Binding dutyItself, Mode=TwoWay}"   HorizontalOptions="EndAndExpand"  Grid.Row="2" Grid.Column="1" />
+                    <Label x:Name="RosterCombinationofDutieslbl" Text="Roster/Combination of Duties" FontSize="Micro" TextColor="Black" Grid.Row="3" Grid.Column="0" />
+                    <Switch x:Name="RostercombinationofDutieschkbx" IsToggled="{Binding roaster, Mode=TwoWay}"  HorizontalOptions="EndAndExpand"  Grid.Row="3" Grid.Column="1" />
+                    <Label x:Name="PersonalStresslbl" Text="Personal Stress" TextColor="Black" FontSize="Micro" Grid.Row="4" Grid.Column="0" />
+                    <Switch x:Name="PersonalStresschkbx"   HorizontalOptions="EndAndExpand"  IsToggled="{Binding personalStress,Mode=TwoWay}" Grid.Row="4" Grid.Column="1" />
+                    <Label x:Name="HotelDisturbancelbl" Text="Hotel Disturbance" TextColor="Black" FontSize="Micro" Grid.Row="5" Grid.Column="0" />
+                    <Switch x:Name="HotelDisturbancechkbx" IsToggled="{Binding hotelDisturbance, Mode=TwoWay}"  HorizontalOptions="EndAndExpand"  Grid.Row="5" Grid.Column="1" />
+                    <Label x:Name="OtherCommentslbl" Text="Other/Comments" TextColor="Black" Grid.Row="6" FontSize="Micro" Grid.ColumnSpan="2"/>
+                    <Entry x:Name="OtherCommentsEntry"   Text="{Binding otherComments, Mode=TwoWay}"  Placeholder="Other/Comments" PlaceholderColor="#F1F1F1"  TextColor="#03A9F4" Grid.Row="7" Grid.ColumnSpan="2"/>
                 </Grid>
-                <Label x:Name="FatiguedpriortoDutylbl" Text="Fatigued prior to Duty" TextColor="Black" FontSize="Micro" Grid.Row="0" Grid.Column="0" />
-                <Switch x:Name="FatiguedpriortoDutychkbx" IsToggled="{Binding fatiguePrior, Mode=TwoWay}"  HorizontalOptions="EndAndExpand" Grid.Row="0" Grid.Column="1" />
-                <Label x:Name="PoorInFlightRestlbl" Text="Poor In-Flight Rest" TextColor="Black" FontSize="Micro" Grid.Row="1" Grid.Column="0" />
-                <Switch x:Name="PoorInFlightRestchkbx" IsToggled="{Binding poorFlightRest, Mode=TwoWay}" HorizontalOptions="EndAndExpand"  Grid.Row="1" Grid.Column="1" />
-                <Label x:Name="DutyItselflbl" Text="Duty Itself" TextColor="Black" Grid.Row="2" FontSize="Micro" Grid.Column="0" />
-                <Switch x:Name="DutyItselfchkbx" IsToggled="{Binding dutyItself, Mode=TwoWay}"   HorizontalOptions="EndAndExpand"  Grid.Row="2" Grid.Column="1" />
-                <Label x:Name="RosterCombinationofDutieslbl" Text="Roster/Combination of Duties" FontSize="Micro" TextColor="Black" Grid.Row="3" Grid.Column="0" />
-                <Switch x:Name="RostercombinationofDutieschkbx" IsToggled="{Binding roaster, Mode=TwoWay}"  HorizontalOptions="EndAndExpand"  Grid.Row="3" Grid.Column="1" />
-                <Label x:Name="PersonalStresslbl" Text="Personal Stress" TextColor="Black" FontSize="Micro" Grid.Row="4" Grid.Column="0" />
-                <Switch x:Name="PersonalStresschkbx"   HorizontalOptions="EndAndExpand"  IsToggled="{Binding personalStress,Mode=TwoWay}" Grid.Row="4" Grid.Column="1" />
-                <Label x:Name="HotelDisturbancelbl" Text="Hotel Disturbance" TextColor="Black" FontSize="Micro" Grid.Row="5" Grid.Column="0" />
-                <Switch x:Name="HotelDisturbancechkbx" IsToggled="{Binding hotelDisturbance, Mode=TwoWay}"  HorizontalOptions="EndAndExpand"  Grid.Row="5" Grid.Column="1" />
-                <Label x:Name="OtherCommentslbl" Text="Other/Comments" TextColor="Black" Grid.Row="6" FontSize="Micro" Grid.ColumnSpan="2"/>
-                <Entry x:Name="OtherCommentsEntry"   Text="{Binding otherComments, Mode=TwoWay}"  Placeholder="Other/Comments" PlaceholderColor="#F1F1F1"  TextColor="#03A9F4" Grid.Row="7" Grid.ColumnSpan="2"/>
             </StackLayout>
             <StackLayout HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" Margin="0,15">
                 <Label x:Name="Whatdidyoudolbl" TextColor="Black" FontSize="Medium" HorizontalOptions="Start" Text="What did you do ?" Grid.ColumnSpan="2"/>

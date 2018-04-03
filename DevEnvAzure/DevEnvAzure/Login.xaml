@@ -22,8 +22,8 @@
         <StackLayout IsVisible="{Binding IsBusy}" Padding="20" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" 
                  AbsoluteLayout.LayoutFlags="PositionProportional"
                  AbsoluteLayout.LayoutBounds="0.5,0.5,-1,-1">
-            <Frame  Padding="20" IsClippedToBounds="True" BackgroundColor="Black" Opacity="0.5">
-                <ActivityIndicator x:Name="activityIndicator" IsRunning="{Binding IsBusy}" Color="White"/>
+            <Frame  Padding="20" IsClippedToBounds="True" BackgroundColor="Black" Opacity="0.5" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
+                <ActivityIndicator x:Name="activityIndicator" IsRunning="{Binding IsBusy}" Color="White" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand"/>
             </Frame>
         </StackLayout>
     </AbsoluteLayout>

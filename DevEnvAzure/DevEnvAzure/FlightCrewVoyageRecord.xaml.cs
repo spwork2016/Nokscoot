@@ -38,15 +38,36 @@ namespace DevEnvAzure
                 Title = "Flightcrew Voyage Record";
                 ReportRaisedByEntry.DataSource = App.peoplePickerDataSource;
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
 
             }
         }
+
+        private bool ValidatePeoplePickers()
+        {
+            if (!string.IsNullOrEmpty(_flightcrew.ReportRaisedBy) && App.validatePeoplePicker(_flightcrew.ReportRaisedBy) != null)
+                _flightcrew.ReportRaisedBy = ((PeoplePicker)ReportRaisedByEntry.SelectedItem).Id.ToString();
+            else if (!string.IsNullOrEmpty(_flightcrew.ReportRaisedBy))
+            {
+                ReportRaisedByEntry.SelectedItem = null;
+                ReportRaisedByEntry.ShowBorder = true;
+                ReportRaisedByEntry.BorderColor = Color.OrangeRed;
+                ReportRaisedByEntry.Focus();
+                return false;
+            }
+
+            return true;
+        }
+
         private void Save_clicked(object sender, XLabs.EventArgs<bool> e)
         {
             _flightcrew.ReportType = null;
-           _flightcrew.DateOfEvent = null;
+            _flightcrew.DateOfEvent = null;
+            if (!ValidatePeoplePickers()) return;
+
+            ReportRaisedByEntry.SelectedItem = null;
+            ReportRaisedByEntry.ShowBorder = false;
 
             CreateItems(jsonInitObj.getFlightCrewVoyageJson(_flightcrew));
         }
@@ -54,7 +75,9 @@ namespace DevEnvAzure
         {
             _flightcrew.ReportType = "Flight Crew" + _flightcrew.Id.ToString();
             _flightcrew.DateOfEvent = DateTime.Now;
-           App.DAUtil.SaveEmployee<Models.FlightCrewVoyageRecordModel>(_flightcrew);
+            if (!ValidatePeoplePickers()) return;
+
+            App.DAUtil.SaveEmployee<Models.FlightCrewVoyageRecordModel>(_flightcrew);
         }
         private void SectorNumber_changed(object sender, EventArgs e)
         {
@@ -109,6 +132,8 @@ namespace DevEnvAzure
         {
             try
             {
+                ToggleBusy(true);
+
                 // StringContent contents = null;
                 var client = GetHTTPClient();
                 var data = reportObject;// _viewobject;
@@ -122,25 +147,25 @@ namespace DevEnvAzure
                 contents.Headers.ContentType = MediaTypeHeaderValue.Parse("application/json;odata=verbose");
                 if (CheckConnection())
                 {
-                    var postResult = client.PostAsync("https://sptechnophiles.sharepoint.com/_api/web/lists/GetByTitle('Flight Crew Voyage Record')/items", contents).Result;
-                    //var result = postResult.EnsureSuccessStatusCode();
 
-                    if (!postResult.IsSuccessStatusCode)
+                    Device.BeginInvokeOnMainThread(async () =>
                     {
-                        // Unwrap the response and throw as an Api Exception:
-                        var ex = OAuthHelper.CreateExceptionFromResponseErrors(postResult);
 
-                    }
-                    if (postResult.IsSuccessStatusCode)
-                    {
-                        DependencyService.Get<IMessage>().LongAlert("List updated successfully");
-                    }
-                    else
-                    {
-                        DatatableData dt = new DatatableData();
-                        App.DAUtil.SaveEmployee<DatatableData>(dt);
-                        DependencyService.Get<IMessage>().LongAlert("List data stored in local storage");
-                    }
+                        var postResult = await client.PostAsync("https://sptechnophiles.sharepoint.com/_api/web/lists/GetByTitle('Flight Crew Voyage Record')/items", contents);
+                        //var result = postResult.EnsureSuccessStatusCode();
+
+                        if (postResult.IsSuccessStatusCode)
+                        {
+                            DependencyService.Get<IMessage>().LongAlert("List updated successfully");
+                            ToggleBusy(false);
+                            await Navigation.PopToRootAsync();
+                        }
+                        else
+                        {
+                            var ex = await postResult.Content.ReadAsStringAsync();
+                            await DisplayAlert("Error", ex, "Ok");
+                        }
+                    });
                 }
                 else
                 {
@@ -161,6 +186,12 @@ namespace DevEnvAzure
             {
                 DependencyService.Get<IMessage>().ShortAlert("Upload Error" + ex.Message);
             }
+        }
+
+        private void ToggleBusy(bool flag)
+        {
+            activityStack.IsVisible = flag;
+            activityIndicator.IsRunning = flag;
         }
     }
 }

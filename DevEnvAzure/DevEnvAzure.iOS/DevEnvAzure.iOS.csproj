@@ -831,9 +831,6 @@
     <BundleResource Include="Resources\checkmark.png" />
   </ItemGroup>
   <ItemGroup>
-    <BundleResource Include="Resources\nokscoot_bg.jpg" />
-  </ItemGroup>
-  <ItemGroup>
     <BundleResource Include="Resources\documents.png" />
   </ItemGroup>
   <ItemGroup>
@@ -871,6 +868,12 @@
   </ItemGroup>
   <ItemGroup>
     <BundleResource Include="Resources\edit.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\mobilehome-top.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\mobilehome-bottom.png" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

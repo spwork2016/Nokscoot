@@ -4,177 +4,188 @@
              xmlns:autocomplete="clr-namespace:Syncfusion.SfAutoComplete.XForms;assembly=Syncfusion.SfAutoComplete.XForms"
              x:Class="DevEnvAzure.FlightCrewVoyageRecord">
     <ContentPage.Content>
-        <ScrollView  Orientation="Vertical" VerticalOptions="FillAndExpand" IsClippedToBounds="True">
-            <StackLayout Orientation="Vertical" VerticalOptions = "FillAndExpand" Padding="10,0" BackgroundColor="White">
-                <StackLayout x:Name="StackLayoutVoyageReport" Orientation="Vertical" VerticalOptions = "FillAndExpand" Padding="10,0" BackgroundColor="White">
-                    <StackLayout HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" Margin="0,15">
-                        <Label x:Name="VoyageReportlbl" TextColor="Black" FontSize="Medium" HorizontalOptions="Start" Text="Flight Crew Voyage" />
-                        <BoxView Color="#FDCE02" HorizontalOptions="FillAndExpand" HeightRequest="1" />
-                        <Grid>
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="14" />
-                                <RowDefinition Height="*" />
-                                <RowDefinition Height="14" />
-                                <RowDefinition Height="*" />
-                            </Grid.RowDefinitions>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="*" />
-                                <ColumnDefinition Width="*" />
-                            </Grid.ColumnDefinitions>
-                            <Label x:Name="VoyageRecordLbl" Text="Voyage Record #" TextColor="Black" Grid.Row="0" Grid.ColumnSpan="2" FontSize="Micro"/>
-                            <Entry x:Name="VoyageRecordEntry" Text="{Binding VoyageRecord, Mode=TwoWay}" Placeholder="Voyage Record #" 
+        <AbsoluteLayout HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
+            <StackLayout AbsoluteLayout.LayoutFlags="All" AbsoluteLayout.LayoutBounds="0,0,1,1">
+                <ScrollView  Orientation="Vertical" VerticalOptions="FillAndExpand" IsClippedToBounds="True">
+                    <StackLayout Orientation="Vertical" VerticalOptions = "FillAndExpand" Padding="10,0" BackgroundColor="White">
+                        <StackLayout x:Name="StackLayoutVoyageReport" Orientation="Vertical" VerticalOptions = "FillAndExpand" Padding="10,0" BackgroundColor="White">
+                            <StackLayout HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" Margin="0,15">
+                                <Label x:Name="VoyageReportlbl" TextColor="Black" FontSize="Medium" HorizontalOptions="Start" Text="Flight Crew Voyage" />
+                                <BoxView Color="#FDCE02" HorizontalOptions="FillAndExpand" HeightRequest="1" />
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="14" />
+                                        <RowDefinition Height="*" />
+                                        <RowDefinition Height="14" />
+                                        <RowDefinition Height="*" />
+                                    </Grid.RowDefinitions>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="*" />
+                                    </Grid.ColumnDefinitions>
+                                    <Label x:Name="VoyageRecordLbl" Text="Voyage Record #" TextColor="Black" Grid.Row="0" Grid.ColumnSpan="2" FontSize="Micro"/>
+                                    <Entry x:Name="VoyageRecordEntry" Text="{Binding VoyageRecord, Mode=TwoWay}" Placeholder="Voyage Record #" 
                                    PlaceholderColor="#F1F1F1" TextColor="#03A9F4" Grid.Row="1" Grid.ColumnSpan="2" />
-                            <Label x:Name="SectorNumberlbl" Text="Sector Number" TextColor="Black" Grid.Row="2" Grid.ColumnSpan="2" FontSize="Micro" />
-                            <Picker x:Name="SectorNumberpicker" SelectedIndex="{Binding SectorNumber,Mode=TwoWay}" 
+                                    <Label x:Name="SectorNumberlbl" Text="Sector Number" TextColor="Black" Grid.Row="2" Grid.ColumnSpan="2" FontSize="Micro" />
+                                    <Picker x:Name="SectorNumberpicker" SelectedIndex="{Binding SectorNumber,Mode=TwoWay}" 
                                     SelectedIndexChanged="SectorNumber_changed" TextColor="#03A9F4" Grid.Row="3" Grid.ColumnSpan="2" HorizontalOptions="FillAndExpand">
-                                <Picker.Items>
-                                    <x:String></x:String>
-                                    <x:String>1</x:String>
-                                    <x:String>2</x:String>
-                                    <x:String>3</x:String>
-                                    <x:String>4</x:String>
-                                    <x:String>5</x:String>
-                                </Picker.Items>
-                            </Picker>
-                        </Grid>
-                    </StackLayout>
+                                        <Picker.Items>
+                                            <x:String></x:String>
+                                            <x:String>1</x:String>
+                                            <x:String>2</x:String>
+                                            <x:String>3</x:String>
+                                            <x:String>4</x:String>
+                                            <x:String>5</x:String>
+                                        </Picker.Items>
+                                    </Picker>
+                                </Grid>
+                            </StackLayout>
 
-                    <StackLayout HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" Margin="0,15">
-                        <Label x:Name="FlightInformationlbl" TextColor="Black" FontSize="Medium" HorizontalOptions="Start" Text="Flight Information" />
-                        <BoxView Color="#FDCE02" HorizontalOptions="FillAndExpand" HeightRequest="1" />
-                        <Grid>
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="14" />
-                                <RowDefinition Height="*" />
-                                <RowDefinition Height="14" />
-                                <RowDefinition Height="*" />
-                                <RowDefinition Height="14" />
-                                <RowDefinition Height="*" />
-                                <RowDefinition Height="14" />
-                                <RowDefinition Height="*" />
-                                <RowDefinition Height="14" />
-                                <RowDefinition Height="*" />
-                                <RowDefinition Height="14" />
-                                <RowDefinition Height="*" />
-                                <RowDefinition Height="14" />
-                                <RowDefinition Height="*" />
-                            </Grid.RowDefinitions>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="*" />
-                                <ColumnDefinition Width="*" />
-                            </Grid.ColumnDefinitions>
-                            <Label x:Name="ScheduledDeparturelbl" TextColor="Black" Text="Scheduled Departure Date (Z)" Grid.Row="0" Grid.ColumnSpan="2" FontSize="Micro"/>
-                            <DatePicker x:Name="ScheduledDeparturePicker" Date="{Binding ScheduledDeparture,Mode=TwoWay}" Grid.Row="1" Grid.ColumnSpan="2" TextColor="#03A9F4"  >
-                                <DatePicker.Format>MM/dd/yyyy</DatePicker.Format>
-                            </DatePicker>
-                            <Label x:Name="FlightNumberLbl" Text="Flight Number" TextColor="Black" Grid.Row="2" Grid.ColumnSpan="2" FontSize="Micro"/>
-                            <Entry x:Name="FlightNumberEntry"  Text="{Binding FlightNumber, Mode=TwoWay}" TextColor="#03A9F4" Grid.Row="3" Grid.ColumnSpan="2"/>
-                            <Label x:Name="AircraftRegistrationlbl" Text="Aircraft Registration" TextColor="Black" Grid.Row="4" Grid.ColumnSpan="2" FontSize="Micro"/>
-                            <Picker x:Name="AircraftRegistrationpicker" SelectedIndex="{Binding AircraftRegistration,Mode=TwoWay}" SelectedIndexChanged="AircraftRegistration_changed"
+                            <StackLayout HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" Margin="0,15">
+                                <Label x:Name="FlightInformationlbl" TextColor="Black" FontSize="Medium" HorizontalOptions="Start" Text="Flight Information" />
+                                <BoxView Color="#FDCE02" HorizontalOptions="FillAndExpand" HeightRequest="1" />
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="14" />
+                                        <RowDefinition Height="*" />
+                                        <RowDefinition Height="14" />
+                                        <RowDefinition Height="*" />
+                                        <RowDefinition Height="14" />
+                                        <RowDefinition Height="*" />
+                                        <RowDefinition Height="14" />
+                                        <RowDefinition Height="*" />
+                                        <RowDefinition Height="14" />
+                                        <RowDefinition Height="*" />
+                                        <RowDefinition Height="14" />
+                                        <RowDefinition Height="*" />
+                                        <RowDefinition Height="14" />
+                                        <RowDefinition Height="*" />
+                                    </Grid.RowDefinitions>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="*" />
+                                    </Grid.ColumnDefinitions>
+                                    <Label x:Name="ScheduledDeparturelbl" TextColor="Black" Text="Scheduled Departure Date (Z)" Grid.Row="0" Grid.ColumnSpan="2" FontSize="Micro"/>
+                                    <DatePicker x:Name="ScheduledDeparturePicker" Date="{Binding ScheduledDeparture,Mode=TwoWay}" Grid.Row="1" Grid.ColumnSpan="2" TextColor="#03A9F4"  >
+                                        <DatePicker.Format>MM/dd/yyyy</DatePicker.Format>
+                                    </DatePicker>
+                                    <Label x:Name="FlightNumberLbl" Text="Flight Number" TextColor="Black" Grid.Row="2" Grid.ColumnSpan="2" FontSize="Micro"/>
+                                    <Entry x:Name="FlightNumberEntry"  Text="{Binding FlightNumber, Mode=TwoWay}" TextColor="#03A9F4" Grid.Row="3" Grid.ColumnSpan="2"/>
+                                    <Label x:Name="AircraftRegistrationlbl" Text="Aircraft Registration" TextColor="Black" Grid.Row="4" Grid.ColumnSpan="2" FontSize="Micro"/>
+                                    <Picker x:Name="AircraftRegistrationpicker" SelectedIndex="{Binding AircraftRegistration,Mode=TwoWay}" SelectedIndexChanged="AircraftRegistration_changed"
                                     TextColor="#03A9F4" Grid.Row="5" Grid.ColumnSpan="2" HorizontalOptions="FillAndExpand">
-                                <Picker.Items>
-                                    <x:String></x:String>
-                                    <x:String>HS-XBA</x:String>
-                                    <x:String>HS-XBB</x:String>
-                                    <x:String>HS-XBC</x:String>
-                                </Picker.Items>
-                            </Picker>
-                            <Label x:Name="DepartureStationLbl" Text="Departure Station" TextColor="Black" Grid.Row="6" Grid.ColumnSpan="2" FontSize="Micro" />
-                            <Entry x:Name="DepartureStationEntry"  Text="{Binding DepartureStation, Mode=TwoWay}" TextColor="#03A9F4" Grid.Row="7" Grid.ColumnSpan="2" />
-                            <Label x:Name="ArrivalStationLbl" Text="Arrival Station" TextColor="Black" Grid.Row="8" Grid.ColumnSpan="2" FontSize="Micro"/>
-                            <Entry x:Name="ArrivalStationEntry"  Text="{Binding ArrivalStation, Mode=TwoWay}" TextColor="#03A9F4" Grid.Row="9" Grid.ColumnSpan="2" />
-                            <Label x:Name="LandingByLbl" Text="Landing By" TextColor="Black" Grid.Row="10" Grid.ColumnSpan="2" FontSize="Micro"/>
-                            <Entry x:Name="LandingByEntry"  Text="{Binding LandingBy, Mode=TwoWay}" TextColor="#03A9F4" Grid.Row="11" Grid.ColumnSpan="2" />
-                            <Label x:Name="ManualorAutolbl" Text="Manual or Auto" TextColor="Black" Grid.Row="12" Grid.ColumnSpan="2" FontSize="Micro"/>
-                            <Picker x:Name="ManualorAutopicker" SelectedIndex="{Binding ManualorAuto,Mode=TwoWay}" SelectedIndexChanged="ManualorAuto_changed"
+                                        <Picker.Items>
+                                            <x:String></x:String>
+                                            <x:String>HS-XBA</x:String>
+                                            <x:String>HS-XBB</x:String>
+                                            <x:String>HS-XBC</x:String>
+                                        </Picker.Items>
+                                    </Picker>
+                                    <Label x:Name="DepartureStationLbl" Text="Departure Station" TextColor="Black" Grid.Row="6" Grid.ColumnSpan="2" FontSize="Micro" />
+                                    <Entry x:Name="DepartureStationEntry"  Text="{Binding DepartureStation, Mode=TwoWay}" TextColor="#03A9F4" Grid.Row="7" Grid.ColumnSpan="2" />
+                                    <Label x:Name="ArrivalStationLbl" Text="Arrival Station" TextColor="Black" Grid.Row="8" Grid.ColumnSpan="2" FontSize="Micro"/>
+                                    <Entry x:Name="ArrivalStationEntry"  Text="{Binding ArrivalStation, Mode=TwoWay}" TextColor="#03A9F4" Grid.Row="9" Grid.ColumnSpan="2" />
+                                    <Label x:Name="LandingByLbl" Text="Landing By" TextColor="Black" Grid.Row="10" Grid.ColumnSpan="2" FontSize="Micro"/>
+                                    <Entry x:Name="LandingByEntry"  Text="{Binding LandingBy, Mode=TwoWay}" TextColor="#03A9F4" Grid.Row="11" Grid.ColumnSpan="2" />
+                                    <Label x:Name="ManualorAutolbl" Text="Manual or Auto" TextColor="Black" Grid.Row="12" Grid.ColumnSpan="2" FontSize="Micro"/>
+                                    <Picker x:Name="ManualorAutopicker" SelectedIndex="{Binding ManualorAuto,Mode=TwoWay}" SelectedIndexChanged="ManualorAuto_changed"
                                     TextColor="#03A9F4" Grid.Row="13" Grid.ColumnSpan="2" HorizontalOptions="FillAndExpand">
-                                <Picker.Items>
-                                    <x:String></x:String>
-                                    <x:String>Manual</x:String>
-                                    <x:String>Auto</x:String>
-                                </Picker.Items>
-                            </Picker>
-                        </Grid>
-                    </StackLayout>
+                                        <Picker.Items>
+                                            <x:String></x:String>
+                                            <x:String>Manual</x:String>
+                                            <x:String>Auto</x:String>
+                                        </Picker.Items>
+                                    </Picker>
+                                </Grid>
+                            </StackLayout>
 
-                    <StackLayout HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" Margin="0,15">
-                        <Label x:Name="DetailedReportlbl" TextColor="Black" FontSize="Medium" HorizontalOptions="Start" Text="Detailed Report" />
-                        <BoxView Color="#FDCE02" HorizontalOptions="FillAndExpand" HeightRequest="1" />
-                        <Grid>
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="14" />
-                                <RowDefinition Height="*" />
-                                <RowDefinition Height="14" />
-                                <RowDefinition Height="*" />
-                                <RowDefinition Height="14" />
-                                <RowDefinition Height="*" />
-                                <RowDefinition Height="14" />
-                                <RowDefinition Height="*" />
-                                <RowDefinition Height="14" />
-                                <RowDefinition Height="*" />
-                                <RowDefinition Height="14" />
-                                <RowDefinition Height="*" />
-                                <RowDefinition Height="14" />
-                                <RowDefinition Height="*" />
-                            </Grid.RowDefinitions>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="*" />
-                                <ColumnDefinition Width="*" />
-                            </Grid.ColumnDefinitions>
-                            <Label x:Name="TitleofReportLbl" Text="Title of Report" TextColor="Black" Grid.Row="0" Grid.ColumnSpan="2" FontSize="Micro"/>
-                            <Entry x:Name="TitleofReportEntry"  Text="{Binding TitleofReport, Mode=TwoWay}" TextColor="#03A9F4" Grid.Row="1" Grid.ColumnSpan="2" />
-                            <Label x:Name="ReportCategorieslbl" Text="Report Categories" TextColor="Black" Grid.Row="2" Grid.ColumnSpan="2" FontSize="Micro"/>
-                            <Picker x:Name="ReportCategoriespicker" SelectedIndex="{Binding ReportCategories,Mode=TwoWay}"
+                            <StackLayout HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" Margin="0,15">
+                                <Label x:Name="DetailedReportlbl" TextColor="Black" FontSize="Medium" HorizontalOptions="Start" Text="Detailed Report" />
+                                <BoxView Color="#FDCE02" HorizontalOptions="FillAndExpand" HeightRequest="1" />
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="14" />
+                                        <RowDefinition Height="*" />
+                                        <RowDefinition Height="14" />
+                                        <RowDefinition Height="*" />
+                                        <RowDefinition Height="14" />
+                                        <RowDefinition Height="*" />
+                                        <RowDefinition Height="14" />
+                                        <RowDefinition Height="*" />
+                                        <RowDefinition Height="14" />
+                                        <RowDefinition Height="*" />
+                                        <RowDefinition Height="14" />
+                                        <RowDefinition Height="*" />
+                                        <RowDefinition Height="14" />
+                                        <RowDefinition Height="*" />
+                                    </Grid.RowDefinitions>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="*" />
+                                    </Grid.ColumnDefinitions>
+                                    <Label x:Name="TitleofReportLbl" Text="Title of Report" TextColor="Black" Grid.Row="0" Grid.ColumnSpan="2" FontSize="Micro"/>
+                                    <Entry x:Name="TitleofReportEntry"  Text="{Binding TitleofReport, Mode=TwoWay}" TextColor="#03A9F4" Grid.Row="1" Grid.ColumnSpan="2" />
+                                    <Label x:Name="ReportCategorieslbl" Text="Report Categories" TextColor="Black" Grid.Row="2" Grid.ColumnSpan="2" FontSize="Micro"/>
+                                    <Picker x:Name="ReportCategoriespicker" SelectedIndex="{Binding ReportCategories,Mode=TwoWay}"
                                     SelectedIndexChanged="ReportCategories_changed" TextColor="#03A9F4" Grid.Row="3" Grid.ColumnSpan="2"  HorizontalOptions="FillAndExpand">
-                                <Picker.Items>
-                                    <x:String></x:String>
-                                    <x:String>Flight Delay</x:String>
-                                    <x:String>Flight Operations</x:String>
-                                    <x:String>Ground Operations</x:String>
-                                </Picker.Items>
-                            </Picker>
-                            <Label x:Name="ReportDetailslbl" Text="Report Details" TextColor="Black" Grid.Row="4" Grid.ColumnSpan="2" FontSize="Micro" />
-                            <Entry x:Name="ReportDetailsEntry"   Text="{Binding ReportDetails, Mode=TwoWay}"  TextColor="#03A9F4" Grid.Row="5" Grid.ColumnSpan="2"  />
-                            <Label x:Name="ReportRaisedByLbl" Text="Report Raised By" TextColor="Black" Grid.Row="6" Grid.ColumnSpan="2" FontSize="Micro" />
-                            <autocomplete:SfAutoComplete x:Name="ReportRaisedByEntry"  Text="{Binding ReportRaisedBy, Mode=TwoWay}" DisplayMemberPath="Name" 
+                                        <Picker.Items>
+                                            <x:String></x:String>
+                                            <x:String>Flight Delay</x:String>
+                                            <x:String>Flight Operations</x:String>
+                                            <x:String>Ground Operations</x:String>
+                                        </Picker.Items>
+                                    </Picker>
+                                    <Label x:Name="ReportDetailslbl" Text="Report Details" TextColor="Black" Grid.Row="4" Grid.ColumnSpan="2" FontSize="Micro" />
+                                    <Entry x:Name="ReportDetailsEntry"   Text="{Binding ReportDetails, Mode=TwoWay}"  TextColor="#03A9F4" Grid.Row="5" Grid.ColumnSpan="2"  />
+                                    <Label x:Name="ReportRaisedByLbl" Text="Report Raised By" TextColor="Black" Grid.Row="6" Grid.ColumnSpan="2" FontSize="Micro" />
+                                    <autocomplete:SfAutoComplete x:Name="ReportRaisedByEntry"  Text="{Binding ReportRaisedBy, Mode=TwoWay}" DisplayMemberPath="Name" 
                                                          ShowClearButton="True" TextColor="#03A9F4" Grid.Row="7" Grid.ColumnSpan="2"  />
-                            <Label x:Name="ReplyRequiredlbl" Text="Reply Required" TextColor="Black" Grid.Row="8" Grid.ColumnSpan="2" FontSize="Micro" />
-                            <Picker x:Name="ReplyRequiredpicker" SelectedIndex="{Binding ReplyRequired,Mode=TwoWay}" SelectedIndexChanged="ReplyRequired_changed" TextColor="#03A9F4" Grid.Row="9" Grid.ColumnSpan="2"  HorizontalOptions="FillAndExpand">
-                                <Picker.Items>
-                                    <x:String></x:String>
-                                    <x:String>Yes</x:String>
-                                    <x:String>No (for info only)</x:String>
-                                </Picker.Items>
-                            </Picker>
-                            <Label x:Name="StaffNumberLbl" Text="Staff #" TextColor="Black" Grid.Row="10" Grid.ColumnSpan="2" FontSize="Micro" />
-                            <Entry x:Name="StaffNumberEntry"  Text="{Binding StaffNumber, Mode=TwoWay}" TextColor="#03A9F4" Grid.Row="11" Grid.ColumnSpan="2"  />
-                            <Label x:Name="Ranklbl" Text="Rank" TextColor="Black" Grid.Row="12" Grid.ColumnSpan="2" FontSize="Micro" />
-                            <Picker x:Name="Rankpicker" SelectedIndex="{Binding Rank,Mode=TwoWay}" SelectedIndexChanged="Rank_changed" TextColor="#03A9F4"
+                                    <Label x:Name="ReplyRequiredlbl" Text="Reply Required" TextColor="Black" Grid.Row="8" Grid.ColumnSpan="2" FontSize="Micro" />
+                                    <Picker x:Name="ReplyRequiredpicker" SelectedIndex="{Binding ReplyRequired,Mode=TwoWay}" SelectedIndexChanged="ReplyRequired_changed" TextColor="#03A9F4" Grid.Row="9" Grid.ColumnSpan="2"  HorizontalOptions="FillAndExpand">
+                                        <Picker.Items>
+                                            <x:String></x:String>
+                                            <x:String>Yes</x:String>
+                                            <x:String>No (for info only)</x:String>
+                                        </Picker.Items>
+                                    </Picker>
+                                    <Label x:Name="StaffNumberLbl" Text="Staff #" TextColor="Black" Grid.Row="10" Grid.ColumnSpan="2" FontSize="Micro" />
+                                    <Entry x:Name="StaffNumberEntry"  Text="{Binding StaffNumber, Mode=TwoWay}" TextColor="#03A9F4" Grid.Row="11" Grid.ColumnSpan="2"  />
+                                    <Label x:Name="Ranklbl" Text="Rank" TextColor="Black" Grid.Row="12" Grid.ColumnSpan="2" FontSize="Micro" />
+                                    <Picker x:Name="Rankpicker" SelectedIndex="{Binding Rank,Mode=TwoWay}" SelectedIndexChanged="Rank_changed" TextColor="#03A9F4"
                                     Grid.Row="13" Grid.ColumnSpan="2"  HorizontalOptions="FillAndExpand">
-                                <Picker.Items>
-                                    <x:String></x:String>
-                                    <x:String>Captain</x:String>
-                                    <x:String>First Officer</x:String>
-                                    <x:String>Observer</x:String>
-                                </Picker.Items>
-                            </Picker>
-                        </Grid>
+                                        <Picker.Items>
+                                            <x:String></x:String>
+                                            <x:String>Captain</x:String>
+                                            <x:String>First Officer</x:String>
+                                            <x:String>Observer</x:String>
+                                        </Picker.Items>
+                                    </Picker>
+                                </Grid>
+                            </StackLayout>
+                        </StackLayout>
+                        <StackLayout>
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="*" />
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+                                <Button x:Name="save_btn" HorizontalOptions="CenterAndExpand" Text="SAVE" BackgroundColor="#FDCE02"  Clicked="Save_clicked" Grid.Row="0" Grid.Column="0"/>
+                                <Button x:Name="savedrafts_btn" HorizontalOptions="CenterAndExpand" Text="SAVE AS DRAFT"  BackgroundColor="#FDCE02" Clicked="savedrafts_btn_Clicked" Grid.Row="0" Grid.Column="1"/>
+                            </Grid>
+                        </StackLayout>
                     </StackLayout>
-                </StackLayout>
-                <StackLayout>
-                    <Grid>
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="*" />
-                        </Grid.RowDefinitions>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*" />
-                            <ColumnDefinition Width="*" />
-                        </Grid.ColumnDefinitions>
-                        <Button x:Name="save_btn" HorizontalOptions="CenterAndExpand" Text="SAVE" BackgroundColor="#FDCE02"  Clicked="Save_clicked" Grid.Row="0" Grid.Column="0"/>
-                        <Button x:Name="savedrafts_btn" HorizontalOptions="CenterAndExpand" Text="SAVE AS DRAFT"  BackgroundColor="#FDCE02" Clicked="savedrafts_btn_Clicked" Grid.Row="0" Grid.Column="1"/>
-                    </Grid>
-                </StackLayout>
+                </ScrollView>
             </StackLayout>
-        </ScrollView>
+            <StackLayout x:Name="activityStack" IsVisible="{Binding IsBusy}" Padding="20" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" 
+                 AbsoluteLayout.LayoutFlags="PositionProportional"
+                 AbsoluteLayout.LayoutBounds="0.5,0.5,-1,-1">
+                <Frame  Padding="20" IsClippedToBounds="True" BackgroundColor="Black" Opacity="0.5" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
+                    <ActivityIndicator x:Name="activityIndicator" IsRunning="{Binding IsBusy}" Color="White" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand"/>
+                </Frame>
+            </StackLayout>
+        </AbsoluteLayout>
     </ContentPage.Content>
 </ContentPage>

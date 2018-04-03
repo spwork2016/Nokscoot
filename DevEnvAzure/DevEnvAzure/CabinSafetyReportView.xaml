@@ -33,7 +33,7 @@
                 <Picker x:Name="turbulancepicker" SelectedIndex="{Binding turbulenceIndex,Mode=TwoWay}" 
                         SelectedIndexChanged="turbulence_Changed" TextColor="#03A9F4" Grid.Row="1" HorizontalOptions="FillAndExpand" Grid.ColumnSpan="2">
                     <Picker.Items>
-                        <!--<x:String>Select</x:String>-->
+                        <x:String></x:String>
                         <x:String>Light</x:String>
                         <x:String>Moderate</x:String>
                         <x:String>Severe</x:String>
@@ -52,7 +52,7 @@
                 <Picker x:Name="paxpicker" SelectedIndex="{Binding dangerPaxIndex,Mode=TwoWay}" 
                         SelectedIndexChanged="dangergoods_Changed" TextColor="#03A9F4" Grid.Row="5" HorizontalOptions="FillAndExpand" Grid.ColumnSpan="2">
                     <Picker.Items>
-                        <!--<x:String>Select</x:String>-->
+                        <x:String></x:String>
                         <x:String>pax</x:String>
                         <x:String>cargo</x:String>
                     </Picker.Items>
@@ -61,7 +61,7 @@
                 <Picker x:Name="identifiedpicker" SelectedIndex="{Binding identifiedWhenCabinIndex,Mode=TwoWay}" 
                         SelectedIndexChanged="dangerwhen_Changed" TextColor="#03A9F4" Grid.Row="7" Grid.ColumnSpan="2" HorizontalOptions="FillAndExpand">
                     <Picker.Items>
-                        <!--<x:String>Select</x:String>-->
+                        <x:String></x:String>
                         <x:String>Before flight</x:String>
                         <x:String>During flight</x:String>
                         <x:String>After flight</x:String>
@@ -71,7 +71,7 @@
                 <Picker x:Name="identifiedwherepicker" SelectedIndex="{Binding identifiedWhereCabinIndex,Mode=TwoWay}" 
                         SelectedIndexChanged="dangerwhere_Changed" TextColor="#03A9F4" Grid.Row="9" HorizontalOptions="FillAndExpand" Grid.ColumnSpan="2">
                     <Picker.Items>
-                        <!--<x:String>Select</x:String>-->
+                        <x:String></x:String>
                         <x:String>Check-in/preboard</x:String>
                         <x:String>Cabin bags</x:String>
                         <x:String>Checked bags</x:String>
