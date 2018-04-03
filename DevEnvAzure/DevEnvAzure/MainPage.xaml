@@ -4,8 +4,8 @@
              x:Class="DevEnvAzure.MainPage" Title="Welcome to NokScoot">
     <StackLayout Orientation="Vertical" VerticalOptions="FillAndExpand">
         <StackLayout VerticalOptions="FillAndExpand" BackgroundColor="#ffcb05" HorizontalOptions="FillAndExpand">
-            <Image Source="mobilehome-top.png" VerticalOptions="StartAndExpand" />
-            <Image Source="mobilehome-bottom.png" VerticalOptions="EndAndExpand" />
+            <Image Source="mobilehome_top.png" VerticalOptions="StartAndExpand" />
+            <Image Source="mobilehome_bottom.png" VerticalOptions="EndAndExpand" />
         </StackLayout>
     </StackLayout>
 </ContentPage>
