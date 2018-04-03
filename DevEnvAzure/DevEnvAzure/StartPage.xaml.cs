@@ -79,10 +79,29 @@ namespace DevEnvAzure
         private void OnMenuItemSelected(object sender, SelectedItemChangedEventArgs e)
         {
             var item = (MasterPageItem)e.SelectedItem;
-            MessagingCenter.Subscribe<SSIRShortForm>(this, "", (sender5) =>
+            MessagingCenter.Subscribe<SSIRShortForm>(this, "Popout", (sender5) =>
             {
                 IsPresented = false;
-                Detail = new NavigationPage((Page)Activator.CreateInstance(item.TargetType, new MainPage()));
+                try
+                {
+                    Detail = new NavigationPage(( new MainPage()));
+                }
+                catch(Exception ex)
+                {
+
+                }
+            });
+            MessagingCenter.Subscribe<SSIRShortForm>(this, "draftspopout", (senderp) =>
+            {
+                IsPresented = false;
+                try
+                {
+                    Detail = new NavigationPage((new EditableDrafts()));
+                }
+                catch (Exception ex)
+                {
+
+                }
             });
             if (item.Title == "Logout")
             {
@@ -102,6 +121,7 @@ namespace DevEnvAzure
             }
             if (item.Title == "Station Information")
             {
+               
                 IsPresented = false; 
                 Detail = new NavigationPage((Page)Activator.CreateInstance(item.TargetType,new StationInformationModel(), "StationInfo"));
             }

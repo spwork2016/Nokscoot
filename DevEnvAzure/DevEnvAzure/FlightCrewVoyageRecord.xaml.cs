@@ -28,13 +28,20 @@ namespace DevEnvAzure
         Jsonpropertyinitialise jsonInitObj = new Jsonpropertyinitialise();
         public FlightCrewVoyageRecord(object viewObject, string modelname)
         {
-            InitializeComponent();
-            _flightcrew = (FlightCrewVoyageRecordModel)viewObject;
-            _flightcrew.ScheduledDeparture = DateTime.Now;
-            this.BindingContext = _flightcrew;
-           
-            Title = "Flightcrew Voyage Record";
-            ReportRaisedByEntry.DataSource = App.peoplePickerDataSource;
+            try
+            {
+                InitializeComponent();
+                _flightcrew = (FlightCrewVoyageRecordModel)viewObject;
+                _flightcrew.ScheduledDeparture = DateTime.Now;
+                this.BindingContext = _flightcrew;
+
+                Title = "Flightcrew Voyage Record";
+                ReportRaisedByEntry.DataSource = App.peoplePickerDataSource;
+            }
+            catch(Exception ex)
+            {
+
+            }
         }
         private void Save_clicked(object sender, XLabs.EventArgs<bool> e)
         {

@@ -32,13 +32,19 @@ namespace DevEnvAzure
                 App.security = new ObservableCollection<SecurityModel>(App.DAUtil.GetAllEmployees<SecurityModel>("SecurityModel"));
                 lblSecurityReportCount.Text = string.Format("({0})", App.security.Count.ToString());
                 stkSecurityReports.IsVisible = App.security.Count == 0 ? false : true;
+                MessagingCenter.Subscribe<DraftsExpandContentView>(this, "security", (sendern) =>
+                {
+                    lblSecurityReportCount.Text = string.Format("({0})", App.safetyReport.Count.ToString());
+                    stkSecurityReports.IsVisible = App.cabinSafety.Count == 0 ? false : true;
+                });
 
                 App.safetyReport = new ObservableCollection<FlightSafetyReportModel>(App.DAUtil.GetAllEmployees<FlightSafetyReportModel>("SafetyReportModel"));
                 lblSafetyReportCount.Text = string.Format("({0})", App.safetyReport.Count.ToString());
                 stkSafetyReports.IsVisible = App.safetyReport.Count == 0 ? false : true;
 
-                MessagingCenter.Subscribe<DraftsExpandContentView, string>(this, "", (sender1, arg) =>
+                MessagingCenter.Subscribe<DraftsExpandContentView>(this, "safety", (sendern) =>
                 {
+                    stkSafetyReports.IsVisible = App.safetyReport.Count == 0 ? false : true;
                     lblSafetyReportCount.Text = string.Format("({0})", App.safetyReport.Count.ToString());
                 });
 
@@ -46,30 +52,69 @@ namespace DevEnvAzure
                 App.cabinSafety = new ObservableCollection<CabibSafetyReport>(App.DAUtil.GetAllEmployees<CabibSafetyReport>("CabibSafetyReport"));
                 lblcabinSafetyReportCount.Text = string.Format("({0})", App.cabinSafety.Count.ToString());
                 stkcabinSafetyReports.IsVisible = App.cabinSafety.Count == 0 ? false : true;
+                MessagingCenter.Subscribe<DraftsExpandContentView>(this, "cabinsafety", (sendern) =>
+                {
+                    lblcabinSafetyReportCount.Text = string.Format("({0})", App.safetyReport.Count.ToString());
+                    stkcabinSafetyReports.IsVisible = App.cabinSafety.Count == 0 ? false : true;
+                });
+
+
+
 
                 App.injuryIllness = new ObservableCollection<InjuryIllnessReport>(App.DAUtil.GetAllEmployees<InjuryIllnessReport>("InjuryIllnessReport"));
                 lblinjuryIllnessReportCount.Text = string.Format("({0})", App.injuryIllness.Count.ToString());
                 stkinjuryIllnessReports.IsVisible = App.injuryIllness.Count == 0 ? false : true;
+                MessagingCenter.Subscribe<DraftsExpandContentView>(this, "injuryillness", (sendern) =>
+                {
+                    lblinjuryIllnessReportCount.Text = string.Format("({0})", App.safetyReport.Count.ToString());
+                    stkinjuryIllnessReports.IsVisible = App.injuryIllness.Count == 0 ? false : true;
+                });
+
 
                 App.groundSafety = new ObservableCollection<GroundSafetyReport>(App.DAUtil.GetAllEmployees<GroundSafetyReport>("GroundSafetyReport"));
                 lblGroundSafetyReportCount.Text = string.Format("({0})", App.groundSafety.Count.ToString());
                 stkGroundSafetyReports.IsVisible = App.groundSafety.Count == 0 ? false : true;
+                MessagingCenter.Subscribe<DraftsExpandContentView>(this, "groundsafety", (sendern) =>
+                {
+                    lblGroundSafetyReportCount.Text = string.Format("({0})", App.safetyReport.Count.ToString());
+                    stkGroundSafetyReports.IsVisible = App.groundSafety.Count == 0 ? false : true;
+                });
 
                 App.fatigue = new ObservableCollection<FatigueReport>(App.DAUtil.GetAllEmployees<FatigueReport>("FatigueReport"));
                 lblFatigueReportCount.Text = string.Format("({0})", App.fatigue.Count.ToString());
                 stkFatigueReports.IsVisible = App.fatigue.Count == 0 ? false : true;
+                MessagingCenter.Subscribe<DraftsExpandContentView>(this, "fatigue", (sendern) =>
+                {
+                    lblFatigueReportCount.Text = string.Format("({0})", App.safetyReport.Count.ToString());
+                    stkFatigueReports.IsVisible = App.fatigue.Count == 0 ? false : true;
+                });
 
                 App.kaizen = new ObservableCollection<KaizenReportModel>(App.DAUtil.GetAllEmployees<KaizenReportModel>("KaizenReportModel"));
                 kaizencnt.Text = string.Format("({0})", App.kaizen.Count.ToString());
                 stkKaizen.IsVisible = App.kaizen.Count == 0 ? false : true;
+                MessagingCenter.Subscribe<DraftsExpandContentView>(this, "kaizen", (sendern) =>
+                {
+                    kaizencnt.Text = string.Format("({0})", App.safetyReport.Count.ToString());
+                    stkKaizen.IsVisible = App.kaizen.Count == 0 ? false : true;
+                });
 
                 App.fcVoyage = new ObservableCollection<FlightCrewVoyageRecordModel>(App.DAUtil.GetAllEmployees<FlightCrewVoyageRecordModel>("FlightCrewVoyageRecordModel"));
                 fcVoyageCnt.Text = string.Format("({0})", App.fcVoyage.Count.ToString());
                 sktfcVoyage.IsVisible = App.fcVoyage.Count == 0 ? false : true;
+                MessagingCenter.Subscribe<DraftsExpandContentView>(this, "facvoyage", (sendern) =>
+                {
+                    fcVoyageCnt.Text = string.Format("({0})", App.safetyReport.Count.ToString());
+                    sktfcVoyage.IsVisible = App.fcVoyage.Count == 0 ? false : true;
+                });
 
                 App.statInfo = new ObservableCollection<StationInformationModel>(App.DAUtil.GetAllEmployees<StationInformationModel>("StationInformationModel"));
                 StatnInfoCnt.Text = string.Format("({0})", App.statInfo.Count.ToString());
                 sktStatnInfo.IsVisible = App.statInfo.Count == 0 ? false : true;
+                MessagingCenter.Subscribe<DraftsExpandContentView>(this, "stninfo", (sendern) =>
+                {
+                    StatnInfoCnt.Text = string.Format("({0})", App.safetyReport.Count.ToString());
+                    sktStatnInfo.IsVisible = App.statInfo.Count == 0 ? false : true;
+                });
             }
             catch (Exception ex)
             {

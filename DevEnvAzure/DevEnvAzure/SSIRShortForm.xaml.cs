@@ -200,7 +200,7 @@ namespace DevEnvAzure
 
 
                 MessagingCenter.Send<SSIRShortForm>(this, "Popout");
-                this.Navigation.PopToRootAsync();
+               // this.Navigation.PopToRootAsync();
                 //  if (result.Status)
                 //    this.Navigation.PopAsync(); // or anything else         });         return true;     }
 
@@ -263,6 +263,7 @@ namespace DevEnvAzure
                         DependencyService.Get<IMessage>().ShortAlert("Cabin report Drafted");
                         break;
                 }
+                MessagingCenter.Send<SSIRShortForm>(this, "draftspopout");
             }
             catch (Exception ex)
             {

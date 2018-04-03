@@ -158,33 +158,48 @@ namespace DevEnvAzure
             if (reportName == "DevEnvAzure.Models.FlightSafetyReportModel")
             {
                 App.safetyReport = new ObservableCollection<FlightSafetyReportModel>(App.DAUtil.GetAllEmployees<FlightSafetyReportModel>("SafetyReportModel"));
-                MessagingCenter.Send<DraftsExpandContentView, string>(this, "Hi", string.Join(",", ""));
+                MessagingCenter.Send<DraftsExpandContentView>(this, "safety");
             }
             if (reportName == "DevEnvAzure.Models.SecurityModel")
             {
                 App.security = new ObservableCollection<SecurityModel>(App.DAUtil.GetAllEmployees<SecurityModel>("SecurityModel"));
+                MessagingCenter.Send<DraftsExpandContentView>(this, "security");
             }
             if (reportName == "DevEnvAzure.Models.CabibSafetyReport")
             {
                 App.cabinSafety = new ObservableCollection<CabibSafetyReport>(App.DAUtil.GetAllEmployees<CabibSafetyReport>("CabibSafetyReport"));
+                MessagingCenter.Send<DraftsExpandContentView>(this, "cabinsafety");
             }
             if (reportName == "DevEnvAzure.Models.GroundSafetyReport")
             {
                 App.groundSafety = new ObservableCollection<GroundSafetyReport>(App.DAUtil.GetAllEmployees<GroundSafetyReport>("GroundSafetyReport"));
+                MessagingCenter.Send<DraftsExpandContentView>(this, "groundsafety");
             }
             if (reportName == "DevEnvAzure.Models.InjuryIllnessReport")
             {
                 App.injuryIllness = new ObservableCollection<InjuryIllnessReport>(App.DAUtil.GetAllEmployees<InjuryIllnessReport>("InjuryIllnessReport"));
+                MessagingCenter.Send<DraftsExpandContentView>(this, "injuryillness");
             }
             if (reportName == "DevEnvAzure.Models.FatigueReport")
             {
                 App.fatigue = new ObservableCollection<FatigueReport>(App.DAUtil.GetAllEmployees<FatigueReport>("FatigueReport"));
+                MessagingCenter.Send<DraftsExpandContentView>(this, "fatigue");
             }
             if (reportName == "DevEnvAzure.Models.FlightCrewVoyageRecordModel")
             {
                 App.fcVoyage = new ObservableCollection<FlightCrewVoyageRecordModel>(App.DAUtil.GetAllEmployees<FlightCrewVoyageRecordModel>("FlightCrewVoyageRecordModel"));
+                MessagingCenter.Send<DraftsExpandContentView>(this, "facvoyage");
             }
-
+            if (reportName == "DevEnvAzure.Models.KaizenReportModel")
+            {
+                App.kaizen = new ObservableCollection<KaizenReportModel>(App.DAUtil.GetAllEmployees<KaizenReportModel>("KaizenReportModel"));
+                MessagingCenter.Send<DraftsExpandContentView>(this, "kaizen");
+            }
+            if (reportName == "DevEnvAzure.Models.StationInformationModel")
+            {
+                App.statInfo = new ObservableCollection<StationInformationModel>(App.DAUtil.GetAllEmployees<StationInformationModel>("StationInformationModel"));
+                MessagingCenter.Send<DraftsExpandContentView>(this, "stninfo");
+            }
             DataBind(_reportType);
             DependencyService.Get<IMessage>().LongAlert("Draft deleted");
         }

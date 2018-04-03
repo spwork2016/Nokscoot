@@ -26,7 +26,7 @@ namespace DevEnvAzure.Models
         { get; set; }
         public string Before
         { get; set; }
-        public int? BenefitsCategory
+        public int BenefitsCategory
         { get; set; }
         public string BenefitsDescription
         { get; set; }
