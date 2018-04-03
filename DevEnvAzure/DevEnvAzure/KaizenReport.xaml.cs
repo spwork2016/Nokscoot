@@ -40,7 +40,7 @@ namespace DevEnvAzure
         {
             _KaizenReport.ReportType = "Kaizen Report" + _KaizenReport.Id.ToString();
             _KaizenReport.DateOfEvent = DateTime.Now;
-            App.DAUtil.SaveEmployee<KaizenReportModel>(_KaizenReport);
+            App.DAUtil.Save<KaizenReportModel>(_KaizenReport);
         }
         private void BenefitsCategorypicker_changed(object sender, EventArgs e)
         {
@@ -100,9 +100,9 @@ namespace DevEnvAzure
 
                         DatatableData dt = new DatatableData();
                         dt.Value = body;// contents.ToString();
-                        App.DAUtil.SaveEmployee<DatatableData>(dt);
+                        App.DAUtil.Save<DatatableData>(dt);
 
-                        var vList = App.DAUtil.GetAllEmployees<DatatableData>("DatatableData1");
+                        var vList = App.DAUtil.GetAll<DatatableData>("DatatableData1");
                         DependencyService.Get<IMessage>().LongAlert("List data stored in local storage");
                         ToggleBusy(false);
                         await Navigation.PushAsync(new HomePage());

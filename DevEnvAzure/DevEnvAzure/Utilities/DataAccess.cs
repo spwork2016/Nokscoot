@@ -81,24 +81,38 @@ namespace DevEnvAzure
 
         }
 
-        public List<U> GetAllEmployees<U>(string classObj) where U : class
+        public List<U> GetAll<U>(string classObj) where U : class
         {
             return dbConn.Query<U>("Select * From " + classObj + "");
         }
-        public int SaveEmployee<U>(U reportData) where U : class
+        public U Save<U>(U reportData) where U : class
         {
             try
             {
                 dbConn.CreateTable<U>();
-                return dbConn.Insert(reportData);
+                dbConn.Insert(reportData);
+                return reportData;
             }
             catch (Exception ex)
             {
-                return 0;
+                return null;
             }
-
-
         }
+
+        public U Update<U>(U reportData) where U : class
+        {
+            try
+            {
+                dbConn.Update(reportData);
+                return reportData;
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+        }
+
+
         public int DeleteEmployee<U>(U aEmployee) where U : class
         {
             return dbConn.Delete(aEmployee);

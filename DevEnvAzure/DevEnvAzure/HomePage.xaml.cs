@@ -71,7 +71,7 @@ namespace DevEnvAzure
         {
             if (e.IsConnected)
             {
-               var eValue = App.DAUtil.GetAllEmployees<Employee>("Employee");
+               var eValue = App.DAUtil.GetAll<Employee>("Employee");
                 if (eValue != null && eValue.Count > 0)
                 {
                  //  DataUpload.CreateItemsOffline(eValue);
@@ -91,7 +91,7 @@ namespace DevEnvAzure
                 FetchListItemsofdept();
                 if (CheckConnection())
                 {
-                    var eValue = App.DAUtil.GetAllEmployees<Employee>("Employee");
+                    var eValue = App.DAUtil.GetAll<Employee>("Employee");
                     if (eValue.Count > 0)
                     {
                       //  DataUpload.CreateItemsOffline(eValue);
@@ -255,7 +255,7 @@ namespace DevEnvAzure
                             vEmpActive = actemp
                         };
                         App.employees.Add(vEmployee);
-                        App.DAUtil.SaveEmployee(vEmployee);
+                        App.DAUtil.Save(vEmployee);
                         DependencyService.Get<IMessage>().LongAlert("List data stored in local storage");
                     }
                 }
@@ -273,8 +273,8 @@ namespace DevEnvAzure
                         vEmpActive = actemp
                     };
                     App.employees.Add(vEmployee);
-                    App.DAUtil.SaveEmployee(vEmployee);
-                    var vList = App.DAUtil.GetAllEmployees<Employee>("Employee");
+                    App.DAUtil.Save(vEmployee);
+                    var vList = App.DAUtil.GetAll<Employee>("Employee");
                     DependencyService.Get<IMessage>().LongAlert("List data stored in local storage");
                 }
 

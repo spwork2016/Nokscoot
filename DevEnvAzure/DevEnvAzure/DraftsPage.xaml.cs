@@ -28,8 +28,8 @@ namespace DevEnvAzure
             try
             {
 
-                var d = App.DAUtil.GetAllEmployees<DatatableData>("DatatableData1");
-                App.fullDataTablecollection = new ObservableCollection<DatatableData>(App.DAUtil.GetAllEmployees<DatatableData>("DatatableData1"));
+                var d = App.DAUtil.GetAll<DatatableData>("DatatableData1");
+                App.fullDataTablecollection = new ObservableCollection<DatatableData>(App.DAUtil.GetAll<DatatableData>("DatatableData1"));
                
             }
             catch (Exception ex)

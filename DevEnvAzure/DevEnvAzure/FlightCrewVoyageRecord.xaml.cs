@@ -77,7 +77,7 @@ namespace DevEnvAzure
             _flightcrew.DateOfEvent = DateTime.Now;
             if (!ValidatePeoplePickers()) return;
 
-            App.DAUtil.SaveEmployee<Models.FlightCrewVoyageRecordModel>(_flightcrew);
+            App.DAUtil.Save<Models.FlightCrewVoyageRecordModel>(_flightcrew);
         }
         private void SectorNumber_changed(object sender, EventArgs e)
         {
@@ -172,9 +172,9 @@ namespace DevEnvAzure
 
                     DatatableData dt = new DatatableData();
                     dt.Value = body;// contents.ToString();
-                    App.DAUtil.SaveEmployee<DatatableData>(dt);
+                    App.DAUtil.Save<DatatableData>(dt);
 
-                    var vList = App.DAUtil.GetAllEmployees<DatatableData>("DatatableData1");
+                    var vList = App.DAUtil.GetAll<DatatableData>("DatatableData1");
                     DependencyService.Get<IMessage>().LongAlert("List data stored in local storage");
                 }
             }

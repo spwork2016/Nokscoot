@@ -157,51 +157,51 @@ namespace DevEnvAzure
             App.DAUtil.DeleteEmployee(cp);          
             if (reportName == "DevEnvAzure.Models.FlightSafetyReportModel")
             {
-                App.safetyReport = new ObservableCollection<FlightSafetyReportModel>(App.DAUtil.GetAllEmployees<FlightSafetyReportModel>("SafetyReportModel"));
+                App.safetyReport = new ObservableCollection<FlightSafetyReportModel>(App.DAUtil.GetAll<FlightSafetyReportModel>("SafetyReportModel"));
                 MessagingCenter.Send<DraftsExpandContentView>(this, "safety");
             }
             if (reportName == "DevEnvAzure.Models.SecurityModel")
             {
-                App.security = new ObservableCollection<SecurityModel>(App.DAUtil.GetAllEmployees<SecurityModel>("SecurityModel"));
+                App.security = new ObservableCollection<SecurityModel>(App.DAUtil.GetAll<SecurityModel>("SecurityModel"));
                 MessagingCenter.Send<DraftsExpandContentView>(this, "security");
             }
             if (reportName == "DevEnvAzure.Models.CabibSafetyReport")
             {
-                App.cabinSafety = new ObservableCollection<CabibSafetyReport>(App.DAUtil.GetAllEmployees<CabibSafetyReport>("CabibSafetyReport"));
+                App.cabinSafety = new ObservableCollection<CabibSafetyReport>(App.DAUtil.GetAll<CabibSafetyReport>("CabibSafetyReport"));
                 MessagingCenter.Send<DraftsExpandContentView>(this, "cabinsafety");
             }
             if (reportName == "DevEnvAzure.Models.GroundSafetyReport")
             {
-                App.groundSafety = new ObservableCollection<GroundSafetyReport>(App.DAUtil.GetAllEmployees<GroundSafetyReport>("GroundSafetyReport"));
+                App.groundSafety = new ObservableCollection<GroundSafetyReport>(App.DAUtil.GetAll<GroundSafetyReport>("GroundSafetyReport"));
                 MessagingCenter.Send<DraftsExpandContentView>(this, "groundsafety");
             }
             if (reportName == "DevEnvAzure.Models.InjuryIllnessReport")
             {
-                App.injuryIllness = new ObservableCollection<InjuryIllnessReport>(App.DAUtil.GetAllEmployees<InjuryIllnessReport>("InjuryIllnessReport"));
+                App.injuryIllness = new ObservableCollection<InjuryIllnessReport>(App.DAUtil.GetAll<InjuryIllnessReport>("InjuryIllnessReport"));
                 MessagingCenter.Send<DraftsExpandContentView>(this, "injuryillness");
             }
             if (reportName == "DevEnvAzure.Models.FatigueReport")
             {
-                App.fatigue = new ObservableCollection<FatigueReport>(App.DAUtil.GetAllEmployees<FatigueReport>("FatigueReport"));
+                App.fatigue = new ObservableCollection<FatigueReport>(App.DAUtil.GetAll<FatigueReport>("FatigueReport"));
                 MessagingCenter.Send<DraftsExpandContentView>(this, "fatigue");
             }
             if (reportName == "DevEnvAzure.Models.FlightCrewVoyageRecordModel")
             {
-                App.fcVoyage = new ObservableCollection<FlightCrewVoyageRecordModel>(App.DAUtil.GetAllEmployees<FlightCrewVoyageRecordModel>("FlightCrewVoyageRecordModel"));
+                App.fcVoyage = new ObservableCollection<FlightCrewVoyageRecordModel>(App.DAUtil.GetAll<FlightCrewVoyageRecordModel>("FlightCrewVoyageRecordModel"));
                 MessagingCenter.Send<DraftsExpandContentView>(this, "facvoyage");
             }
             if (reportName == "DevEnvAzure.Models.KaizenReportModel")
             {
-                App.kaizen = new ObservableCollection<KaizenReportModel>(App.DAUtil.GetAllEmployees<KaizenReportModel>("KaizenReportModel"));
+                App.kaizen = new ObservableCollection<KaizenReportModel>(App.DAUtil.GetAll<KaizenReportModel>("KaizenReportModel"));
                 MessagingCenter.Send<DraftsExpandContentView>(this, "kaizen");
             }
             if (reportName == "DevEnvAzure.Models.StationInformationModel")
             {
-                App.statInfo = new ObservableCollection<StationInformationModel>(App.DAUtil.GetAllEmployees<StationInformationModel>("StationInformationModel"));
+                App.statInfo = new ObservableCollection<StationInformationModel>(App.DAUtil.GetAll<StationInformationModel>("StationInformationModel"));
                 MessagingCenter.Send<DraftsExpandContentView>(this, "stninfo");
             }
             DataBind(_reportType);
-            DependencyService.Get<IMessage>().LongAlert("Draft deleted");
+            DependencyService.Get<IMessage>().ShortAlert("Draft deleted");
         }
     }
 }

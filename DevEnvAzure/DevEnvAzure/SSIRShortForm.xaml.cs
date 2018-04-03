@@ -25,6 +25,7 @@ namespace DevEnvAzure
         public static int MORTypeID;
         Jsonpropertyinitialise jsonInitObj = new Jsonpropertyinitialise();
         const string SPRootURL = "https://sptechnophiles.sharepoint.com/_api/web/lists/";
+        public int? SavedDraftID { get; set; }
         public SSIRShortForm(object viewObject, string modelname)
         {
             try
@@ -78,7 +79,7 @@ namespace DevEnvAzure
         {
             if (e.IsConnected)
             {
-                var eValue = App.DAUtil.GetAllEmployees<DatatableData>("DatatableData1");
+                var eValue = App.DAUtil.GetAll<DatatableData>("DatatableData1");
                 if (eValue != null && eValue.Count > 0)
                 {
                     DataUpload.CreateItemsOffline(eValue);
@@ -213,14 +214,19 @@ namespace DevEnvAzure
                         sf.ReportType = "Safety" + idval.ToString();
                         //  sf.AircraftRegis = null;
                         //App.safetyReport.Add(sf);
-                        App.DAUtil.SaveEmployee<FlightSafetyReportModel>(sf);
+                        var updatedRecord = sf.Id == 0 ? App.DAUtil.Save(sf) : App.DAUtil.Update(sf);
+                        if (updatedRecord != null)
+                        {
+                            _viewobject = updatedRecord;
+                        }
+
                         DependencyService.Get<IMessage>().ShortAlert("Safety report Drafted");
                         break;
                     case "security":
                         idval = new Random().Next(1, 1000);
                         SecurityModel sd = (SecurityModel)_viewobject;
                         sd.ReportType = "Security" + idval.ToString();
-                        App.DAUtil.SaveEmployee<SecurityModel>(sd);
+                        App.DAUtil.Save<SecurityModel>(sd);
                         DependencyService.Get<IMessage>().ShortAlert("Security report Drafted");
                         break;
                     case "ground":
@@ -228,7 +234,7 @@ namespace DevEnvAzure
                         // App.groundSafety.Add((GroundSafetyReport)_viewobject);
                         GroundSafetyReport gd = (GroundSafetyReport)_viewobject;
                         gd.ReportType = "GroundSafety" + idval.ToString();
-                        App.DAUtil.SaveEmployee<GroundSafetyReport>(gd);
+                        App.DAUtil.Save<GroundSafetyReport>(gd);
                         DependencyService.Get<IMessage>().ShortAlert("Groung Safety report Drafted");
                         break;
                     case "fatigue":
@@ -236,25 +242,25 @@ namespace DevEnvAzure
                         // App.fatigue.Add((FatigueReport)_viewobject);
                         FatigueReport ft = (FatigueReport)_viewobject;
                         ft.ReportType = "Fatigue" + idval.ToString();
-                        App.DAUtil.SaveEmployee<FatigueReport>(ft);
+                        App.DAUtil.Save<FatigueReport>(ft);
                         DependencyService.Get<IMessage>().ShortAlert("Fatigue report Drafted");
                         break;
                     case "Injury":
                         idval = new Random().Next(1, 1000);
                         InjuryIllnessReport injr = (InjuryIllnessReport)_viewobject;
                         injr.ReportType = "InjuryIllness" + idval.ToString();
-                        App.DAUtil.SaveEmployee<InjuryIllnessReport>(injr);
+                        App.DAUtil.Save<InjuryIllnessReport>(injr);
                         DependencyService.Get<IMessage>().ShortAlert("Injury Illness report Drafted");
                         break;
                     case "cabin":
                         idval = new Random().Next(1, 1000);
                         CabibSafetyReport cd = (CabibSafetyReport)_viewobject;
                         cd.ReportType = "Cabin" + idval.ToString();
-                        App.DAUtil.SaveEmployee<CabibSafetyReport>(cd);
+                        App.DAUtil.Save<CabibSafetyReport>(cd);
                         DependencyService.Get<IMessage>().ShortAlert("Cabin report Drafted");
                         break;
                 }
-                MessagingCenter.Send<SSIRShortForm>(this, "draftspopout");
+                // MessagingCenter.Send<SSIRShortForm>(this, "draftspopout");
             }
             catch (Exception)
             {
@@ -349,9 +355,9 @@ namespace DevEnvAzure
                         ToggleBusy(false);
                         DatatableData dt = new DatatableData();
                         dt.Value = body;// contents.ToString();
-                        App.DAUtil.SaveEmployee<DatatableData>(dt);
+                        App.DAUtil.Save<DatatableData>(dt);
 
-                        var vList = App.DAUtil.GetAllEmployees<DatatableData>("DatatableData1");
+                        var vList = App.DAUtil.GetAll<DatatableData>("DatatableData1");
                         DependencyService.Get<IMessage>().ShortAlert("List data stored in local storage");
                         await Navigation.PopToRootAsync();
                     }
@@ -408,7 +414,7 @@ namespace DevEnvAzure
                     FlightSafetyReportModel sf = (FlightSafetyReportModel)_viewobject;
                     sf.ReportType = "Safety" + idval.ToString();
                     //App.safetyReport.Add(sf);
-                    App.DAUtil.SaveEmployee<FlightSafetyReportModel>(sf);
+                    App.DAUtil.Save<FlightSafetyReportModel>(sf);
                     // App.safetyReport.Add((SafetyReportModel)_viewobject);
                     //  App.DAUtil.SaveEmployee((SafetyReportModel)_viewobject);
                     break;
@@ -417,7 +423,7 @@ namespace DevEnvAzure
                     SecurityModel sd = (SecurityModel)_viewobject;
                     sd.ReportType = "Security" + idval.ToString();
                     //   App.security.Add(sd);
-                    App.DAUtil.SaveEmployee<SecurityModel>(sd);
+                    App.DAUtil.Save<SecurityModel>(sd);
                     //  _fullviewobj = new securityReportView();
                     break;
                 case "ground":
@@ -426,7 +432,7 @@ namespace DevEnvAzure
                     GroundSafetyReport gd = (GroundSafetyReport)_viewobject;
                     gd.ReportType = "GroundSafety" + idval.ToString();
                     //  App.groundSafety.Add(gd);
-                    App.DAUtil.SaveEmployee<GroundSafetyReport>(gd);
+                    App.DAUtil.Save<GroundSafetyReport>(gd);
                     //   App.DAUtil.SaveEmployee((GroundSafetyReport)_viewobject);
                     // _fullviewobj = new GroundSafetyReportView();
                     break;
@@ -436,7 +442,7 @@ namespace DevEnvAzure
                     FatigueReport ft = (FatigueReport)_viewobject;
                     ft.ReportType = "Fatigue" + idval.ToString();
                     //  App.fatigue.Add(ft);
-                    App.DAUtil.SaveEmployee<FatigueReport>(ft);
+                    App.DAUtil.Save<FatigueReport>(ft);
                     // App.DAUtil.SaveEmployee((FatigueReport)_viewobject);
                     //  _fullviewobj = new FatigueReportView();
                     break;
@@ -446,7 +452,7 @@ namespace DevEnvAzure
                     InjuryIllnessReport injr = (InjuryIllnessReport)_viewobject;
                     injr.ReportType = "InjuryIllness" + idval.ToString();
                     //  App.injuryIllness.Add(injr);
-                    App.DAUtil.SaveEmployee<InjuryIllnessReport>(injr);
+                    App.DAUtil.Save<InjuryIllnessReport>(injr);
                     //App.DAUtil.SaveEmployee((InjuryIllnessReport)_viewobject);
                     // _fullviewobj = new InjuryIllnessReportView();
                     break;
@@ -455,7 +461,7 @@ namespace DevEnvAzure
                     CabibSafetyReport cd = (CabibSafetyReport)_viewobject;
                     cd.ReportType = "Cabin" + idval.ToString();
                     //   App.cabinSafety.Add(cd);
-                    App.DAUtil.SaveEmployee<CabibSafetyReport>(cd);
+                    App.DAUtil.Save<CabibSafetyReport>(cd);
                     //  App.cabinSafety.Add((CabibSafetyReport)_viewobject);
                     //  App.DAUtil.SaveEmployee(cd);
                     // _fullviewobj = new CabinSafetyReportView();

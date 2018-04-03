@@ -870,10 +870,10 @@
     <BundleResource Include="Resources\edit.png" />
   </ItemGroup>
   <ItemGroup>
-    <BundleResource Include="Resources\mobilehome-top.png" />
+    <BundleResource Include="Resources\mobilehome_top.png" />
   </ItemGroup>
   <ItemGroup>
-    <BundleResource Include="Resources\mobilehome-bottom.png" />
+    <BundleResource Include="Resources\mobilehome_bottom.png" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

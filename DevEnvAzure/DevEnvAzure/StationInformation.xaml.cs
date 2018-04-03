@@ -36,7 +36,7 @@ namespace DevEnvAzure
         {
             _StationInformation.ReportType = "Station Information" + _StationInformation.Id.ToString();
             _StationInformation.DateOfEvent = DateTime.Now;
-            App.DAUtil.SaveEmployee<Models.StationInformationModel>(_StationInformation);
+            App.DAUtil.Save<Models.StationInformationModel>(_StationInformation);
         }
         private bool CheckConnection()
         {
@@ -97,9 +97,9 @@ namespace DevEnvAzure
                     {
                         DatatableData dt = new DatatableData();
                         dt.Value = body;// contents.ToString();
-                        App.DAUtil.SaveEmployee<DatatableData>(dt);
+                        App.DAUtil.Save<DatatableData>(dt);
 
-                        var vList = App.DAUtil.GetAllEmployees<DatatableData>("DatatableData1");
+                        var vList = App.DAUtil.GetAll<DatatableData>("DatatableData1");
                         DependencyService.Get<IMessage>().LongAlert("List data stored in local storage");
                         ToggleBusy(false);
                     }
