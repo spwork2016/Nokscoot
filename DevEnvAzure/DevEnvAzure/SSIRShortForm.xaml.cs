@@ -352,7 +352,7 @@ namespace DevEnvAzure
                         App.DAUtil.SaveEmployee<DatatableData>(dt);
 
                         var vList = App.DAUtil.GetAllEmployees<DatatableData>("DatatableData1");
-                        DependencyService.Get<IMessage>().LongAlert("List data stored in local storage");
+                        DependencyService.Get<IMessage>().ShortAlert("List data stored in local storage");
                         await Navigation.PopToRootAsync();
                     }
                 });
