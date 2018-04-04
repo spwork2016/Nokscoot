@@ -27,7 +27,6 @@ namespace DevEnvAzure
         public static int MORTypeID;
         Jsonpropertyinitialise jsonInitObj = new Jsonpropertyinitialise();
         const string SPRootURL = "https://sptechnophiles.sharepoint.com/_api/web/lists/";
-        public int? SavedDraftID { get; set; }
         public SSIRShortForm(object viewObject, string modelname)
         {
             try
@@ -35,8 +34,9 @@ namespace DevEnvAzure
                 this.BindingContext = viewObject;
                 _classname = modelname;
                 _viewobject = viewObject;
-                FetchListItems();
                 InitializeComponent();
+
+                BindMORPicker();
             }
             catch (Exception ex)
             {
@@ -209,20 +209,20 @@ namespace DevEnvAzure
                         FlightSafetyReportModel sf = (FlightSafetyReportModel)_viewobject;
                         sf.IsExtendedView = Formcheck.IsToggled;
                         sf.ReportType = "Safety" + idval.ToString();
-                        sf = sf.Id == 0 ? App.DAUtil.Save(sf) : App.DAUtil.Update(sf);
+                        sf.MOR = Convert.ToString(MORpicker.SelectedIndex);
+                        sf = App.DAUtil.SaveOrUpdae(sf);
                         if (sf != null)
                         {
                             _viewobject = sf;
                         }
-
-
                         break;
                     case "security":
                         idval = new Random().Next(1, 1000);
                         SecurityModel sd = (SecurityModel)_viewobject;
                         sd.IsExtendedView = Formcheck.IsToggled;
                         sd.ReportType = "Security" + idval.ToString();
-                        sd = sd.Id == 0 ? App.DAUtil.Save(sd) : App.DAUtil.Update(sd);
+                        sd.MOR = Convert.ToString(MORpicker.SelectedIndex);
+                        sd = App.DAUtil.SaveOrUpdae(sd);
                         if (sd != null)
                         {
                             _viewobject = sd;
@@ -234,7 +234,8 @@ namespace DevEnvAzure
                         GroundSafetyReport gd = (GroundSafetyReport)_viewobject;
                         gd.IsExtendedView = Formcheck.IsToggled;
                         gd.ReportType = "GroundSafety" + idval.ToString();
-                        gd = gd.Id == 0 ? App.DAUtil.Save(gd) : App.DAUtil.Update(gd);
+                        gd.MOR = Convert.ToString(MORpicker.SelectedIndex);
+                        gd = App.DAUtil.SaveOrUpdae(gd);
                         if (gd != null)
                         {
                             _viewobject = gd;
@@ -246,7 +247,8 @@ namespace DevEnvAzure
                         FatigueReport ft = (FatigueReport)_viewobject;
                         ft.IsExtendedView = Formcheck.IsToggled;
                         ft.ReportType = "Fatigue" + idval.ToString();
-                        ft = ft.Id == 0 ? App.DAUtil.Save(ft) : App.DAUtil.Update(ft);
+                        ft.MOR = Convert.ToString(MORpicker.SelectedIndex);
+                        ft = App.DAUtil.SaveOrUpdae(ft);
                         if (ft != null)
                         {
                             _viewobject = ft;
@@ -258,7 +260,8 @@ namespace DevEnvAzure
                         InjuryIllnessReport injr = (InjuryIllnessReport)_viewobject;
                         injr.IsExtendedView = Formcheck.IsToggled;
                         injr.ReportType = "InjuryIllness" + idval.ToString();
-                        injr = injr.Id == 0 ? App.DAUtil.Save(injr) : App.DAUtil.Update(injr);
+                        injr.MOR = Convert.ToString(MORpicker.SelectedIndex);
+                        injr = App.DAUtil.SaveOrUpdae(injr);
                         if (injr != null)
                         {
                             _viewobject = injr;
@@ -270,7 +273,8 @@ namespace DevEnvAzure
                         CabibSafetyReport cd = (CabibSafetyReport)_viewobject;
                         cd.IsExtendedView = Formcheck.IsToggled;
                         cd.ReportType = "Cabin" + idval.ToString();
-                        cd = cd.Id == 0 ? App.DAUtil.Save(cd) : App.DAUtil.Update(cd);
+                        cd.MOR = Convert.ToString(MORpicker.SelectedIndex);
+                        cd = App.DAUtil.SaveOrUpdae(cd);
                         if (cd != null)
                         {
                             _viewobject = cd;
@@ -383,23 +387,50 @@ namespace DevEnvAzure
                 DependencyService.Get<IMessage>().ShortAlert("Upload Error" + ex.Message);
             }
         }
-        protected async void FetchListItems()
+
+        private void SetMORPickerValue()
         {
+            if (_viewobject != null)
+            {
+                System.Reflection.PropertyInfo pi = _viewobject.GetType().GetProperty("MOR");
+                if (pi != null)
+                {
+                    string selectedMOR = (string)(pi.GetValue(_viewobject, null));
+                    if (!string.IsNullOrEmpty(selectedMOR))
+                        MORpicker.SelectedIndex = Convert.ToInt32(selectedMOR);
+                }
+            }
+        }
+
+        protected async void BindMORPicker()
+        {
+            if (!CrossConnectivity.Current.IsConnected)
+            {
+                var results = App.DAUtil.GetMasterInfoByName("MORItems");
+                if (results != null)
+                {
+                    var spData = JsonConvert.DeserializeObject<SPData>(results.content, new JsonSerializerSettings { DateParseHandling = DateParseHandling.None });
+
+                    foreach (var val in spData.d.results)
+                    {
+                        MORpicker.Items.Add(val.Title);
+                    }
+
+                    SetMORPickerValue();
+                }
+
+                return;
+            }
+
             var client = GetHTTPClient();
             if (client == null) { return; }
             try
             {
-                // https://sptechnophiles.sharepoint.com/_api/web/lists/GetByTitle('MOR%20Type%20Lead%20Time')
                 var result = await client.GetStringAsync(SPRootURL + "GetByTitle('MOR%20Type%20Lead%20Time')/items");
-                var result1 = await client.GetStringAsync("https://sptechnophiles.sharepoint.com/_api/web/lists/GetByTitle('Operational_Hazard_Event_Register_04042018')/items");
-                var FlightCrew = await client.GetStringAsync("https://sptechnophiles.sharepoint.com/_api/web/lists/GetByTitle('Flight Crew Voyage Record')/items");
-                var Kaizen = await client.GetStringAsync("https://sptechnophiles.sharepoint.com/_api/web/lists/GetByTitle('Kaizen Report')/items");
-                var LineStationInfo = await client.GetStringAsync("https://sptechnophiles.sharepoint.com/_api/web/lists/GetByTitle('(Ops) Line Station Information')/items");
+
                 if (result != null)
                 {
-                    //'2f41b8fe-275e-4ba6-bbd0-52e73eb55b54'
-                    //SP.Data.MOR_x0020_Type_x0020__x0020_Lead_x0020_TimeListItem
-                    var data = result.Length;
+                    App.DAUtil.RefreshMasterInfo(new MasterInfo { content = result, Name = "MORItems" });
                     var spData = JsonConvert.DeserializeObject<SPData>(result, new JsonSerializerSettings { DateParseHandling = DateParseHandling.None });
 
                     foreach (var val in spData.d.results)
@@ -407,16 +438,7 @@ namespace DevEnvAzure
                         MORpicker.Items.Add(val.Title);
                     }
 
-                    if (_viewobject != null)
-                    {
-                        System.Reflection.PropertyInfo pi = _viewobject.GetType().GetProperty("MOR");
-                        if (pi != null)
-                        {
-                            string selectedMOR = (string)(pi.GetValue(_viewobject, null));
-                            if (!string.IsNullOrEmpty(selectedMOR))
-                                MORpicker.SelectedIndex = Convert.ToInt32(selectedMOR);
-                        }
-                    }
+                    SetMORPickerValue();
                 }
             }
             catch (Exception ex)

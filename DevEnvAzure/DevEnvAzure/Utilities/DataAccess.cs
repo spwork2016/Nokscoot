@@ -9,6 +9,7 @@ using Xamarin.Forms;
 using SQLite.Net.Interop;
 using DevEnvAzure.Models;
 using System.Net.Http;
+using Xamarin.Forms.Internals;
 
 namespace DevEnvAzure
 {
@@ -76,6 +77,36 @@ namespace DevEnvAzure
             {
                 dbConn.CreateTable<U>();
                 dbConn.Insert(reportData);
+                return reportData;
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+        }
+
+        private int GetPropertyValue<U>(U reportData, string propName) where U : class
+        {
+            System.Reflection.PropertyInfo pi = reportData.GetType().GetProperty(propName);
+            if (pi != null)
+            {
+                int value = (int)(pi.GetValue(reportData, null));
+                return value;
+            }
+            return 0;
+        }
+
+        public U SaveOrUpdae<U>(U reportData) where U : class
+        {
+            try
+            {
+                dbConn.CreateTable<U>();
+
+                int id = GetPropertyValue(reportData, "Id");
+                if (id == 0)
+                    dbConn.Insert(reportData);
+                else dbConn.Update(reportData);
+
                 return reportData;
             }
             catch (Exception ex)

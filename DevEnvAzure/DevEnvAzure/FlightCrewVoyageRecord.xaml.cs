@@ -76,7 +76,7 @@ namespace DevEnvAzure
             _flightcrew.DateOfEvent = DateTime.Now;
             if (!ValidatePeoplePickers()) return;
 
-            _flightcrew = _flightcrew.Id == 0 ? App.DAUtil.Save(_flightcrew) : App.DAUtil.Update(_flightcrew);
+            _flightcrew = App.DAUtil.SaveOrUpdae(_flightcrew);
             DependencyService.Get<IMessage>().ShortAlert("Item drafted");
         }
         private void SectorNumber_changed(object sender, EventArgs e)
@@ -109,14 +109,12 @@ namespace DevEnvAzure
             if (Rankpicker.SelectedIndex > 0)
                 RankpickerValue = Rankpicker.Items.ElementAt(Rankpicker.SelectedIndex);
         }
+
         private bool CheckConnection()
         {
             return CrossConnectivity.Current.IsConnected;
-
-            //var networkConnection = DependencyService.Get<INetworkConnection>();
-            //networkConnection.CheckNetworkConnection();
-            //return networkConnection.IsConnected;
         }
+
         private HttpClient GetHTTPClient()
         {
             var client = OAuthHelper.GetHTTPClient();
@@ -134,9 +132,8 @@ namespace DevEnvAzure
             {
                 ToggleBusy(true);
 
-                // StringContent contents = null;
                 var client = GetHTTPClient();
-                var data = reportObject;// _viewobject;
+                var data = reportObject;
 
                 var body = JsonConvert.SerializeObject(data, Formatting.None,
                         new JsonSerializerSettings

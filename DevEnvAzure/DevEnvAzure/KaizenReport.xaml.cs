@@ -40,7 +40,7 @@ namespace DevEnvAzure
         {
             _KaizenReport.ReportType = string.IsNullOrEmpty(_KaizenReport.ReportType) ? "Kaizen Report" + _KaizenReport.Id.ToString() : _KaizenReport.ReportType;
             _KaizenReport.DateOfEvent = DateTime.Now;
-            _KaizenReport = _KaizenReport.Id == 0 ? App.DAUtil.Save(_KaizenReport) : App.DAUtil.Update(_KaizenReport);
+            _KaizenReport = App.DAUtil.SaveOrUpdae(_KaizenReport);
             DependencyService.Get<IMessage>().ShortAlert("Item drafted");
         }
         private void BenefitsCategorypicker_changed(object sender, EventArgs e)
