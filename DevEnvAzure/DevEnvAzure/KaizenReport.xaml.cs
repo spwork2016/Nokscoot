@@ -21,22 +21,27 @@ namespace DevEnvAzure
         public static string BenefitsCategorypickerValue;
         Models.KaizenReportModel _KaizenReport;
         Jsonpropertyinitialise jsonInitObj = new Jsonpropertyinitialise();
-        public KaizenReport()
+        public KaizenReport(object viewObject, string modelname)
         {
-            _KaizenReport = new Models.KaizenReportModel();
-            //_KaizenReport.DateofCompletion = DateTime.Now;
-            //_KaizenReport.ImplementationDate = DateTime.Now;
+            InitializeComponent();
+            _KaizenReport = (KaizenReportModel)viewObject; //new Models.KaizenReportModel();
 
             this.BindingContext = _KaizenReport;
-            InitializeComponent();
+
+            Title = "Kaizen Report";
         }
         private void Save_clicked(object sender, XLabs.EventArgs<bool> e)
         {
+            _KaizenReport.ReportType = null;
+            _KaizenReport.DateOfEvent = null;
             CreateItems(jsonInitObj.getKaizenReportJson(_KaizenReport));
         }
         private void savedrafts_btn_Clicked(object sender, EventArgs e)
         {
-            App.DAUtil.SaveEmployee<KaizenReportModel>(_KaizenReport);
+            _KaizenReport.ReportType = string.IsNullOrEmpty(_KaizenReport.ReportType) ? "Kaizen Report" + _KaizenReport.Id.ToString() : _KaizenReport.ReportType;
+            _KaizenReport.DateOfEvent = DateTime.Now;
+            _KaizenReport = _KaizenReport.Id == 0 ? App.DAUtil.Save(_KaizenReport) : App.DAUtil.Update(_KaizenReport);
+            DependencyService.Get<IMessage>().ShortAlert("Kaizen report drafted");
         }
         private void BenefitsCategorypicker_changed(object sender, EventArgs e)
         {
@@ -82,8 +87,9 @@ namespace DevEnvAzure
 
                         if (postResult.IsSuccessStatusCode)
                         {
+                            App.DAUtil.Delete(_KaizenReport);
                             DependencyService.Get<IMessage>().LongAlert("List updated successfully");
-                            App.ResetToHome();
+                            MessagingCenter.Send(this, "home");
                         }
                         else
                         {
@@ -97,9 +103,9 @@ namespace DevEnvAzure
 
                         DatatableData dt = new DatatableData();
                         dt.Value = body;// contents.ToString();
-                        App.DAUtil.SaveEmployee<DatatableData>(dt);
+                        App.DAUtil.Save<DatatableData>(dt);
 
-                        var vList = App.DAUtil.GetAllEmployees<DatatableData>("DatatableData1");
+                        var vList = App.DAUtil.GetAll<DatatableData>("DatatableData1");
                         DependencyService.Get<IMessage>().LongAlert("List data stored in local storage");
                         ToggleBusy(false);
                         await Navigation.PushAsync(new HomePage());

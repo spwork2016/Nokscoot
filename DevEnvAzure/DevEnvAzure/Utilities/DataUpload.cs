@@ -54,7 +54,7 @@ namespace DevEnvAzure
                     if (result.IsSuccessStatusCode)
                     {
                         count++;
-                        App.DAUtil.DeleteEmployee(emp);
+                        App.DAUtil.Delete(emp);
                         App.fullDataTablecollection.Remove(emp);
                     }
                 }

@@ -30,6 +30,10 @@ namespace DevEnvAzure.Models
         //public long SecurityID
         //{ get; set; }
 
+        [PrimaryKey, AutoIncrement]
+        public int Id
+        { get; set; }
+
         public string ReportType
         { get; set; }
         public string EventTitle
@@ -69,7 +73,7 @@ namespace DevEnvAzure.Models
         { get; set; }
         public string policereport
         { get; set; }
-
+        public bool IsExtendedView { get; set; }
         //[JsonProperty(PropertyName = "Details_x0020_of_x0020_Event_x0020_/_x0020_Hazard")]
         //public string policeReport
         //{ get; set; }

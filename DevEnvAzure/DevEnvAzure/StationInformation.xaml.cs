@@ -19,19 +19,24 @@ namespace DevEnvAzure
     {
         Models.StationInformationModel _StationInformation;
         Jsonpropertyinitialise jsonInitObj = new Jsonpropertyinitialise();
-        public StationInformation()
+        public StationInformation(object viewObject, string modelname)
         {
-            _StationInformation = new Models.StationInformationModel();
+            _StationInformation = (Models.StationInformationModel)viewObject;
             this.BindingContext = _StationInformation;
             InitializeComponent();
+            Title = "Station Information";
         }
         private void Save_clicked(object sender, XLabs.EventArgs<bool> e)
         {
+            _StationInformation.ReportType = null;
+            _StationInformation.DateOfEvent = null;
             CreateItems(jsonInitObj.getStationInformationJson(_StationInformation));
         }
         private void savedrafts_btn_Clicked(object sender, EventArgs e)
         {
-            App.DAUtil.SaveEmployee<Models.StationInformationModel>(_StationInformation);
+            _StationInformation.ReportType = "Station Information" + _StationInformation.Id.ToString();
+            _StationInformation.DateOfEvent = DateTime.Now;
+            App.DAUtil.Save<Models.StationInformationModel>(_StationInformation);
         }
         private bool CheckConnection()
         {
@@ -80,7 +85,6 @@ namespace DevEnvAzure
                         if (postResult.IsSuccessStatusCode)
                         {
                             DependencyService.Get<IMessage>().LongAlert("List updated successfully");
-                            App.ResetToHome();
                         }
                         else
                         {
@@ -93,9 +97,9 @@ namespace DevEnvAzure
                     {
                         DatatableData dt = new DatatableData();
                         dt.Value = body;// contents.ToString();
-                        App.DAUtil.SaveEmployee<DatatableData>(dt);
+                        App.DAUtil.Save<DatatableData>(dt);
 
-                        var vList = App.DAUtil.GetAllEmployees<DatatableData>("DatatableData1");
+                        var vList = App.DAUtil.GetAll<DatatableData>("DatatableData1");
                         DependencyService.Get<IMessage>().LongAlert("List data stored in local storage");
                         ToggleBusy(false);
                     }

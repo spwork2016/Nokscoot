@@ -32,22 +32,17 @@ namespace DevEnvAzure
             {
                 dbConn.CreateTable<Employee>();
                 dbConn.CreateTable<MasterInfo>();
-
-                // dbConn.CreateTable<MasterInfo>();
                 dbConn.CreateTable<FlightSafetyReportModel>();
                 dbConn.CreateTable<SecurityModel>();
                 dbConn.CreateTable<CabibSafetyReport>();
                 dbConn.CreateTable<FatigueReport>();
                 dbConn.CreateTable<GroundSafetyReport>();
                 dbConn.CreateTable<InjuryIllnessReport>();
-
-                //New Tables by Sravan
                 dbConn.CreateTable<KaizenReportModel>();
                 dbConn.CreateTable<StationInformationModel>();
                 dbConn.CreateTable<FlightCrewVoyageRecordModel>();
 
                 dbConn.CreateTable<DatatableData>();
-                //dbConn.
             }
             catch (Exception ex)
             {
@@ -60,17 +55,9 @@ namespace DevEnvAzure
         {
             try
             {
-                //   var tableExistsQuery = "SELECT name FROM sqlite_master WHERE type='table' AND name='MovieId';";
-                //   var result = dbConn.ExecuteScalar<string>(tableExistsQuery);
-                // if (result.Length == 0)
-                {
-                    dbConn.CreateTable<U>();
-                    return true;
-                }
-                //   else
-                //  {
-                //      return false;
-                //  }
+                dbConn.CreateTable<U>();
+                return true;
+
             }
             catch (Exception ex)
             {
@@ -79,35 +66,40 @@ namespace DevEnvAzure
 
         }
 
-        public List<U> GetAllEmployees<U>(string classObj) where U : class
+        public List<U> GetAll<U>(string classObj) where U : class
         {
             return dbConn.Query<U>("Select * From " + classObj + "");
         }
-        public int SaveEmployee<U>(U reportData) where U : class
+        public U Save<U>(U reportData) where U : class
         {
             try
             {
                 dbConn.CreateTable<U>();
-                return dbConn.Insert(reportData);
+                dbConn.Insert(reportData);
+                return reportData;
             }
             catch (Exception ex)
             {
-                return 0;
+                return null;
             }
+        }
 
+        public U Update<U>(U reportData) where U : class
+        {
+            try
+            {
+                dbConn.Update(reportData);
+                return reportData;
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+        }
 
-        }
-        public int DeleteEmployee<U>(U aEmployee) where U : class
+        public int Delete<Y>(Y entity) where Y : class
         {
-            return dbConn.Delete(aEmployee);
-        }
-        public int DeleteEmployeeAdded(long empid)
-        {
-            return dbConn.Delete(empid);
-        }
-        public int EditEmployee(Employee aEmployee)
-        {
-            return dbConn.Update(aEmployee);
+            return dbConn.Delete(entity);
         }
 
         public MasterInfo GetMasterInfoByName(string name)

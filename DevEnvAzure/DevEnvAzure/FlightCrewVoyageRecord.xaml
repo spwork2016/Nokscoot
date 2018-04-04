@@ -2,7 +2,7 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:autocomplete="clr-namespace:Syncfusion.SfAutoComplete.XForms;assembly=Syncfusion.SfAutoComplete.XForms"
-             x:Class="DevEnvAzure.FlightCrewVoyageRecord" Title="Flight Crew Voyage Report">
+             x:Class="DevEnvAzure.FlightCrewVoyageRecord" Title="Flight Crew Voyage">
     <ContentPage.Content>
         <AbsoluteLayout HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
             <StackLayout AbsoluteLayout.LayoutFlags="All" AbsoluteLayout.LayoutBounds="0,0,1,1">
@@ -30,6 +30,7 @@
                                     <Picker x:Name="SectorNumberpicker" SelectedIndex="{Binding SectorNumber,Mode=TwoWay}" 
                                     SelectedIndexChanged="SectorNumber_changed" TextColor="#03A9F4" Grid.Row="3" Grid.ColumnSpan="2" HorizontalOptions="FillAndExpand">
                                         <Picker.Items>
+                                            <x:String></x:String>
                                             <x:String>1</x:String>
                                             <x:String>2</x:String>
                                             <x:String>3</x:String>
@@ -74,11 +75,10 @@
                                     <Picker x:Name="AircraftRegistrationpicker" SelectedIndex="{Binding AircraftRegistration,Mode=TwoWay}" SelectedIndexChanged="AircraftRegistration_changed"
                                     TextColor="#03A9F4" Grid.Row="5" Grid.ColumnSpan="2" HorizontalOptions="FillAndExpand">
                                         <Picker.Items>
+                                            <x:String></x:String>
                                             <x:String>HS-XBA</x:String>
                                             <x:String>HS-XBB</x:String>
                                             <x:String>HS-XBC</x:String>
-                                            <x:String>B-777</x:String>
-                                            <x:String>B-737</x:String>
                                         </Picker.Items>
                                     </Picker>
                                     <Label x:Name="DepartureStationLbl" Text="Departure Station" TextColor="Black" Grid.Row="6" Grid.ColumnSpan="2" FontSize="Micro" />
@@ -91,6 +91,7 @@
                                     <Picker x:Name="ManualorAutopicker" SelectedIndex="{Binding ManualorAuto,Mode=TwoWay}" SelectedIndexChanged="ManualorAuto_changed"
                                     TextColor="#03A9F4" Grid.Row="13" Grid.ColumnSpan="2" HorizontalOptions="FillAndExpand">
                                         <Picker.Items>
+                                            <x:String></x:String>
                                             <x:String>Manual</x:String>
                                             <x:String>Auto</x:String>
                                         </Picker.Items>
@@ -128,6 +129,7 @@
                                     <Picker x:Name="ReportCategoriespicker" SelectedIndex="{Binding ReportCategories,Mode=TwoWay}"
                                     SelectedIndexChanged="ReportCategories_changed" TextColor="#03A9F4" Grid.Row="3" Grid.ColumnSpan="2"  HorizontalOptions="FillAndExpand">
                                         <Picker.Items>
+                                            <x:String></x:String>
                                             <x:String>Flight Delay</x:String>
                                             <x:String>Flight Operations</x:String>
                                             <x:String>Ground Operations</x:String>
@@ -136,11 +138,12 @@
                                     <Label x:Name="ReportDetailslbl" Text="Report Details" TextColor="Black" Grid.Row="4" Grid.ColumnSpan="2" FontSize="Micro" />
                                     <Entry x:Name="ReportDetailsEntry"   Text="{Binding ReportDetails, Mode=TwoWay}"  TextColor="#03A9F4" Grid.Row="5" Grid.ColumnSpan="2"  />
                                     <Label x:Name="ReportRaisedByLbl" Text="Report Raised By" TextColor="Black" Grid.Row="6" Grid.ColumnSpan="2" FontSize="Micro" />
-                                    <autocomplete:SfAutoComplete x:Name="ReportRaisedByEntry" Text="{Binding ReportRaisedBy, Mode=TwoWay}" DisplayMemberPath="Name" 
+                                    <autocomplete:SfAutoComplete x:Name="ReportRaisedByEntry"  Text="{Binding ReportRaisedBy, Mode=TwoWay}" DisplayMemberPath="Name" 
                                                          ShowClearButton="True" TextColor="#03A9F4" Grid.Row="7" Grid.ColumnSpan="2"  />
                                     <Label x:Name="ReplyRequiredlbl" Text="Reply Required" TextColor="Black" Grid.Row="8" Grid.ColumnSpan="2" FontSize="Micro" />
                                     <Picker x:Name="ReplyRequiredpicker" SelectedIndex="{Binding ReplyRequired,Mode=TwoWay}" SelectedIndexChanged="ReplyRequired_changed" TextColor="#03A9F4" Grid.Row="9" Grid.ColumnSpan="2"  HorizontalOptions="FillAndExpand">
                                         <Picker.Items>
+                                            <x:String></x:String>
                                             <x:String>Yes</x:String>
                                             <x:String>No (for info only)</x:String>
                                         </Picker.Items>
@@ -151,6 +154,7 @@
                                     <Picker x:Name="Rankpicker" SelectedIndex="{Binding Rank,Mode=TwoWay}" SelectedIndexChanged="Rank_changed" TextColor="#03A9F4"
                                     Grid.Row="13" Grid.ColumnSpan="2"  HorizontalOptions="FillAndExpand">
                                         <Picker.Items>
+                                            <x:String></x:String>
                                             <x:String>Captain</x:String>
                                             <x:String>First Officer</x:String>
                                             <x:String>Observer</x:String>
@@ -168,8 +172,8 @@
                                     <ColumnDefinition Width="*" />
                                     <ColumnDefinition Width="*" />
                                 </Grid.ColumnDefinitions>
-                                <Button x:Name="save_btn" HorizontalOptions="CenterAndExpand" Text="Save"  WidthRequest="100" BackgroundColor="#FDCE02"  TextColor="Black" Clicked="Save_clicked" Grid.Row="0" Grid.Column="0"/>
-                                <Button x:Name="savedrafts_btn" HorizontalOptions="CenterAndExpand" Text="Save Draft" WidthRequest="130" BackgroundColor="#FDCE02" TextColor="Black" Clicked="savedrafts_btn_Clicked" Grid.Row="0" Grid.Column="1"/>
+                                <Button x:Name="save_btn" TextColor="Black" WidthRequest="100" HorizontalOptions="CenterAndExpand" Text="Submit" BackgroundColor="#FDCE02"  Clicked="Save_clicked" Grid.Row="0" Grid.Column="0"/>
+                                <Button x:Name="savedrafts_btn" TextColor="Black" WidthRequest="130" HorizontalOptions="CenterAndExpand" Text="Save Draft" BackgroundColor="#FDCE02" Clicked="savedrafts_btn_Clicked" Grid.Row="0" Grid.Column="1"/>
                             </Grid>
                         </StackLayout>
                     </StackLayout>
@@ -178,13 +182,13 @@
             <StackLayout x:Name="activityStack" IsVisible="False" Padding="20" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" 
                  AbsoluteLayout.LayoutFlags="PositionProportional"
                  AbsoluteLayout.LayoutBounds="0.5,0.5,-1,-1">
-                <Frame HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" BackgroundColor="Black" Opacity="0.5">
-                    <ActivityIndicator x:Name="activityIndicator" IsRunning="False" Color="White" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand"/>
+                <Frame  Padding="20" IsClippedToBounds="True" BackgroundColor="Black" Opacity="0.5" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
+                    <ActivityIndicator x:Name="activityIndicator" IsRunning="{Binding IsBusy}" Color="White" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand"/>
                 </Frame>
             </StackLayout>
         </AbsoluteLayout>
     </ContentPage.Content>
     <ContentPage.ToolbarItems>
-        <ToolbarItem Text="Draft" Activated="savedrafts_btn_Clicked" />
+        <ToolbarItem Name="Draft" Activated="savedrafts_btn_Clicked" />
     </ContentPage.ToolbarItems>
 </ContentPage>

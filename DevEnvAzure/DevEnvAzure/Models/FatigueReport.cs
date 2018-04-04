@@ -13,6 +13,9 @@ namespace DevEnvAzure.Models
         //public long fatigueId
         //{ get; set; }
         //[NotNull]
+        [PrimaryKey, AutoIncrement]
+        public int Id
+        { get; set; }
         public string ReportType
         { get; set; }
         public string EventTitle
@@ -75,6 +78,7 @@ namespace DevEnvAzure.Models
         { get; set; }
         public string reportAttachment
         { get; set; }
+        public bool IsExtendedView { get; set; }
 
     }
 }

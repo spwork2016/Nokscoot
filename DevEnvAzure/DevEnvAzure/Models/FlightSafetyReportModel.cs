@@ -10,10 +10,9 @@ namespace DevEnvAzure.Models
     [Table(@"SafetyReportModel")]
     public class FlightSafetyReportModel
     {
-        //[PrimaryKey, AutoIncrement, Column("SafetyID")]
-        //public long SafetyID
-        //{ get; set; }
-        //[NotNull]
+        [PrimaryKey, AutoIncrement]
+        public int Id
+        { get; set; }
         public string ReportType
         { get; set; }
         public string EventTitle
@@ -152,6 +151,8 @@ namespace DevEnvAzure.Models
         public int AircraftDamage
         { get; set; }
         public string ImpactAreaDamage
+        { get; set; }
+        public bool IsExtendedView
         { get; set; }
 
     }

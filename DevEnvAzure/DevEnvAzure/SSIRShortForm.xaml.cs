@@ -14,6 +14,8 @@ using Plugin.FilePicker.Abstractions;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 using DevEnvAzure.Utilities;
+using Xamarin.Forms.Internals;
+
 namespace DevEnvAzure
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
@@ -25,6 +27,7 @@ namespace DevEnvAzure
         public static int MORTypeID;
         Jsonpropertyinitialise jsonInitObj = new Jsonpropertyinitialise();
         const string SPRootURL = "https://sptechnophiles.sharepoint.com/_api/web/lists/";
+        public int? SavedDraftID { get; set; }
         public SSIRShortForm(object viewObject, string modelname)
         {
             try
@@ -34,9 +37,6 @@ namespace DevEnvAzure
                 _viewobject = viewObject;
                 FetchListItems();
                 InitializeComponent();
-                //  App.DAUtil.GetAllEmployees<>
-                // lblname.Text = modelname.ToUpper() + "REPORT";
-
             }
             catch (Exception ex)
             {
@@ -65,6 +65,7 @@ namespace DevEnvAzure
                         Title = char.ToUpper(_classname[0]) + _classname.Substring(1);
                         break;
                 }
+
                 base.OnAppearing();
                 Plugin.Connectivity.CrossConnectivity.Current.ConnectivityChanged += Current_ConnectivityChanged;
             }
@@ -78,16 +79,14 @@ namespace DevEnvAzure
         {
             if (e.IsConnected)
             {
-                var eValue = App.DAUtil.GetAllEmployees<DatatableData>("DatatableData1");
+                var eValue = App.DAUtil.GetAll<DatatableData>("DatatableData1");
                 if (eValue != null && eValue.Count > 0)
                 {
                     DataUpload.CreateItemsOffline(eValue);
                 }
                 DependencyService.Get<IMessage>().LongAlert("Network Connection detected");
             }
-            // var answer =  DisplayAlert("Question?", "Would you like to play a game", "Yes", "No");
         }
-        //  _classname secViewfull = null;
         ContentView _fullviewobj = null;
         private void Check_Clicked(object sender, XLabs.EventArgs<bool> e)
         {
@@ -139,163 +138,154 @@ namespace DevEnvAzure
             {
                 if (Convert.ToString(EventTitleEntry.Text).Length == 0)
                 {
-                    EventTitleEntry.BackgroundColor = Color.OrangeRed;
+                    EventTitle.TextColor = Color.OrangeRed;
                     EventTitleEntry.Focus();
                 }
                 else if (Convert.ToString(MORpicker.SelectedItem).Length == 0)
                 {
-                    MORpicker.BackgroundColor = Color.OrangeRed;
+                    MORlbl.TextColor = Color.OrangeRed;
                     MORpicker.Focus();
                 }
                 DependencyService.Get<IMessage>().ShortAlert("Please Fill All Required Fields");
             }
             else
             {
-                EventTitleEntry.BackgroundColor = Color.White;
-                MORpicker.BackgroundColor = Color.White;
+                EventTitle.TextColor = Color.Black;
+                MORlbl.TextColor = Color.Black;
                 switch (_classname)
                 {
                     case "safety":
-
-                        idval = new Random().Next(1, 1000);
                         FlightSafetyReportModel sf = (FlightSafetyReportModel)_viewobject;
-                        sf.ReportType = "Safety" + idval.ToString();
+                        sf.ReportType = "Safety" + sf.Id.ToString();
                         MORTypeID = MORpicker.SelectedIndex;
-
-
                         CreateItems(jsonInitObj.getflightSafetyJson(sf));
-                        // App.DAUtil.SaveEmployee((SafetyReportModel)_viewobject);
-                        //  App.DAUtil.SaveEmployee<SafetyReportModel>(sf);
+                        App.DAUtil.Delete(sf);
                         break;
                     case "security":
-
-                        idval = new Random().Next(1, 1000);
                         SecurityModel sd = (SecurityModel)_viewobject;
-                        sd.ReportType = "Security" + idval.ToString();
+                        sd.ReportType = "Security" + sd.Id.ToString();
                         MORTypeID = MORpicker.SelectedIndex;
                         CreateItems(jsonInitObj.getSecurity(sd));
-                        // App.DAUtil.SaveEmployee<SecurityModel>(sd);
+                        App.DAUtil.Delete(sd);
                         break;
                     case "ground":
-                        // CreateItems();
-                        idval = new Random().Next(1, 1000);
                         GroundSafetyReport gd = (GroundSafetyReport)_viewobject;
-                        gd.ReportType = "GroundSafety" + idval.ToString();
-
-
+                        gd.ReportType = "GroundSafety" + gd.Id.ToString();
                         CreateItems(jsonInitObj.getGroundSafety(gd));
-                        //   App.DAUtil.SaveEmployee<GroundSafetyReport>(gd);
+                        App.DAUtil.Delete(gd);
                         break;
                     case "fatigue":
-                        //   CreateItems();
-                        idval = new Random().Next(1, 1000);
                         FatigueReport ft = (FatigueReport)_viewobject;
-                        ft.ReportType = "Fatigue" + idval.ToString();
-
+                        ft.ReportType = "Fatigue" + ft.Id.ToString();
                         CreateItems(jsonInitObj.getFatigue(ft));
-                        // App.DAUtil.SaveEmployee<FatigueReport>(ft);
+                        App.DAUtil.Delete(ft);
                         break;
                     case "Injury":
-                        //  CreateItems();
-                        idval = new Random().Next(1, 1000);
                         InjuryIllnessReport injr = (InjuryIllnessReport)_viewobject;
-                        injr.ReportType = "InjuryIllness" + idval.ToString();
+                        injr.ReportType = "InjuryIllness" + injr.Id.ToString();
 
                         CreateItems(jsonInitObj.getInjuryJson(injr));
-                        //  App.DAUtil.SaveEmployee<InjuryIllnessReport>(injr);
+                        App.DAUtil.Delete(injr);
                         break;
                     case "cabin":
-                        //   CreateItems();
-                        idval = new Random().Next(1, 1000);
                         CabibSafetyReport cd = (CabibSafetyReport)_viewobject;
-                        cd.ReportType = "Cabin" + idval.ToString();
+                        cd.ReportType = "Cabin" + cd.Id.ToString();
                         CreateItems(jsonInitObj.getCabinSfetyJson(cd));
-                        // App.DAUtil.SaveEmployee<CabibSafetyReport>(cd);
+                        App.DAUtil.Delete(cd);
                         break;
                 }
+
+                MessagingCenter.Send<SSIRShortForm>(this, "Popout");
             }
 
         }
 
-        private async void savedrafts_btn_Clicked(object sender, EventArgs e)
+        private void savedrafts_btn_Clicked(object sender, EventArgs e)
         {
+            try
+            {
+                switch (_classname)
+                {
+                    case "safety":
+                        idval = new Random().Next(1, 1000);
+                        FlightSafetyReportModel sf = (FlightSafetyReportModel)_viewobject;
+                        sf.IsExtendedView = Formcheck.IsToggled;
+                        sf.ReportType = "Safety" + idval.ToString();
+                        sf = sf.Id == 0 ? App.DAUtil.Save(sf) : App.DAUtil.Update(sf);
+                        if (sf != null)
+                        {
+                            _viewobject = sf;
+                        }
 
-            switch (_classname)
+                        DependencyService.Get<IMessage>().ShortAlert("Safety report Drafted");
+                        break;
+                    case "security":
+                        idval = new Random().Next(1, 1000);
+                        SecurityModel sd = (SecurityModel)_viewobject;
+                        sd.IsExtendedView = Formcheck.IsToggled;
+                        sd.ReportType = "Security" + idval.ToString();
+                        sd = sd.Id == 0 ? App.DAUtil.Save(sd) : App.DAUtil.Update(sd);
+                        if (sd != null)
+                        {
+                            _viewobject = sd;
+                        }
+                        DependencyService.Get<IMessage>().ShortAlert("Security report Drafted");
+                        break;
+                    case "ground":
+                        idval = new Random().Next(1, 1000);
+                        GroundSafetyReport gd = (GroundSafetyReport)_viewobject;
+                        gd.IsExtendedView = Formcheck.IsToggled;
+                        gd.ReportType = "GroundSafety" + idval.ToString();
+                        gd = gd.Id == 0 ? App.DAUtil.Save(gd) : App.DAUtil.Update(gd);
+                        if (gd != null)
+                        {
+                            _viewobject = gd;
+                        }
+                        DependencyService.Get<IMessage>().ShortAlert("Groung Safety report Drafted");
+                        break;
+                    case "fatigue":
+                        idval = new Random().Next(1, 1000);
+                        FatigueReport ft = (FatigueReport)_viewobject;
+                        ft.IsExtendedView = Formcheck.IsToggled;
+                        ft.ReportType = "Fatigue" + idval.ToString();
+                        ft = ft.Id == 0 ? App.DAUtil.Save(ft) : App.DAUtil.Update(ft);
+                        if (ft != null)
+                        {
+                            _viewobject = ft;
+                        }
+                        DependencyService.Get<IMessage>().ShortAlert("Fatigue report Drafted");
+                        break;
+                    case "Injury":
+                        idval = new Random().Next(1, 1000);
+                        InjuryIllnessReport injr = (InjuryIllnessReport)_viewobject;
+                        injr.IsExtendedView = Formcheck.IsToggled;
+                        injr.ReportType = "InjuryIllness" + idval.ToString();
+                        injr = injr.Id == 0 ? App.DAUtil.Save(injr) : App.DAUtil.Update(injr);
+                        if (injr != null)
+                        {
+                            _viewobject = injr;
+                        }
+                        DependencyService.Get<IMessage>().ShortAlert("Injury Illness report Drafted");
+                        break;
+                    case "cabin":
+                        idval = new Random().Next(1, 1000);
+                        CabibSafetyReport cd = (CabibSafetyReport)_viewobject;
+                        cd.IsExtendedView = Formcheck.IsToggled;
+                        cd.ReportType = "Cabin" + idval.ToString();
+                        cd = cd.Id == 0 ? App.DAUtil.Save(cd) : App.DAUtil.Update(cd);
+                        if (cd != null)
+                        {
+                            _viewobject = cd;
+                        }
+                        DependencyService.Get<IMessage>().ShortAlert("Cabin report Drafted");
+                        break;
+                }
+            }
+            catch (Exception)
             {
 
-                case "safety":
-                    idval = new Random().Next(1, 1000);
-                    FlightSafetyReportModel sf = (FlightSafetyReportModel)_viewobject;
-                    sf.ReportType = "Safety" + idval.ToString();
-                    //App.safetyReport.Add(sf);
-                    App.DAUtil.SaveEmployee<FlightSafetyReportModel>(sf);
-                    // App.safetyReport.Add((SafetyReportModel)_viewobject);
-                    //  App.DAUtil.SaveEmployee((SafetyReportModel)_viewobject);
-
-                    await DisplayAlert("Safety report Drafted", "", "Ok");
-                    break;
-                case "security":
-                    idval = new Random().Next(1, 1000);
-                    SecurityModel sd = (SecurityModel)_viewobject;
-                    sd.ReportType = "Security" + idval.ToString();
-                    //   App.security.Add(sd);
-                    App.DAUtil.SaveEmployee<SecurityModel>(sd);
-                    //  _fullviewobj = new securityReportView();
-
-                    await DisplayAlert("Security report Drafted", "", "Ok");
-                    //DependencyService.Get<IMessage>().ShortAlert("Security report Drafted");
-                    break;
-                case "ground":
-                    idval = new Random().Next(1, 1000);
-                    // App.groundSafety.Add((GroundSafetyReport)_viewobject);
-                    GroundSafetyReport gd = (GroundSafetyReport)_viewobject;
-                    gd.ReportType = "GroundSafety" + idval.ToString();
-                    //  App.groundSafety.Add(gd);
-                    App.DAUtil.SaveEmployee<GroundSafetyReport>(gd);
-                    //   App.DAUtil.SaveEmployee((GroundSafetyReport)_viewobject);
-                    // _fullviewobj = new GroundSafetyReportView();
-
-                    await DisplayAlert("Groung Safety report Drafted", "", "Ok");
-                    //DependencyService.Get<IMessage>().ShortAlert("Groung Safety report Drafted");
-                    break;
-                case "fatigue":
-                    idval = new Random().Next(1, 1000);
-                    // App.fatigue.Add((FatigueReport)_viewobject);
-                    FatigueReport ft = (FatigueReport)_viewobject;
-                    ft.ReportType = "Fatigue" + idval.ToString();
-                    //  App.fatigue.Add(ft);
-                    App.DAUtil.SaveEmployee<FatigueReport>(ft);
-                    // App.DAUtil.SaveEmployee((FatigueReport)_viewobject);
-                    //  _fullviewobj = new FatigueReportView();
-                    //DependencyService.Get<IMessage>().ShortAlert("Fatigue report Drafted");
-                    await DisplayAlert("Fatigue report Drafted", "", "Ok");
-                    break;
-                case "Injury":
-                    idval = new Random().Next(1, 1000);
-                    //  App.injuryIllness.Add((InjuryIllnessReport)_viewobject);
-                    InjuryIllnessReport injr = (InjuryIllnessReport)_viewobject;
-                    injr.ReportType = "InjuryIllness" + idval.ToString();
-                    //  App.injuryIllness.Add(injr);
-                    App.DAUtil.SaveEmployee<InjuryIllnessReport>(injr);
-                    //App.DAUtil.SaveEmployee((InjuryIllnessReport)_viewobject);
-                    // _fullviewobj = new InjuryIllnessReportView();
-                    //DependencyService.Get<IMessage>().ShortAlert("Injury Illness report Drafted");
-                    await DisplayAlert("Injury Illness report Drafted", "", "Ok");
-
-                    break;
-                case "cabin":
-                    idval = new Random().Next(1, 1000);
-                    CabibSafetyReport cd = (CabibSafetyReport)_viewobject;
-                    cd.ReportType = "Cabin" + idval.ToString();
-                    //   App.cabinSafety.Add(cd);
-                    App.DAUtil.SaveEmployee<CabibSafetyReport>(cd);
-                    //  App.cabinSafety.Add((CabibSafetyReport)_viewobject);
-                    //  App.DAUtil.SaveEmployee(cd);
-                    // _fullviewobj = new CabinSafetyReportView();
-                    await DisplayAlert("Cabin report Drafted", "", "Ok");
-                    //DependencyService.Get<IMessage>().ShortAlert("Cabin report Drafted");
-                    break;
             }
+
         }
 
         private async void MORattach_clicked(object sender, EventArgs e)
@@ -304,7 +294,6 @@ namespace DevEnvAzure
             {
                 FileData fileData = new FileData();
                 fileData = await CrossFilePicker.Current.PickFile();
-                //  var x = fileData.DataArray;
                 if (fileData != null)
                 {
                     var y = fileData.FileName;
@@ -321,16 +310,11 @@ namespace DevEnvAzure
             catch (Exception ex)
             {
                 DependencyService.Get<IMessage>().ShortAlert("Upload Error");
-                //ExceptionHandler.ShowException(ex.Message);
             }
         }
         private bool CheckConnection()
         {
             return CrossConnectivity.Current.IsConnected;
-
-            //var networkConnection = DependencyService.Get<INetworkConnection>();
-            //networkConnection.CheckNetworkConnection();
-            //return networkConnection.IsConnected;
         }
         private HttpClient GetHTTPClient()
         {
@@ -351,10 +335,8 @@ namespace DevEnvAzure
 
                 Device.BeginInvokeOnMainThread(async () =>
                 {
-
-                    // StringContent contents = null;
                     var client = GetHTTPClient();
-                    var data = reportObject;// _viewobject;
+                    var data = reportObject;
 
                     var body = JsonConvert.SerializeObject(data, Formatting.None,
                             new JsonSerializerSettings
@@ -369,8 +351,8 @@ namespace DevEnvAzure
 
                         if (postResult.IsSuccessStatusCode)
                         {
-                            DependencyService.Get<IMessage>().LongAlert("List updated successfully");
-                            await this.Navigation.PopToRootAsync();
+                            DependencyService.Get<IMessage>().ShortAlert("Success");
+                            MessagingCenter.Send(this, "home");
                         }
                         else
                         {
@@ -383,12 +365,12 @@ namespace DevEnvAzure
                     {
                         ToggleBusy(false);
                         DatatableData dt = new DatatableData();
-                        dt.Value = body;// contents.ToString();
-                        App.DAUtil.SaveEmployee<DatatableData>(dt);
+                        dt.Value = body;
+                        App.DAUtil.Save<DatatableData>(dt);
 
-                        var vList = App.DAUtil.GetAllEmployees<DatatableData>("DatatableData1");
-                        DependencyService.Get<IMessage>().LongAlert("List data stored in local storage");
-                        await Navigation.PopToRootAsync();
+                        var vList = App.DAUtil.GetAll<DatatableData>("DatatableData1");
+                        DependencyService.Get<IMessage>().ShortAlert("List data stored in local storage");
+                        MessagingCenter.Send(this, "home");
                     }
                 });
             }
@@ -424,6 +406,17 @@ namespace DevEnvAzure
                     {
                         MORpicker.Items.Add(val.Title);
                     }
+
+                    if (_viewobject != null)
+                    {
+                        System.Reflection.PropertyInfo pi = _viewobject.GetType().GetProperty("MOR");
+                        if (pi != null)
+                        {
+                            string selectedMOR = (string)(pi.GetValue(_viewobject, null));
+                            if (!string.IsNullOrEmpty(selectedMOR))
+                                MORpicker.SelectedIndex = Convert.ToInt32(selectedMOR);
+                        }
+                    }
                 }
             }
             catch (Exception ex)
@@ -442,58 +435,37 @@ namespace DevEnvAzure
                     idval = new Random().Next(1, 1000);
                     FlightSafetyReportModel sf = (FlightSafetyReportModel)_viewobject;
                     sf.ReportType = "Safety" + idval.ToString();
-                    //App.safetyReport.Add(sf);
-                    App.DAUtil.SaveEmployee<FlightSafetyReportModel>(sf);
-                    // App.safetyReport.Add((SafetyReportModel)_viewobject);
-                    //  App.DAUtil.SaveEmployee((SafetyReportModel)_viewobject);
+                    App.DAUtil.Save<FlightSafetyReportModel>(sf);
                     break;
                 case "security":
                     idval = new Random().Next(1, 1000);
                     SecurityModel sd = (SecurityModel)_viewobject;
                     sd.ReportType = "Security" + idval.ToString();
-                    //   App.security.Add(sd);
-                    App.DAUtil.SaveEmployee<SecurityModel>(sd);
-                    //  _fullviewobj = new securityReportView();
+                    App.DAUtil.Save<SecurityModel>(sd);
                     break;
                 case "ground":
                     idval = new Random().Next(1, 1000);
-                    // App.groundSafety.Add((GroundSafetyReport)_viewobject);
                     GroundSafetyReport gd = (GroundSafetyReport)_viewobject;
                     gd.ReportType = "GroundSafety" + idval.ToString();
-                    //  App.groundSafety.Add(gd);
-                    App.DAUtil.SaveEmployee<GroundSafetyReport>(gd);
-                    //   App.DAUtil.SaveEmployee((GroundSafetyReport)_viewobject);
-                    // _fullviewobj = new GroundSafetyReportView();
+                    App.DAUtil.Save<GroundSafetyReport>(gd);
                     break;
                 case "fatigue":
                     idval = new Random().Next(1, 1000);
-                    // App.fatigue.Add((FatigueReport)_viewobject);
                     FatigueReport ft = (FatigueReport)_viewobject;
                     ft.ReportType = "Fatigue" + idval.ToString();
-                    //  App.fatigue.Add(ft);
-                    App.DAUtil.SaveEmployee<FatigueReport>(ft);
-                    // App.DAUtil.SaveEmployee((FatigueReport)_viewobject);
-                    //  _fullviewobj = new FatigueReportView();
+                    App.DAUtil.Save<FatigueReport>(ft);
                     break;
                 case "Injury":
                     idval = new Random().Next(1, 1000);
-                    //  App.injuryIllness.Add((InjuryIllnessReport)_viewobject);
                     InjuryIllnessReport injr = (InjuryIllnessReport)_viewobject;
                     injr.ReportType = "InjuryIllness" + idval.ToString();
-                    //  App.injuryIllness.Add(injr);
-                    App.DAUtil.SaveEmployee<InjuryIllnessReport>(injr);
-                    //App.DAUtil.SaveEmployee((InjuryIllnessReport)_viewobject);
-                    // _fullviewobj = new InjuryIllnessReportView();
+                    App.DAUtil.Save<InjuryIllnessReport>(injr);
                     break;
                 case "cabin":
                     idval = new Random().Next(1, 1000);
                     CabibSafetyReport cd = (CabibSafetyReport)_viewobject;
                     cd.ReportType = "Cabin" + idval.ToString();
-                    //   App.cabinSafety.Add(cd);
-                    App.DAUtil.SaveEmployee<CabibSafetyReport>(cd);
-                    //  App.cabinSafety.Add((CabibSafetyReport)_viewobject);
-                    //  App.DAUtil.SaveEmployee(cd);
-                    // _fullviewobj = new CabinSafetyReportView();
+                    App.DAUtil.Save<CabibSafetyReport>(cd);
                     break;
             }
 

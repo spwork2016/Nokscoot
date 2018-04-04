@@ -38,7 +38,7 @@ namespace DevEnvAzure.Droid
         {
             try
             {
-                var sqliteFilename = "SQLiteEx1.db3";
+                var sqliteFilename = "NokScoot.db3";
                 string documentsPath = Environment.GetFolderPath(Environment.SpecialFolder.Personal); // Documents folder
                 var path = Path.Combine(documentsPath, sqliteFilename);
                 if (!File.Exists(path))

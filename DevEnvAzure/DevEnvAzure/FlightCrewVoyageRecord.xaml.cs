@@ -26,14 +26,21 @@ namespace DevEnvAzure
         public static string RankpickerValue;
         Models.FlightCrewVoyageRecordModel _flightcrew;
         Jsonpropertyinitialise jsonInitObj = new Jsonpropertyinitialise();
-        public FlightCrewVoyageRecord()
+        public FlightCrewVoyageRecord(object viewObject, string modelname)
         {
-            _flightcrew = new Models.FlightCrewVoyageRecordModel();
-            _flightcrew.ScheduledDeparture = DateTime.Now;
-            this.BindingContext = _flightcrew;
-            IsBusy = false;
-            InitializeComponent();
-            ReportRaisedByEntry.DataSource = App.peoplePickerDataSource;
+            try
+            {
+                InitializeComponent();
+                _flightcrew = (FlightCrewVoyageRecordModel)viewObject;
+                _flightcrew.ScheduledDeparture = DateTime.Now;
+                this.BindingContext = _flightcrew;
+
+                ReportRaisedByEntry.DataSource = App.peoplePickerDataSource;
+            }
+            catch (Exception ex)
+            {
+
+            }
         }
 
         private bool ValidatePeoplePickers()
@@ -54,6 +61,8 @@ namespace DevEnvAzure
 
         private void Save_clicked(object sender, XLabs.EventArgs<bool> e)
         {
+            _flightcrew.ReportType = null;
+            _flightcrew.DateOfEvent = null;
             if (!ValidatePeoplePickers()) return;
 
             ReportRaisedByEntry.SelectedItem = null;
@@ -63,9 +72,12 @@ namespace DevEnvAzure
         }
         private void savedrafts_btn_Clicked(object sender, EventArgs e)
         {
+            _flightcrew.ReportType = string.IsNullOrEmpty(_flightcrew.ReportType) ? "Flight Crew" + _flightcrew.Id.ToString() : _flightcrew.ReportType;
+            _flightcrew.DateOfEvent = DateTime.Now;
             if (!ValidatePeoplePickers()) return;
 
-            App.DAUtil.SaveEmployee<Models.FlightCrewVoyageRecordModel>(_flightcrew);
+            _flightcrew = _flightcrew.Id == 0 ? App.DAUtil.Save(_flightcrew) : App.DAUtil.Update(_flightcrew);
+            DependencyService.Get<IMessage>().ShortAlert("Flight Crew report drafted");
         }
         private void SectorNumber_changed(object sender, EventArgs e)
         {
@@ -140,13 +152,12 @@ namespace DevEnvAzure
                     {
 
                         var postResult = await client.PostAsync("https://sptechnophiles.sharepoint.com/_api/web/lists/GetByTitle('Flight Crew Voyage Record')/items", contents);
-                        //var result = postResult.EnsureSuccessStatusCode();
-
                         if (postResult.IsSuccessStatusCode)
                         {
+                            App.DAUtil.Delete(_flightcrew);
                             DependencyService.Get<IMessage>().LongAlert("List updated successfully");
                             ToggleBusy(false);
-                            await Navigation.PopToRootAsync();
+                            MessagingCenter.Send(this, "home");
                         }
                         else
                         {
@@ -160,9 +171,9 @@ namespace DevEnvAzure
 
                     DatatableData dt = new DatatableData();
                     dt.Value = body;// contents.ToString();
-                    App.DAUtil.SaveEmployee<DatatableData>(dt);
+                    App.DAUtil.Save<DatatableData>(dt);
 
-                    var vList = App.DAUtil.GetAllEmployees<DatatableData>("DatatableData1");
+                    var vList = App.DAUtil.GetAll<DatatableData>("DatatableData1");
                     DependencyService.Get<IMessage>().LongAlert("List data stored in local storage");
                 }
             }

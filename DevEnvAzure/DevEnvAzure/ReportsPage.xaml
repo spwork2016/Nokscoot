@@ -17,12 +17,12 @@
                            TextColor="Black" FontAttributes="Bold"/>
                             <BoxView Color="#FDCE02" Grid.Row="1" HorizontalOptions="FillAndExpand" HeightRequest="1"/>
                             <StackLayout Grid.Row="2" Padding="20">
-                                <Button Text="Safety Report" TextColor="Black" FontSize="Medium" Clicked="Button_Clicked" BackgroundColor="#FDCE02" />
-                                <Button Text="Security Report" TextColor="Black"  FontSize="Medium" Clicked="Security_Clicked" BackgroundColor="#FDCE02" />
+                                <Button Text="Flight Safety Report" TextColor="Black" FontSize="Medium" Clicked="Button_Clicked" BackgroundColor="#FDCE02" />
                                 <Button Text="Cabin Safety Report" TextColor="Black" FontSize="Medium" Clicked="CabinSafety_Clicked" BackgroundColor="#FDCE02" />
-                                <Button Text="Fatigue Report" TextColor="Black" FontSize="Medium" Clicked="Fatigue_Clicked" BackgroundColor="#FDCE02" />
                                 <Button Text="Ground Safety Report" TextColor="Black" FontSize="Medium" Clicked="GroundSafety_Clicked" BackgroundColor="#FDCE02" />
-                                <Button Text="Injury Illness Report" TextColor="Black" FontSize="Medium" Clicked="InjuryIllness_Clicked" BackgroundColor="#FDCE02" />
+                                <Button Text="Security Report" TextColor="Black"  FontSize="Medium" Clicked="Security_Clicked" BackgroundColor="#FDCE02" />
+                                <Button Text="Injury/Illness Report" TextColor="Black" FontSize="Medium" Clicked="InjuryIllness_Clicked" BackgroundColor="#FDCE02" />
+                                <Button Text="Fatigue Report" TextColor="Black" FontSize="Medium" Clicked="Fatigue_Clicked" BackgroundColor="#FDCE02" />
                             </StackLayout>
                         </Grid>
                     </StackLayout>

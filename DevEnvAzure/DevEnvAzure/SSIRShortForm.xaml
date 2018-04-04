@@ -47,7 +47,7 @@
 
                                         <Label x:Name="eventDetail" TextColor="Black" Grid.Row="0" Grid.Column="0" FontSize="Medium" VerticalTextAlignment="End" Text="Event Details" />
                                         <Label x:Name="lblname" FontSize="Medium" TextColor="Gray" VerticalTextAlignment="End" HorizontalOptions="EndAndExpand" Grid.Row="0" Grid.Column="1" Text="Extended form" />
-                                        <Switch x:Name="Formcheck" HorizontalOptions="EndAndExpand" Grid.Row="0" Grid.Column="2" Toggled="Check_Clicked" />
+                                        <Switch x:Name="Formcheck" IsToggled="{Binding IsExtendedView, Mode=TwoWay}" HorizontalOptions="EndAndExpand" Grid.Row="0" Grid.Column="2" Toggled="Check_Clicked" />
                                     </Grid>
 
                                     <BoxView Color="#FDCE02" HorizontalOptions="FillAndExpand" Grid.Row="1" HeightRequest="1"/>
@@ -63,7 +63,7 @@
                                     <Picker x:Name="FlightPhasepicker" SelectedIndexChanged="aircraftRegis_Changed" SelectedIndex="{Binding AircraftRegis,Mode=TwoWay}"
                                     TextColor="#03A9F4" Grid.Row="9" HorizontalOptions="FillAndExpand">
                                         <Picker.Items>
-                                            <x:String>Select</x:String>
+                                            <x:String></x:String>
                                             <x:String>HS-XBA</x:String>
                                             <x:String>HS-XBB</x:String>
                                             <x:String>HS-XBC</x:String>

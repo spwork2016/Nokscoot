@@ -79,6 +79,44 @@ namespace DevEnvAzure
         private void OnMenuItemSelected(object sender, SelectedItemChangedEventArgs e)
         {
             var item = (MasterPageItem)e.SelectedItem;
+            MessagingCenter.Subscribe<KaizenReport>(this, "home", (arg) =>
+            {
+                IsPresented = false;
+                try
+                {
+                    Detail = new NavigationPage((new MainPage()));
+                }
+                catch (Exception ex)
+                {
+
+                }
+            });
+
+            MessagingCenter.Subscribe<FlightCrewVoyageRecord>(this, "home", (arg) =>
+            {
+                IsPresented = false;
+                try
+                {
+                    Detail = new NavigationPage((new MainPage()));
+                }
+                catch (Exception ex)
+                {
+
+                }
+            });
+
+            MessagingCenter.Subscribe<SSIRShortForm>(this, "Popout", (sender5) =>
+            {
+                IsPresented = false;
+                try
+                {
+                    Detail = new NavigationPage((new MainPage()));
+                }
+                catch (Exception ex)
+                {
+
+                }
+            });
 
             if (item.Title == "Logout")
             {
@@ -96,8 +134,14 @@ namespace DevEnvAzure
                 Navigation.PushModalAsync(new Login());
                 return;
             }
+            if (item.Title == "Station Information")
+            {
 
-            if (item.TargetType != null)
+                IsPresented = false;
+                Detail = new NavigationPage((Page)Activator.CreateInstance(item.TargetType, new StationInformationModel(), "StationInfo"));
+            }
+
+            else if (item.TargetType != null)
             {
                 IsPresented = false;
                 Detail = new NavigationPage((Page)Activator.CreateInstance(item.TargetType));

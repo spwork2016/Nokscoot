@@ -356,13 +356,7 @@
     <BundleResource Include="Resources\logout.png" />
   </ItemGroup>
   <ItemGroup>
-    <BundleResource Include="Resources\EMP_info.png" />
-  </ItemGroup>
-  <ItemGroup>
     <BundleResource Include="Resources\icon.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <BundleResource Include="Resources\LoginIco.png" />
   </ItemGroup>
   <ItemGroup>
     <BundleResource Include="Resources\Nokscoot.png" />
@@ -869,7 +863,10 @@
     <BundleResource Include="Resources\stationinfo.png" />
   </ItemGroup>
   <ItemGroup>
-    <BundleResource Include="Resources\edit.png" />
+    <BundleResource Include="Resources\mobilehome_top.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\mobilehome_bottom.png" />
   </ItemGroup>
   <ItemGroup>
     <BundleResource Include="Resources\mobilehome_top.png" />

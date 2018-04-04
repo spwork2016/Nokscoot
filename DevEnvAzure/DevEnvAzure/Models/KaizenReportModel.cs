@@ -10,6 +10,14 @@ namespace DevEnvAzure.Models
     [Table(@"KaizenReportModel")]
     public class KaizenReportModel
     {
+        [PrimaryKey, AutoIncrement]
+        public int Id
+        { get; set; }
+        public string ReportType
+        { get; set; }
+        public DateTime? DateOfEvent
+        { get; set; }
+
         public string AreaLocation
         { get; set; }
         public string Before
@@ -20,5 +28,6 @@ namespace DevEnvAzure.Models
         { get; set; }
         public string Subject
         { get; set; }
+
     }
 }

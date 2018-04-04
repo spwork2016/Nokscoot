@@ -33,10 +33,12 @@ namespace DevEnvAzure
         public static ObservableCollection<InjuryIllnessReport> injuryIllness = new ObservableCollection<InjuryIllnessReport>();
         public static ObservableCollection<SecurityModel> security = new ObservableCollection<SecurityModel>();
         public static ObservableCollection<FlightSafetyReportModel> safetyReport = new ObservableCollection<FlightSafetyReportModel>();
+
         public static ObservableCollection<KaizenReportModel> kaizen = new ObservableCollection<KaizenReportModel>();
         public static ObservableCollection<FlightCrewVoyageRecordModel> fcVoyage = new ObservableCollection<FlightCrewVoyageRecordModel>();
         public static ObservableCollection<StationInformationModel> statInfo = new ObservableCollection<StationInformationModel>();
 
+        public static string EVENT_LAUNCH_MAIN_PAGE = "EVENT_LAUNCH_MAIN_PAGE";
         public App()
         {
             InitializeComponent();
@@ -44,6 +46,23 @@ namespace DevEnvAzure
             if (App.AuthenticationResponse == null)
                 MainPage = new Login();
             else MainPage = new DevEnvAzure.StartPage();
+
+            MessagingCenter.Subscribe<object>(this, EVENT_LAUNCH_MAIN_PAGE, SetMainPageAsRootPage);
+        }
+
+        public void SetMainPageAsRootPage(object sender)
+        {
+            MainPage = new DevEnvAzure.StartPage();
+        }
+
+        public static PeoplePicker validatePeoplePicker(string name)
+        {
+            var found = peoplePickerDataSource.Find((x) =>
+            {
+                return x.Name.ToLower() == name.ToLower();
+            });
+
+            return found;
         }
 
         public static void ResetToHome()
@@ -74,6 +93,7 @@ namespace DevEnvAzure
         }
         protected override void OnStart()
         {
+
             // Handle when your app starts
         }
 
@@ -84,6 +104,7 @@ namespace DevEnvAzure
 
         protected override void OnResume()
         {
+
             // Handle when your app resumes
         }
     }

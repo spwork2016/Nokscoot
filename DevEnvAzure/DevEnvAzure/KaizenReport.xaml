@@ -48,6 +48,7 @@
                                 <Picker x:Name="BenefitsCategorypicker" SelectedIndex="{Binding BenefitsCategory,Mode=TwoWay}" SelectedIndexChanged="BenefitsCategorypicker_changed"
                                 TextColor="#03A9F4" Grid.Row="7" Grid.ColumnSpan="2" HorizontalOptions="FillAndExpand">
                                     <Picker.Items>
+                                        <x:String></x:String>
                                         <x:String>Cost</x:String>
                                         <x:String>Customer responsiveness</x:String>
                                         <x:String>Delivery</x:String>

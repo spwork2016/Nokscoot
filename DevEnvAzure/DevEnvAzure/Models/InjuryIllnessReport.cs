@@ -13,6 +13,9 @@ namespace DevEnvAzure.Models
         //public long injuryIllId
         //{ get; set; }
         //[NotNull]
+        [PrimaryKey, AutoIncrement]
+        public int Id
+        { get; set; }
         public string ReportType
         { get; set; }
         public string EventTitle
@@ -71,6 +74,6 @@ namespace DevEnvAzure.Models
         { get; set; }
         public int occurTypeIndex
         { get; set; }
-
+        public bool IsExtendedView { get; set; }
     }
 }
