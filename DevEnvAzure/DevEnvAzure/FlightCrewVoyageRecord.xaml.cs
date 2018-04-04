@@ -77,7 +77,7 @@ namespace DevEnvAzure
             if (!ValidatePeoplePickers()) return;
 
             _flightcrew = _flightcrew.Id == 0 ? App.DAUtil.Save(_flightcrew) : App.DAUtil.Update(_flightcrew);
-            DependencyService.Get<IMessage>().ShortAlert("Flight Crew report drafted");
+            DependencyService.Get<IMessage>().ShortAlert("Item drafted");
         }
         private void SectorNumber_changed(object sender, EventArgs e)
         {
@@ -155,8 +155,8 @@ namespace DevEnvAzure
                         if (postResult.IsSuccessStatusCode)
                         {
                             App.DAUtil.Delete(_flightcrew);
-                            DependencyService.Get<IMessage>().LongAlert("List updated successfully");
-                            ToggleBusy(false);
+
+                            await DisplayAlert("Success", "Item created successfully", "Ok");
                             MessagingCenter.Send(this, "home");
                         }
                         else
@@ -164,6 +164,7 @@ namespace DevEnvAzure
                             var ex = await postResult.Content.ReadAsStringAsync();
                             await DisplayAlert("Error", ex, "Ok");
                         }
+                        ToggleBusy(false);
                     });
                 }
                 else
@@ -174,7 +175,7 @@ namespace DevEnvAzure
                     App.DAUtil.Save<DatatableData>(dt);
 
                     var vList = App.DAUtil.GetAll<DatatableData>("DatatableData1");
-                    DependencyService.Get<IMessage>().LongAlert("List data stored in local storage");
+                    DependencyService.Get<IMessage>().LongAlert("Item stored in local storage");
                 }
             }
             catch (HttpRequestException ex)

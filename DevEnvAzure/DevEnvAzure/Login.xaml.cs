@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using Plugin.Connectivity;
 using System;
 using System.ComponentModel;
 using System.Threading.Tasks;
@@ -22,7 +23,7 @@ namespace DevEnvAzure
             BindingContext = this;
 
             var userCredentials = App.DAUtil.GetMasterInfoByName("UserCredentials");
-            if (userCredentials != null)
+            if (CrossConnectivity.Current.IsConnected && userCredentials != null)
             {
                 var cred = JsonConvert.DeserializeObject<dynamic>(userCredentials.content);
                 string uName = cred.Username;
@@ -58,7 +59,7 @@ namespace DevEnvAzure
                         {
                             if (App.AuthenticationResponse != null)
                             {
-                                await this.Navigation.PushModalAsync(new StartPage());
+                                IsBusy = false;
                                 MessagingCenter.Send<object>(this, App.EVENT_LAUNCH_MAIN_PAGE);
                             }
                             else

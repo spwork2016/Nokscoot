@@ -256,7 +256,7 @@ namespace DevEnvAzure
                         };
                         App.employees.Add(vEmployee);
                         App.DAUtil.Save(vEmployee);
-                        DependencyService.Get<IMessage>().LongAlert("List data stored in local storage");
+                        DependencyService.Get<IMessage>().LongAlert("Item stored in local storage");
                     }
                 }
                 else
@@ -275,7 +275,7 @@ namespace DevEnvAzure
                     App.employees.Add(vEmployee);
                     App.DAUtil.Save(vEmployee);
                     var vList = App.DAUtil.GetAll<Employee>("Employee");
-                    DependencyService.Get<IMessage>().LongAlert("List data stored in local storage");
+                    DependencyService.Get<IMessage>().LongAlert("Item stored in local storage");
                 }
 
                 await Navigation.PushAsync(new DraftsPage());

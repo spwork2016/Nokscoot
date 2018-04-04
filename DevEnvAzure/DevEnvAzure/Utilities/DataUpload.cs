@@ -65,7 +65,7 @@ namespace DevEnvAzure
                 }
                 else
                 {
-                    DependencyService.Get<IMessage>().LongAlert("List data stored in local storage");
+                    DependencyService.Get<IMessage>().LongAlert("Item stored in local storage");
                 }
 
             }

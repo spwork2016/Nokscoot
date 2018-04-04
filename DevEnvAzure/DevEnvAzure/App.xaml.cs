@@ -2,6 +2,7 @@
 using DevEnvAzure.Models;
 using Microsoft.IdentityModel.Clients.ActiveDirectory;
 using Newtonsoft.Json;
+using Plugin.Connectivity;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -43,9 +44,22 @@ namespace DevEnvAzure
         {
             InitializeComponent();
 
-            if (App.AuthenticationResponse == null)
+            if (CrossConnectivity.Current.IsConnected && App.AuthenticationResponse != null)
+            {
+                //Making sure we always refresh the token if conneted
                 MainPage = new Login();
-            else MainPage = new DevEnvAzure.StartPage();
+            }
+            else if (!CrossConnectivity.Current.IsConnected)
+            {
+                var authResponse = App.DAUtil.GetMasterInfoByName("Authentication");
+                if (authResponse != null)
+                {
+                    App.AuthenticationResponse = JsonConvert.DeserializeObject<AuthenticationResponse>(authResponse.content);
+                    MainPage = new DevEnvAzure.StartPage();
+                }
+            }
+            else if (App.AuthenticationResponse == null)
+                MainPage = new Login();
 
             MessagingCenter.Subscribe<object>(this, EVENT_LAUNCH_MAIN_PAGE, SetMainPageAsRootPage);
         }
@@ -53,21 +67,6 @@ namespace DevEnvAzure
         public void SetMainPageAsRootPage(object sender)
         {
             MainPage = new DevEnvAzure.StartPage();
-        }
-
-        public static PeoplePicker validatePeoplePicker(string name)
-        {
-            var found = peoplePickerDataSource.Find((x) =>
-            {
-                return x.Name.ToLower() == name.ToLower();
-            });
-
-            return found;
-        }
-
-        public static void ResetToHome()
-        {
-            App.Current.MainPage = new DevEnvAzure.StartPage();
         }
 
         public static PeoplePicker validatePeoplePicker(string name)
@@ -93,7 +92,6 @@ namespace DevEnvAzure
         }
         protected override void OnStart()
         {
-
             // Handle when your app starts
         }
 
@@ -104,7 +102,6 @@ namespace DevEnvAzure
 
         protected override void OnResume()
         {
-
             // Handle when your app resumes
         }
     }

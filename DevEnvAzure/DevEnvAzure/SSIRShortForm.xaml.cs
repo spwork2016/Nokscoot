@@ -146,7 +146,7 @@ namespace DevEnvAzure
                     MORlbl.TextColor = Color.OrangeRed;
                     MORpicker.Focus();
                 }
-                DependencyService.Get<IMessage>().ShortAlert("Please Fill All Required Fields");
+                DependencyService.Get<IMessage>().ShortAlert("Please fill all required fields");
             }
             else
             {
@@ -194,8 +194,6 @@ namespace DevEnvAzure
                         App.DAUtil.Delete(cd);
                         break;
                 }
-
-                MessagingCenter.Send<SSIRShortForm>(this, "Popout");
             }
 
         }
@@ -217,7 +215,7 @@ namespace DevEnvAzure
                             _viewobject = sf;
                         }
 
-                        DependencyService.Get<IMessage>().ShortAlert("Safety report Drafted");
+
                         break;
                     case "security":
                         idval = new Random().Next(1, 1000);
@@ -229,7 +227,7 @@ namespace DevEnvAzure
                         {
                             _viewobject = sd;
                         }
-                        DependencyService.Get<IMessage>().ShortAlert("Security report Drafted");
+
                         break;
                     case "ground":
                         idval = new Random().Next(1, 1000);
@@ -241,7 +239,7 @@ namespace DevEnvAzure
                         {
                             _viewobject = gd;
                         }
-                        DependencyService.Get<IMessage>().ShortAlert("Groung Safety report Drafted");
+
                         break;
                     case "fatigue":
                         idval = new Random().Next(1, 1000);
@@ -253,7 +251,7 @@ namespace DevEnvAzure
                         {
                             _viewobject = ft;
                         }
-                        DependencyService.Get<IMessage>().ShortAlert("Fatigue report Drafted");
+
                         break;
                     case "Injury":
                         idval = new Random().Next(1, 1000);
@@ -265,7 +263,7 @@ namespace DevEnvAzure
                         {
                             _viewobject = injr;
                         }
-                        DependencyService.Get<IMessage>().ShortAlert("Injury Illness report Drafted");
+
                         break;
                     case "cabin":
                         idval = new Random().Next(1, 1000);
@@ -277,9 +275,11 @@ namespace DevEnvAzure
                         {
                             _viewobject = cd;
                         }
-                        DependencyService.Get<IMessage>().ShortAlert("Cabin report Drafted");
+
                         break;
                 }
+
+                DependencyService.Get<IMessage>().ShortAlert("Item drafted");
             }
             catch (Exception)
             {
@@ -351,8 +351,8 @@ namespace DevEnvAzure
 
                         if (postResult.IsSuccessStatusCode)
                         {
-                            DependencyService.Get<IMessage>().ShortAlert("Success");
-                            MessagingCenter.Send(this, "home");
+                            await DisplayAlert("Success", "Item created successfully", "Ok");
+                            MessagingCenter.Send<SSIRShortForm>(this, "home");
                         }
                         else
                         {
@@ -369,7 +369,7 @@ namespace DevEnvAzure
                         App.DAUtil.Save<DatatableData>(dt);
 
                         var vList = App.DAUtil.GetAll<DatatableData>("DatatableData1");
-                        DependencyService.Get<IMessage>().ShortAlert("List data stored in local storage");
+                        await DisplayAlert("", "Item stored in local storage", "Ok");
                         MessagingCenter.Send(this, "home");
                     }
                 });
@@ -422,7 +422,7 @@ namespace DevEnvAzure
             catch (Exception ex)
             {
                 var msg = "Unable to fetch list items. " + ex.Message;
-
+                await DisplayAlert("Error", msg, "Ok");
             }
         }
 

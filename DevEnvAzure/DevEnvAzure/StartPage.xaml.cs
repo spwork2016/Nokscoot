@@ -59,8 +59,6 @@ namespace DevEnvAzure
 
             // Initial navigation, this can be used for our home page
             Detail = new NavigationPage((Page)Activator.CreateInstance(App.AuthenticationResponse != null ? typeof(MainPage) : typeof(Login)));
-
-
         }
 
         protected override async void OnAppearing()
@@ -76,10 +74,35 @@ namespace DevEnvAzure
                 profilePic.Source = ImageSource.FromStream(() => new MemoryStream(App.CurrentUser?.PictureBytes));
         }
 
-        private void OnMenuItemSelected(object sender, SelectedItemChangedEventArgs e)
+        private void NavigationSubscribers()
         {
-            var item = (MasterPageItem)e.SelectedItem;
+            MessagingCenter.Subscribe<StationInformation>(this, "home", (arg) =>
+            {
+                IsPresented = false;
+                try
+                {
+                    Detail = new NavigationPage((new MainPage()));
+                }
+                catch (Exception ex)
+                {
+
+                }
+            });
+
             MessagingCenter.Subscribe<KaizenReport>(this, "home", (arg) =>
+            {
+                IsPresented = false;
+                try
+                {
+                    Detail = new NavigationPage((new MainPage()));
+                }
+                catch (Exception ex)
+                {
+
+                }
+            });
+
+            MessagingCenter.Subscribe<SSIRShortForm>(this, "home", (arg) =>
             {
                 IsPresented = false;
                 try
@@ -104,28 +127,23 @@ namespace DevEnvAzure
 
                 }
             });
+        }
 
-            MessagingCenter.Subscribe<SSIRShortForm>(this, "Popout", (sender5) =>
-            {
-                IsPresented = false;
-                try
-                {
-                    Detail = new NavigationPage((new MainPage()));
-                }
-                catch (Exception ex)
-                {
-
-                }
-            });
+        private void OnMenuItemSelected(object sender, SelectedItemChangedEventArgs e)
+        {
+            var item = (MasterPageItem)e.SelectedItem;
+            NavigationSubscribers();
 
             if (item.Title == "Logout")
             {
                 IsPresented = false;
-                DependencyService.Get<IMessage>().LongAlert("Logged out successfully.");
+
                 App.AuthenticationResponse = null;
                 App.DAUtil.DeleteMasterInfo("UserCredentials");
 
-                Navigation.PushModalAsync(new Login());
+                DependencyService.Get<IMessage>().LongAlert("Logged out successfully.");
+
+                Detail = new NavigationPage((new Login()));
                 return;
             }
 

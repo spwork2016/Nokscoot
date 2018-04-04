@@ -41,7 +41,7 @@ namespace DevEnvAzure
             _KaizenReport.ReportType = string.IsNullOrEmpty(_KaizenReport.ReportType) ? "Kaizen Report" + _KaizenReport.Id.ToString() : _KaizenReport.ReportType;
             _KaizenReport.DateOfEvent = DateTime.Now;
             _KaizenReport = _KaizenReport.Id == 0 ? App.DAUtil.Save(_KaizenReport) : App.DAUtil.Update(_KaizenReport);
-            DependencyService.Get<IMessage>().ShortAlert("Kaizen report drafted");
+            DependencyService.Get<IMessage>().ShortAlert("Item drafted");
         }
         private void BenefitsCategorypicker_changed(object sender, EventArgs e)
         {
@@ -88,7 +88,8 @@ namespace DevEnvAzure
                         if (postResult.IsSuccessStatusCode)
                         {
                             App.DAUtil.Delete(_KaizenReport);
-                            DependencyService.Get<IMessage>().LongAlert("List updated successfully");
+
+                            await DisplayAlert("Success", "Item created successfully", "Ok");
                             MessagingCenter.Send(this, "home");
                         }
                         else
@@ -106,9 +107,9 @@ namespace DevEnvAzure
                         App.DAUtil.Save<DatatableData>(dt);
 
                         var vList = App.DAUtil.GetAll<DatatableData>("DatatableData1");
-                        DependencyService.Get<IMessage>().LongAlert("List data stored in local storage");
+                        await DisplayAlert("", "Item stored in local storage", "Ok");
                         ToggleBusy(false);
-                        await Navigation.PushAsync(new HomePage());
+                        MessagingCenter.Send(this, "home");
                     }
                 });
             }

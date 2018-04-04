@@ -36,7 +36,9 @@ namespace DevEnvAzure
         {
             _StationInformation.ReportType = "Station Information" + _StationInformation.Id.ToString();
             _StationInformation.DateOfEvent = DateTime.Now;
-            App.DAUtil.Save<Models.StationInformationModel>(_StationInformation);
+            _StationInformation = _StationInformation.Id == 0 ? App.DAUtil.Save(_StationInformation) : App.DAUtil.Update(_StationInformation);
+
+            DependencyService.Get<IMessage>().ShortAlert("Item drafted");
         }
         private bool CheckConnection()
         {
@@ -84,7 +86,10 @@ namespace DevEnvAzure
 
                         if (postResult.IsSuccessStatusCode)
                         {
-                            DependencyService.Get<IMessage>().LongAlert("List updated successfully");
+                            App.DAUtil.Delete(_StationInformation);
+
+                            await DisplayAlert("Success", "Item created successfully", "Ok");
+                            MessagingCenter.Send(this, "home");
                         }
                         else
                         {
@@ -100,7 +105,7 @@ namespace DevEnvAzure
                         App.DAUtil.Save<DatatableData>(dt);
 
                         var vList = App.DAUtil.GetAll<DatatableData>("DatatableData1");
-                        DependencyService.Get<IMessage>().LongAlert("List data stored in local storage");
+                        DependencyService.Get<IMessage>().LongAlert("Item stored in local storage");
                         ToggleBusy(false);
                     }
                 });
