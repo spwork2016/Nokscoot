@@ -74,6 +74,6 @@ namespace DevEnvAzure.Models
         { get; set; }
         public int occurTypeIndex
         { get; set; }
-
+        public bool IsExtendedView { get; set; }
     }
 }

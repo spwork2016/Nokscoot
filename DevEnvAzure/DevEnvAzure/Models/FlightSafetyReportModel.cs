@@ -152,6 +152,8 @@ namespace DevEnvAzure.Models
         { get; set; }
         public string ImpactAreaDamage
         { get; set; }
+        public bool IsExtendedView
+        { get; set; }
 
     }
 

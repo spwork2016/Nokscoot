@@ -78,6 +78,7 @@ namespace DevEnvAzure.Models
         { get; set; }
         public string reportAttachment
         { get; set; }
+        public bool IsExtendedView { get; set; }
 
     }
 }

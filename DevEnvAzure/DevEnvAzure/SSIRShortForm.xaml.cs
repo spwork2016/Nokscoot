@@ -14,6 +14,8 @@ using Plugin.FilePicker.Abstractions;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 using DevEnvAzure.Utilities;
+using Xamarin.Forms.Internals;
+
 namespace DevEnvAzure
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
@@ -63,6 +65,7 @@ namespace DevEnvAzure
                         Title = char.ToUpper(_classname[0]) + _classname.Substring(1);
                         break;
                 }
+
                 base.OnAppearing();
                 Plugin.Connectivity.CrossConnectivity.Current.ConnectivityChanged += Current_ConnectivityChanged;
             }
@@ -206,6 +209,7 @@ namespace DevEnvAzure
                     case "safety":
                         idval = new Random().Next(1, 1000);
                         FlightSafetyReportModel sf = (FlightSafetyReportModel)_viewobject;
+                        sf.IsExtendedView = Formcheck.IsToggled;
                         sf.ReportType = "Safety" + idval.ToString();
                         sf = sf.Id == 0 ? App.DAUtil.Save(sf) : App.DAUtil.Update(sf);
                         if (sf != null)
@@ -218,6 +222,7 @@ namespace DevEnvAzure
                     case "security":
                         idval = new Random().Next(1, 1000);
                         SecurityModel sd = (SecurityModel)_viewobject;
+                        sd.IsExtendedView = Formcheck.IsToggled;
                         sd.ReportType = "Security" + idval.ToString();
                         sd = sd.Id == 0 ? App.DAUtil.Save(sd) : App.DAUtil.Update(sd);
                         if (sd != null)
@@ -229,6 +234,7 @@ namespace DevEnvAzure
                     case "ground":
                         idval = new Random().Next(1, 1000);
                         GroundSafetyReport gd = (GroundSafetyReport)_viewobject;
+                        gd.IsExtendedView = Formcheck.IsToggled;
                         gd.ReportType = "GroundSafety" + idval.ToString();
                         gd = gd.Id == 0 ? App.DAUtil.Save(gd) : App.DAUtil.Update(gd);
                         if (gd != null)
@@ -240,6 +246,7 @@ namespace DevEnvAzure
                     case "fatigue":
                         idval = new Random().Next(1, 1000);
                         FatigueReport ft = (FatigueReport)_viewobject;
+                        ft.IsExtendedView = Formcheck.IsToggled;
                         ft.ReportType = "Fatigue" + idval.ToString();
                         ft = ft.Id == 0 ? App.DAUtil.Save(ft) : App.DAUtil.Update(ft);
                         if (ft != null)
@@ -251,6 +258,7 @@ namespace DevEnvAzure
                     case "Injury":
                         idval = new Random().Next(1, 1000);
                         InjuryIllnessReport injr = (InjuryIllnessReport)_viewobject;
+                        injr.IsExtendedView = Formcheck.IsToggled;
                         injr.ReportType = "InjuryIllness" + idval.ToString();
                         injr = injr.Id == 0 ? App.DAUtil.Save(injr) : App.DAUtil.Update(injr);
                         if (injr != null)
@@ -262,6 +270,7 @@ namespace DevEnvAzure
                     case "cabin":
                         idval = new Random().Next(1, 1000);
                         CabibSafetyReport cd = (CabibSafetyReport)_viewobject;
+                        cd.IsExtendedView = Formcheck.IsToggled;
                         cd.ReportType = "Cabin" + idval.ToString();
                         cd = cd.Id == 0 ? App.DAUtil.Save(cd) : App.DAUtil.Update(cd);
                         if (cd != null)
@@ -396,6 +405,17 @@ namespace DevEnvAzure
                     foreach (var val in spData.d.results)
                     {
                         MORpicker.Items.Add(val.Title);
+                    }
+
+                    if (_viewobject != null)
+                    {
+                        System.Reflection.PropertyInfo pi = _viewobject.GetType().GetProperty("MOR");
+                        if (pi != null)
+                        {
+                            string selectedMOR = (string)(pi.GetValue(_viewobject, null));
+                            if (!string.IsNullOrEmpty(selectedMOR))
+                                MORpicker.SelectedIndex = Convert.ToInt32(selectedMOR);
+                        }
                     }
                 }
             }

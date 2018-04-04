@@ -81,5 +81,6 @@ namespace DevEnvAzure.Models
         { get; set; }
         public int identifiedWhereIndex
         { get; set; }
+        public bool IsExtendedView { get; set; }
     }
 }

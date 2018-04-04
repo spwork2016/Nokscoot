@@ -47,7 +47,7 @@
 
                                         <Label x:Name="eventDetail" TextColor="Black" Grid.Row="0" Grid.Column="0" FontSize="Medium" VerticalTextAlignment="End" Text="Event Details" />
                                         <Label x:Name="lblname" FontSize="Medium" TextColor="Gray" VerticalTextAlignment="End" HorizontalOptions="EndAndExpand" Grid.Row="0" Grid.Column="1" Text="Extended form" />
-                                        <Switch x:Name="Formcheck" HorizontalOptions="EndAndExpand" Grid.Row="0" Grid.Column="2" Toggled="Check_Clicked" />
+                                        <Switch x:Name="Formcheck" IsToggled="{Binding IsExtendedView, Mode=TwoWay}" HorizontalOptions="EndAndExpand" Grid.Row="0" Grid.Column="2" Toggled="Check_Clicked" />
                                     </Grid>
 
                                     <BoxView Color="#FDCE02" HorizontalOptions="FillAndExpand" Grid.Row="1" HeightRequest="1"/>

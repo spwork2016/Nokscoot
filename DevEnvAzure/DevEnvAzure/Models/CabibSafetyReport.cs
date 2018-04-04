@@ -62,6 +62,7 @@ namespace DevEnvAzure.Models
         { get; set; }
         public int identifiedWhereCabinIndex
         { get; set; }
+        public bool IsExtendedView { get; set; }
     }
 
 }

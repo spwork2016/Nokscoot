@@ -4,6 +4,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 
 using Xamarin.Forms;
+using Xamarin.Forms.Internals;
 using Xamarin.Forms.Xaml;
 namespace DevEnvAzure
 {
@@ -75,69 +76,74 @@ namespace DevEnvAzure
             }
         }
 
+        private async void navigateToReport(int id)
+        {
+            switch (_reportType)
+            {
+                case "safety":
+                    FlightSafetyReportModel listitem = (from itm in App.safetyReport
+                                                        where itm.Id == id
+                                                        select itm).FirstOrDefault();
+                    await Navigation.PushAsync(new SSIRShortForm(listitem, "safety"));
+                    break;
+                case "ground":
+                    GroundSafetyReport listitem1 = (from itm in App.groundSafety
+                                                    where itm.Id == id
+                                                    select itm).FirstOrDefault();
+                    await Navigation.PushAsync(new SSIRShortForm(listitem1, "ground"));
+                    break;
+                case "cabin":
+
+                    CabibSafetyReport listitem2 = (from itm in App.cabinSafety
+                                                   where itm.Id == id
+                                                   select itm).FirstOrDefault();
+                    await Navigation.PushAsync(new SSIRShortForm(listitem2, "cabin"));
+                    break;
+                case "security":
+                    SecurityModel listitem3 = (from itm in App.security
+                                               where itm.Id == id
+                                               select itm).FirstOrDefault();
+                    await Navigation.PushAsync(new SSIRShortForm(listitem3, "security"));
+                    break;
+                case "illness":
+                    InjuryIllnessReport listitem4 = (from itm in App.injuryIllness
+                                                     where itm.Id == id
+                                                     select itm).FirstOrDefault();
+                    await Navigation.PushAsync(new SSIRShortForm(listitem4, "Injury"));
+                    break;
+                case "fatigue":
+                    FatigueReport listitem5 = (from itm in App.fatigue
+                                               where itm.Id == id
+                                               select itm).FirstOrDefault();
+                    await Navigation.PushAsync(new SSIRShortForm(listitem5, "fatigue"));
+                    break;
+                case "kaizen":
+                    KaizenReportModel listitem6 = (from itm in App.kaizen
+                                                   where itm.Id == id
+                                                   select itm).FirstOrDefault();
+                    await Navigation.PushAsync(new KaizenReport(listitem6, "kaizen"));
+                    break;
+                case "fcVoyage":
+                    FlightCrewVoyageRecordModel listitem7 = (from itm in App.fcVoyage
+                                                             where itm.Id == id
+                                                             select itm).FirstOrDefault();
+                    await Navigation.PushAsync(new FlightCrewVoyageRecord(listitem7, "fcVoyage"));
+                    break;
+                case "stsnInfo":
+                    StationInformationModel listitem8 = (from itm in App.statInfo
+                                                         where itm.Id == id
+                                                         select itm).FirstOrDefault();
+                    await Navigation.PushAsync(new StationInformation(listitem8, "stsnInfo"));
+                    break;
+            }
+        }
+
         private async void SafetyReport_Clicked(object sender, EventArgs e)
         {
             try
             {
                 var item = (Button)sender;
-                switch (_reportType)
-                {
-                    case "safety":
-                        FlightSafetyReportModel listitem = (from itm in App.safetyReport
-                                                            where itm.Id == Convert.ToInt32(item.CommandParameter)
-                                                            select itm).FirstOrDefault();
-                        await Navigation.PushAsync(new SSIRShortForm(listitem, "safety"));
-                        break;
-                    case "ground":
-                        GroundSafetyReport listitem1 = (from itm in App.groundSafety
-                                                        where itm.Id == Convert.ToInt32(item.CommandParameter)
-                                                        select itm).FirstOrDefault();
-                        await Navigation.PushAsync(new SSIRShortForm(listitem1, "ground"));
-                        break;
-                    case "cabin":
-
-                        CabibSafetyReport listitem2 = (from itm in App.cabinSafety
-                                                       where itm.Id == Convert.ToInt32(item.CommandParameter)
-                                                       select itm).FirstOrDefault();
-                        await Navigation.PushAsync(new SSIRShortForm(listitem2, "cabin"));
-                        break;
-                    case "security":
-                        SecurityModel listitem3 = (from itm in App.security
-                                                   where itm.Id == Convert.ToInt32(item.CommandParameter)
-                                                   select itm).FirstOrDefault();
-                        await Navigation.PushAsync(new SSIRShortForm(listitem3, "security"));
-                        break;
-                    case "illness":
-                        InjuryIllnessReport listitem4 = (from itm in App.injuryIllness
-                                                         where itm.Id == Convert.ToInt32(item.CommandParameter)
-                                                         select itm).FirstOrDefault();
-                        await Navigation.PushAsync(new SSIRShortForm(listitem4, "Injury"));
-                        break;
-                    case "fatigue":
-                        FatigueReport listitem5 = (from itm in App.fatigue
-                                                   where itm.Id == Convert.ToInt32(item.CommandParameter)
-                                                   select itm).FirstOrDefault();
-                        await Navigation.PushAsync(new SSIRShortForm(listitem5, "fatigue"));
-                        break;
-                    case "kaizen":
-                        KaizenReportModel listitem6 = (from itm in App.kaizen
-                                                       where itm.Id == Convert.ToInt32(item.CommandParameter)
-                                                       select itm).FirstOrDefault();
-                        await Navigation.PushAsync(new KaizenReport(listitem6, "kaizen"));
-                        break;
-                    case "fcVoyage":
-                        FlightCrewVoyageRecordModel listitem7 = (from itm in App.fcVoyage
-                                                                 where itm.Id == Convert.ToInt32(item.CommandParameter)
-                                                                 select itm).FirstOrDefault();
-                        await Navigation.PushAsync(new FlightCrewVoyageRecord(listitem7, "fcVoyage"));
-                        break;
-                    case "stsnInfo":
-                        StationInformationModel listitem8 = (from itm in App.statInfo
-                                                             where itm.Id == Convert.ToInt32(item.CommandParameter)
-                                                             select itm).FirstOrDefault();
-                        await Navigation.PushAsync(new StationInformation(listitem8, "stsnInfo"));
-                        break;
-                }
+                navigateToReport(Convert.ToInt32(item.CommandParameter));
             }
             catch (Exception ex)
             {
@@ -200,6 +206,16 @@ namespace DevEnvAzure
             }
             DataBind(_reportType);
             DependencyService.Get<IMessage>().ShortAlert("Draft deleted");
+        }
+
+        private async void ItemsListView_ItemTapped(object sender, ItemTappedEventArgs e)
+        {
+            System.Reflection.PropertyInfo pi = e.Item.GetType().GetProperty("Id");
+            if (pi != null)
+            {
+                int id = (int)(pi.GetValue(e.Item, null));
+                navigateToReport(id);
+            }
         }
     }
 }
