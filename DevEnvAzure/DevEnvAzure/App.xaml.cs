@@ -25,7 +25,7 @@ namespace DevEnvAzure
         public static AuthenticationContext authcontext = null;
         public static List<PeoplePicker> peoplePickerDataSource;
         public static ObservableCollection<Employee> employees = new ObservableCollection<Employee>();
-        public static ObservableCollection<DatatableData> fullDataTablecollection = new ObservableCollection<DatatableData>();
+        public static ObservableCollection<OfflineItem> offlineItems = new ObservableCollection<OfflineItem>();
         public static ObservableCollection<object> savedDrafts = new ObservableCollection<object>();
 
         public static ObservableCollection<CabibSafetyReport> cabinSafety = new ObservableCollection<CabibSafetyReport>();
@@ -93,6 +93,7 @@ namespace DevEnvAzure
         protected override void OnStart()
         {
             // Handle when your app starts
+           // Plugin.Connectivity.CrossConnectivity.Current.ConnectivityChanged += Current_ConnectivityChanged;
         }
 
         protected override void OnSleep()
@@ -103,6 +104,18 @@ namespace DevEnvAzure
         protected override void OnResume()
         {
             // Handle when your app resumes
+        }
+
+        private void Current_ConnectivityChanged(object sender, Plugin.Connectivity.Abstractions.ConnectivityChangedEventArgs e)
+        {
+            if (e.IsConnected)
+            {
+                var eValue = App.DAUtil.GetAll<OfflineItem>("OfflineItem");
+                if (eValue != null && eValue.Count > 0)
+                {
+                    DataUpload.CreateItemsOffline(eValue);
+                }
+            }
         }
     }
 }

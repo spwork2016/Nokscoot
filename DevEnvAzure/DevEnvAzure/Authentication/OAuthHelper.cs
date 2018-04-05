@@ -125,12 +125,14 @@ namespace DevEnvAzure
             return null;
         }
 
-        public static HttpClient GetHTTPClient(string access_token = "")
+        public static async Task<HttpClient> GetHTTPClient(string access_token = "")
         {
             if (App.AuthenticationResponse == null)
             {
                 return null;
             }
+
+            await RefreshAccessToken();
 
             HttpClient client = new HttpClient();
             client.DefaultRequestHeaders.Add("Accept", "application/json;odata=verbose");
@@ -143,7 +145,7 @@ namespace DevEnvAzure
 
         public static async Task<User> GetUserInfo(string username, string password)
         {
-            var client = GetHTTPClient();
+            var client = await OAuthHelper.GetHTTPClient();
             if (client == null) { return null; }
 
             try
@@ -180,7 +182,7 @@ namespace DevEnvAzure
                 var authResponse = await GetAccessToken(username, password, aadClientAppId, aadResource, aadTenant);
                 if (authResponse != null)
                 {
-                    var client = GetHTTPClient(authResponse.access_token);
+                    var client = await GetHTTPClient(authResponse.access_token);
                     var picResponse = await client.GetByteArrayAsync(aadResource + "v1.0/me/photo/$value");
                     return picResponse;
                 }
@@ -207,7 +209,7 @@ namespace DevEnvAzure
                 MasterInfo userInfo = App.DAUtil.GetMasterInfoByName("UserInfo");
                 if (userInfo != null)
                 {
-                    var spData = JsonConvert.DeserializeObject<SPData>(auth.content, new JsonSerializerSettings { DateParseHandling = DateParseHandling.None });
+                    var spData = JsonConvert.DeserializeObject<SPData>(userInfo.content, new JsonSerializerSettings { DateParseHandling = DateParseHandling.None });
                     if (spData.d != null)
                         App.CurrentUser = new User { Name = spData.d.Title, Email = spData.d.Email };
                 }
@@ -222,6 +224,51 @@ namespace DevEnvAzure
             expries = expries.AddSeconds(long.Parse(App.AuthenticationResponse.expires_on)).ToLocalTime();
 
             return CrossConnectivity.Current.IsConnected && expries > DateTime.Now;
+        }
+
+        public static async Task<bool> RefreshAccessToken()
+        {
+            if (!CrossConnectivity.Current.IsConnected) return false;
+
+            if (App.AuthenticationResponse == null)
+            {
+                MasterInfo auth = App.DAUtil.GetMasterInfoByName("Authentication");
+                if (auth != null)
+                {
+                    AuthenticationResponse json = JsonConvert.DeserializeObject<AuthenticationResponse>(auth.content);
+                    App.AuthenticationResponse = json;
+                }
+            }
+
+            DateTime expries = new DateTime(1970, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc);
+            expries = expries.AddSeconds(long.Parse(App.AuthenticationResponse.expires_on)).ToLocalTime();
+
+            if (expries > DateTime.Now) return true;
+            else
+            {
+                MasterInfo userInfo = App.DAUtil.GetMasterInfoByName("UserCredentials");
+                if (userInfo != null)
+                {
+                    var cred = JsonConvert.DeserializeObject<dynamic>(userInfo.content, new JsonSerializerSettings { DateParseHandling = DateParseHandling.None });
+                    if (cred != null)
+                    {
+                        string aadTenant = ClientConfiguration.Default.ActiveDirectoryTenant;
+                        string aadClientAppId = ClientConfiguration.Default.ActiveDirectoryClientAppId;
+                        string aadResource = ClientConfiguration.Default.ActiveDirectoryResource;
+
+                        var authResponse = await GetAccessToken(cred.Username, cred.Password, aadClientAppId, aadResource, aadTenant);
+                        if (authResponse != null)
+                        {
+                            var str = JsonConvert.SerializeObject(new { cred.Username, cred.Password });
+                            App.DAUtil.RefreshMasterInfo(new MasterInfo { content = str, Name = "UserCredentials" });
+                            App.AuthenticationResponse = authResponse;
+                            return true;
+                        }
+                    }
+                }
+            }
+
+            return false;
         }
 
         public static Exception CreateExceptionFromResponseErrors(HttpResponseMessage response)

@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 namespace DevEnvAzure
 {
     public partial class ClientConfiguration
@@ -15,6 +11,7 @@ namespace DevEnvAzure
             ActiveDirectoryClientAppId = "d4c9dc64-803f-4dce-842c-380ce91f60d4", //sptechnophiles            // Insert here the application secret when authenticate with AAD by the application  
             SPRootURL = "https://sptechnophiles.sharepoint.com/_api/",
             SPRootURLList = "https://sptechnophiles.sharepoint.com/_api/web/lists/",
+            SPListURL = "https://sptechnophiles.sharepoint.com/_api/web/lists/GetByTitle('{0}')/items",
             SPDocumentLibraryURL = "https://sptechnophiles.sharepoint.com/_api/web/GetFolderByServerRelativeUrl('/SampleDocuments')/Folders",
             GraphAPIRootURL = "https://graph.windows.net/",
             GraphAPIURL = "https://graph.windows.net/542381e6-b9d2-4fe3-a20b-e575f656c08c",
@@ -42,5 +39,6 @@ namespace DevEnvAzure
         public string SPDocumentLibraryURL { get; set; }
         public string GraphAPIRootURL { get; set; }
         public string GraphAPIURL { get; set; }
+        public string SPListURL { get; private set; }
     }
 }

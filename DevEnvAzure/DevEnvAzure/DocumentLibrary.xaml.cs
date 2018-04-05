@@ -110,7 +110,7 @@ namespace DevEnvAzure
 
         public async Task<List<DataContracts.Result>> GetDocuments(string folderPath, bool isFiles)
         {
-            var client = OAuthHelper.GetHTTPClient();
+            var client = await OAuthHelper.GetHTTPClient();
             var response = await client.GetStringAsync(string.Format(SPDocumentLibraryURL, folderPath, isFiles ? "/Files" : "/Folders"));
             if (response != null)
             {
@@ -128,7 +128,7 @@ namespace DevEnvAzure
         {
             try
             {
-                var client = OAuthHelper.GetHTTPClient();
+                var client = await OAuthHelper.GetHTTPClient();
 
                 string root = ClientConfiguration.Default.ActiveDirectoryResource;
                 string urlString = Uri.EscapeUriString(root.Remove(root.Length - 1, 1) + fileObj.ServerRelativeUrl);

@@ -12,6 +12,7 @@ using System.Threading.Tasks;
 
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
+using static DevEnvAzure.SPUtility;
 
 namespace DevEnvAzure
 {
@@ -115,9 +116,9 @@ namespace DevEnvAzure
             return CrossConnectivity.Current.IsConnected;
         }
 
-        private HttpClient GetHTTPClient()
+        private async Task<HttpClient> GetHTTPClient()
         {
-            var client = OAuthHelper.GetHTTPClient();
+            var client = await OAuthHelper.GetHTTPClient();
 
             if (client == null)
             {
@@ -126,13 +127,13 @@ namespace DevEnvAzure
 
             return client;
         }
-        protected void CreateItems<U>(U reportObject) where U : class
+        protected async void CreateItems<U>(U reportObject) where U : class
         {
             try
             {
                 ToggleBusy(true);
 
-                var client = GetHTTPClient();
+                var client = await GetHTTPClient();
                 var data = reportObject;
 
                 var body = JsonConvert.SerializeObject(data, Formatting.None,
@@ -167,11 +168,13 @@ namespace DevEnvAzure
                 else
                 {
 
-                    DatatableData dt = new DatatableData();
-                    dt.Value = body;// contents.ToString();
-                    App.DAUtil.Save<DatatableData>(dt);
+                    OfflineItem dt = new OfflineItem();
+                    dt.Value = body;
+                    dt.Created = DateTime.Now;
+                    dt.ReportType = (int)ReportType.FlighCrewVoyage;
+                    App.DAUtil.Save(dt);
 
-                    var vList = App.DAUtil.GetAll<DatatableData>("DatatableData1");
+                    var vList = App.DAUtil.GetAll<OfflineItem>("OfflineItem");
                     DependencyService.Get<IMessage>().LongAlert("Item stored in local storage");
                 }
             }

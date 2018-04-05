@@ -99,7 +99,7 @@ namespace DevEnvAzure
         private async Task CompleteTheTask(Result item)
         {
             IsBusy = true;
-            var client = OAuthHelper.GetHTTPClient();
+            var client = await OAuthHelper.GetHTTPClient();
 
             var data = new DataContracts.TaskSp();
             data.PercentComplete = 100;
@@ -135,7 +135,7 @@ namespace DevEnvAzure
         {
             try
             {
-                var client = OAuthHelper.GetHTTPClient();
+                var client = await OAuthHelper.GetHTTPClient();
                 var response = await client.GetStringAsync(SPTasksURL);
                 if (response != null)
                 {

@@ -13,10 +13,6 @@ namespace DevEnvAzure
         {
             InitializeComponent();
 
-            //REMOVE - only dev
-            Username.Text = ClientConfiguration.Default.UserName;
-            Password.Text = ClientConfiguration.Default.Password;
-
             Username.Keyboard = Keyboard.Create(KeyboardFlags.None);
             Password.Keyboard = Keyboard.Create(KeyboardFlags.None);
 
@@ -57,17 +53,15 @@ namespace DevEnvAzure
                     {
                         Device.BeginInvokeOnMainThread(async () =>
                         {
+                            IsBusy = false;
                             if (App.AuthenticationResponse != null)
                             {
-                                IsBusy = false;
                                 MessagingCenter.Send<object>(this, App.EVENT_LAUNCH_MAIN_PAGE);
                             }
                             else
                             {
-                                DependencyService.Get<IMessage>().LongAlert("Login Failed! Please check email/password");
-
+                                DependencyService.Get<IMessage>().ShortAlert("Login failed! Please check email/password");
                                 btnLogin.IsVisible = true;
-                                IsBusy = false;
                             }
                         });
                     });
@@ -77,7 +71,7 @@ namespace DevEnvAzure
             }
             catch (Exception ex)
             {
-                DependencyService.Get<IMessage>().LongAlert("Login Failed! Please check email/password");
+                DependencyService.Get<IMessage>().ShortAlert("Login failed! Please check email/password");
             }
         }
     }

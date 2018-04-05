@@ -13,16 +13,19 @@ using Xamarin.Forms.Internals;
 
 namespace DevEnvAzure
 {
-    [Table(@"DatatableData1")]
-    public class DatatableData
+    [Table(@"OfflineItem")]
+    public class OfflineItem
     {
         [NotNull]
         [PrimaryKey, AutoIncrement, Column("contentID")]
-        public long contentID
+        public long ContentID
         { get; set; }
         public string Value
         { set; get; }
+        public int ReportType { get; set; }
+        public DateTime Created { get; set; }
     }
+
     public class DataAccess
     {
         SQLite.Net.SQLiteConnection dbConn;
@@ -42,29 +45,12 @@ namespace DevEnvAzure
                 dbConn.CreateTable<KaizenReportModel>();
                 dbConn.CreateTable<StationInformationModel>();
                 dbConn.CreateTable<FlightCrewVoyageRecordModel>();
-
-                dbConn.CreateTable<DatatableData>();
+                dbConn.CreateTable<OfflineItem>();
             }
             catch (Exception ex)
             {
 
             }
-        }
-
-
-        public bool createTable<U>() where U : class
-        {
-            try
-            {
-                dbConn.CreateTable<U>();
-                return true;
-
-            }
-            catch (Exception ex)
-            {
-                return false;
-            }
-
         }
 
         public List<U> GetAll<U>(string classObj) where U : class

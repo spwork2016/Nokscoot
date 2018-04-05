@@ -67,7 +67,6 @@ namespace DevEnvAzure
                 }
 
                 base.OnAppearing();
-                Plugin.Connectivity.CrossConnectivity.Current.ConnectivityChanged += Current_ConnectivityChanged;
             }
             catch
             {
@@ -75,18 +74,7 @@ namespace DevEnvAzure
             }
             //  UpdateStatus();
         }
-        private void Current_ConnectivityChanged(object sender, Plugin.Connectivity.Abstractions.ConnectivityChangedEventArgs e)
-        {
-            if (e.IsConnected)
-            {
-                var eValue = App.DAUtil.GetAll<DatatableData>("DatatableData1");
-                if (eValue != null && eValue.Count > 0)
-                {
-                    DataUpload.CreateItemsOffline(eValue);
-                }
-                DependencyService.Get<IMessage>().LongAlert("Network Connection detected");
-            }
-        }
+
         ContentView _fullviewobj = null;
         private void Check_Clicked(object sender, XLabs.EventArgs<bool> e)
         {
@@ -158,39 +146,39 @@ namespace DevEnvAzure
                         FlightSafetyReportModel sf = (FlightSafetyReportModel)_viewobject;
                         sf.ReportType = "Safety" + sf.Id.ToString();
                         MORTypeID = MORpicker.SelectedIndex;
-                        CreateItems(jsonInitObj.getflightSafetyJson(sf));
+                        CreateItems(jsonInitObj.getflightSafetyJson(sf), SPUtility.ReportType.FlightSafety);
                         App.DAUtil.Delete(sf);
                         break;
                     case "security":
                         SecurityModel sd = (SecurityModel)_viewobject;
                         sd.ReportType = "Security" + sd.Id.ToString();
                         MORTypeID = MORpicker.SelectedIndex;
-                        CreateItems(jsonInitObj.getSecurity(sd));
+                        CreateItems(jsonInitObj.getSecurity(sd), SPUtility.ReportType.Security);
                         App.DAUtil.Delete(sd);
                         break;
                     case "ground":
                         GroundSafetyReport gd = (GroundSafetyReport)_viewobject;
                         gd.ReportType = "GroundSafety" + gd.Id.ToString();
-                        CreateItems(jsonInitObj.getGroundSafety(gd));
+                        CreateItems(jsonInitObj.getGroundSafety(gd), SPUtility.ReportType.GroundSafety);
                         App.DAUtil.Delete(gd);
                         break;
                     case "fatigue":
                         FatigueReport ft = (FatigueReport)_viewobject;
                         ft.ReportType = "Fatigue" + ft.Id.ToString();
-                        CreateItems(jsonInitObj.getFatigue(ft));
+                        CreateItems(jsonInitObj.getFatigue(ft), SPUtility.ReportType.Fatigue);
                         App.DAUtil.Delete(ft);
                         break;
                     case "Injury":
                         InjuryIllnessReport injr = (InjuryIllnessReport)_viewobject;
                         injr.ReportType = "InjuryIllness" + injr.Id.ToString();
 
-                        CreateItems(jsonInitObj.getInjuryJson(injr));
+                        CreateItems(jsonInitObj.getInjuryJson(injr), SPUtility.ReportType.InjuryIllness);
                         App.DAUtil.Delete(injr);
                         break;
                     case "cabin":
                         CabibSafetyReport cd = (CabibSafetyReport)_viewobject;
                         cd.ReportType = "Cabin" + cd.Id.ToString();
-                        CreateItems(jsonInitObj.getCabinSfetyJson(cd));
+                        CreateItems(jsonInitObj.getCabinSfetyJson(cd), SPUtility.ReportType.CabinSafety);
                         App.DAUtil.Delete(cd);
                         break;
                 }
@@ -320,18 +308,8 @@ namespace DevEnvAzure
         {
             return CrossConnectivity.Current.IsConnected;
         }
-        private HttpClient GetHTTPClient()
-        {
-            var client = OAuthHelper.GetHTTPClient();
 
-            if (client == null)
-            {
-                return null;
-            }
-
-            return client;
-        }
-        protected void CreateItems<U>(U reportObject) where U : class
+        protected void CreateItems<U>(U reportObject, SPUtility.ReportType reportType) where U : class
         {
             try
             {
@@ -339,7 +317,7 @@ namespace DevEnvAzure
 
                 Device.BeginInvokeOnMainThread(async () =>
                 {
-                    var client = GetHTTPClient();
+                    var client = await OAuthHelper.GetHTTPClient();
                     var data = reportObject;
 
                     var body = JsonConvert.SerializeObject(data, Formatting.None,
@@ -363,19 +341,21 @@ namespace DevEnvAzure
                             var ex = await postResult.Content.ReadAsStringAsync();
                             await DisplayAlert("Error", ex, "Ok");
                         }
-                        ToggleBusy(false);
                     }
                     else
                     {
-                        ToggleBusy(false);
-                        DatatableData dt = new DatatableData();
+                        OfflineItem dt = new OfflineItem();
                         dt.Value = body;
-                        App.DAUtil.Save<DatatableData>(dt);
+                        dt.Created = DateTime.Now;
+                        dt.ReportType = (int)reportType;
+                        App.DAUtil.Save<OfflineItem>(dt);
 
-                        var vList = App.DAUtil.GetAll<DatatableData>("DatatableData1");
+                        var vList = App.DAUtil.GetAll<OfflineItem>("OfflineItem");
                         await DisplayAlert("", "Item stored in local storage", "Ok");
                         MessagingCenter.Send(this, "home");
                     }
+
+                    ToggleBusy(false);
                 });
             }
             catch (HttpRequestException ex)
@@ -422,7 +402,7 @@ namespace DevEnvAzure
                 return;
             }
 
-            var client = GetHTTPClient();
+            var client = await OAuthHelper.GetHTTPClient();
             if (client == null) { return; }
             try
             {

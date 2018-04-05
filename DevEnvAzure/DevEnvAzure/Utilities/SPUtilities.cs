@@ -13,6 +13,50 @@ namespace DevEnvAzure
 {
     public static class SPUtility
     {
+        public enum ReportType
+        {
+            Fatigue = 1,
+            Kaizen = 2,
+            SationInfo = 3,
+            InjuryIllness = 4,
+            FlightSafety = 5,
+            CabinSafety = 6,
+            GroundSafety = 7,
+            Security = 8,
+            FlighCrewVoyage = 9,
+            TechnicalDElay = 10,
+            DelayOccurance = 11,
+            DelayHandling = 12
+
+        }
+        public static string GetListURL(ReportType reportType)
+        {
+            string url = "";
+
+            switch (reportType)
+            {
+                case ReportType.CabinSafety:
+                case ReportType.Fatigue:
+                case ReportType.FlighCrewVoyage:
+                case ReportType.FlightSafety:
+                case ReportType.GroundSafety:
+                case ReportType.InjuryIllness:
+                case ReportType.Security:
+                    url = string.Format(ClientConfiguration.Default.SPListURL, "Operational_Hazard_Event_Register_04042018");
+                    break;
+                case ReportType.SationInfo:
+                    url = string.Format(ClientConfiguration.Default.SPListURL, "(Ops) Line Station Information");
+                    break;
+                case ReportType.Kaizen:
+                    url = string.Format(ClientConfiguration.Default.SPListURL, "Kaizen Report");
+                    break;
+                default:
+                    throw new Exception("Unknown report" + reportType);
+            }
+
+            return url;
+        }
+
         public static async Task<Result> ValidateUser(string name)
         {
             if (string.IsNullOrEmpty(name) || string.IsNullOrWhiteSpace(name)) return null;
@@ -69,7 +113,7 @@ namespace DevEnvAzure
 
         public static async Task<List<PeoplePicker>> GetUsersForPicker()
         {
-            var client = OAuthHelper.GetHTTPClient();
+            var client = await OAuthHelper.GetHTTPClient();
 
             try
             {
@@ -102,7 +146,7 @@ namespace DevEnvAzure
             try
             {
                 string picURL = ClientConfiguration.Default.SPRootURL + "SP.UserProfiles.PeopleManager/GetMyProperties?$select=PictureUrl";
-                var client = OAuthHelper.GetHTTPClient();
+                var client = await OAuthHelper.GetHTTPClient();
                 var response = await client.GetStringAsync(picURL);
                 if (response != null)
                 {

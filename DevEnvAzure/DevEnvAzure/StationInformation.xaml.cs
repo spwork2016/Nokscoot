@@ -44,17 +44,6 @@ namespace DevEnvAzure
         {
             return CrossConnectivity.Current.IsConnected;
         }
-        private HttpClient GetHTTPClient()
-        {
-            var client = OAuthHelper.GetHTTPClient();
-
-            if (client == null)
-            {
-                return null;
-            }
-
-            return client;
-        }
 
         private void ToggleBusy(bool flag)
         {
@@ -70,7 +59,7 @@ namespace DevEnvAzure
                 Device.BeginInvokeOnMainThread(async () =>
                 {
                     // StringContent contents = null;
-                    var client = GetHTTPClient();
+                    var client = await OAuthHelper.GetHTTPClient();
                     var data = reportObject;// _viewobject;
 
                     var body = JsonConvert.SerializeObject(data, Formatting.None,
@@ -100,11 +89,13 @@ namespace DevEnvAzure
                     }
                     else
                     {
-                        DatatableData dt = new DatatableData();
+                        OfflineItem dt = new OfflineItem();
+                        dt.Created = DateTime.Now;
+                        dt.ReportType = (int)SPUtility.ReportType.SationInfo;
                         dt.Value = body;// contents.ToString();
-                        App.DAUtil.Save<DatatableData>(dt);
+                        App.DAUtil.Save<OfflineItem>(dt);
 
-                        var vList = App.DAUtil.GetAll<DatatableData>("DatatableData1");
+                        var vList = App.DAUtil.GetAll<OfflineItem>("OfflineItem");
                         DependencyService.Get<IMessage>().LongAlert("Item stored in local storage");
                         ToggleBusy(false);
                     }

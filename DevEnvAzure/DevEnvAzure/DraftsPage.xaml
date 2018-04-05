@@ -1,45 +1,32 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="DevEnvAzure.DraftsPage" Title="Drafts">
+             x:Class="DevEnvAzure.DraftsPage" Title="Offline Items">
     <ListView x:Name="EmployeeView" HasUnevenRows="True">
         <ListView.ItemTemplate>
             <DataTemplate>
                 <ViewCell>
-                    <Grid>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*"/>
-                        </Grid.ColumnDefinitions>
-                        <Frame  Padding="1" BackgroundColor="#31b0d5" HasShadow="True" OutlineColor="#bbb">
-                            <Grid>
-                                <Grid.RowDefinitions>
-                                    <RowDefinition Height="*"/>
-                                    <RowDefinition Height="*"/>
-                                </Grid.RowDefinitions>
+                    <StackLayout Grid.Row="0" BackgroundColor="#FDCE02" IsClippedToBounds="True" Padding="5" Spacing="1" HeightRequest="60">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="30"/>
+                                <RowDefinition Height="30"/>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
 
-                                <StackLayout Grid.Row="1" Padding="5,0,5,5" Spacing="1">
-                                    <Grid>
-                                        <Grid.RowDefinitions>
-                                        <RowDefinition Height="*"/>
-                                    </Grid.RowDefinitions>
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="*"/>
-                                        <ColumnDefinition Width="*"/>
-                                        <ColumnDefinition Width="*"/>
-                                    </Grid.ColumnDefinitions>
-                                       
-                                            <Label Text="{Binding contentID}" Grid.Column="0" VerticalOptions="Center" HorizontalOptions="Start" FontSize="16" LineBreakMode="TailTruncation" 
-                           TextColor="White" FontAttributes="Bold"/>
-                                    <Label Text="OFFLine" Grid.Column="1" VerticalOptions="Center" HorizontalOptions="Center" FontSize="16" LineBreakMode="TailTruncation" 
-                           TextColor="White" FontAttributes="Bold"/>
+                            <Label Text="{Binding ReportName}" Grid.Column="0" VerticalOptions="Center" HorizontalOptions="StartAndExpand"
+                                               TextColor="Black" FontSize="Medium" LineBreakMode="TailTruncation" FontAttributes="Bold"/>
 
-                                        <Button Grid.Column="2" Text="Detail" VerticalOptions="Center" BorderRadius="16" FontSize="10" HeightRequest="34" BorderWidth="0" Clicked="Details_OnClicked" CommandParameter="{Binding Value}"/>
-                                        <!--<Button Grid.Column="2" Text="Edit" VerticalOptions="Center" BorderRadius="16" FontSize="10" HeightRequest="34" BorderWidth="0" Clicked="Button_Clicked" CommandParameter="{Binding ReportType}"/>-->
-                                    </Grid>
-                                </StackLayout>
-                            </Grid>
-                        </Frame>
-                    </Grid>
+                            <Label Text="{Binding Created}" Grid.Row="1" Grid.Column="0" VerticalOptions="Center" HorizontalOptions="StartAndExpand"
+                                               TextColor="Black" FontSize="Micro" LineBreakMode="TailTruncation" />
+                            <!--<Button Grid.Column="2" Text="Detail" VerticalOptions="Center" FontSize="Micro" 
+                                                HeightRequest="34" BorderWidth="0" Clicked="Details_OnClicked" CommandParameter="{Binding Item}"/>-->
+                        </Grid>
+                    </StackLayout>
                 </ViewCell>
             </DataTemplate>
         </ListView.ItemTemplate>

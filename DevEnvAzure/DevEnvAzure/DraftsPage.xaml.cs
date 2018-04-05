@@ -8,18 +8,24 @@ using System.Threading.Tasks;
 
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
+using static DevEnvAzure.SPUtility;
 
 namespace DevEnvAzure
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class DraftsPage : ContentPage
     {
-        //public static ObservableCollection<Employee> employees = new ObservableCollection<Employee>();
+        public class ReportItem
+        {
+            public string ReportName { get; set; }
+            public OfflineItem Item { get; set; }
+            public DateTime Created { get; set; }
+        }
+
         public DraftsPage()
         {
             InitializeComponent();
             load_saveddrafts();
-            EmployeeView.ItemsSource = App.fullDataTablecollection;
             BindingContext = this;
         }
 
@@ -27,10 +33,55 @@ namespace DevEnvAzure
         {
             try
             {
+                var d = App.DAUtil.GetAll<OfflineItem>("OfflineItem");
+                App.offlineItems = new ObservableCollection<OfflineItem>(d);
 
-                var d = App.DAUtil.GetAll<DatatableData>("DatatableData1");
-                App.fullDataTablecollection = new ObservableCollection<DatatableData>(App.DAUtil.GetAll<DatatableData>("DatatableData1"));
-               
+                var dataSource = new List<ReportItem>();
+                foreach (var item in d)
+                {
+                    string rName = "";
+                    switch ((ReportType)item.ReportType)
+                    {
+                        case ReportType.CabinSafety:
+                            rName = "Cabin Safety";
+                            break;
+                        case ReportType.Fatigue:
+                            rName = "Fatigue";
+                            break;
+                        case ReportType.FlighCrewVoyage:
+                            rName = "Flight Crew Voyage";
+                            break;
+                        case ReportType.FlightSafety:
+                            rName = "Flight Safety";
+                            break;
+                        case ReportType.GroundSafety:
+                            rName = "Ground Safety";
+                            break;
+                        case ReportType.InjuryIllness:
+                            rName = "Injury/Illness";
+                            break;
+                        case ReportType.Security:
+                            rName = "Security";
+                            break;
+                        case ReportType.SationInfo:
+                            rName = "Station Information";
+                            break;
+                        case ReportType.Kaizen:
+                            rName = "Kaizen";
+                            break;
+                        default:
+                            rName = "Offline Item";
+                            break;
+                    }
+                    dataSource.Add(new ReportItem
+                    {
+                        Item = item,
+                        ReportName = rName,
+                        Created = item.Created
+                    });
+                }
+
+                EmployeeView.ItemsSource = dataSource;
             }
             catch (Exception ex)
             {
@@ -42,7 +93,7 @@ namespace DevEnvAzure
             try
             {
                 var item = (Button)sender;
-                await Navigation.PushAsync( new DraftsContentPage(item));
+                await Navigation.PushAsync(new DraftsContentPage(item));
             }
             catch (Exception ex)
             {
@@ -53,8 +104,8 @@ namespace DevEnvAzure
         {
             try
             {
-               // var item = (Button)sender; 
-               // await Navigation.PushAsync(new SafetyReport());
+                // var item = (Button)sender; 
+                // await Navigation.PushAsync(new SafetyReport());
             }
             catch (Exception ex)
             {

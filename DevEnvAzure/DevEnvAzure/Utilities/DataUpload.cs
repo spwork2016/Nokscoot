@@ -1,71 +1,43 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
 using System.Net.Http;
-using System.Net.Http.Headers;
 using Xamarin.Forms;
+using static DevEnvAzure.SPUtility;
 
 namespace DevEnvAzure
 {
-   public class DataUpload
+    public class DataUpload
     {
         const string SPRootURL = "https://sptechnophiles.sharepoint.com/_api/web/lists/";
-     //   const string SPRootURL = "https://nok365.sharepoint.com/sites/Nokscoot/SSQServices/WorkBench/_api/web/lists/";
 
-        private static HttpClient GetHTTPClient()
+        public static async void CreateItemsOffline(List<OfflineItem> lstEmp)
         {
-            HttpClient client = new HttpClient();
-            client.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue(App.AuthenticationResponse.token_type, App.AuthenticationResponse.access_token);
-            MediaTypeWithQualityHeaderValue mediaType = new MediaTypeWithQualityHeaderValue("application/json");
-            mediaType.Parameters.Add(new NameValueHeaderValue("odata", "verbose"));
-            client.DefaultRequestHeaders.Accept.Add(mediaType);
-
-            return client;
-        }
-
-        private static bool CheckConnection()
-        {
-            var networkConnection = DependencyService.Get<INetworkConnection>();
-            networkConnection.CheckNetworkConnection();
-            return networkConnection.IsConnected;
-        }
-
-        public static async void CreateItemsOffline(List<DatatableData> lstEmp)
-        {
-            var client = GetHTTPClient();
+            var client = await OAuthHelper.GetHTTPClient();
 
             try
             {
                 int count = 0;
                 foreach (var emp in lstEmp)
                 {
-
-
-                 //   var body = "{\"__metadata\":{\"type\":\"SP.Data.TestFormListItem\"},\"Employee_x0020_Details\":\"" + emp.vEmpDetails + "\",\"DepartmentId\":\"" + emp.vEmpDept + "\",\"Salary\":\"" + emp.vEmpSal + "\",\"Active_x0020_Employee\":\"" + emp.vEmpActive + "\",\"Joining_x0020_Date\":\"" + emp.vEmpDate + "\",\"Employee_x0020_Age\":\"" + emp.vEmpAge + "\",\"Employee_x0020_Name\":\"" + emp.vEmpName + "\",\"Gender\": \"" + emp.vEmpGender + "\"}";
+                    string url = GetListURL((ReportType)emp.ReportType);
                     var contents = new StringContent(emp.Value);
-                    contents.Headers.ContentType = MediaTypeHeaderValue.Parse("application/json;odata=verbose");
-                    var postResult =  client.PostAsync("https://sptechnophiles.sharepoint.com/_api/web/lists/GetByTitle('Operational_Hazard_Event_Register_04042018')/items", contents).Result;
-                   // var postResult = await client.PostAsync(SPRootURL + "GetByTitle('TestForm')/items", contents);
-                    var result = postResult.EnsureSuccessStatusCode();
-                    if (result.IsSuccessStatusCode)
+                    //contents.Headers.ContentType = MediaTypeHeaderValue.Parse("application/json;odata=verbose");
+                    var postResult = await client.PostAsync(url, contents);
+                    if (postResult.IsSuccessStatusCode)
                     {
                         count++;
                         App.DAUtil.Delete(emp);
-                        App.fullDataTablecollection.Remove(emp);
+                        App.offlineItems.Remove(emp);
                     }
                 }
 
                 if (count > 0)
                 {
-                    DependencyService.Get<IMessage>().LongAlert(count + " item(s) updated successfully");
+                    DependencyService.Get<IMessage>().ShortAlert(count + " item(s) updated successfully");
                 }
                 else
                 {
-                    DependencyService.Get<IMessage>().LongAlert("Item stored in local storage");
+                    DependencyService.Get<IMessage>().ShortAlert("Item stored in local storage");
                 }
 
             }

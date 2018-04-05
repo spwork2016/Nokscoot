@@ -52,17 +52,7 @@ namespace DevEnvAzure
         {
             return CrossConnectivity.Current.IsConnected;
         }
-        private HttpClient GetHTTPClient()
-        {
-            var client = OAuthHelper.GetHTTPClient();
 
-            if (client == null)
-            {
-                return null;
-            }
-
-            return client;
-        }
         protected void CreateItems<U>(U reportObject) where U : class
         {
             try
@@ -71,7 +61,7 @@ namespace DevEnvAzure
                 Device.BeginInvokeOnMainThread(async () =>
                 {
                     // StringContent contents = null;
-                    var client = GetHTTPClient();
+                    var client = await OAuthHelper.GetHTTPClient();
                     var data = reportObject;// _viewobject;
 
                     var body = JsonConvert.SerializeObject(data, Formatting.None,
@@ -101,12 +91,13 @@ namespace DevEnvAzure
                     }
                     else
                     {
+                        OfflineItem dt = new OfflineItem();
+                        dt.Created = DateTime.Now;
+                        dt.ReportType = (int)SPUtility.ReportType.Kaizen;
+                        dt.Value = body;
+                        App.DAUtil.Save<OfflineItem>(dt);
 
-                        DatatableData dt = new DatatableData();
-                        dt.Value = body;// contents.ToString();
-                        App.DAUtil.Save<DatatableData>(dt);
-
-                        var vList = App.DAUtil.GetAll<DatatableData>("DatatableData1");
+                        var vList = App.DAUtil.GetAll<OfflineItem>("OfflineItem");
                         await DisplayAlert("", "Item stored in local storage", "Ok");
                         ToggleBusy(false);
                         MessagingCenter.Send(this, "home");

@@ -9,6 +9,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Net.Http;
 using System.Net.Http.Headers;
+using System.Threading.Tasks;
 using Xamarin.Forms;
 
 namespace DevEnvAzure
@@ -71,10 +72,10 @@ namespace DevEnvAzure
         {
             if (e.IsConnected)
             {
-               var eValue = App.DAUtil.GetAll<Employee>("Employee");
+                var eValue = App.DAUtil.GetAll<Employee>("Employee");
                 if (eValue != null && eValue.Count > 0)
                 {
-                 //  DataUpload.CreateItemsOffline(eValue);
+                    //  DataUpload.CreateItemsOffline(eValue);
                 }
                 DependencyService.Get<IMessage>().LongAlert("Network Connection detected");
             }
@@ -94,7 +95,7 @@ namespace DevEnvAzure
                     var eValue = App.DAUtil.GetAll<Employee>("Employee");
                     if (eValue.Count > 0)
                     {
-                      //  DataUpload.CreateItemsOffline(eValue);
+                        //  DataUpload.CreateItemsOffline(eValue);
                     }
                 }
                 //   IsLoading = false;
@@ -107,9 +108,9 @@ namespace DevEnvAzure
             }
         }
 
-        private HttpClient GetHTTPClient()
+        private async Task<HttpClient> GetHTTPClient()
         {
-            var client = OAuthHelper.GetHTTPClient();
+            var client = await OAuthHelper.GetHTTPClient();
 
             if (client == null)
             {
@@ -123,7 +124,7 @@ namespace DevEnvAzure
         {
             try
             {
-                var client = GetHTTPClient();
+                var client = await GetHTTPClient();
                 if (client == null) { return; }
 
                 var result = await client.GetStringAsync(SPRootURL + "GetByTitle('Departments')/items");
@@ -147,7 +148,7 @@ namespace DevEnvAzure
 
         protected async void FetchListItems()
         {
-            var client = GetHTTPClient();
+            var client = await OAuthHelper.GetHTTPClient();
             if (client == null) { return; }
             try
             {
@@ -194,7 +195,7 @@ namespace DevEnvAzure
             {
                 if (CheckConnection())
                 {
-                    var client = GetHTTPClient();
+                    var client = await OAuthHelper.GetHTTPClient();
                     //var body = "{\"__metadata\":{\"type\":\"SP.Data.TestFormListItem\"},\"Employee_x0020_Details\":\"" + empdetails + "\",\"DepartmentId\":\"" + dptname + "\",\"Salary\":\"" + sal +
                     //"\",\"Active_x0020_Employee\":\"" + actemp + "\",\"Joining_x0020_Date\":\"" + date + "\",\"Employee_x0020_Age\":\"" + empage + 
                     //"\",\"Employee_x0020_Name\":\"" + empName + "\",\"Gender\": \"" + gender + "\"}";
