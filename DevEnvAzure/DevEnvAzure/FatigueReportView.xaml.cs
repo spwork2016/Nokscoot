@@ -13,16 +13,17 @@ namespace DevEnvAzure
     public partial class FatigueReportView : ContentView
     {
         public static string RatehowyoufeltValue;
-      //  Models.FatigueReport _FatigueReport;
+        //  Models.FatigueReport _FatigueReport;
         public FatigueReportView()
         {
-             InitializeComponent();
-          //  _FatigueReport = new Models.FatigueReport();
-          //  _FatigueReport.localReportDate = DateTime.Now;
+            InitializeComponent();
+            //  _FatigueReport = new Models.FatigueReport();
+            //  _FatigueReport.localReportDate = DateTime.Now;
         }
         private void Ratehowyoufelt_changed(object sender, EventArgs e)
         {
-            RatehowyoufeltValue = Ratehowyoufeltpicker.Items.ElementAt(Ratehowyoufeltpicker.SelectedIndex);
+            if (Ratehowyoufeltpicker.SelectedIndex > 0)
+                RatehowyoufeltValue = Ratehowyoufeltpicker.Items.ElementAt(Ratehowyoufeltpicker.SelectedIndex);
         }
 
     }

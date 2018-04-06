@@ -38,8 +38,8 @@ namespace DevEnvAzure
 
         private void lightValue_Changed(object sender, EventArgs e)
         {
-            if(Lightpicker.SelectedIndex>0)
-            lightValue = Lightpicker.Items.ElementAt(Lightpicker.SelectedIndex);
+            if (Lightpicker.SelectedIndex > 0)
+                lightValue = Lightpicker.Items.ElementAt(Lightpicker.SelectedIndex);
         }
         private void weatherValue_Changed(object sender, EventArgs e)
         {
@@ -90,7 +90,7 @@ namespace DevEnvAzure
         {
             if (PaxorCargopicker.SelectedIndex > 0)
                 paxValue = PaxorCargopicker.Items.ElementAt(PaxorCargopicker.SelectedIndex);
-        } 
+        }
         private void identWhenValue_Changed(object sender, EventArgs e)
         {
             if (IdentifiedWhenpicker.SelectedIndex > 0)

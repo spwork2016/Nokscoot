@@ -218,6 +218,7 @@
                     <Picker x:Name="IdentifiedWherepicker" SelectedIndexChanged="idenWhereValue_Changed" SelectedIndex="{Binding identifiedWhereIndex,Mode=TwoWay}" 
                             Grid.ColumnSpan="2" TextColor="#03A9F4" Grid.Row="5"  HorizontalOptions="FillAndExpand">
                         <Picker.Items>
+                            <x:String></x:String>
                             <x:String>Check-in/preboard</x:String>
                             <x:String>Cabin bags</x:String>
                             <x:String>Checked bags</x:String>

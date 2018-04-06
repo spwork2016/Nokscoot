@@ -20,6 +20,8 @@ namespace DevEnvAzure
             public string ReportName { get; set; }
             public OfflineItem Item { get; set; }
             public DateTime Created { get; set; }
+            public bool HasError { get; set; }
+            public string Error { get; set; }
         }
 
         public DraftsPage()
@@ -77,7 +79,9 @@ namespace DevEnvAzure
                     {
                         Item = item,
                         ReportName = rName,
-                        Created = item.Created
+                        Created = item.Created,
+                        HasError = string.IsNullOrEmpty(item.Error) ? false : true,
+                        Error = item.Error
                     });
                 }
 
@@ -111,18 +115,24 @@ namespace DevEnvAzure
             {
             }
         }
-        //public static Page TestPage(Button t)
-        //{
-        //    var obj = t.CommandParameter;
-        //    return new ContentPage
-        //    {
-        //        Content = new Label
-        //        {
 
-        //            VerticalOptions = LayoutOptions.CenterAndExpand,
-        //            HorizontalOptions = LayoutOptions.CenterAndExpand
-        //        }
-        //    };
-        //}
+        private async void btnError_Clicked(object sender, EventArgs e)
+        {
+            Button btn = (Button)sender;
+            var item = (ReportItem)btn.CommandParameter;
+            if (!item.HasError) return;
+
+            await DisplayAlert("", item.Error, "Ok");
+        }
+
+        private void MenuItem_Clicked(object sender, EventArgs e)
+        {
+            var cp = (ReportItem)((MenuItem)sender).CommandParameter;
+            if (cp == null) return;
+
+            App.DAUtil.Delete(cp.Item);
+
+            load_saveddrafts();
+        }
     }
 }

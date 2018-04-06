@@ -36,7 +36,7 @@ namespace DevEnvAzure
         {
             _StationInformation.ReportType = "Station Information" + _StationInformation.Id.ToString();
             _StationInformation.DateOfEvent = DateTime.Now;
-            _StationInformation = App.DAUtil.SaveOrUpdae(_StationInformation);
+            _StationInformation = App.DAUtil.SaveOrUpdate(_StationInformation);
 
             DependencyService.Get<IMessage>().ShortAlert("Item drafted");
         }

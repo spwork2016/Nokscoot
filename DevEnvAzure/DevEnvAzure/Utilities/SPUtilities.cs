@@ -29,6 +29,7 @@ namespace DevEnvAzure
             DelayHandling = 12
 
         }
+
         public static string GetListURL(ReportType reportType)
         {
             string url = "";
@@ -51,7 +52,7 @@ namespace DevEnvAzure
                     url = string.Format(ClientConfiguration.Default.SPListURL, "Kaizen Report");
                     break;
                 default:
-                    throw new Exception("Unknown report" + reportType);
+                    break;
             }
 
             return url;

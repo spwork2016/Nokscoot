@@ -77,7 +77,7 @@ namespace DevEnvAzure
             _flightcrew.DateOfEvent = DateTime.Now;
             if (!ValidatePeoplePickers()) return;
 
-            _flightcrew = App.DAUtil.SaveOrUpdae(_flightcrew);
+            _flightcrew = App.DAUtil.SaveOrUpdate(_flightcrew);
             DependencyService.Get<IMessage>().ShortAlert("Item drafted");
         }
         private void SectorNumber_changed(object sender, EventArgs e)

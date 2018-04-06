@@ -125,13 +125,15 @@ namespace DevEnvAzure
             return null;
         }
 
+        public static async Task SyncOfflineItems()
+        {
+            var eValue = App.DAUtil.GetAll<OfflineItem>("OfflineItem");
+            if (eValue != null && eValue.Count > 0)
+                DataUpload.CreateItemsOffline(eValue);
+        }
+
         public static async Task<HttpClient> GetHTTPClient(string access_token = "")
         {
-            if (App.AuthenticationResponse == null)
-            {
-                return null;
-            }
-
             await RefreshAccessToken();
 
             HttpClient client = new HttpClient();

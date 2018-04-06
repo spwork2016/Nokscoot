@@ -24,6 +24,7 @@ namespace DevEnvAzure
         { set; get; }
         public int ReportType { get; set; }
         public DateTime Created { get; set; }
+        public string Error { get; set; }
     }
 
     public class DataAccess
@@ -82,7 +83,7 @@ namespace DevEnvAzure
             return 0;
         }
 
-        public U SaveOrUpdae<U>(U reportData) where U : class
+        public U SaveOrUpdate<U>(U reportData) where U : class
         {
             try
             {

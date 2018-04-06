@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Net.Http;
+using System.Net.Http.Headers;
 using Xamarin.Forms;
 using static DevEnvAzure.SPUtility;
 
@@ -20,8 +21,19 @@ namespace DevEnvAzure
                 foreach (var emp in lstEmp)
                 {
                     string url = GetListURL((ReportType)emp.ReportType);
+                    if (string.IsNullOrEmpty(url))
+                    {
+                        if (string.IsNullOrEmpty(emp.Error))
+                        {
+                            emp.Error = "Invalid url";
+                            App.DAUtil.Update(emp);
+                        }
+
+                        continue;
+                    }
+
                     var contents = new StringContent(emp.Value);
-                    //contents.Headers.ContentType = MediaTypeHeaderValue.Parse("application/json;odata=verbose");
+                    contents.Headers.ContentType = MediaTypeHeaderValue.Parse("application/json;odata=verbose");
                     var postResult = await client.PostAsync(url, contents);
                     if (postResult.IsSuccessStatusCode)
                     {
@@ -29,16 +41,26 @@ namespace DevEnvAzure
                         App.DAUtil.Delete(emp);
                         App.offlineItems.Remove(emp);
                     }
+                    else
+                    {
+                        if (string.IsNullOrEmpty(emp.Error))
+                        {
+                            emp.Error = await postResult.Content.ReadAsStringAsync();
+                            App.DAUtil.Update(emp);
+                        }
+
+                        continue;
+                    }
                 }
 
-                if (count > 0)
-                {
-                    DependencyService.Get<IMessage>().ShortAlert(count + " item(s) updated successfully");
-                }
-                else
-                {
-                    DependencyService.Get<IMessage>().ShortAlert("Item stored in local storage");
-                }
+                //if (count > 0)
+                //{
+                //    DependencyService.Get<IMessage>().ShortAlert(count + " item(s) updated successfully");
+                //}
+                //else
+                //{
+                //    DependencyService.Get<IMessage>().ShortAlert("Item stored in local storage");
+                //}
 
             }
             catch (Exception ex)

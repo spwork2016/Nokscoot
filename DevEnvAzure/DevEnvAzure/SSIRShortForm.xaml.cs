@@ -131,7 +131,7 @@ namespace DevEnvAzure
                 }
                 else if (Convert.ToString(MORpicker.SelectedItem).Length == 0)
                 {
-                    MORlbl.TextColor = Color.OrangeRed;
+                    MOR.TextColor = Color.OrangeRed;
                     MORpicker.Focus();
                 }
                 DependencyService.Get<IMessage>().ShortAlert("Please fill all required fields");
@@ -139,7 +139,7 @@ namespace DevEnvAzure
             else
             {
                 EventTitle.TextColor = Color.Black;
-                MORlbl.TextColor = Color.Black;
+                MOR.TextColor = Color.Black;
                 switch (_classname)
                 {
                     case "safety":
@@ -198,7 +198,7 @@ namespace DevEnvAzure
                         sf.IsExtendedView = Formcheck.IsToggled;
                         sf.ReportType = "Safety" + idval.ToString();
                         sf.MOR = Convert.ToString(MORpicker.SelectedIndex);
-                        sf = App.DAUtil.SaveOrUpdae(sf);
+                        sf = App.DAUtil.SaveOrUpdate(sf);
                         if (sf != null)
                         {
                             _viewobject = sf;
@@ -210,7 +210,7 @@ namespace DevEnvAzure
                         sd.IsExtendedView = Formcheck.IsToggled;
                         sd.ReportType = "Security" + idval.ToString();
                         sd.MOR = Convert.ToString(MORpicker.SelectedIndex);
-                        sd = App.DAUtil.SaveOrUpdae(sd);
+                        sd = App.DAUtil.SaveOrUpdate(sd);
                         if (sd != null)
                         {
                             _viewobject = sd;
@@ -223,7 +223,7 @@ namespace DevEnvAzure
                         gd.IsExtendedView = Formcheck.IsToggled;
                         gd.ReportType = "GroundSafety" + idval.ToString();
                         gd.MOR = Convert.ToString(MORpicker.SelectedIndex);
-                        gd = App.DAUtil.SaveOrUpdae(gd);
+                        gd = App.DAUtil.SaveOrUpdate(gd);
                         if (gd != null)
                         {
                             _viewobject = gd;
@@ -236,7 +236,7 @@ namespace DevEnvAzure
                         ft.IsExtendedView = Formcheck.IsToggled;
                         ft.ReportType = "Fatigue" + idval.ToString();
                         ft.MOR = Convert.ToString(MORpicker.SelectedIndex);
-                        ft = App.DAUtil.SaveOrUpdae(ft);
+                        ft = App.DAUtil.SaveOrUpdate(ft);
                         if (ft != null)
                         {
                             _viewobject = ft;
@@ -249,7 +249,7 @@ namespace DevEnvAzure
                         injr.IsExtendedView = Formcheck.IsToggled;
                         injr.ReportType = "InjuryIllness" + idval.ToString();
                         injr.MOR = Convert.ToString(MORpicker.SelectedIndex);
-                        injr = App.DAUtil.SaveOrUpdae(injr);
+                        injr = App.DAUtil.SaveOrUpdate(injr);
                         if (injr != null)
                         {
                             _viewobject = injr;
@@ -262,7 +262,7 @@ namespace DevEnvAzure
                         cd.IsExtendedView = Formcheck.IsToggled;
                         cd.ReportType = "Cabin" + idval.ToString();
                         cd.MOR = Convert.ToString(MORpicker.SelectedIndex);
-                        cd = App.DAUtil.SaveOrUpdae(cd);
+                        cd = App.DAUtil.SaveOrUpdate(cd);
                         if (cd != null)
                         {
                             _viewobject = cd;
@@ -350,7 +350,6 @@ namespace DevEnvAzure
                         dt.ReportType = (int)reportType;
                         App.DAUtil.Save<OfflineItem>(dt);
 
-                        var vList = App.DAUtil.GetAll<OfflineItem>("OfflineItem");
                         await DisplayAlert("", "Item stored in local storage", "Ok");
                         MessagingCenter.Send(this, "home");
                     }

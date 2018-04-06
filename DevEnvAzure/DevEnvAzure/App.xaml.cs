@@ -90,10 +90,11 @@ namespace DevEnvAzure
                 return dbUtils;
             }
         }
-        protected override void OnStart()
+        protected async override void OnStart()
         {
             // Handle when your app starts
-           // Plugin.Connectivity.CrossConnectivity.Current.ConnectivityChanged += Current_ConnectivityChanged;
+            Plugin.Connectivity.CrossConnectivity.Current.ConnectivityChanged += Current_ConnectivityChanged;
+            await OAuthHelper.SyncOfflineItems();
         }
 
         protected override void OnSleep()
@@ -106,15 +107,13 @@ namespace DevEnvAzure
             // Handle when your app resumes
         }
 
-        private void Current_ConnectivityChanged(object sender, Plugin.Connectivity.Abstractions.ConnectivityChangedEventArgs e)
+
+
+        private async void Current_ConnectivityChanged(object sender, Plugin.Connectivity.Abstractions.ConnectivityChangedEventArgs e)
         {
             if (e.IsConnected)
             {
-                var eValue = App.DAUtil.GetAll<OfflineItem>("OfflineItem");
-                if (eValue != null && eValue.Count > 0)
-                {
-                    DataUpload.CreateItemsOffline(eValue);
-                }
+                await OAuthHelper.SyncOfflineItems();
             }
         }
     }

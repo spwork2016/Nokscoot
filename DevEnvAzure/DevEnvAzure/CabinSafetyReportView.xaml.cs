@@ -23,19 +23,23 @@ namespace DevEnvAzure
         }
         private void turbulence_Changed(object sender, EventArgs e)
         {
-            turbulenceValue = turbulancepicker.Items.ElementAt(turbulancepicker.SelectedIndex);
+            if (turbulancepicker.SelectedIndex > 0)
+                turbulenceValue = turbulancepicker.Items.ElementAt(turbulancepicker.SelectedIndex);
         }
         private void dangergoods_Changed(object sender, EventArgs e)
         {
-            dangergoodsValue = paxpicker.Items.ElementAt(paxpicker.SelectedIndex);
+            if (paxpicker.SelectedIndex > 0)
+                dangergoodsValue = paxpicker.Items.ElementAt(paxpicker.SelectedIndex);
         }
         private void dangerwhen_Changed(object sender, EventArgs e)
         {
-            dangerWhenValue = identifiedpicker.Items.ElementAt(identifiedpicker.SelectedIndex);
+            if (identifiedpicker.SelectedIndex > 0)
+                dangerWhenValue = identifiedpicker.Items.ElementAt(identifiedpicker.SelectedIndex);
         }
         private void dangerwhere_Changed(object sender, EventArgs e)
         {
-            dangerWhereValue = identifiedwherepicker.Items.ElementAt(identifiedwherepicker.SelectedIndex);
+            if (identifiedwherepicker.SelectedIndex > 0)
+                dangerWhereValue = identifiedwherepicker.Items.ElementAt(identifiedwherepicker.SelectedIndex);
         }
     }
 }
