@@ -21,57 +21,70 @@ namespace DevEnvAzure
 
         public StartPage()
         {
-            InitializeComponent();
-            menuList = new List<MasterPageItem>();
+            try
+            {
+                InitializeComponent();
+                menuList = new List<MasterPageItem>();
 
-            // Creating our pages for menu navigation
-            // Here you can define title for item, 
-            // icon on the left side, and page that you want to open after selection
-            var homePage = new MasterPageItem() { Title = "Home", Icon = "home.png", TargetType = typeof(MainPage) };
-            var offDrafts = new MasterPageItem() { Title = "Offline Drafts", Icon = "offlinedrafts.png", TargetType = typeof(DraftsPage) };
-            var logout = new MasterPageItem() { Title = "Logout", Icon = "logout.png" };
-            var reportingPage = new MasterPageItem() { Title = "Reporting", Icon = "reporting.png", TargetType = typeof(ReportsPage) };
-            var tasksPage = new MasterPageItem() { Title = "My Tasks", Icon = "mytasks.png", TargetType = typeof(Tasks) };
-            var docsPage = new MasterPageItem() { Title = "Documents", Icon = "documents.png", TargetType = typeof(DocumentLibrary) };
-            var StationInformationPage = new MasterPageItem() { Title = "Station Information", Icon = "stationinfo.png", TargetType = typeof(StationInformation) };
-            var editableDraftsPage = new MasterPageItem() { Title = "Editable Drafts", Icon = "editabledrafts.png", TargetType = typeof(EditableDrafts) };
-            var notificationsPage = new MasterPageItem() { Title = "Notifications", Icon = "notifications.png" };
+                // Creating our pages for menu navigation
+                // Here you can define title for item, 
+                // icon on the left side, and page that you want to open after selection
+                var homePage = new MasterPageItem() { Title = "Home", Icon = "home.png", TargetType = typeof(MainPage) };
+                var offDrafts = new MasterPageItem() { Title = "Offline Drafts", Icon = "offlinedrafts.png", TargetType = typeof(DraftsPage) };
+                var logout = new MasterPageItem() { Title = "Logout", Icon = "logout.png" };
+                var reportingPage = new MasterPageItem() { Title = "Reporting", Icon = "reporting.png", TargetType = typeof(ReportsPage) };
+                var tasksPage = new MasterPageItem() { Title = "My Tasks", Icon = "mytasks.png", TargetType = typeof(Tasks) };
+                var docsPage = new MasterPageItem() { Title = "Documents", Icon = "documents.png", TargetType = typeof(DocumentLibrary) };
+                var StationInformationPage = new MasterPageItem() { Title = "Station Information", Icon = "stationinfo.png", TargetType = typeof(StationInformation) };
+                var editableDraftsPage = new MasterPageItem() { Title = "Editable Drafts", Icon = "editabledrafts.png", TargetType = typeof(EditableDrafts) };
+                var notificationsPage = new MasterPageItem() { Title = "Notifications", Icon = "notifications.png" };
 
-            menuList.Add(homePage);
-            menuList.Add(reportingPage);
+                menuList.Add(homePage);
+                menuList.Add(reportingPage);
 
-            menuList.Add(notificationsPage);
-            menuList.Add(tasksPage);
-            menuList.Add(docsPage);
-            menuList.Add(StationInformationPage);
+                menuList.Add(notificationsPage);
+                menuList.Add(tasksPage);
+                menuList.Add(docsPage);
+                menuList.Add(StationInformationPage);
 
-            menuList.Add(new MasterPageItem() { Title = "One Note", Icon = "onenote.png" });
-            menuList.Add(new MasterPageItem() { Title = "One Drive", Icon = "drive.png" });
-            menuList.Add(new MasterPageItem() { Title = "Work Day", Icon = "workday.png" });
-            menuList.Add(new MasterPageItem() { Title = "SABA", Icon = "saba.png" });
+                menuList.Add(new MasterPageItem() { Title = "One Note", Icon = "onenote.png" });
+                menuList.Add(new MasterPageItem() { Title = "One Drive", Icon = "drive.png" });
+                menuList.Add(new MasterPageItem() { Title = "Work Day", Icon = "workday.png" });
+                menuList.Add(new MasterPageItem() { Title = "SABA", Icon = "saba.png" });
 
-            menuList.Add(editableDraftsPage);
-            menuList.Add(offDrafts);
-            menuList.Add(logout);
+                menuList.Add(editableDraftsPage);
+                menuList.Add(offDrafts);
+                menuList.Add(logout);
 
-            // Setting our list to be ItemSource for ListView in MainPage.xaml
-            navigationDrawerList.ItemsSource = menuList;
+                // Setting our list to be ItemSource for ListView in MainPage.xaml
+                navigationDrawerList.ItemsSource = menuList;
 
-            // Initial navigation, this can be used for our home page
-            Detail = new NavigationPage((Page)Activator.CreateInstance(App.AuthenticationResponse != null ? typeof(MainPage) : typeof(Login)));
+                // Initial navigation, this can be used for our home page
+                Detail = new NavigationPage((Page)Activator.CreateInstance(typeof(MainPage)));
+            }
+            catch (Exception ex)
+            {
+
+            }
         }
 
         protected override async void OnAppearing()
         {
-            if (App.AuthenticationResponse != null)
+            if (App.CurrentUser != null)
             {
-                var users = await SPUtility.GetUsersForPicker();
-                App.peoplePickerDataSource = new List<PeoplePicker>(users);
+                loggrInUser.Text = App.CurrentUser?.Name;
+                if (App.CurrentUser.PictureBytes != null)
+                    profilePic.Source = ImageSource.FromStream(() => new MemoryStream(App.CurrentUser?.PictureBytes));
             }
-
-            loggrInUser.Text = App.CurrentUser?.Name;
-            if (App.CurrentUser != null && App.CurrentUser.PictureBytes != null)
-                profilePic.Source = ImageSource.FromStream(() => new MemoryStream(App.CurrentUser?.PictureBytes));
+            else
+            {
+                MessagingCenter.Subscribe<App>(this, "userInfo", (arg) =>
+                {
+                    loggrInUser.Text = App.CurrentUser?.Name;
+                    if (App.CurrentUser.PictureBytes != null)
+                        profilePic.Source = ImageSource.FromStream(() => new MemoryStream(App.CurrentUser?.PictureBytes));
+                });
+            }
         }
 
         private void NavigationSubscribers()
@@ -132,7 +145,11 @@ namespace DevEnvAzure
         private void OnMenuItemSelected(object sender, SelectedItemChangedEventArgs e)
         {
             var item = (MasterPageItem)e.SelectedItem;
+            ((ListView)sender).SelectedItem = null;
+
             NavigationSubscribers();
+
+            if (item == null) return;
 
             if (item.Title == "Logout")
             {

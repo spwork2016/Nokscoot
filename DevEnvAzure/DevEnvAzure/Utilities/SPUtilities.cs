@@ -112,20 +112,26 @@ namespace DevEnvAzure
             return null;
         }
 
+        private static List<PeoplePicker> GetUsers()
+        {
+            var userInfo = App.DAUtil.GetMasterInfoByName("Users");
+            if (userInfo != null)
+                return ResponseToUsers(userInfo.content);
+
+            return null;
+        }
+
         public static async Task<List<PeoplePicker>> GetUsersForPicker()
         {
+            if (!CrossConnectivity.Current.IsConnected)
+            {
+                return GetUsers();
+            }
+
             var client = await OAuthHelper.GetHTTPClient();
 
             try
             {
-
-                if (!CrossConnectivity.Current.IsConnected)
-                {
-                    var userInfo = App.DAUtil.GetMasterInfoByName("Users");
-                    if (userInfo != null)
-                        return ResponseToUsers(userInfo.content);
-                }
-
                 var response = await client.GetStringAsync(ClientConfiguration.Default.SPRootURL + "web/siteusers?");
                 if (response != null)
                 {
@@ -136,7 +142,7 @@ namespace DevEnvAzure
             }
             catch (Exception ex)
             {
-
+                return GetUsers();
             }
 
             return null;

@@ -381,23 +381,27 @@ namespace DevEnvAzure
             }
         }
 
+        private void BindMORSavedInfo()
+        {
+            var results = App.DAUtil.GetMasterInfoByName("MORItems");
+            if (results != null)
+            {
+                var spData = JsonConvert.DeserializeObject<SPData>(results.content, new JsonSerializerSettings { DateParseHandling = DateParseHandling.None });
+
+                foreach (var val in spData.d.results)
+                {
+                    MORpicker.Items.Add(val.Title);
+                }
+
+                SetMORPickerValue();
+            }
+        }
+
         protected async void BindMORPicker()
         {
             if (!CrossConnectivity.Current.IsConnected)
             {
-                var results = App.DAUtil.GetMasterInfoByName("MORItems");
-                if (results != null)
-                {
-                    var spData = JsonConvert.DeserializeObject<SPData>(results.content, new JsonSerializerSettings { DateParseHandling = DateParseHandling.None });
-
-                    foreach (var val in spData.d.results)
-                    {
-                        MORpicker.Items.Add(val.Title);
-                    }
-
-                    SetMORPickerValue();
-                }
-
+                BindMORSavedInfo();
                 return;
             }
 
@@ -422,7 +426,8 @@ namespace DevEnvAzure
             }
             catch (Exception ex)
             {
-                var msg = "Unable to fetch list items. " + ex.Message;
+                BindMORSavedInfo();
+                var msg = "Unable to fetch MOR items: " + ex.Message;
                 await DisplayAlert("Error", msg, "Ok");
             }
         }

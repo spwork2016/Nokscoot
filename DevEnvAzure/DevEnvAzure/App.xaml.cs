@@ -43,30 +43,78 @@ namespace DevEnvAzure
         public App()
         {
             InitializeComponent();
-
-            if (CrossConnectivity.Current.IsConnected && App.AuthenticationResponse != null)
+            try
             {
-                //Making sure we always refresh the token if conneted
-                MainPage = new Login();
-            }
-            else if (!CrossConnectivity.Current.IsConnected)
-            {
-                var authResponse = App.DAUtil.GetMasterInfoByName("Authentication");
-                if (authResponse != null)
+                if (CrossConnectivity.Current.IsConnected)
                 {
-                    App.AuthenticationResponse = JsonConvert.DeserializeObject<AuthenticationResponse>(authResponse.content);
-                    MainPage = new DevEnvAzure.StartPage();
+                    var userCredentials = App.DAUtil.GetMasterInfoByName("UserCredentials");
+                    if (userCredentials != null)
+                    {
+                        var cred = JsonConvert.DeserializeObject<dynamic>(userCredentials.content);
+                        string uName = cred.Username;
+                        string pwd = cred.Password;
+                        MainPage = new StartPage();
+                        OAuthHelper.GetAuthenticationHeader(uName, pwd).ContinueWith(async (x) =>
+                       {
+                           await SyncLocalData();
+                           await OAuthHelper.GetUserInfo(uName, pwd).ContinueWith((y) =>
+                           {
+                               Device.BeginInvokeOnMainThread(async () =>
+                               {
+                                   MessagingCenter.Send<App>(this, "userInfo");
+                                   if (App.AuthenticationResponse == null)
+                                   {
+                                       MainPage = new Login();
+                                       DependencyService.Get<IMessage>().ShortAlert("Login failed! Please check email/password");
+                                   }
+                               });
+                           });
+                       });
+                    }
+                    else
+                    {
+                        MainPage = new Login();
+                    }
                 }
-            }
-            else if (App.AuthenticationResponse == null)
-                MainPage = new Login();
+                else
+                {
+                    var authResponse = App.DAUtil.GetMasterInfoByName("Authentication");
+                    if (authResponse == null)
+                        MainPage = new Login();
+                    else
+                    {
+                        App.AuthenticationResponse = JsonConvert.DeserializeObject<AuthenticationResponse>(authResponse.content);
+                        MainPage = new StartPage();
+                    }
+                }
 
-            MessagingCenter.Subscribe<object>(this, EVENT_LAUNCH_MAIN_PAGE, SetMainPageAsRootPage);
+                MessagingCenter.Subscribe<object>(this, EVENT_LAUNCH_MAIN_PAGE, SetMainPageAsRootPage);
+            }
+            catch (Exception ex)
+            {
+                DependencyService.Get<IMessage>().ShortAlert(string.Format("Error: {0}", ex.Message));
+            }
+        }
+
+        private async Task SyncLocalData()
+        {
+            try
+            {
+                await OAuthHelper.SyncOfflineItems();
+
+                var users = await SPUtility.GetUsersForPicker();
+                if (users != null)
+                    App.peoplePickerDataSource = new List<PeoplePicker>(users);
+            }
+            catch (Exception ex)
+            {
+                DependencyService.Get<IMessage>().ShortAlert(string.Format("Unable to sync local info: {0}", ex.Message));
+            }
         }
 
         public void SetMainPageAsRootPage(object sender)
         {
-            MainPage = new DevEnvAzure.StartPage();
+            MainPage = new StartPage();
         }
 
         public static PeoplePicker validatePeoplePicker(string name)
@@ -94,7 +142,6 @@ namespace DevEnvAzure
         {
             // Handle when your app starts
             Plugin.Connectivity.CrossConnectivity.Current.ConnectivityChanged += Current_ConnectivityChanged;
-            await OAuthHelper.SyncOfflineItems();
         }
 
         protected override void OnSleep()

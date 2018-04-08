@@ -1,6 +1,7 @@
 ﻿using DevEnvAzure.Controls;
 using DevEnvAzure.Model;
 using Newtonsoft.Json;
+using Plugin.Connectivity;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -76,8 +77,12 @@ namespace DevEnvAzure
             }
         }
 
-        protected override async void OnAppearing()
+        private async Task DataBind()
         {
+            if (!CrossConnectivity.Current.IsConnected) return;
+
+            Items.Clear();
+
             IsBusy = true;
             var data = await GetTasks();
             foreach (var item in data)
@@ -86,6 +91,11 @@ namespace DevEnvAzure
             }
             IsBusy = false;
             ToggleVisibility();
+        }
+
+        protected override async void OnAppearing()
+        {
+            await DataBind();
         }
 
         private void ToggleVisibility()

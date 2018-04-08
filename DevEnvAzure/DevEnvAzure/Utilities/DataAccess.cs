@@ -25,6 +25,7 @@ namespace DevEnvAzure
         public int ReportType { get; set; }
         public DateTime Created { get; set; }
         public string Error { get; set; }
+        public bool InProgress { get; set; }
     }
 
     public class DataAccess

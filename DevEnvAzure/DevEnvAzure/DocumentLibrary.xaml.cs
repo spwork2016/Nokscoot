@@ -1,5 +1,6 @@
 ﻿using DevEnvAzure.DataContracts;
 using Newtonsoft.Json;
+using Plugin.Connectivity;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -44,6 +45,8 @@ namespace DevEnvAzure
 
         private async Task<bool> DataBind(string fPath)
         {
+            if (!CrossConnectivity.Current.IsConnected) return false;
+
             Device.BeginInvokeOnMainThread(() =>
             {
                 IsBusy = true;

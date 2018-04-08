@@ -73,6 +73,8 @@ namespace DevEnvAzure
                     var str = JsonConvert.SerializeObject(new { Username = username, Password = password });
                     App.DAUtil.RefreshMasterInfo(new MasterInfo { content = str, Name = "UserCredentials" });
                     App.AuthenticationResponse = authResponse;
+
+                    await SyncOfflineItems();
                 }
 
                 //try
@@ -176,7 +178,6 @@ namespace DevEnvAzure
         {
             string aadTenant = ClientConfiguration.Default.ActiveDirectoryTenant;
             string aadClientAppId = ClientConfiguration.Default.ActiveDirectoryClientAppId;
-            string aadClientAppSecret = ClientConfiguration.Default.ActiveDirectoryClientAppSecret;
             string aadResource = "https://graph.microsoft.com/";
 
             try
@@ -240,6 +241,7 @@ namespace DevEnvAzure
                     AuthenticationResponse json = JsonConvert.DeserializeObject<AuthenticationResponse>(auth.content);
                     App.AuthenticationResponse = json;
                 }
+                else return false;
             }
 
             DateTime expries = new DateTime(1970, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc);
@@ -258,7 +260,9 @@ namespace DevEnvAzure
                         string aadClientAppId = ClientConfiguration.Default.ActiveDirectoryClientAppId;
                         string aadResource = ClientConfiguration.Default.ActiveDirectoryResource;
 
-                        var authResponse = await GetAccessToken(cred.Username, cred.Password, aadClientAppId, aadResource, aadTenant);
+                        string uname = cred.Username;
+                        string pwd = cred.Password;
+                        var authResponse = await GetAccessToken(uname, pwd, aadClientAppId, aadResource, aadTenant);
                         if (authResponse != null)
                         {
                             var str = JsonConvert.SerializeObject(new { cred.Username, cred.Password });

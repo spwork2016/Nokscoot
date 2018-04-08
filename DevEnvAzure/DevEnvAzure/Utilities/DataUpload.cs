@@ -32,7 +32,12 @@ namespace DevEnvAzure
                         continue;
                     }
 
+                    if (emp.InProgress) continue;
+
                     var contents = new StringContent(emp.Value);
+                    emp.InProgress = true;
+                    App.DAUtil.Update(emp);
+
                     contents.Headers.ContentType = MediaTypeHeaderValue.Parse("application/json;odata=verbose");
                     var postResult = await client.PostAsync(url, contents);
                     if (postResult.IsSuccessStatusCode)
@@ -43,11 +48,9 @@ namespace DevEnvAzure
                     }
                     else
                     {
-                        if (string.IsNullOrEmpty(emp.Error))
-                        {
-                            emp.Error = await postResult.Content.ReadAsStringAsync();
-                            App.DAUtil.Update(emp);
-                        }
+                        emp.Error = postResult.ReasonPhrase + "-" + await postResult.Content.ReadAsStringAsync();
+                        emp.InProgress = false;
+                        App.DAUtil.Update(emp);
 
                         continue;
                     }
