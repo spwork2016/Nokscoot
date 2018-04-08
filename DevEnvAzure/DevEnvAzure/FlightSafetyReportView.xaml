@@ -28,7 +28,7 @@
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
-                    
+
                     <Label x:Name="CommanderPForPMlbl" Text="Commander PF or PM" TextColor="Black" Grid.Row="0" FontSize="Micro" />
                     <Picker x:Name="CommanderPForPMpicker" Grid.Row="1" SelectedIndex="{Binding CommanderPForPM, Mode=TwoWay}" 
                         SelectedIndexChanged="CommanderPForPMpicker_changed" TextColor="#03A9F4" HorizontalOptions="FillAndExpand">
@@ -40,8 +40,9 @@
                     </Picker>
 
                     <Label x:Name="CommandersEmaillbl" Text="Commander's Email" TextColor="Black" Grid.Row="2" FontSize="Micro" />
-                    <autocomplete:SfAutoComplete x:Name="peoplePickerCommander" ValueChanged="peoplePickerCommander_ValueChanged" SelectionChanged="PeoplePickerCommander_SelectionChanged"  TextColor="#03A9F4" DisplayMemberPath="Name" ShowClearButton="True" Grid.Row="3" HorizontalOptions="FillAndExpand"/>
-                   
+                    <autocomplete:SfAutoComplete x:Name="peoplePickerCommander" ValueChanged="peoplePickerCommander_ValueChanged" 
+                                                 SelectionChanged="PeoplePickerCommander_SelectionChanged"  TextColor="#03A9F4" DisplayMemberPath="Name" ShowClearButton="True" Grid.Row="3" HorizontalOptions="FillAndExpand"/>
+
                     <Label x:Name="FlightCrew1Emaillbl" Text="Flight Crew 1 Email" TextColor="Black" Grid.Row="4" FontSize="Micro"/>
                     <autocomplete:SfAutoComplete x:Name="peoplePickercrew1email" ValueChanged="peoplePickercrew1email_ValueChanged"  SelectionChanged="PeoplePickercrew1email_SelectionChanged"  TextColor="#03A9F4" DisplayMemberPath="Name" ShowClearButton="True" Grid.Row="5"  HorizontalOptions="FillAndExpand"/>
 
@@ -132,36 +133,36 @@
                     <Grid.RowDefinitions>
                         <RowDefinition Height="14" />
                         <RowDefinition Height="*" />
-                        
-                        <RowDefinition Height="14" />
-                        <RowDefinition Height="*" />
-                        
-                        <RowDefinition Height="30" />
-                        <RowDefinition Height="30" />
-                        
-                        <RowDefinition Height="14" />
-                        <RowDefinition Height="*" />
-                        
-                        <RowDefinition Height="14" />
-                        <RowDefinition Height="*" />
-
-                        <RowDefinition Height="14" />
-                        <RowDefinition Height="*" />
-                        
-                        <RowDefinition Height="14" />
-                        <RowDefinition Height="*" />
-
-                        <RowDefinition Height="14" />
-                        <RowDefinition Height="*" />
-
-                        <RowDefinition Height="14" />
-                        <RowDefinition Height="*" />
 
                         <RowDefinition Height="14" />
                         <RowDefinition Height="*" />
 
                         <RowDefinition Height="30" />
-                        
+                        <RowDefinition Height="30" />
+
+                        <RowDefinition Height="14" />
+                        <RowDefinition Height="*" />
+
+                        <RowDefinition Height="14" />
+                        <RowDefinition Height="*" />
+
+                        <RowDefinition Height="14" />
+                        <RowDefinition Height="*" />
+
+                        <RowDefinition Height="14" />
+                        <RowDefinition Height="*" />
+
+                        <RowDefinition Height="14" />
+                        <RowDefinition Height="*" />
+
+                        <RowDefinition Height="14" />
+                        <RowDefinition Height="*" />
+
+                        <RowDefinition Height="14" />
+                        <RowDefinition Height="*" />
+
+                        <RowDefinition Height="30" />
+
                         <RowDefinition Height="30" />
 
                     </Grid.RowDefinitions>
@@ -169,7 +170,7 @@
                         <ColumnDefinition Width="*" />
                         <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
-                    
+
                     <Label x:Name="AltitudeLbl" Text="Altitude" TextColor="Black" Grid.Row="0" Grid.ColumnSpan="2" FontSize="Micro"/>
                     <Entry x:Name="AltitudeEntry"  Text="{Binding Altitude, Mode=TwoWay}" Placeholder="Altitude" PlaceholderColor="#F1F1F1" TextColor="#03A9F4" Grid.Row="1" Grid.ColumnSpan="2" HorizontalOptions="FillAndExpand" />
 
@@ -361,16 +362,16 @@
                     <Grid.RowDefinitions>
                         <RowDefinition Height="14" />
                         <RowDefinition Height="*" />
-                        
+
                         <RowDefinition Height="14" />
                         <RowDefinition Height="*" />
-                        
+
                         <RowDefinition Height="14" />
                         <RowDefinition Height="*" />
-                        
+
                         <RowDefinition Height="14" />
                         <RowDefinition Height="*" />
-                        
+
                         <RowDefinition Height="30" />
                         <RowDefinition Height="30" />
 
@@ -475,16 +476,16 @@
                     <Grid.RowDefinitions>
                         <RowDefinition Height="14" />
                         <RowDefinition Height="*" />
-                        
+
                         <RowDefinition Height="14" />
                         <RowDefinition Height="*" />
-                        
+
                         <RowDefinition Height="14" />
                         <RowDefinition Height="*" />
-                        
+
                         <RowDefinition Height="14" />
                         <RowDefinition Height="*" />
-                        
+
                         <RowDefinition Height="14" />
                         <RowDefinition Height="*" />
                     </Grid.RowDefinitions>
@@ -493,7 +494,7 @@
                     </Grid.ColumnDefinitions>
                     <Label FontSize="Micro" x:Name="WildlifeTypeLbl" Text="Wildlife Type" TextColor="Black" Grid.Row="0" />
                     <Entry x:Name="WildlifeTypeEntry"   Text="{Binding WildlifeType, Mode=TwoWay}" Placeholder="Wildlife Type" PlaceholderColor="#F1F1F1" TextColor="#03A9F4" Grid.Row="1" />
-                    
+
                     <Label FontSize="Micro" x:Name="Numberofbirdslbl" Text="Number of birds" TextColor="Black" Grid.Row="2" />
                     <Picker x:Name="Numberofbirdspicker" SelectedIndex="{Binding Numberofbirds,Mode=TwoWay}" SelectedIndexChanged="Numberofbirdspicker_changed" TextColor="#03A9F4" 
                             Grid.Row="3" HorizontalOptions="FillAndExpand">

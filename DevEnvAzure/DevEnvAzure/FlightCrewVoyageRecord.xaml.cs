@@ -37,6 +37,15 @@ namespace DevEnvAzure
                 this.BindingContext = _flightcrew;
 
                 ReportRaisedByEntry.DataSource = App.peoplePickerDataSource;
+                if (!string.IsNullOrEmpty(_flightcrew.ReportRaisedBy))
+                {
+                    var selectedItem = App.peoplePickerDataSource.Find(x => { return Convert.ToString(x.Id) == _flightcrew.ReportRaisedBy; });
+                    if (selectedItem != null)
+                    {
+                        ReportRaisedByEntry.Text = selectedItem.Name;
+                        ReportRaisedByEntry.SelectedItem = selectedItem;
+                    }
+                }
             }
             catch (Exception ex)
             {
@@ -71,6 +80,7 @@ namespace DevEnvAzure
 
             CreateItems(jsonInitObj.getFlightCrewVoyageJson(_flightcrew));
         }
+
         private void savedrafts_btn_Clicked(object sender, EventArgs e)
         {
             _flightcrew.ReportType = string.IsNullOrEmpty(_flightcrew.ReportType) ? "Flight Crew" + _flightcrew.Id.ToString() : _flightcrew.ReportType;
@@ -80,6 +90,7 @@ namespace DevEnvAzure
             _flightcrew = App.DAUtil.SaveOrUpdate(_flightcrew);
             DependencyService.Get<IMessage>().ShortAlert("Item drafted");
         }
+
         private void SectorNumber_changed(object sender, EventArgs e)
         {
             if (SectorNumberpicker.SelectedIndex > 0)

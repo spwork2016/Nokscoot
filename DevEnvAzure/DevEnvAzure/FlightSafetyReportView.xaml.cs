@@ -50,6 +50,41 @@ namespace DevEnvAzure
             peoplePickercrew2email.DataSource = App.peoplePickerDataSource;
             PeoplePickercrew2email = null;
         }
+
+        public FlightSafetyReportView(FlightSafetyReportModel obj)
+        {
+            InitializeComponent();
+            peoplePickerCommander.DataSource = App.peoplePickerDataSource;
+            PeoplePickerCommander = null;
+
+            var selectedItem = App.peoplePickerDataSource.Find(x => { return Convert.ToString(x.Id) == obj.CommandersEmail; });
+            if (selectedItem != null)
+            {
+                peoplePickerCommander.Text = selectedItem.Name;
+                PeoplePickerCommander = selectedItem;
+            }
+
+            peoplePickercrew1email.DataSource = App.peoplePickerDataSource;
+            PeoplePickercrew1email = null;
+
+            selectedItem = App.peoplePickerDataSource.Find(x => { return Convert.ToString(x.Id) == obj.FlightCrew1; });
+            if (selectedItem != null)
+            {
+                peoplePickercrew1email.Text = selectedItem.Name;
+                PeoplePickercrew1email = selectedItem;
+            }
+
+            peoplePickercrew2email.DataSource = App.peoplePickerDataSource;
+            PeoplePickercrew2email = null;
+
+            selectedItem = App.peoplePickerDataSource.Find(x => { return Convert.ToString(x.Id) == obj.FlightCrew2; });
+            if (selectedItem != null)
+            {
+                peoplePickercrew2email.Text = selectedItem.Name;
+                PeoplePickercrew2email = selectedItem;
+            }
+        }
+
         private void CommanderPForPMpicker_changed(object sender, EventArgs e)
         {
             if (CommanderPForPMpicker.SelectedIndex > 0)
@@ -143,14 +178,13 @@ namespace DevEnvAzure
         private async void approchType_Focused(object sender, EventArgs e)
         {
 
-
         }
         private async void approachmulti_clicked(object sender, EventArgs e)
         {
             // ApproachTypeEntry.BindingContext = MultiSelectMenuPage1.approachvalue;
             await Navigation.PushPopupAsync(new MultiSelectMenuPage1(ApproachTypeEntry.Text));
 
-            MessagingCenter.Subscribe<MultiSelectMenuPage1, string>(this, "", (sender1, arg) =>
+            MessagingCenter.Subscribe<MultiSelectMenuPage1, string>(this, "SelectedItems", (sender1, arg) =>
             {
                 ApproachTypeEntry.Text = arg.ToString().TrimEnd(',');
             });
@@ -160,7 +194,7 @@ namespace DevEnvAzure
             // ApproachTypeEntry.BindingContext = MultiSelectMenuPage1.approachvalue;
             await Navigation.PushPopupAsync(new ReasonforDeviationMultiSelect(ReasonforDeviationEntry.Text));
 
-            MessagingCenter.Subscribe<ReasonforDeviationMultiSelect, string>(this, "", (sender1, arg) =>
+            MessagingCenter.Subscribe<ReasonforDeviationMultiSelect, string>(this, "SelectedItems", (sender1, arg) =>
             {
                 ReasonforDeviationEntry.Text = arg.ToString();
             });
@@ -170,7 +204,7 @@ namespace DevEnvAzure
             // ApproachTypeEntry.BindingContext = MultiSelectMenuPage1.approachvalue;
             await Navigation.PushPopupAsync(new IntruderRelativePositionMultiSelect(RelativepositionEntry.Text));
 
-            MessagingCenter.Subscribe<IntruderRelativePositionMultiSelect, string>(this, "", (sender1, arg) =>
+            MessagingCenter.Subscribe<IntruderRelativePositionMultiSelect, string>(this, "SelectedItems", (sender1, arg) =>
             {
                 RelativepositionEntry.Text = arg.ToString();
             });

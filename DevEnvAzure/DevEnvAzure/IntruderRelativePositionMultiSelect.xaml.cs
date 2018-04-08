@@ -83,7 +83,7 @@ namespace DevEnvAzure
                 selectedValues.Add(coaltilbl.Text);
             }
 
-            MessagingCenter.Send<IntruderRelativePositionMultiSelect, string>(this, "Hi", string.Join(",", selectedValues));
+            MessagingCenter.Send<IntruderRelativePositionMultiSelect, string>(this, "SelectedItems", string.Join(",", selectedValues));
             await PopupNavigation.PopAsync();
         }
     }

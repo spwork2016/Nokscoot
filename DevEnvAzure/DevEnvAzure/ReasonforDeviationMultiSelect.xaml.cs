@@ -68,7 +68,7 @@ namespace DevEnvAzure
                 selectedValues.Add(automallbl.Text);
             }
 
-            MessagingCenter.Send<ReasonforDeviationMultiSelect, string>(this, "Hi", string.Join(",", selectedValues));
+            MessagingCenter.Send<ReasonforDeviationMultiSelect, string>(this, "SelectedItems", string.Join(",", selectedValues));
             await PopupNavigation.PopAsync();
 
         }

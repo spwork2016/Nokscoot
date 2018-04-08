@@ -8,40 +8,37 @@
         <StackLayout BackgroundColor="White" Padding="0, 10, 0, 0">
             <Label Text="Relative Position" TextColor="Gray" FontSize="20" HorizontalOptions="Center"></Label>
             <ScrollView>
-                <StackLayout>
-                    <StackLayout Orientation="Horizontal" Padding="10">
-                        <Grid>
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="*" />
-                                <RowDefinition Height="*" />
-                                <RowDefinition Height="*" />
-                                <RowDefinition Height="*" />
-                                <RowDefinition Height="*" />
-                                <RowDefinition Height="*" />
-                                <RowDefinition Height="*" />
-                            </Grid.RowDefinitions>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="*" />
-                                <ColumnDefinition Width="*" />
-                            </Grid.ColumnDefinitions>
-                            <Label x:Name="levellbl" FontSize="Small" TextColor="Black" Text="Level" Grid.Row="0" Grid.Column="0" />
-                            <Switch x:Name="levelsw"  Grid.Row="0" Grid.Column="1" HorizontalOptions="EndAndExpand"/>
-                            <Label x:Name="climbinglbl" FontSize="Small" TextColor="Black" Text="Climbing" Grid.Row="1" Grid.Column="0" />
-                            <Switch x:Name="climbingsw"  Grid.Row="1" Grid.Column="1" HorizontalOptions="EndAndExpand"/>
-                            <Label x:Name="Descendinglbl" FontSize="Small" TextColor="Black" Text="Descending" Grid.Row="2" Grid.Column="0" />
-                            <Switch x:Name="Descendingsw" Grid.Row="2" Grid.Column="1" HorizontalOptions="EndAndExpand"/>
-                            <Label x:Name="abovelbl" FontSize="Small" TextColor="Black" Text="Above" Grid.Row="3" Grid.Column="0" />
-                            <Switch x:Name="abovesw"  Grid.Row="3" Grid.Column="1" HorizontalOptions="EndAndExpand"/>
-                            <Label x:Name="Belowlbl" FontSize="Small" TextColor="Black" Text="Below" Grid.Row="4" Grid.Column="0" />
-                            <Switch x:Name="Belowsw"  Grid.Row="4" Grid.Column="1" HorizontalOptions="EndAndExpand" />
-                            <Label x:Name="coaltilbl" FontSize="Small" TextColor="Black" Text="Co-altitude" Grid.Row="5" Grid.Column="0" />
-                            <Switch x:Name="coaltisw"  Grid.Row="5" Grid.Column="1" HorizontalOptions="EndAndExpand"/>
+                <StackLayout HorizontalOptions="FillAndExpand" Padding="10">
+                    <Grid HorizontalOptions="FillAndExpand">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*" />
+                            <RowDefinition Height="*" />
+                            <RowDefinition Height="*" />
+                            <RowDefinition Height="*" />
+                            <RowDefinition Height="*" />
+                            <RowDefinition Height="*" />
+                            <RowDefinition Height="*" />
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <Label x:Name="levellbl" FontSize="Small" TextColor="Black" Text="Level" Grid.Row="0" Grid.Column="0" />
+                        <Switch x:Name="levelsw"  Grid.Row="0" Grid.Column="1" HorizontalOptions="EndAndExpand"/>
+                        <Label x:Name="climbinglbl" FontSize="Small" TextColor="Black" Text="Climbing" Grid.Row="1" Grid.Column="0" />
+                        <Switch x:Name="climbingsw"  Grid.Row="1" Grid.Column="1" HorizontalOptions="EndAndExpand"/>
+                        <Label x:Name="Descendinglbl" FontSize="Small" TextColor="Black" Text="Descending" Grid.Row="2" Grid.Column="0" />
+                        <Switch x:Name="Descendingsw" Grid.Row="2" Grid.Column="1" HorizontalOptions="EndAndExpand"/>
+                        <Label x:Name="abovelbl" FontSize="Small" TextColor="Black" Text="Above" Grid.Row="3" Grid.Column="0" />
+                        <Switch x:Name="abovesw"  Grid.Row="3" Grid.Column="1" HorizontalOptions="EndAndExpand"/>
+                        <Label x:Name="Belowlbl" FontSize="Small" TextColor="Black" Text="Below" Grid.Row="4" Grid.Column="0" />
+                        <Switch x:Name="Belowsw"  Grid.Row="4" Grid.Column="1" HorizontalOptions="EndAndExpand" />
+                        <Label x:Name="coaltilbl" FontSize="Small" TextColor="Black" Text="Co-altitude" Grid.Row="5" Grid.Column="0" />
+                        <Switch x:Name="coaltisw"  Grid.Row="5" Grid.Column="1" HorizontalOptions="EndAndExpand"/>
 
-                            <Button Text="Close" TextColor="Black" Clicked="OnClose" Grid.Row="6" Grid.Column="0" BackgroundColor="#FDCE02"></Button>
-                            <Button Text="OK" TextColor="Black" Clicked="OnSave" Grid.Row="6" Grid.Column="1" BackgroundColor="#FDCE02"></Button>
-                        </Grid>
-                    </StackLayout>
-                   
+                        <Button Text="Close" TextColor="Black" Clicked="OnClose" Grid.Row="6" Grid.Column="0" BackgroundColor="#FDCE02"></Button>
+                        <Button Text="OK" TextColor="Black" Clicked="OnSave" Grid.Row="6" Grid.Column="1" BackgroundColor="#FDCE02"></Button>
+                    </Grid>
                 </StackLayout>
             </ScrollView>
         </StackLayout>

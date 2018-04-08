@@ -74,7 +74,7 @@ namespace DevEnvAzure
                 selectedValues.Add(rnpapvlbl.Text);
             }
 
-            MessagingCenter.Send<MultiSelectMenuPage1, string>(this, "", string.Join(",", selectedValues));
+            MessagingCenter.Send<MultiSelectMenuPage1, string>(this, "SelectedItems", string.Join(",", selectedValues));
             await PopupNavigation.PopAsync();
 
         }

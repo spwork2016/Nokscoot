@@ -31,7 +31,7 @@ namespace DevEnvAzure
         {
             try
             {
-                this.BindingContext = viewObject;
+                BindingContext = viewObject;
                 _classname = modelname;
                 _viewobject = viewObject;
                 InitializeComponent();
@@ -83,7 +83,7 @@ namespace DevEnvAzure
                 switch (_classname)
                 {
                     case "safety":
-                        _fullviewobj = new FlightSafetyReportView();
+                        _fullviewobj = new FlightSafetyReportView((FlightSafetyReportModel)_viewobject);
                         break;
                     case "security":
                         _fullviewobj = new securityReportView();
@@ -171,7 +171,6 @@ namespace DevEnvAzure
                     case "Injury":
                         InjuryIllnessReport injr = (InjuryIllnessReport)_viewobject;
                         injr.ReportType = "InjuryIllness" + injr.Id.ToString();
-
                         CreateItems(jsonInitObj.getInjuryJson(injr), SPUtility.ReportType.InjuryIllness);
                         App.DAUtil.Delete(injr);
                         break;
@@ -198,6 +197,16 @@ namespace DevEnvAzure
                         sf.IsExtendedView = Formcheck.IsToggled;
                         sf.ReportType = "Safety" + idval.ToString();
                         sf.MOR = Convert.ToString(MORpicker.SelectedIndex);
+
+                        if (FlightSafetyReportView.PeoplePickerCommander != null)
+                            sf.CommandersEmail = FlightSafetyReportView.PeoplePickerCommander.Id.ToString();
+
+                        if (FlightSafetyReportView.PeoplePickercrew1email != null)
+                            sf.FlightCrew1 = FlightSafetyReportView.PeoplePickercrew1email.Id.ToString();
+
+                        if (FlightSafetyReportView.PeoplePickercrew2email != null)
+                            sf.FlightCrew2 = FlightSafetyReportView.PeoplePickercrew2email.Id.ToString();
+
                         sf = App.DAUtil.SaveOrUpdate(sf);
                         if (sf != null)
                         {
