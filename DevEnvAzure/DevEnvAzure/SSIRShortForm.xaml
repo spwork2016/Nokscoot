@@ -75,7 +75,7 @@
                                     </Picker>
 
                                     <Label x:Name="DepartStn" Text="Departure Station" FontSize="Micro" TextColor="Black" Grid.Row="10" />
-                                    <Entry x:Name="DepartStnEntry"  Placeholder="Departure Station" PlaceholderColor="#F1F1F1" Text="{Binding DepartureStation, Mode=TwoWay}" TextColor="Black" Grid.Row="11" />
+                                    <Entry x:Name="DepartStnEntry"  Placeholder="Departure Station" PlaceholderColor="#F1F1F1" Text="{Binding DepartureStation, Mode=TwoWay}" TextColor="#03A9F4" Grid.Row="11" />
                                     <Label x:Name="ArrivStn" Text="Arrival Station" Grid.Row="12" TextColor="Black" FontSize="Micro" />
                                     <Entry x:Name="ArrivStnEntry" Placeholder="Arrival Station" PlaceholderColor="#F1F1F1" Text="{Binding ArrivalStation, Mode=TwoWay}" TextColor="#03A9F4" Grid.Row="13" />
 
@@ -162,9 +162,12 @@
                                    TextColor="#03A9F4" Grid.Row="2" Grid.ColumnSpan="2" />
 
                                     <Label x:Name="Name" FontSize="Micro" Text="Name-Staff Number" TextColor="Black" Grid.Row="3" Grid.ColumnSpan="2" />
-                                    <Entry PlaceholderColor="#F1F1F1"  Placeholder="Name-Staff Number" x:Name="NameEntry" Text="" TextColor="#03A9F4" Grid.Row="4" Grid.ColumnSpan="2" />
+                                    <Entry PlaceholderColor="#F1F1F1" IsEnabled="False" Placeholder="Name-Staff Number" x:Name="NameEntry" Text="{Binding NameStaffNumber, Mode=TwoWay}" 
+                                           TextColor="#03A9F4" Grid.Row="4" Grid.ColumnSpan="2" />
                                     <Label x:Name="Email" FontSize="Micro" TextColor="Black" Text="Email of Submitter" Grid.Row="5" Grid.ColumnSpan="2" />
-                                    <Entry PlaceholderColor="#F1F1F1" Placeholder="Email of Submitter" x:Name="EmailEntry"  Grid.Row="6" TextColor="#03A9F4" Grid.ColumnSpan="2" />
+                                    <Entry PlaceholderColor="#F1F1F1" IsEnabled="False" Placeholder="Email of Submitter" x:Name="EmailEntry" Text="{Binding SubmitterEmail, Mode=TwoWay}"
+                                           Grid.Row="6" TextColor="#03A9F4" Grid.ColumnSpan="2" />
+                                    
                                     <Label x:Name="SSQ" FontSize="Micro" Text="SSQ USE-Send Notifications" TextColor="Black" Grid.Row="7" Grid.Column="0" />
                                     <Switch x:Name="SSQEntry" HorizontalOptions="EndAndExpand" IsToggled="{Binding ssQ, Mode=TwoWay}" Grid.Row="7" Grid.Column="1" />
                                 </Grid>

@@ -50,5 +50,12 @@ namespace DevEnvAzure.Models
         { get; set; }
         public int Rank
         { get; set; }
+
+
+        //local usage - to show datetime in drafts page
+        public DateTime Created
+        {
+            get; set;
+        }
     }
 }

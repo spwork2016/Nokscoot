@@ -24,10 +24,20 @@ namespace DevEnvAzure
             _StationInformation = (Models.StationInformationModel)viewObject;
             this.BindingContext = _StationInformation;
             InitializeComponent();
-            Title = "Station Information";
         }
         private void Save_clicked(object sender, XLabs.EventArgs<bool> e)
         {
+            if (string.IsNullOrEmpty(_StationInformation.IATACode))
+            {
+                IATACodeLbl.TextColor = Color.Red;
+                IATACodeEntry.Focus();
+                return;
+            }
+            else
+            {
+                IATACodeLbl.TextColor = Color.Black;
+            }
+
             _StationInformation.ReportType = null;
             _StationInformation.DateOfEvent = null;
             CreateItems(jsonInitObj.getStationInformationJson(_StationInformation));
@@ -36,6 +46,8 @@ namespace DevEnvAzure
         {
             _StationInformation.ReportType = "Station Information" + _StationInformation.Id.ToString();
             _StationInformation.DateOfEvent = DateTime.Now;
+            _StationInformation.Created = DateTime.Now;
+
             _StationInformation = App.DAUtil.SaveOrUpdate(_StationInformation);
 
             DependencyService.Get<IMessage>().ShortAlert("Item drafted");

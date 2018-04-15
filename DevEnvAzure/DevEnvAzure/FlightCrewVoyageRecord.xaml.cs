@@ -75,6 +75,17 @@ namespace DevEnvAzure
             _flightcrew.DateOfEvent = null;
             if (!ValidatePeoplePickers()) return;
 
+            if (string.IsNullOrEmpty(_flightcrew.VoyageRecord))
+            {
+                VoyageRecordLbl.TextColor = Color.Red;
+                VoyageRecordEntry.Focus();
+                return;
+            }
+            else
+            {
+                VoyageRecordLbl.TextColor = Color.Black;
+            }
+
             ReportRaisedByEntry.SelectedItem = null;
             ReportRaisedByEntry.ShowBorder = false;
 
@@ -86,6 +97,7 @@ namespace DevEnvAzure
             _flightcrew.ReportType = string.IsNullOrEmpty(_flightcrew.ReportType) ? "Flight Crew" + _flightcrew.Id.ToString() : _flightcrew.ReportType;
             _flightcrew.DateOfEvent = DateTime.Now;
             if (!ValidatePeoplePickers()) return;
+            _flightcrew.Created = DateTime.Now;
 
             _flightcrew = App.DAUtil.SaveOrUpdate(_flightcrew);
             DependencyService.Get<IMessage>().ShortAlert("Item drafted");

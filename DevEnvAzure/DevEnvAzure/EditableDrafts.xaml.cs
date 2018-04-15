@@ -36,7 +36,9 @@ namespace DevEnvAzure
                 {
                     lblSecurityReportCount.Text = string.Format("({0})", App.safetyReport.Count.ToString());
                     stkSecurityReports.IsVisible = App.cabinSafety.Count == 0 ? false : true;
+                    SetNoDataInfo();
                 });
+
 
                 App.safetyReport = new ObservableCollection<FlightSafetyReportModel>(App.DAUtil.GetAll<FlightSafetyReportModel>("SafetyReportModel"));
                 lblSafetyReportCount.Text = string.Format("({0})", App.safetyReport.Count.ToString());
@@ -45,6 +47,7 @@ namespace DevEnvAzure
                 {
                     stkSafetyReports.IsVisible = App.safetyReport.Count == 0 ? false : true;
                     lblSafetyReportCount.Text = string.Format("({0})", App.safetyReport.Count.ToString());
+                    SetNoDataInfo();
                 });
 
                 App.cabinSafety = new ObservableCollection<CabibSafetyReport>(App.DAUtil.GetAll<CabibSafetyReport>("CabibSafetyReport"));
@@ -54,6 +57,7 @@ namespace DevEnvAzure
                 {
                     lblcabinSafetyReportCount.Text = string.Format("({0})", App.safetyReport.Count.ToString());
                     stkcabinSafetyReports.IsVisible = App.cabinSafety.Count == 0 ? false : true;
+                    SetNoDataInfo();
                 });
 
                 App.injuryIllness = new ObservableCollection<InjuryIllnessReport>(App.DAUtil.GetAll<InjuryIllnessReport>("InjuryIllnessReport"));
@@ -63,6 +67,7 @@ namespace DevEnvAzure
                 {
                     lblinjuryIllnessReportCount.Text = string.Format("({0})", App.safetyReport.Count.ToString());
                     stkinjuryIllnessReports.IsVisible = App.injuryIllness.Count == 0 ? false : true;
+                    SetNoDataInfo();
                 });
 
                 App.groundSafety = new ObservableCollection<GroundSafetyReport>(App.DAUtil.GetAll<GroundSafetyReport>("GroundSafetyReport"));
@@ -72,6 +77,7 @@ namespace DevEnvAzure
                 {
                     lblGroundSafetyReportCount.Text = string.Format("({0})", App.safetyReport.Count.ToString());
                     stkGroundSafetyReports.IsVisible = App.groundSafety.Count == 0 ? false : true;
+                    SetNoDataInfo();
                 });
 
                 App.fatigue = new ObservableCollection<FatigueReport>(App.DAUtil.GetAll<FatigueReport>("FatigueReport"));
@@ -81,6 +87,7 @@ namespace DevEnvAzure
                 {
                     lblFatigueReportCount.Text = string.Format("({0})", App.safetyReport.Count.ToString());
                     stkFatigueReports.IsVisible = App.fatigue.Count == 0 ? false : true;
+                    SetNoDataInfo();
                 });
 
                 App.kaizen = new ObservableCollection<KaizenReportModel>(App.DAUtil.GetAll<KaizenReportModel>("KaizenReportModel"));
@@ -90,6 +97,7 @@ namespace DevEnvAzure
                 {
                     kaizencnt.Text = string.Format("({0})", App.safetyReport.Count.ToString());
                     stkKaizen.IsVisible = App.kaizen.Count == 0 ? false : true;
+                    SetNoDataInfo();
                 });
 
                 App.fcVoyage = new ObservableCollection<FlightCrewVoyageRecordModel>(App.DAUtil.GetAll<FlightCrewVoyageRecordModel>("FlightCrewVoyageRecordModel"));
@@ -99,6 +107,7 @@ namespace DevEnvAzure
                 {
                     fcVoyageCnt.Text = string.Format("({0})", App.safetyReport.Count.ToString());
                     sktfcVoyage.IsVisible = App.fcVoyage.Count == 0 ? false : true;
+                    SetNoDataInfo();
                 });
 
                 App.statInfo = new ObservableCollection<StationInformationModel>(App.DAUtil.GetAll<StationInformationModel>("StationInformationModel"));
@@ -108,12 +117,31 @@ namespace DevEnvAzure
                 {
                     StatnInfoCnt.Text = string.Format("({0})", App.safetyReport.Count.ToString());
                     sktStatnInfo.IsVisible = App.statInfo.Count == 0 ? false : true;
+                    SetNoDataInfo();
                 });
+
+                SetNoDataInfo();
             }
             catch (Exception ex)
             {
 
             }
+        }
+
+        private void SetNoDataInfo()
+        {
+            int totalCount = 0;
+
+            totalCount += App.statInfo.Count;
+            totalCount += App.kaizen.Count;
+            totalCount += App.fatigue.Count;
+            totalCount += App.security.Count;
+            totalCount += App.groundSafety.Count;
+            totalCount += App.groundSafety.Count;
+            totalCount += App.cabinSafety.Count;
+            totalCount += App.safetyReport.Count;
+
+            stkNodata.IsVisible = totalCount == 0;
         }
 
         private void ExpandCollapsePanel(object sender, StackLayout layout, string rptType)

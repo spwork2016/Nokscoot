@@ -73,8 +73,6 @@ namespace DevEnvAzure
                     var str = JsonConvert.SerializeObject(new { Username = username, Password = password });
                     App.DAUtil.RefreshMasterInfo(new MasterInfo { content = str, Name = "UserCredentials" });
                     App.AuthenticationResponse = authResponse;
-
-                    await SyncOfflineItems();
                 }
 
                 //try
@@ -127,11 +125,13 @@ namespace DevEnvAzure
             return null;
         }
 
-        public static async Task SyncOfflineItems()
+        public static async Task<int> SyncOfflineItems()
         {
             var eValue = App.DAUtil.GetAll<OfflineItem>("OfflineItem");
             if (eValue != null && eValue.Count > 0)
-                DataUpload.CreateItemsOffline(eValue);
+                return await DataUpload.CreateItemsOffline(eValue);
+
+            return 0;
         }
 
         public static async Task<HttpClient> GetHTTPClient(string access_token = "")

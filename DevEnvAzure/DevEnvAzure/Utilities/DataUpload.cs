@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Net.Http;
 using System.Net.Http.Headers;
+using System.Threading.Tasks;
 using Xamarin.Forms;
 using static DevEnvAzure.SPUtility;
 
@@ -11,7 +12,7 @@ namespace DevEnvAzure
     {
         const string SPRootURL = "https://sptechnophiles.sharepoint.com/_api/web/lists/";
 
-        public static async void CreateItemsOffline(List<OfflineItem> lstEmp)
+        public static async Task<int> CreateItemsOffline(List<OfflineItem> lstEmp)
         {
             var client = await OAuthHelper.GetHTTPClient();
 
@@ -56,6 +57,7 @@ namespace DevEnvAzure
                     }
                 }
 
+                return count;
                 //if (count > 0)
                 //{
                 //    DependencyService.Get<IMessage>().ShortAlert(count + " item(s) updated successfully");
@@ -70,6 +72,8 @@ namespace DevEnvAzure
             {
                 DependencyService.Get<IMessage>().ShortAlert("Upload Error");
             }
+
+            return 0;
         }
     }
 }

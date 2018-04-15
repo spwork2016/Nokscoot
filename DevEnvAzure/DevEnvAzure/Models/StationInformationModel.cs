@@ -98,8 +98,14 @@ namespace DevEnvAzure.Models
         public string RecommendedSecurityPrecautions
         { get; set; }
         public string ImmigrationCustomsConsiderations
-        { get; set; }   
+        { get; set; }
 
+
+        //local usage - to show datetime in drafts page
+        public DateTime Created
+        {
+            get; set;
+        }
 
     }
 }

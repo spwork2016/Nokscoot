@@ -37,6 +37,7 @@ namespace DevEnvAzure
                 InitializeComponent();
 
                 BindMORPicker();
+                SetSubmitterInfo(viewObject);
             }
             catch (Exception ex)
             {
@@ -197,6 +198,7 @@ namespace DevEnvAzure
                         sf.IsExtendedView = Formcheck.IsToggled;
                         sf.ReportType = "Safety" + idval.ToString();
                         sf.MOR = Convert.ToString(MORpicker.SelectedIndex);
+                        sf.Created = DateTime.Now;
 
                         if (FlightSafetyReportView.PeoplePickerCommander != null)
                             sf.CommandersEmail = FlightSafetyReportView.PeoplePickerCommander.Id.ToString();
@@ -219,6 +221,7 @@ namespace DevEnvAzure
                         sd.IsExtendedView = Formcheck.IsToggled;
                         sd.ReportType = "Security" + idval.ToString();
                         sd.MOR = Convert.ToString(MORpicker.SelectedIndex);
+                        sd.Created = DateTime.Now;
                         sd = App.DAUtil.SaveOrUpdate(sd);
                         if (sd != null)
                         {
@@ -232,6 +235,7 @@ namespace DevEnvAzure
                         gd.IsExtendedView = Formcheck.IsToggled;
                         gd.ReportType = "GroundSafety" + idval.ToString();
                         gd.MOR = Convert.ToString(MORpicker.SelectedIndex);
+                        gd.Created = DateTime.Now;
                         gd = App.DAUtil.SaveOrUpdate(gd);
                         if (gd != null)
                         {
@@ -245,6 +249,7 @@ namespace DevEnvAzure
                         ft.IsExtendedView = Formcheck.IsToggled;
                         ft.ReportType = "Fatigue" + idval.ToString();
                         ft.MOR = Convert.ToString(MORpicker.SelectedIndex);
+                        ft.Created = DateTime.Now;
                         ft = App.DAUtil.SaveOrUpdate(ft);
                         if (ft != null)
                         {
@@ -258,6 +263,7 @@ namespace DevEnvAzure
                         injr.IsExtendedView = Formcheck.IsToggled;
                         injr.ReportType = "InjuryIllness" + idval.ToString();
                         injr.MOR = Convert.ToString(MORpicker.SelectedIndex);
+                        injr.Created = DateTime.Now;
                         injr = App.DAUtil.SaveOrUpdate(injr);
                         if (injr != null)
                         {
@@ -271,6 +277,7 @@ namespace DevEnvAzure
                         cd.IsExtendedView = Formcheck.IsToggled;
                         cd.ReportType = "Cabin" + idval.ToString();
                         cd.MOR = Convert.ToString(MORpicker.SelectedIndex);
+                        cd.Created = DateTime.Now;
                         cd = App.DAUtil.SaveOrUpdate(cd);
                         if (cd != null)
                         {
@@ -386,6 +393,26 @@ namespace DevEnvAzure
                     string selectedMOR = (string)(pi.GetValue(_viewobject, null));
                     if (!string.IsNullOrEmpty(selectedMOR))
                         MORpicker.SelectedIndex = Convert.ToInt32(selectedMOR);
+                }
+            }
+        }
+
+        private void SetSubmitterInfo(object obj)
+        {
+            if (obj != null && App.CurrentUser != null)
+            {
+                System.Reflection.PropertyInfo pi = obj.GetType().GetProperty("NameStaffNumber");
+                if (pi != null)
+                {
+                    pi.SetValue(obj, App.CurrentUser.Name);
+                    NameEntry.Text = App.CurrentUser.Name;
+                }
+
+                pi = obj.GetType().GetProperty("SubmitterEmail");
+                if (pi != null)
+                {
+                    pi.SetValue(obj, App.CurrentUser.Email);
+                    EmailEntry.Text = App.CurrentUser.Email;
                 }
             }
         }

@@ -112,5 +112,12 @@ namespace DevEnvAzure.DataContracts
         //[JsonProperty(PropertyName = "Attachments")]
         //public string reportAttachment
         //{ get; set; }
+
+        [JsonProperty(PropertyName = "Person_x0020_submitting_x0020_re")]
+        public string NameStaffNumber
+        { get; set; }
+        [JsonProperty(PropertyName = "Email_x002d_IDOfSubmitter")]
+        public string SubmitterEmail
+        { get; set; }
     }
 }

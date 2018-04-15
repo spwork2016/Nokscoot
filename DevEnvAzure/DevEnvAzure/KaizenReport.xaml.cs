@@ -32,6 +32,17 @@ namespace DevEnvAzure
         }
         private void Save_clicked(object sender, XLabs.EventArgs<bool> e)
         {
+            if (string.IsNullOrEmpty(_KaizenReport.Subject))
+            {
+                SubjectLbl.TextColor = Color.Red;
+                SubjectEntry.Focus();
+                return;
+            }
+            else
+            {
+                SubjectLbl.TextColor = Color.Black;
+            }
+
             _KaizenReport.ReportType = null;
             _KaizenReport.DateOfEvent = null;
             CreateItems(jsonInitObj.getKaizenReportJson(_KaizenReport));
@@ -40,6 +51,7 @@ namespace DevEnvAzure
         {
             _KaizenReport.ReportType = string.IsNullOrEmpty(_KaizenReport.ReportType) ? "Kaizen Report" + _KaizenReport.Id.ToString() : _KaizenReport.ReportType;
             _KaizenReport.DateOfEvent = DateTime.Now;
+            _KaizenReport.Created = DateTime.Now;
             _KaizenReport = App.DAUtil.SaveOrUpdate(_KaizenReport);
             DependencyService.Get<IMessage>().ShortAlert("Item drafted");
         }

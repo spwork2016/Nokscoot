@@ -79,6 +79,17 @@ namespace DevEnvAzure.Models
         public string reportAttachment
         { get; set; }
         public bool IsExtendedView { get; set; }
+        public string NameStaffNumber
+        { get; set; }
+        public string SubmitterEmail
+        { get; set; }
+
+
+        //local usage - to show datetime in drafts page
+        public DateTime Created
+        {
+            get; set;
+        }
 
     }
 }

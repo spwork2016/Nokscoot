@@ -101,14 +101,21 @@ namespace DevEnvAzure.DataContracts
         [JsonProperty(PropertyName = "Loading_x0020_Event_x0020_Impact")]
         public string impactTocraftIndex
         { get; set; }
-        [JsonProperty(PropertyName = "Dangerous_x0020_Goods_x0020_Pax_")]
+        [JsonProperty(PropertyName = "DangerousGoodsPaxOrCargo")]
         public string pax_CargoIndex
         { get; set; }
-        [JsonProperty(PropertyName = "Dangerous_x0020_Goods_x0020_Even0")]
+        [JsonProperty(PropertyName = "DangerousGoodsEventIdentifiedWhe")]
         public string identifiedWhenIndex
         { get; set; }
-        [JsonProperty(PropertyName = "Dangerous_x0020_Goods_x0020_Even")]
+        [JsonProperty(PropertyName = "DangerousGoodsEventLocation")]
         public string identifiedWhereIndex
+        { get; set; }
+
+        [JsonProperty(PropertyName = "Person_x0020_submitting_x0020_re")]
+        public string NameStaffNumber
+        { get; set; }
+        [JsonProperty(PropertyName = "Email_x002d_IDOfSubmitter")]
+        public string SubmitterEmail
         { get; set; }
     }
 }

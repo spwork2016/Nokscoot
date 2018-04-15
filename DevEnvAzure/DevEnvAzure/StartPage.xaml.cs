@@ -47,8 +47,8 @@ namespace DevEnvAzure
                 menuList.Add(docsPage);
                 menuList.Add(StationInformationPage);
 
-                menuList.Add(new MasterPageItem() { Title = "One Note", Icon = "onenote.png" });
-                menuList.Add(new MasterPageItem() { Title = "One Drive", Icon = "drive.png" });
+                //menuList.Add(new MasterPageItem() { Title = "One Note", Icon = "onenote.png" });
+                //menuList.Add(new MasterPageItem() { Title = "One Drive", Icon = "drive.png" });
                 menuList.Add(new MasterPageItem() { Title = "Work Day", Icon = "workday.png" });
                 menuList.Add(new MasterPageItem() { Title = "SABA", Icon = "saba.png" });
 
@@ -151,6 +151,14 @@ namespace DevEnvAzure
 
             if (item == null) return;
 
+            if (item.Title == "SABA")
+            {
+                Device.OpenUri(new Uri("https://wd3.myworkday.com/flyscoot/d/inst/1$9232/6503$3.htmld"));
+            }
+            else if (item.Title == "Work Day")
+            {
+                Device.OpenUri(new Uri("https://wd3.myworkday.com/wday/authgwy/flyscoot/login.htmld?returnTo=%2fflyscoot%2fd%2finst%2f779%24610920%2frel-task%2f2997%244086.htmld"));
+            }
             if (item.Title == "Logout")
             {
                 IsPresented = false;

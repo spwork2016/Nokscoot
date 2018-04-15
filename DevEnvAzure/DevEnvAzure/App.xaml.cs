@@ -10,6 +10,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Xamarin.Forms;
+using Plugin.LocalNotifications;
 
 namespace DevEnvAzure
 {
@@ -96,6 +97,22 @@ namespace DevEnvAzure
             }
         }
 
+        public async static Task SyncOfflineItemsBG()
+        {
+            try
+            {
+                var updatedCount = await OAuthHelper.SyncOfflineItems();
+                if (updatedCount > 0)
+                {
+                    CrossLocalNotifications.Current.Show("", "Offline items has been synced");
+                }
+
+            }
+            catch (Exception ex)
+            {
+            }
+        }
+
         private async Task SyncLocalData()
         {
             try
@@ -153,8 +170,6 @@ namespace DevEnvAzure
         {
             // Handle when your app resumes
         }
-
-
 
         private async void Current_ConnectivityChanged(object sender, Plugin.Connectivity.Abstractions.ConnectivityChangedEventArgs e)
         {

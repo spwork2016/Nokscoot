@@ -23,7 +23,7 @@
                                         <ColumnDefinition Width="*" />
                                         <ColumnDefinition Width="*" />
                                     </Grid.ColumnDefinitions>
-                                    <Label x:Name="VoyageRecordLbl" Text="Voyage Record #" TextColor="Black" Grid.Row="0" Grid.ColumnSpan="2" FontSize="Micro"/>
+                                    <Label x:Name="VoyageRecordLbl" Text="Voyage Record # *" TextColor="Black" Grid.Row="0" Grid.ColumnSpan="2" FontSize="Micro"/>
                                     <Entry x:Name="VoyageRecordEntry" Text="{Binding VoyageRecord, Mode=TwoWay}" Placeholder="Voyage Record #" 
                                    PlaceholderColor="#F1F1F1" TextColor="#03A9F4" Grid.Row="1" Grid.ColumnSpan="2" />
                                     <Label x:Name="SectorNumberlbl" Text="Sector Number" TextColor="Black" Grid.Row="2" Grid.ColumnSpan="2" FontSize="Micro" />

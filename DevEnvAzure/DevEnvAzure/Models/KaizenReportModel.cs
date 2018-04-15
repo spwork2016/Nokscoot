@@ -29,5 +29,11 @@ namespace DevEnvAzure.Models
         public string Subject
         { get; set; }
 
+
+        //local usage - to show datetime in drafts page
+        public DateTime Created
+        {
+            get; set;
+        }
     }
 }

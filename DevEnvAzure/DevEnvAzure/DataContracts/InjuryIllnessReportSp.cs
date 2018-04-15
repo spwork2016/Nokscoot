@@ -105,5 +105,11 @@ namespace DevEnvAzure.DataContracts
         [JsonProperty(PropertyName = "Type_x0020_of_x0020_occurrence")]
         public string occurTypeIndex
         { get; set; }
+        [JsonProperty(PropertyName = "Person_x0020_submitting_x0020_re")]
+        public string NameStaffNumber
+        { get; set; }
+        [JsonProperty(PropertyName = "Email_x002d_IDOfSubmitter")]
+        public string SubmitterEmail
+        { get; set; }
     }
 }

@@ -26,7 +26,7 @@
                                         <ColumnDefinition Width="*" />
                                         <ColumnDefinition Width="*" />
                                     </Grid.ColumnDefinitions>
-                                    <Label x:Name="IATACodeLbl" Text="IATA Code" TextColor="Black" Grid.Row="0" Grid.ColumnSpan="2" FontSize="Micro"  />
+                                    <Label x:Name="IATACodeLbl" Text="IATA Code *" TextColor="Black" Grid.Row="0" Grid.ColumnSpan="2" FontSize="Micro"  />
                                     <Entry x:Name="IATACodeEntry"  Text="{Binding IATACode, Mode=TwoWay}" Placeholder="IATA Code" PlaceholderColor="#F1F1F1" TextColor="#03A9F4" Grid.Row="1" Grid.ColumnSpan="2" />
                                     <Label x:Name="NameofAirportInfoLbl" TextColor="Black" Text="Name of Airport and Info" Grid.Row="2" Grid.ColumnSpan="2" FontSize="Micro"  />
                                     <Entry x:Name="NameofAirportInfoEntry"  Text="{Binding NameofAirport, Mode=TwoWay}" Placeholder="Name of Airport and Info" PlaceholderColor="#F1F1F1"  TextColor="#03A9F4" Grid.Row="3" Grid.ColumnSpan="2" />
@@ -38,7 +38,7 @@
                             </StackLayout>
 
                             <StackLayout HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" Margin="0,15">
-                                <Label x:Name="APPOINTEDAIRPORTPARTNERSlbl" TextColor="Black" FontSize="Medium" HorizontalOptions="Start" Text="APPOINTED AIRPORT PARTNERS" />
+                                <Label x:Name="APPOINTEDAIRPORTPARTNERSlbl" TextColor="Black" FontSize="Medium" HorizontalOptions="Start" Text="Appointed airport partners" />
                                 <BoxView Color="#FDCE02" HorizontalOptions="FillAndExpand" HeightRequest="1" />
                                 <Grid>
                                     <Grid.RowDefinitions>
@@ -75,7 +75,7 @@
                             </StackLayout>
 
                             <StackLayout HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" Margin="0,15">
-                                <Label x:Name="NEARESTROYALTHAIEMBASSYBEIJINGlbl" TextColor="Black" FontSize="Medium" HorizontalOptions="Start" Text="NEAREST ROYAL THAI EMBASSY, BEIJING" />
+                                <Label x:Name="NEARESTROYALTHAIEMBASSYBEIJINGlbl" TextColor="Black" FontSize="Medium" HorizontalOptions="Start" Text="Nearest royal Thai embassy, Beijing" />
                                 <BoxView Color="#FDCE02" HorizontalOptions="FillAndExpand" HeightRequest="1" />
                                 <Grid>
                                     <Grid.RowDefinitions>
@@ -112,7 +112,7 @@
                             </StackLayout>
 
                             <StackLayout HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" Margin="0,15">
-                                <Label x:Name="LODGINGTRANSPORTlbl" TextColor="Black" FontSize="Medium" HorizontalOptions="Start" Text="LODGING and TRANSPORT" />
+                                <Label x:Name="LODGINGTRANSPORTlbl" TextColor="Black" FontSize="Medium" HorizontalOptions="Start" Text="Lodging and Transport" />
                                 <BoxView Color="#FDCE02" HorizontalOptions="FillAndExpand" HeightRequest="1" />
                                 <Grid>
                                     <Grid.RowDefinitions>
@@ -177,7 +177,7 @@
                             </StackLayout>
 
                             <StackLayout HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" Margin="0,15">
-                                <Label x:Name="OTHERSlbl" TextColor="Black" FontSize="Medium" HorizontalOptions="Start" Text="OTHERS" />
+                                <Label x:Name="OTHERSlbl" TextColor="Black" FontSize="Medium" HorizontalOptions="Start" Text="Others" />
                                 <BoxView Color="#FDCE02" HorizontalOptions="FillAndExpand" HeightRequest="1" />
                                 <Grid>
                                     <Grid.RowDefinitions>
@@ -224,7 +224,7 @@
                                     <Entry x:Name="FirstLastDoorEntry"  Text="{Binding FirstLastDoor, Mode=TwoWay}" Placeholder="First / Last Door" 
                                    PlaceholderColor="#F1F1F1" TextColor="#03A9F4" Grid.Row="7" Grid.ColumnSpan="2"  />
                                     <Label x:Name="EICLbl" Text="# of Equipment in Compartment (EIC)" TextColor="Black" Grid.Row="8" Grid.ColumnSpan="2" FontSize="Micro"  />
-                                    <Entry x:Name="EICEntry"  Text="{Binding noofEquipmentinCompartment, Mode=TwoWay}" Placeholder="# of Equipment in Compartment (EIC)" 
+                                    <Entry x:Name="EICEntry" Keyboard="Numeric" Text="{Binding noofEquipmentinCompartment, Mode=TwoWay}" Placeholder="# of Equipment in Compartment (EIC)" 
                                    PlaceholderColor="#F1F1F1" TextColor="#03A9F4" Grid.Row="9" Grid.ColumnSpan="2"  />
                                     <Label x:Name="EOBlbl" Text="Engineer on board (EOB)" TextColor="Black" Grid.Row="10" Grid.Column="0" FontSize="Micro" />
                                     <Switch x:Name="EOBchkbx"   HorizontalOptions="EndAndExpand"  IsToggled="{Binding Engineeronboard, Mode=TwoWay}" Grid.Row="10"  Grid.Column="1" />

@@ -36,6 +36,8 @@ namespace DevEnvAzure.Utilities
             sddp.FlightEvent = securityReportView.flightphase;//sd.flightEvent != 0 ? Convert.ToString(sd.flightEvent + 1) : null;
             sddp.securityEvent = sd.securityEvent; //!= 0 ? Convert.ToString(sd.securityEvent + 1) : null;
 
+            sddp.SubmitterEmail = sd.SubmitterEmail;
+            sddp.NameStaffNumber = sd.NameStaffNumber;
             return sddp;
         }
         public GroundSafetyReportSp getGroundSafety(GroundSafetyReport sd)
@@ -72,6 +74,9 @@ namespace DevEnvAzure.Utilities
             sddp.identifiedWhereIndex = GroundSafetyReportView.idenWhereValue;
             sddp.loadSheetIndex = GroundSafetyReportView.loadsheetValue;
             sddp.impactTocraftIndex = GroundSafetyReportView.impactairValue;
+
+            sddp.SubmitterEmail = sd.SubmitterEmail;
+            sddp.NameStaffNumber = sd.NameStaffNumber;
             return sddp;
         }
         public FatigueReportSp getFatigue(FatigueReport sd)
@@ -109,6 +114,9 @@ namespace DevEnvAzure.Utilities
             sddp.otherComments = sd.otherComments;
             sddp.actionToreduce = sd.actionToreduce;
             // sddp.reportAttachment = sd.reportAttachment;
+
+            sddp.SubmitterEmail = sd.SubmitterEmail;
+            sddp.NameStaffNumber = sd.NameStaffNumber;
             return sddp;
         }
         public CabibSafetyReportSp getCabinSfetyJson(CabibSafetyReport sd)
@@ -137,8 +145,8 @@ namespace DevEnvAzure.Utilities
             sddp.identifiedWhenCabinIndex = CabinSafetyReportView.dangerWhenValue;
             sddp.identifiedWhereCabinIndex = CabinSafetyReportView.dangerWhereValue;
 
-
-
+            sddp.SubmitterEmail = sd.SubmitterEmail;
+            sddp.NameStaffNumber = sd.NameStaffNumber;
 
             return sddp;
         }
@@ -173,6 +181,9 @@ namespace DevEnvAzure.Utilities
             sddp.bodyPartInjuredIndex = InjuryIllnessReportView.PartofbodyinjuredValue;
             sddp.IllnessTypeIndex = InjuryIllnessReportView.TypeofIllnessInjuryValue;
             sddp.occurTypeIndex = InjuryIllnessReportView.TypeofoccurrenceValue;
+
+            sddp.SubmitterEmail = sd.SubmitterEmail;
+            sddp.NameStaffNumber = sd.NameStaffNumber;
             return sddp;
         }
         public FlightSafetyReportModelSp getflightSafetyJson(FlightSafetyReportModel sd)
@@ -296,6 +307,8 @@ namespace DevEnvAzure.Utilities
             sddp.AircraftDamage = FlightSafetyReportView.AircraftDamagepickerValue;
 
             sddp.ImpactAreaDamage = sd.ImpactAreaDamage != null ? "<div class=\"ExternalClass733EA004DCC641EFAFED516F5D12CCA7\"><br>\u200b" + sd.ImpactAreaDamage + "<br><\u002fdiv>" : null;
+            sddp.SubmitterEmail = sd.SubmitterEmail;
+            sddp.NameStaffNumber = sd.NameStaffNumber;
             return sddp;
         }
         public FlightCrewVoyageRecordSp getFlightCrewVoyageJson(FlightCrewVoyageRecordModel sd)

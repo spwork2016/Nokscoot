@@ -206,7 +206,7 @@
                     </Picker>
                     <Label x:Name="IdentifiedWhenlbl" Text="Identified When" TextColor="Black" Grid.Row="2" FontSize="Micro" Grid.ColumnSpan="2" />
                     <Picker x:Name="IdentifiedWhenpicker" SelectedIndexChanged="identWhenValue_Changed" SelectedIndex="{Binding identifiedWhenIndex,Mode=TwoWay}" 
-                            TextColor="#03A9F4" Grid.Row="3" HorizontalOptions="FillAndExpand">
+                            TextColor="#03A9F4" Grid.Row="3" Grid.ColumnSpan="2" HorizontalOptions="FillAndExpand">
                         <Picker.Items>
                             <x:String></x:String>
                             <x:String>Before flight</x:String>

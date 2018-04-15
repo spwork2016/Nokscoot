@@ -32,7 +32,7 @@
                                     <ColumnDefinition Width="*" />
                                     <ColumnDefinition Width="*" />
                                 </Grid.ColumnDefinitions>
-                                <Label x:Name="SubjectLbl" Text="Subject" TextColor="Black" Grid.Row="0" Grid.ColumnSpan="2" FontSize="Micro"/>
+                                <Label x:Name="SubjectLbl" Text="Subject *" TextColor="Black" Grid.Row="0" Grid.ColumnSpan="2" FontSize="Micro"/>
                                 <Entry x:Name="SubjectEntry"  Text="{Binding Subject, Mode=TwoWay}" TextColor="#03A9F4" Grid.Row="1" Grid.ColumnSpan="2"  />
 
                                 <Label x:Name="AreaLocationLbl" Text="Area / Location" TextColor="Black" Grid.Row="2" Grid.ColumnSpan="2"  FontSize="Micro"/>

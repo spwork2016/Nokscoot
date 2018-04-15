@@ -4,6 +4,10 @@
              x:Class="DevEnvAzure.EditableDrafts" Title="Edit Drafts">
     <ContentPage.Content>
         <StackLayout  Orientation="Vertical" VerticalOptions="FillAndExpand">
+            <StackLayout IsVisible="False" x:Name="stkNodata" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
+                <Image Source="logo.png" HeightRequest="150" HorizontalOptions="FillAndExpand" Margin="50"/>
+                <Label Text="There were no saved drafts!" HorizontalOptions="CenterAndExpand" FontSize="Medium" />
+            </StackLayout>
             <StackLayout x:Name="stkSafetyReports" Orientation="Vertical" HorizontalOptions="FillAndExpand" VerticalOptions="Fill" Padding="5,5" BackgroundColor="White">
                 <Grid HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
                     <Grid.RowDefinitions>
@@ -145,75 +149,75 @@
                 </Grid>
             </StackLayout>
             <StackLayout x:Name="stkKaizen" Orientation="Vertical"  VerticalOptions="Fill" Padding="5,5" BackgroundColor="White">
-                    <Grid HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="30" />
-                            <RowDefinition Height="1" />
-                            <RowDefinition Height="*" />
-                        </Grid.RowDefinitions>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*" />
-                            <ColumnDefinition Width="30" />
-                            <ColumnDefinition Width="30" />
-                        </Grid.ColumnDefinitions>
+                <Grid HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="30" />
+                        <RowDefinition Height="1" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="30" />
+                        <ColumnDefinition Width="30" />
+                    </Grid.ColumnDefinitions>
 
-                        <Label TextColor="Black" Grid.Row="0" Grid.Column="0" FontSize="Medium" VerticalTextAlignment="End" Text="Kaizen Reports" />
-                        <Label x:Name="kaizencnt" TextColor="Black" FontSize="Micro" Grid.Row="0" Grid.Column="1" 
+                    <Label TextColor="Black" Grid.Row="0" Grid.Column="0" FontSize="Medium" VerticalTextAlignment="End" Text="Kaizen Reports" />
+                    <Label x:Name="kaizencnt" TextColor="Black" FontSize="Micro" Grid.Row="0" Grid.Column="1" 
                            VerticalTextAlignment="Center" />
-                        <Button x:Name="btnkaizen" Text="+" TextColor="Black" Clicked="kaizen_Expand" Grid.Row="0" Grid.Column="2" BackgroundColor="#FDCE02" />
-                        <BoxView Color="#FDCE02" HorizontalOptions="FillAndExpand" Grid.Row="1" Grid.ColumnSpan="3" HeightRequest="1"/>
+                    <Button x:Name="btnkaizen" Text="+" TextColor="Black" Clicked="kaizen_Expand" Grid.Row="0" Grid.Column="2" BackgroundColor="#FDCE02" />
+                    <BoxView Color="#FDCE02" HorizontalOptions="FillAndExpand" Grid.Row="1" Grid.ColumnSpan="3" HeightRequest="1"/>
 
-                        <StackLayout x:Name="kaizenLayout" Orientation="Vertical" Grid.Row="2" Grid.ColumnSpan="3"/>
-                    </Grid>
-                </StackLayout>
+                    <StackLayout x:Name="kaizenLayout" Orientation="Vertical" Grid.Row="2" Grid.ColumnSpan="3"/>
+                </Grid>
+            </StackLayout>
 
-                <StackLayout x:Name="sktfcVoyage" Orientation="Vertical"  VerticalOptions="Fill" Padding="5,5" BackgroundColor="White">
-                    <Grid HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="30" />
-                            <RowDefinition Height="1" />
-                            <RowDefinition Height="*" />
-                        </Grid.RowDefinitions>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*" />
-                            <ColumnDefinition Width="30" />
-                            <ColumnDefinition Width="30" />
-                        </Grid.ColumnDefinitions>
+            <StackLayout x:Name="sktfcVoyage" Orientation="Vertical"  VerticalOptions="Fill" Padding="5,5" BackgroundColor="White">
+                <Grid HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="30" />
+                        <RowDefinition Height="1" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="30" />
+                        <ColumnDefinition Width="30" />
+                    </Grid.ColumnDefinitions>
 
-                        <Label TextColor="Black" Grid.Row="0" Grid.Column="0" FontSize="Medium" VerticalTextAlignment="End" Text="Flight Screw Voyage Reports" />
-                        <Label x:Name="fcVoyageCnt" TextColor="Black" FontSize="Micro" Grid.Row="0" Grid.Column="1" 
+                    <Label TextColor="Black" Grid.Row="0" Grid.Column="0" FontSize="Medium" VerticalTextAlignment="End" Text="Flight Screw Voyage Reports" />
+                    <Label x:Name="fcVoyageCnt" TextColor="Black" FontSize="Micro" Grid.Row="0" Grid.Column="1" 
                            VerticalTextAlignment="Center" />
-                        <Button x:Name="btnfcVoyage" Text="+" TextColor="Black" Clicked="fcVoyage_Expand" Grid.Row="0" Grid.Column="2" BackgroundColor="#FDCE02" />
-                        <BoxView Color="#FDCE02" HorizontalOptions="FillAndExpand" Grid.Row="1" Grid.ColumnSpan="3" HeightRequest="1"/>
+                    <Button x:Name="btnfcVoyage" Text="+" TextColor="Black" Clicked="fcVoyage_Expand" Grid.Row="0" Grid.Column="2" BackgroundColor="#FDCE02" />
+                    <BoxView Color="#FDCE02" HorizontalOptions="FillAndExpand" Grid.Row="1" Grid.ColumnSpan="3" HeightRequest="1"/>
 
-                        <StackLayout x:Name="fcVoyageLayout" Orientation="Vertical" Grid.Row="2" Grid.ColumnSpan="3"/>
-                    </Grid>
-                </StackLayout>
+                    <StackLayout x:Name="fcVoyageLayout" Orientation="Vertical" Grid.Row="2" Grid.ColumnSpan="3"/>
+                </Grid>
+            </StackLayout>
 
-                <StackLayout x:Name="sktStatnInfo" Orientation="Vertical"  VerticalOptions="Fill" Padding="5,5" BackgroundColor="White">
-                    <Grid HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="30" />
-                            <RowDefinition Height="1" />
-                            <RowDefinition Height="*" />
-                        </Grid.RowDefinitions>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*" />
-                            <ColumnDefinition Width="30" />
-                            <ColumnDefinition Width="30" />
-                        </Grid.ColumnDefinitions>
+            <StackLayout x:Name="sktStatnInfo" Orientation="Vertical"  VerticalOptions="Fill" Padding="5,5" BackgroundColor="White">
+                <Grid HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="30" />
+                        <RowDefinition Height="1" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="30" />
+                        <ColumnDefinition Width="30" />
+                    </Grid.ColumnDefinitions>
 
-                        <Label TextColor="Black" Grid.Row="0" Grid.Column="0" FontSize="Medium" VerticalTextAlignment="End" Text="Station Information Reports" />
-                        <Label x:Name="StatnInfoCnt" TextColor="Black" FontSize="Micro" Grid.Row="0" Grid.Column="1" 
+                    <Label TextColor="Black" Grid.Row="0" Grid.Column="0" FontSize="Medium" VerticalTextAlignment="End" Text="Station Information Reports" />
+                    <Label x:Name="StatnInfoCnt" TextColor="Black" FontSize="Micro" Grid.Row="0" Grid.Column="1" 
                            VerticalTextAlignment="Center" />
-                        <Button x:Name="btnStatnInfo" Text="+" TextColor="Black" Clicked="StatnInfo_Expand" Grid.Row="0" Grid.Column="2" BackgroundColor="#FDCE02" />
-                        <BoxView Color="#FDCE02" HorizontalOptions="FillAndExpand" Grid.Row="1" Grid.ColumnSpan="3" HeightRequest="1"/>
+                    <Button x:Name="btnStatnInfo" Text="+" TextColor="Black" Clicked="StatnInfo_Expand" Grid.Row="0" Grid.Column="2" BackgroundColor="#FDCE02" />
+                    <BoxView Color="#FDCE02" HorizontalOptions="FillAndExpand" Grid.Row="1" Grid.ColumnSpan="3" HeightRequest="1"/>
 
-                        <StackLayout x:Name="StatnInfoLayout" Orientation="Vertical" Grid.Row="2" Grid.ColumnSpan="3"/>
-                    </Grid>
-                </StackLayout>
+                    <StackLayout x:Name="StatnInfoLayout" Orientation="Vertical" Grid.Row="2" Grid.ColumnSpan="3"/>
+                </Grid>
+            </StackLayout>
 
-                <!--<Button Text="Injury Illness Report" TextColor="Black" Clicked="injuryillness_Expand"/>
+            <!--<Button Text="Injury Illness Report" TextColor="Black" Clicked="injuryillness_Expand"/>
                 <StackLayout x:Name="injuryillnessLayout" Orientation="Vertical" VerticalOptions="FillAndExpand" Padding="10,0">
                 </StackLayout>-->
         </StackLayout>

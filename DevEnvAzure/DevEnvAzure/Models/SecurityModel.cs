@@ -74,6 +74,18 @@ namespace DevEnvAzure.Models
         public string policereport
         { get; set; }
         public bool IsExtendedView { get; set; }
+        public string NameStaffNumber
+        { get; set; }
+        public string SubmitterEmail
+        { get; set; }
+
+
+        //local usage - to show datetime in drafts page
+        public DateTime Created
+        {
+            get; set;
+        }
+
         //[JsonProperty(PropertyName = "Details_x0020_of_x0020_Event_x0020_/_x0020_Hazard")]
         //public string policeReport
         //{ get; set; }
