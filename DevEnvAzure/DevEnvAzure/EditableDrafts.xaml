@@ -3,7 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="DevEnvAzure.EditableDrafts" Title="Edit Drafts">
     <ContentPage.Content>
-        <StackLayout  Orientation="Vertical" VerticalOptions="FillAndExpand">
+        <StackLayout Orientation="Vertical" VerticalOptions="FillAndExpand">
             <StackLayout IsVisible="False" x:Name="stkNodata" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
                 <Image Source="logo.png" HeightRequest="150" HorizontalOptions="FillAndExpand" Margin="50"/>
                 <Label Text="There were no saved drafts!" HorizontalOptions="CenterAndExpand" FontSize="Medium" />

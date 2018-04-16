@@ -75,6 +75,7 @@ namespace DevEnvAzure
                             rName = "Offline Item";
                             break;
                     }
+
                     dataSource.Add(new ReportItem
                     {
                         Item = item,
@@ -84,8 +85,19 @@ namespace DevEnvAzure
                         Error = item.Error
                     });
                 }
+               
+                lstOfflineItems.ItemsSource = dataSource;
 
-                EmployeeView.ItemsSource = dataSource;
+                if (dataSource.Count == 0)
+                {
+                    lstOfflineItems.IsVisible = false;
+                    stkNodata.IsVisible = true;
+                }
+                else
+                {
+                    lstOfflineItems.IsVisible = true;
+                    stkNodata.IsVisible = false;
+                }
             }
             catch (Exception ex)
             {

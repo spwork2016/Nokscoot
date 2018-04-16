@@ -330,7 +330,7 @@ namespace DevEnvAzure.Utilities
             sddp.ReplyRequired = FlightCrewVoyageRecord.ReplyRequiredpickerValue;
             sddp.StaffNumber = sd.StaffNumber;
             sddp.Rank = FlightCrewVoyageRecord.RankpickerValue;
-           // sddp.CmdEmail = "14";
+            // sddp.CmdEmail = "14";
             return sddp;
         }
         public KaizenReportSp getKaizenReportJson(KaizenReportModel sd)
@@ -348,7 +348,13 @@ namespace DevEnvAzure.Utilities
         {
             StationInformationSp sddp = new StationInformationSp();
             sddp.IATACode = sd.IATACode;
-            sddp.NameofAirport = sd.NameofAirport;
+            if (!string.IsNullOrEmpty(sd.NameofAirport))
+            {
+                sddp.NameofAirport = new SPFieldURL
+                {
+                    Url = sd.NameofAirport
+                };
+            }
             sddp.GMT = sd.GMT;
             sddp.TerminalRowwhereweoperate = sd.TerminalRowwhereweoperate;
             sddp.StationRep1Name = sd.StationRep1Name;

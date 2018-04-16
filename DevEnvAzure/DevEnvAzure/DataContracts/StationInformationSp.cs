@@ -7,6 +7,18 @@ using System.Threading.Tasks;
 
 namespace DevEnvAzure.DataContracts
 {
+    public class SPFieldURL
+    {
+        public SPFieldURL()
+        {
+            __metadata = new Metadata { type = "SP.FieldUrlValue" };
+        }
+
+        public Metadata __metadata { get; set; }
+        public string Description { get; set; }
+        public string Url { get; set; }
+    }
+
     class StationInformationSp
     {
         public StationInformationSp()
@@ -20,7 +32,7 @@ namespace DevEnvAzure.DataContracts
         public string IATACode
         { get; set; }
         [JsonProperty(PropertyName = "Wikipedia_x0020_Airport_x0020_In")]
-        public string NameofAirport
+        public SPFieldURL NameofAirport
         { get; set; }                  // check the hyper link binding
         [JsonProperty(PropertyName = "GMT")]
         public string GMT

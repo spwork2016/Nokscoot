@@ -95,7 +95,7 @@ namespace DevEnvAzure
                         else
                         {
                             var ex = await postResult.Content.ReadAsStringAsync();
-                            await DisplayAlert("Error", ex, "Ok");
+                            await DisplayAlert("Sharepoint error", ex, "Ok");
                         }
                         ToggleBusy(false);
                     }
