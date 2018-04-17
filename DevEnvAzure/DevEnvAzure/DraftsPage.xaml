@@ -3,9 +3,8 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="DevEnvAzure.DraftsPage" Title="Offline Items">
     <StackLayout HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
-        <StackLayout IsVisible="False" x:Name="stkNodata" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
-            <Image Source="logo.png" HeightRequest="150" HorizontalOptions="FillAndExpand" Margin="50"/>
-            <Label Text="There were no offline items!" HorizontalOptions="CenterAndExpand" FontSize="Medium" />
+        <StackLayout Padding="50" IsVisible="False" x:Name="stkNodata" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
+            <Label Text="There are no offline items!" HorizontalOptions="CenterAndExpand" FontSize="Medium" />
         </StackLayout>
         <ScrollView>
             <ListView x:Name="lstOfflineItems" HasUnevenRows="True" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
