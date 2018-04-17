@@ -93,8 +93,8 @@
                                         <RowDefinition Height="1" />
                                         <RowDefinition Height="14" />
                                         <RowDefinition Height="*" />
-                                        <RowDefinition Height="14" />
-                                        <RowDefinition Height="*" />
+                                        <!--<RowDefinition Height="14" />
+                                        <RowDefinition Height="*" />-->
                                     </Grid.RowDefinitions>
 
                                     <Grid.ColumnDefinitions>
@@ -107,9 +107,9 @@
                                     <Label x:Name="EvntHazrd" Text="Describe what happened" TextColor="Black" FontSize="Micro" Grid.Row="2" />
                                     <Entry x:Name="EvntHazrdentry" Placeholder="Describe what happened" PlaceholderColor="#F1F1F1" Text="{Binding DescribeEvent, Mode=TwoWay}" TextColor="#03A9F4" 
                                    Grid.Row="3" />
-                                    <Label x:Name="eventAttachlbl" Text="Attach any photo or textual references" TextColor="Black" FontSize="Micro" Grid.Row="4" />
+                                    <!--<Label x:Name="eventAttachlbl" Text="Attach any photo or textual references" TextColor="Black" FontSize="Micro" Grid.Row="4" />
                                     <Entry x:Name="eventAttachEntry" Placeholder="Attach any photo or textual references" PlaceholderColor="#F1F1F1" Focused="MORattach_clicked" Text="{Binding Attachment, Mode=TwoWay}" 
-                                   TextColor="#03A9F4" Grid.Row="5"/>
+                                   TextColor="#03A9F4" Grid.Row="5"/>-->
                                 </Grid>
                             </StackLayout>
                             <StackLayout x:Name="Stacklay3" Orientation="Vertical" VerticalOptions="FillAndExpand" Margin="0,15"  Padding="5,5">

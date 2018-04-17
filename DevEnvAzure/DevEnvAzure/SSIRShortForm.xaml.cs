@@ -305,11 +305,11 @@ namespace DevEnvAzure
                 if (fileData != null)
                 {
                     var y = fileData.FileName;
-                    eventAttachEntry.Text = y;
+                    //eventAttachEntry.Text = y;
                 }
                 else
                 {
-                    eventAttachEntry.Text = "";
+                    //eventAttachEntry.Text = "";
                 }
                 //  SourceImg.Source = ImageSource.FromFile(y);
 
