@@ -36,6 +36,14 @@ namespace DevEnvAzure.Utilities
             sddp.FlightEvent = securityReportView.flightphase;//sd.flightEvent != 0 ? Convert.ToString(sd.flightEvent + 1) : null;
             sddp.securityEvent = sd.securityEvent; //!= 0 ? Convert.ToString(sd.securityEvent + 1) : null;
 
+            if (!string.IsNullOrEmpty(sd.policereport))
+            {
+                sddp.PoliceReport = new SPFieldURL
+                {
+                    Url = sd.policereport
+                };
+            }
+
             sddp.SubmitterEmail = sd.SubmitterEmail;
             sddp.NameStaffNumber = sd.NameStaffNumber;
             return sddp;

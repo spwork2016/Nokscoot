@@ -79,6 +79,8 @@
                                             <x:String>HS-XBA</x:String>
                                             <x:String>HS-XBB</x:String>
                                             <x:String>HS-XBC</x:String>
+                                            <x:String>B-777</x:String>
+                                            <x:String>B-737</x:String>
                                         </Picker.Items>
                                     </Picker>
                                     <Label x:Name="DepartureStationLbl" Text="Departure Station" TextColor="Black" Grid.Row="6" Grid.ColumnSpan="2" FontSize="Micro" />

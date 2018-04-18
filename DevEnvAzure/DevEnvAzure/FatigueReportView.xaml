@@ -109,15 +109,12 @@
                     <Grid.RowDefinitions>
                         <RowDefinition Height="14" />
                         <RowDefinition Height="*" />
-                        <RowDefinition Height="14" />
-                        <RowDefinition Height="*" />
                     </Grid.RowDefinitions>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*" />
-                        <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
-                    <Label x:Name="Actionstakentomanageorreducefatiguelbl" Text="Actions taken to manage or reduce fatigue" FontSize="Micro" TextColor="Black" Grid.Row="0" Grid.ColumnSpan="2"/>
-                    <Entry x:Name="ActionstakentomanageorreducefatigueEntry"  Text="{Binding actionToreduce, Mode=TwoWay}"  Placeholder="Actions taken to manage or reduce fatigue" PlaceholderColor="#F1F1F1"  TextColor="#03A9F4" Grid.Row="1" Grid.ColumnSpan="2"/>
+                    <Label x:Name="Actionstakentomanageorreducefatiguelbl" Text="Actions taken to manage or reduce fatigue" FontSize="Micro" TextColor="Black" Grid.Row="0" />
+                    <Entry x:Name="ActionstakentomanageorreducefatigueEntry"  Text="{Binding actionToreduce, Mode=TwoWay}"  Placeholder="Actions taken to manage or reduce fatigue" PlaceholderColor="#F1F1F1"  TextColor="#03A9F4" Grid.Row="1" />
 
                     <!--<Label x:Name="referencesLbl" Text="Attach any photo or textual references" FontSize="Micro" TextColor="Black" Grid.Row="2" Grid.ColumnSpan="2"/>
                     <Entry x:Name="referencesEntry" Placeholder="Attach any photo or textual references" PlaceholderColor="#F1F1F1" TextColor="#03A9F4" Grid.Row="3" Grid.ColumnSpan="2"/>-->

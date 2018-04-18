@@ -67,21 +67,21 @@ namespace DevEnvAzure
             peoplePickercrew1email.DataSource = App.peoplePickerDataSource;
             PeoplePickercrew1email = null;
 
-            selectedItem = App.peoplePickerDataSource.Find(x => { return Convert.ToString(x.Id) == obj.FlightCrew1; });
-            if (selectedItem != null)
+            var selectedItem1 = App.peoplePickerDataSource.Find(x => { return Convert.ToString(x.Id) == obj.FlightCrew1; });
+            if (selectedItem1 != null)
             {
-                peoplePickercrew1email.Text = selectedItem.Name;
-                PeoplePickercrew1email = selectedItem;
+                peoplePickercrew1email.Text = selectedItem1.Name;
+                PeoplePickercrew1email = selectedItem1;
             }
 
             peoplePickercrew2email.DataSource = App.peoplePickerDataSource;
             PeoplePickercrew2email = null;
 
-            selectedItem = App.peoplePickerDataSource.Find(x => { return Convert.ToString(x.Id) == obj.FlightCrew2; });
-            if (selectedItem != null)
+            var selectedItem2 = App.peoplePickerDataSource.Find(x => { return Convert.ToString(x.Id) == obj.FlightCrew2; });
+            if (selectedItem2 != null)
             {
-                peoplePickercrew2email.Text = selectedItem.Name;
-                PeoplePickercrew2email = selectedItem;
+                peoplePickercrew2email.Text = selectedItem2.Name;
+                PeoplePickercrew2email = selectedItem2;
             }
         }
 

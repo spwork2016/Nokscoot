@@ -72,7 +72,7 @@
 
                     <Label x:Name="FlightNumber" Text="Flight Number" TextColor="#E65100" Grid.Row="4" Grid.Column="0" />
                     <Entry x:Name="FlnumEntry"  Text="" TextColor="#0D47A1" Grid.Row="4" Grid.Column="1" />
-                    <Label x:Name="AirCraftReg" Text="Aircraft Registeration" TextColor="#E65100" Grid.Row="5" Grid.Column="0" />
+                    <Label x:Name="AirCraftReg" Text="Aircraft Registration" TextColor="#E65100" Grid.Row="5" Grid.Column="0" />
                     <Entry x:Name="Aircraft"  Text="" TextColor="#0D47A1" Grid.Row="5" Grid.Column="1" />
 
                     <Label x:Name="DepartStn" Text="Departure Station" TextColor="#E65100" Grid.Row="6" Grid.Column="0" />

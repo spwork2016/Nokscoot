@@ -54,8 +54,8 @@ namespace DevEnvAzure.DataContracts
         [JsonProperty(PropertyName = "Email_x002d_IDOfSubmitter")]
         public string SubmitterEmail
         { get; set; }
-        //  public string Police_x0020_Report{ get; set; }
-
+        [JsonProperty(PropertyName = "Email_x002d_IDOfSubmitter")]
+        public SPFieldURL PoliceReport { get; set; }
 
 
         //public string Employee_x0020_Name { get; set; }
