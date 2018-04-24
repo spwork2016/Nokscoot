@@ -157,8 +157,13 @@ namespace DevEnvAzure
         }
         protected async override void OnStart()
         {
+            if (Device.RuntimePlatform == Device.iOS)
+            {
+                //iOS stuff
+                Plugin.Connectivity.CrossConnectivity.Current.ConnectivityChanged += Current_ConnectivityChanged;
+            }
             // Handle when your app starts
-            Plugin.Connectivity.CrossConnectivity.Current.ConnectivityChanged += Current_ConnectivityChanged;
+            // Plugin.Connectivity.CrossConnectivity.Current.ConnectivityChanged += Current_ConnectivityChanged;
         }
 
         protected override void OnSleep()

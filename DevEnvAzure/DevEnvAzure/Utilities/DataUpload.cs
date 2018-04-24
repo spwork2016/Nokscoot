@@ -46,6 +46,8 @@ namespace DevEnvAzure
                         count++;
                         App.DAUtil.Delete(emp);
                         App.offlineItems.Remove(emp);
+                        DataUpload d = new DataUpload();
+                        d.sendmessage();
                     }
                     else
                     {
@@ -75,5 +77,10 @@ namespace DevEnvAzure
 
             return 0;
         }
+        public void sendmessage()
+        {
+            MessagingCenter.Send<object, string>(this, "notify", "Hello from Android");
+        }
+
     }
 }

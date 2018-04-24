@@ -136,8 +136,11 @@ namespace DevEnvAzure
 
         public static async Task<HttpClient> GetHTTPClient(string access_token = "")
         {
-            await RefreshAccessToken();
-
+            // await RefreshAccessToken();
+            if (Device.RuntimePlatform == Device.iOS)
+            {
+                await RefreshAccessToken();
+            }
             HttpClient client = new HttpClient();
             client.DefaultRequestHeaders.Add("Accept", "application/json;odata=verbose");
             client.DefaultRequestHeaders.Add("ContentType", "application/json");

@@ -367,6 +367,7 @@ namespace DevEnvAzure
                         App.DAUtil.Save<OfflineItem>(dt);
 
                         await DisplayAlert("", "Item stored in local storage", "Ok");
+                        MessagingCenter.Send<object>(this, "StartService");
                         MessagingCenter.Send(this, "home");
                     }
 

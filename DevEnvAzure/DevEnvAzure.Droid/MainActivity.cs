@@ -9,6 +9,7 @@ using Android.OS;
 using Microsoft.IdentityModel.Clients.ActiveDirectory;
 using Android.Content;
 using ImageCircle.Forms.Plugin.Droid;
+using Xamarin.Forms;
 
 namespace DevEnvAzure.Droid
 {
@@ -26,12 +27,37 @@ namespace DevEnvAzure.Droid
                 global::Xamarin.Forms.Forms.Init(this, bundle);
                 ImageCircleRenderer.Init();
                 LoadApplication(new App());
+                MessagingCenter.Subscribe<object>(this, "StartService", (arg) =>
+                {
+                    try
+                    {
+                        serviceStarter();
+                    }
+                    catch (Exception ex)
+                    {
+
+                    }
+                });
             }
             catch(Exception ex)
             {
 
             }
         }
+        public void serviceStarter()
+        {
+            var intent = new Intent(this, typeof(AppService));
+
+            if (Android.OS.Build.VERSION.SdkInt >= Android.OS.BuildVersionCodes.M)
+            {
+                StartService(intent);
+            }
+            else
+            {
+                StartService(intent);
+            }
+        }
+
         protected override void OnActivityResult(int requestCode, Result resultCode, Intent data)
         {
             base.OnActivityResult(requestCode, resultCode, data);
