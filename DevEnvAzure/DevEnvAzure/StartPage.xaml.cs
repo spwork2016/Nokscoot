@@ -60,7 +60,7 @@ namespace DevEnvAzure
                 navigationDrawerList.ItemsSource = menuList;
 
                 // Initial navigation, this can be used for our home page
-                Detail = new NavigationPage((Page)Activator.CreateInstance(typeof(MainPage)));
+                SetNavigationPage(new MainPage());
             }
             catch (Exception ex)
             {
@@ -94,7 +94,7 @@ namespace DevEnvAzure
                 IsPresented = false;
                 try
                 {
-                    Detail = new NavigationPage((new MainPage()));
+                    SetNavigationPage(new MainPage());
                 }
                 catch (Exception ex)
                 {
@@ -107,7 +107,7 @@ namespace DevEnvAzure
                 IsPresented = false;
                 try
                 {
-                    Detail = new NavigationPage((new MainPage()));
+                    SetNavigationPage(new MainPage());
                 }
                 catch (Exception ex)
                 {
@@ -120,7 +120,7 @@ namespace DevEnvAzure
                 IsPresented = false;
                 try
                 {
-                    Detail = new NavigationPage((new MainPage()));
+                    SetNavigationPage(new MainPage());
                 }
                 catch (Exception ex)
                 {
@@ -133,7 +133,7 @@ namespace DevEnvAzure
                 IsPresented = false;
                 try
                 {
-                    Detail = new NavigationPage((new MainPage()));
+                    SetNavigationPage(new MainPage());
                 }
                 catch (Exception ex)
                 {
@@ -168,7 +168,7 @@ namespace DevEnvAzure
 
                 DependencyService.Get<IMessage>().LongAlert("Logged out successfully.");
 
-                Detail = new NavigationPage((new Login()));
+                SetNavigationPage(new Login());
                 return;
             }
 
@@ -179,18 +179,28 @@ namespace DevEnvAzure
             }
             if (item.Title == "Station Information")
             {
-
                 IsPresented = false;
-                Detail = new NavigationPage((Page)Activator.CreateInstance(item.TargetType, new StationInformationModel(), "StationInfo"));
+
+                SetNavigationPage((Page)Activator.CreateInstance(item.TargetType, new StationInformationModel(), "StationInfo"));
             }
 
             else if (item.TargetType != null)
             {
                 IsPresented = false;
-                Detail = new NavigationPage((Page)Activator.CreateInstance(item.TargetType));
+                SetNavigationPage((Page)Activator.CreateInstance(item.TargetType));
             }
         }
+
+        public void SetNavigationPage(Page page)
+        {
+            var nav = new NavigationPage(page);
+            nav.BarBackgroundColor = Color.FromHex("FDCE02");
+            nav.BarTextColor = Color.Black;
+
+            Detail = nav;
+        }
     }
+
 
     public class MasterPageItem
     {

@@ -60,25 +60,10 @@
                 </ListView>
             </StackLayout>
         </ContentPage>
-        <!--<ContentPage Title="NokscootPage" BackgroundColor="#FFFDE7" Padding="20">
-            <ContentPage.Content>
-                <StackLayout>
-                    <Button Text="Login" BackgroundColor="#E65100" Clicked="Login_clicked"></Button>
-                    <Button Text="Home" BackgroundColor="#E65100" Clicked="HomePage_Clicked"></Button>
-                </StackLayout>
-            </ContentPage.Content>
-        </ContentPage>-->
     </MasterDetailPage.Master>
     <MasterDetailPage.Detail>
-        <NavigationPage>
+        <NavigationPage BarBackgroundColor="#FDCE02" BarTextColor="Black">
 
         </NavigationPage>
-        <!--<ContentPage Title="Home" Padding="10" BackgroundColor="#FFFDE7">
-            <ContentPage.Content>
-                <StackLayout>
-                    <Label Text="Noskoot Home"/>
-                </StackLayout>
-            </ContentPage.Content>
-        </ContentPage>-->
     </MasterDetailPage.Detail>
 </MasterDetailPage>

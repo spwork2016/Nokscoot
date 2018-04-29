@@ -54,6 +54,16 @@ namespace DevEnvAzure
         public FlightSafetyReportView(FlightSafetyReportModel obj)
         {
             InitializeComponent();
+
+            if (App.peoplePickerDataSource == null)
+            {
+                var uss = SPUtility.GetUsersForPicker().Result;
+                if (uss == null)
+                    return;
+
+                App.peoplePickerDataSource = new List<PeoplePicker>(uss);
+            }
+
             peoplePickerCommander.DataSource = App.peoplePickerDataSource;
             PeoplePickerCommander = null;
 

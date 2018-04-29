@@ -77,7 +77,7 @@
     <ConsolePause>False</ConsolePause>
     <MtouchArch>ARMv7, ARM64</MtouchArch>
     <BuildIpa>True</BuildIpa>
-    <CodesignProvision>Ad-Hoc 4</CodesignProvision>
+    <CodesignProvision>Ad-Hoc 6</CodesignProvision>
     <CodesignKey>iPhone Distribution: Sreasty Korada (ZCF3Y5H99B)</CodesignKey>
     <CodesignEntitlements>Entitlements.plist</CodesignEntitlements>
   </PropertyGroup>
