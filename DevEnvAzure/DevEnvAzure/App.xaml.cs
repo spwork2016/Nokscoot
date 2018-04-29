@@ -171,9 +171,16 @@ namespace DevEnvAzure
             // Handle when your app sleeps
         }
 
-        protected override void OnResume()
+        protected async override void OnResume()
         {
-            // Handle when your app resumes
+            try
+            {
+                await OAuthHelper.RefreshAccessToken();
+            }
+            catch (Exception ex)
+            {
+                DependencyService.Get<IMessage>().ShortAlert(string.Format("Unable to refresh token: {0}", ex.Message));
+            }
         }
 
         private async void Current_ConnectivityChanged(object sender, Plugin.Connectivity.Abstractions.ConnectivityChangedEventArgs e)
