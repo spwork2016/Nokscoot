@@ -26,11 +26,13 @@ namespace DevEnvAzure
             FlighCrewVoyage = 9,
             TechnicalDElay = 10,
             DelayOccurance = 11,
-            DelayHandling = 12
-
+            DelayHandling = 12,
+            MORType = 13,
+            none = -1,
+            FlightCrewVoyageReport = 14
         }
 
-        public static string GetListURL(ReportType reportType)
+        public static string GetListURL(ReportType reportType = ReportType.none)
         {
             string url = "";
 
@@ -43,15 +45,22 @@ namespace DevEnvAzure
                 case ReportType.GroundSafety:
                 case ReportType.InjuryIllness:
                 case ReportType.Security:
-                    url = string.Format(ClientConfiguration.Default.SPListURL, "Operational_Hazard_Event_Register_04042018");
+                    url = string.Format(ClientConfiguration.Default.ActiveDirectoryResource + "SSQServices/_api/web/lists/GetByTitle('{0}'}/items", "Operational_Hazard_Event_Register");
                     break;
                 case ReportType.SationInfo:
-                    url = string.Format(ClientConfiguration.Default.SPListURL, "(Ops) Line Station Information");
+                    url = string.Format(ClientConfiguration.Default.ActiveDirectoryResource + "SSQServices/_api/web/lists/GetByTitle('{0}'}/items", "(Ops) Line Station Information");
                     break;
                 case ReportType.Kaizen:
-                    url = string.Format(ClientConfiguration.Default.SPListURL, "Kaizen Report");
+                    url = string.Format(ClientConfiguration.Default.ActiveDirectoryResource + "SSQServices/_api/web/lists/GetByTitle('{0}'}/items", "Kaizen Report");
                     break;
-                default:
+                case ReportType.MORType:
+                    url = ClientConfiguration.Default.ActiveDirectoryResource + "SSQServices/_api/web/Lists(guid'32d46a92-0ee3-4a85-83ab-12ca72dce65e')/items";
+                    break;
+                case ReportType.FlightCrewVoyageReport:
+                    url = string.Format(ClientConfiguration.Default.ActiveDirectoryResource + "SSQServices/_api/web/lists/GetByTitle('{0}'}/items", "Flight Crew Voyage Record");
+                    break;
+                case ReportType.none:
+                    url = string.Format(ClientConfiguration.Default.ActiveDirectoryResource + "SSQServices/_api/web/lists/GetByTitle('{0}'}/items", "Operational_Hazard_Event_Register");
                     break;
             }
 

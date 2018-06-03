@@ -18,14 +18,12 @@ namespace DevEnvAzure
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class Tasks : ContentPage
     {
-        readonly string SPTasksURL = "{0}GetByTitle('Read and Sign Confirmation')/Items?$filter=PercentComplete eq 0 and AssignedToId eq {1}";
+        readonly string SPTasksURL = "{0}SSQServices/DMS/_api/web/lists/GetByTitle('Read and Sign Confirmation')/Items?$filter=PercentComplete eq 0 and AssignedToId eq {1}";
         private bool enableMultiSelect;
         private bool EmptyData;
         public Tasks()
         {
-            if (!OAuthHelper.IsLoggedIn()) Navigation.PushAsync(new Login());
-
-            SPTasksURL = string.Format(SPTasksURL, ClientConfiguration.Default.SPRootURLList, App.CurrentUser.Id);
+            SPTasksURL = string.Format(SPTasksURL, ClientConfiguration.Default.ActiveDirectoryResource, App.CurrentUser.Id);
             InitializeComponent();
 
             enableMultiSelect = true;

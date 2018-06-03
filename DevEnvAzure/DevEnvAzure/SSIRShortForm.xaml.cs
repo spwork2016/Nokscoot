@@ -26,7 +26,6 @@ namespace DevEnvAzure
         public static string airregis;
         public static int MORTypeID;
         Jsonpropertyinitialise jsonInitObj = new Jsonpropertyinitialise();
-        const string SPRootURL = "https://sptechnophiles.sharepoint.com/_api/web/lists/";
         public SSIRShortForm(object viewObject, string modelname)
         {
             try
@@ -121,7 +120,7 @@ namespace DevEnvAzure
         }
 
         public static int idval;
-        private void Save_clicked(object sender, XLabs.EventArgs<bool> e)
+        private async void Save_clicked(object sender, XLabs.EventArgs<bool> e)
         {
             if (Convert.ToString(EventTitleEntry.Text).Length == 0 || dtevntPicker.Date == null || Convert.ToString(MORpicker.SelectedItem).Length == 0)
             {
@@ -154,7 +153,18 @@ namespace DevEnvAzure
                         SecurityModel sd = (SecurityModel)_viewobject;
                         sd.ReportType = "Security" + sd.Id.ToString();
                         MORTypeID = MORpicker.SelectedIndex;
-                        CreateItems(jsonInitObj.getSecurity(sd), SPUtility.ReportType.Security);
+                        DataContracts.FlightSecuritySharepointData spData = null;
+                        try
+                        {
+                            spData = jsonInitObj.getSecurity(sd);
+                        }
+                        catch (Exception ex)
+                        {
+                            await DisplayAlert("Please fill valid data", ex.Message, "Ok");
+                            return;
+                        }
+
+                        CreateItems(spData, SPUtility.ReportType.Security);
                         App.DAUtil.Delete(sd);
                         break;
                     case "ground":
@@ -345,7 +355,7 @@ namespace DevEnvAzure
                     contents.Headers.ContentType = MediaTypeHeaderValue.Parse("application/json;odata=verbose");
                     if (CheckConnection())
                     {
-                        var postResult = await client.PostAsync("https://sptechnophiles.sharepoint.com/_api/web/lists/GetByTitle('Operational_Hazard_Event_Register_04042018')/items", contents);
+                        var postResult = await client.PostAsync(SPUtility.GetListURL(), contents);
 
                         if (postResult.IsSuccessStatusCode)
                         {
@@ -446,7 +456,8 @@ namespace DevEnvAzure
             if (client == null) { return; }
             try
             {
-                var result = await client.GetStringAsync(SPRootURL + "GetByTitle('MOR%20Type%20Lead%20Time')/items");
+                string url = SPUtility.GetListURL(SPUtility.ReportType.MORType);
+                var result = await client.GetStringAsync(url);
 
                 if (result != null)
                 {

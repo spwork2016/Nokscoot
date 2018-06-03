@@ -38,10 +38,17 @@ namespace DevEnvAzure.Utilities
 
             if (!string.IsNullOrEmpty(sd.policereport))
             {
-                sddp.PoliceReport = new SPFieldURL
+                if (Uri.IsWellFormedUriString(sd.policereport, UriKind.Absolute))
                 {
-                    Url = sd.policereport
-                };
+                    sddp.PoliceReport = new SPFieldURL
+                    {
+                        Url = sd.policereport
+                    };
+                }
+                else
+                {
+                    throw new Exception(string.Format("'{0}' is not a valid url", sd.policereport));
+                }
             }
 
             sddp.SubmitterEmail = sd.SubmitterEmail;
@@ -358,10 +365,17 @@ namespace DevEnvAzure.Utilities
             sddp.IATACode = sd.IATACode;
             if (!string.IsNullOrEmpty(sd.NameofAirport))
             {
-                sddp.NameofAirport = new SPFieldURL
+                if (Uri.IsWellFormedUriString(sd.NameofAirport, UriKind.Absolute))
                 {
-                    Url = sd.NameofAirport
-                };
+                    sddp.NameofAirport = new SPFieldURL
+                    {
+                        Url = sd.NameofAirport
+                    };
+                }
+                else
+                {
+                    throw new Exception(string.Format("'{0}' is not a valid url", sd.NameofAirport));
+                }
             }
             sddp.GMT = sd.GMT;
             sddp.TerminalRowwhereweoperate = sd.TerminalRowwhereweoperate;

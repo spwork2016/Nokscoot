@@ -23,5 +23,10 @@ namespace DevEnvAzure
             EmployeeViewdetail.ItemsSource = x;
             BindingContext = this;
         }
+
+        private void EmployeeViewdetail_ItemTapped()
+        {
+
+        }
     }
 }

@@ -160,7 +160,7 @@ namespace DevEnvAzure.Model
         public int PercentComplete { get; set; }
         public int AssignedToId { get; set; }
         public string AssignedToStringId { get; set; }
-        public object Body { get; set; }
+        public string Body { get; set; }
         public object StartDate { get; set; }
         public DateTime DueDate { get; set; }
         public string Checkmark { get; set; }

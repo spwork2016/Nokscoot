@@ -117,6 +117,11 @@ namespace DevEnvAzure
                     AuthenticationResponse json = JsonConvert.DeserializeObject<AuthenticationResponse>(str);
                     return json;
                 }
+                else
+                {
+                    string str2 = await response.Content.ReadAsStringAsync();
+
+                }
             }
             catch (Exception ex)
             {

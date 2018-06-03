@@ -157,8 +157,8 @@
                                     <Label x:Name="ConfiReport" FontSize="Micro" Text="CONFIDENTIAL REPORT?" TextColor="Black" Grid.Row="0" Grid.Column="0" />
                                     <Switch x:Name="ConfiReportcheck" HorizontalOptions="EndAndExpand" IsToggled="{Binding ConfiReport, Mode=TwoWay}" Grid.Row="0" Grid.Column="1" />
 
-                                    <Label x:Name="Pax" FontSize="Micro" Text="Others Persons Involved (Staff or Pax)" TextColor="Black" Grid.Row="1" Grid.ColumnSpan="2" />
-                                    <Entry PlaceholderColor="#F1F1F1" Placeholder="Others Persons Involved (Staff or Pax)" x:Name="PaxEntry" Text="{Binding pax, Mode=TwoWay}" 
+                                    <Label x:Name="Pax" FontSize="Micro" Text="Other Persons Involved (Staff or Pax)" TextColor="Black" Grid.Row="1" Grid.ColumnSpan="2" />
+                                    <Entry PlaceholderColor="#F1F1F1" Placeholder="Other Persons Involved (Staff or Pax)" x:Name="PaxEntry" Text="{Binding pax, Mode=TwoWay}" 
                                    TextColor="#03A9F4" Grid.Row="2" Grid.ColumnSpan="2" />
 
                                     <Label x:Name="Name" FontSize="Micro" Text="Name-Staff Number" TextColor="Black" Grid.Row="3" Grid.ColumnSpan="2" />

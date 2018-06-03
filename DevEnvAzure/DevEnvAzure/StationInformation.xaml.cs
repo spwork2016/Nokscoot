@@ -11,6 +11,7 @@ using System.Threading.Tasks;
 
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
+using static DevEnvAzure.SPUtility;
 
 namespace DevEnvAzure
 {
@@ -24,8 +25,9 @@ namespace DevEnvAzure
             _StationInformation = (Models.StationInformationModel)viewObject;
             this.BindingContext = _StationInformation;
             InitializeComponent();
+
         }
-        private void Save_clicked(object sender, XLabs.EventArgs<bool> e)
+        private async void Save_clicked(object sender, XLabs.EventArgs<bool> e)
         {
             if (string.IsNullOrEmpty(_StationInformation.IATACode))
             {
@@ -40,7 +42,17 @@ namespace DevEnvAzure
 
             _StationInformation.ReportType = null;
             _StationInformation.DateOfEvent = null;
-            CreateItems(jsonInitObj.getStationInformationJson(_StationInformation));
+            DataContracts.StationInformationSp spData = null;
+            try
+            {
+                spData = jsonInitObj.getStationInformationJson(_StationInformation);
+            }
+            catch (Exception ex)
+            {
+                await DisplayAlert("Please fill valid data", ex.Message, "Ok");
+                return;
+            }
+            CreateItems(spData);
         }
         private void savedrafts_btn_Clicked(object sender, EventArgs e)
         {
@@ -83,7 +95,8 @@ namespace DevEnvAzure
                     contents.Headers.ContentType = MediaTypeHeaderValue.Parse("application/json;odata=verbose");
                     if (CheckConnection())
                     {
-                        var postResult = await client.PostAsync("https://sptechnophiles.sharepoint.com/_api/web/lists/GetByTitle('(Ops) Line Station Information')/items", contents);
+                        string url = SPUtility.GetListURL(ReportType.SationInfo);
+                        var postResult = await client.PostAsync(url, contents);
 
                         if (postResult.IsSuccessStatusCode)
                         {

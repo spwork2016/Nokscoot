@@ -10,8 +10,6 @@ namespace DevEnvAzure
 {
     public class DataUpload
     {
-        const string SPRootURL = "https://sptechnophiles.sharepoint.com/_api/web/lists/";
-
         public static async Task<int> CreateItemsOffline(List<OfflineItem> lstEmp)
         {
             var client = await OAuthHelper.GetHTTPClient();

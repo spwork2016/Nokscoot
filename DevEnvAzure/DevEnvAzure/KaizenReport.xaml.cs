@@ -85,7 +85,7 @@ namespace DevEnvAzure
                     contents.Headers.ContentType = MediaTypeHeaderValue.Parse("application/json;odata=verbose");
                     if (CheckConnection())
                     {
-                        var postResult = await client.PostAsync("https://sptechnophiles.sharepoint.com/_api/web/lists/GetByTitle('Kaizen Report')/items", contents);
+                        var postResult = await client.PostAsync(string.Format(ClientConfiguration.Default.SPListURL, "Kaizen Report"), contents);
 
                         if (postResult.IsSuccessStatusCode)
                         {

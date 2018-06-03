@@ -171,8 +171,8 @@ namespace DevEnvAzure
 
                     Device.BeginInvokeOnMainThread(async () =>
                     {
-
-                        var postResult = await client.PostAsync("https://sptechnophiles.sharepoint.com/_api/web/lists/GetByTitle('Flight Crew Voyage Record')/items", contents);
+                        string url = SPUtility.GetListURL(ReportType.FlightCrewVoyageReport);
+                        var postResult = await client.PostAsync(url, contents);
                         if (postResult.IsSuccessStatusCode)
                         {
                             App.DAUtil.Delete(_flightcrew);

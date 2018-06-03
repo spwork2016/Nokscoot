@@ -16,14 +16,14 @@ namespace DevEnvAzure
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class DocumentLibrary : ContentPage
     {
-        const string SPDocumentLibraryURL = "https://sptechnophiles.sharepoint.com/_api/web/GetFolderByServerRelativeUrl('{0}')/{1}";
-        const string SPDocumentFileURL = "https://sptechnophiles.sharepoint.com/_api/web/GetFolderByServerRelativeUrl('{0}')/Files('{1}')";
-        const string SPDocumentAnonymousLink = "https://sptechnophiles.sharepoint.com/_api/SP.Web.CreateAnonymousLink";
+        string SPDocumentLibraryURL = ClientConfiguration.Default.ActiveDirectoryResource + "SSQServices/DMS/_api/web/GetFolderByServerRelativeUrl('{0}')/{1}";
+        string SPDocumentFileURL = ClientConfiguration.Default.ActiveDirectoryResource + "SSQServices/DMS/_api/web/GetFolderByServerRelativeUrl('{0}')/Files('{1}')";
+        string SPDocumentAnonymousLink = ClientConfiguration.Default.ActiveDirectoryResource + "SSQServices/DMS/_api/SP.Web.CreateAnonymousLink";
 
         public string FolderPath { get; set; }
         public List<string> PrevPaths { get; set; }
         public bool IsBackButtonVisible { get; set; }
-        const string RootFolder = "/SampleDocuments";
+        const string RootFolder = "";
 
         public DocumentLibrary()
         {
@@ -59,19 +59,25 @@ namespace DevEnvAzure
                 foreach (var item in folders)
                 {
                     item.Icon = "folder.png";
+                    if (!string.IsNullOrEmpty(fPath) || (item.Name == "Safety Security Critical Information" || item.Name == "NCT Controlled Manuals Library"))
+                    {
+                        dataSource.Add(item);
+                    }
                 }
-                dataSource.AddRange(folders);
             }
 
-            //Retrive files
-            var files = await GetDocuments(fPath, true);
-            if (files != null)
+            if (!string.IsNullOrEmpty(fPath))
             {
-                foreach (var item in files)
+                //Retrive files
+                var files = await GetDocuments(fPath, true);
+                if (files != null)
                 {
-                    item.Icon = "file.png";
+                    foreach (var item in files)
+                    {
+                        item.Icon = "file.png";
+                    }
+                    dataSource.AddRange(files);
                 }
-                dataSource.AddRange(files);
             }
 
             documentList.ItemsSource = dataSource;
@@ -113,15 +119,23 @@ namespace DevEnvAzure
 
         public async Task<List<DataContracts.Result>> GetDocuments(string folderPath, bool isFiles)
         {
-            var client = await OAuthHelper.GetHTTPClient();
-            var response = await client.GetStringAsync(string.Format(SPDocumentLibraryURL, folderPath, isFiles ? "/Files" : "/Folders"));
-            if (response != null)
+            try
             {
-                var folders = JsonConvert.DeserializeObject<SPFolder>(response, new JsonSerializerSettings { DateParseHandling = DateParseHandling.None });
-                if (folders != null)
+                var client = await OAuthHelper.GetHTTPClient();
+                string url = string.Format(SPDocumentLibraryURL, folderPath, isFiles ? "Files" : "Folders");
+                var response = await client.GetStringAsync(url);
+                if (response != null)
                 {
-                    return folders.d.results.ToList();
+                    var folders = JsonConvert.DeserializeObject<SPFolder>(response, new JsonSerializerSettings { DateParseHandling = DateParseHandling.None });
+                    if (folders != null)
+                    {
+                        return folders.d.results.ToList();
+                    }
                 }
+            }
+            catch (Exception ex)
+            {
+
             }
 
             return null;

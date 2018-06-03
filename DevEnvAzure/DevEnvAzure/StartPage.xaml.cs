@@ -37,8 +37,8 @@ namespace DevEnvAzure
                 var docsPage = new MasterPageItem() { Title = "Documents", Icon = "documents.png", TargetType = typeof(DocumentLibrary) };
                 var StationInformationPage = new MasterPageItem() { Title = "Station Information", Icon = "stationinfo.png", TargetType = typeof(StationInformation) };
                 var editableDraftsPage = new MasterPageItem() { Title = "Editable Drafts", Icon = "editabledrafts.png", TargetType = typeof(EditableDrafts) };
-                var notificationsPage = new MasterPageItem() { Title = "Notifications", Icon = "notifications.png" };
-
+                var notificationsPage = new MasterPageItem() { Title = "Notifications", Icon = "notifications.png", TargetType= typeof(Notifications) };
+              
                 menuList.Add(homePage);
                 menuList.Add(reportingPage);
 
