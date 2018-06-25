@@ -49,7 +49,7 @@ namespace DevEnvAzure.DataContracts
             this.__metadata.type = "SP.Data.Test_x005f_SSRListItem";
         }
         public Metadata __metadata { get; set; }
-      
+
         //[PrimaryKey, AutoIncrement, Column("SafetyID")]
         //public long SafetyID
         //{ get; set; }
@@ -275,5 +275,8 @@ namespace DevEnvAzure.DataContracts
         [JsonProperty(PropertyName = "Email_x002d_IDOfSubmitter")]
         public string SubmitterEmail
         { get; set; }
+
+        [JsonProperty(PropertyName = "MobileEntry")]
+        public bool MobileEntry { get; set; }
     }
 }

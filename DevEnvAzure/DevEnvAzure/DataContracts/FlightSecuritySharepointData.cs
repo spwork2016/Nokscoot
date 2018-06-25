@@ -57,6 +57,8 @@ namespace DevEnvAzure.DataContracts
         [JsonProperty(PropertyName = "Email_x002d_IDOfSubmitter")]
         public SPFieldURL PoliceReport { get; set; }
 
+        [JsonProperty(PropertyName = "MobileEntry")]
+        public bool MobileEntry { get; set; }
 
         //public string Employee_x0020_Name { get; set; }
         //public int? Employee_x0020_Age { get; set; }

@@ -15,6 +15,7 @@ namespace DevEnvAzure.Utilities
         public FlightSecuritySharepointData getSecurity(SecurityModel sd)
         {
             FlightSecuritySharepointData sddp = new FlightSecuritySharepointData();
+            sddp.MobileEntry = true;
             sddp.Type_x0020_of_x0020_Report = "Security Report";//sd.ReportType;
             sddp.Aircraft_x0020_Registration = SSIRShortForm.airregis;//sd.AircraftRegis!=0? Convert.ToString(sd.AircraftRegis + 1):null; //
             sddp.Event_x0020_Title = sd.EventTitle;
@@ -58,6 +59,7 @@ namespace DevEnvAzure.Utilities
         public GroundSafetyReportSp getGroundSafety(GroundSafetyReport sd)
         {
             GroundSafetyReportSp sddp = new GroundSafetyReportSp();
+            sddp.MobileEntry = true;
             sddp.ReportType = "Ground Safety Report";// sd.ReportType;
             sddp.AircraftRegis = SSIRShortForm.airregis;// Convert.ToString(sd.AircraftRegis + 1);
             sddp.EventTitle = sd.EventTitle;
@@ -97,7 +99,7 @@ namespace DevEnvAzure.Utilities
         public FatigueReportSp getFatigue(FatigueReport sd)
         {
             FatigueReportSp sddp = new FatigueReportSp();
-
+            sddp.MobileEntry = true;
             sddp.ReportType = "Fatigue Report";// sd.ReportType;
             sddp.AircraftRegis = SSIRShortForm.airregis;// Convert.ToString(sd.AircraftRegis + 1);
             sddp.EventTitle = sd.EventTitle;
@@ -137,6 +139,7 @@ namespace DevEnvAzure.Utilities
         public CabibSafetyReportSp getCabinSfetyJson(CabibSafetyReport sd)
         {
             CabibSafetyReportSp sddp = new CabibSafetyReportSp();
+            sddp.MobileEntry = true;
             sddp.ReportType = "Cabin Safety Report"; //sd.ReportType;
             sddp.AircraftRegis = SSIRShortForm.airregis;//sd.AircraftRegis!=0? Convert.ToString(sd.AircraftRegis + 1):null; //
             sddp.EventTitle = sd.EventTitle;
@@ -168,6 +171,7 @@ namespace DevEnvAzure.Utilities
         public InjuryIllnessReportSp getInjuryJson(InjuryIllnessReport sd)
         {
             InjuryIllnessReportSp sddp = new InjuryIllnessReportSp();
+            sddp.MobileEntry = true;
             sddp.ReportType = "Injury-Illness Report"; //sd.ReportType;
             sddp.AircraftRegis = SSIRShortForm.airregis;// Convert.ToString(sd.AircraftRegis + 1);
             sddp.EventTitle = sd.EventTitle;
@@ -204,6 +208,7 @@ namespace DevEnvAzure.Utilities
         public FlightSafetyReportModelSp getflightSafetyJson(FlightSafetyReportModel sd)
         {
             FlightSafetyReportModelSp sddp = new FlightSafetyReportModelSp();
+            sddp.MobileEntry = true;
             List<string> strData = sd.ApproachType != null ? sd.ApproachType.Trim(',').Split(',').ToList() : null;
 
             List<string> relativeStr = sd.Relativeposition != null ? sd.Relativeposition.Trim(',').Split(',').ToList() : null;
@@ -329,6 +334,7 @@ namespace DevEnvAzure.Utilities
         public FlightCrewVoyageRecordSp getFlightCrewVoyageJson(FlightCrewVoyageRecordModel sd)
         {
             FlightCrewVoyageRecordSp sddp = new FlightCrewVoyageRecordSp();
+            sddp.MobileEntry = true;
             sddp.VoyageRecord = sd.VoyageRecord;
             sddp.SectorNumber = FlightCrewVoyageRecord.SectorNumberpickerValue;
             sddp.ScheduledDeparture = sd.ScheduledDeparture.ToString("yyyy-MM-dd") + "T07:00:00Z";
@@ -345,13 +351,13 @@ namespace DevEnvAzure.Utilities
             sddp.ReplyRequired = FlightCrewVoyageRecord.ReplyRequiredpickerValue;
             sddp.StaffNumber = sd.StaffNumber;
             sddp.Rank = FlightCrewVoyageRecord.RankpickerValue;
-            // sddp.CmdEmail = "14";
+
             return sddp;
         }
         public KaizenReportSp getKaizenReportJson(KaizenReportModel sd)
         {
             KaizenReportSp sddp = new KaizenReportSp();
-
+            sddp.MobileEntry = true;
             sddp.AreaLocation = sd.AreaLocation;
             sddp.Before = sd.Before != null ? "<div class=\"ExternalClass7A1654F355EA4DB8AE0EFF5A3A06BE7C\"><br>\u200b" + sd.Before + "<br><\u002fdiv>" : null;
             sddp.BenefitsCategory = KaizenReport.BenefitsCategorypickerValue;
@@ -362,6 +368,7 @@ namespace DevEnvAzure.Utilities
         public StationInformationSp getStationInformationJson(StationInformationModel sd)
         {
             StationInformationSp sddp = new StationInformationSp();
+            sddp.MobileEntry = true;
             sddp.IATACode = sd.IATACode;
             if (!string.IsNullOrEmpty(sd.NameofAirport))
             {

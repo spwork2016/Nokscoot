@@ -11,10 +11,8 @@ namespace DevEnvAzure.DataContracts
     {
         public FlightCrewVoyageRecordSp()
         {
-            this.__metadata = new Metadata();
-            //this.__metadata.type = "SP.Data.Flight_x0020_Crew_x0020_Voyage_x0020_RecordListItem";
-            this.__metadata.type = "SP.Data.Flight_x0020_Crew_x0020_Voyage_x0020_RecordListItems";
-            //
+            __metadata = new Metadata();
+            __metadata.type = "SP.Data.Flight_x0020_Crew_x0020_Voyage_x0020_RecordListItem";
         }
         public Metadata __metadata { get; set; }
 
@@ -70,6 +68,8 @@ namespace DevEnvAzure.DataContracts
         public string CmdEmail
         { get; set; }
 
-        
+        [JsonProperty(PropertyName = "MobileEntry")]
+        public bool MobileEntry { get; set; }
+
     }
 }

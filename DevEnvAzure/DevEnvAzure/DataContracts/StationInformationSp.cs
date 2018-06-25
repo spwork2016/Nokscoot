@@ -152,5 +152,7 @@ namespace DevEnvAzure.DataContracts
         [JsonProperty(PropertyName = "Immigration")]
         public string ImmigrationCustomsConsiderations
         { get; set; }
+        [JsonProperty(PropertyName = "MobileEntry")]
+        public bool MobileEntry { get; set; }
     }
 }

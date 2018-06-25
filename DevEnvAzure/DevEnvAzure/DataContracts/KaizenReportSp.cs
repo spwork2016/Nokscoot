@@ -37,7 +37,9 @@ namespace DevEnvAzure.DataContracts
         [JsonProperty(PropertyName = "Subject")]
         public string Subject
         { get; set; }
-       
+
+        [JsonProperty(PropertyName = "MobileEntry")]
+        public bool MobileEntry { get; set; }
 
     }
 }

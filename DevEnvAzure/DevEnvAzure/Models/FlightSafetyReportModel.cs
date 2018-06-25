@@ -164,7 +164,6 @@ namespace DevEnvAzure.Models
         {
             get; set;
         }
-
     }
 
 }

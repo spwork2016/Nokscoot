@@ -57,7 +57,7 @@ namespace DevEnvAzure
                     url = ClientConfiguration.Default.ActiveDirectoryResource + "SSQServices/_api/web/Lists(guid'32d46a92-0ee3-4a85-83ab-12ca72dce65e')/items";
                     break;
                 case ReportType.FlightCrewVoyageReport:
-                    url = ClientConfiguration.Default.ActiveDirectoryResource + "SSQServices/_api/web/lists/GetByTitle('Flight Crew Voyage Record'}/items";
+                    url = ClientConfiguration.Default.ActiveDirectoryResource + "SSQServices/_api/web/lists/GetByTitle('Flight Crew Voyage Record')/items";
                     break;
                 case ReportType.none:
                     url = ClientConfiguration.Default.ActiveDirectoryResource + "SSQServices/_api/web/lists/GetByTitle('Operational_Hazard_Event_Register')/items";

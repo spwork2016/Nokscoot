@@ -111,5 +111,8 @@ namespace DevEnvAzure.DataContracts
         [JsonProperty(PropertyName = "Email_x002d_IDOfSubmitter")]
         public string SubmitterEmail
         { get; set; }
+
+        [JsonProperty(PropertyName = "MobileEntry")]
+        public bool MobileEntry { get; set; }
     }
 }
