@@ -12,7 +12,9 @@ namespace DevEnvAzure.DataContracts
         public FlightCrewVoyageRecordSp()
         {
             this.__metadata = new Metadata();
-            this.__metadata.type = "SP.Data.Flight_x0020_Crew_x0020_Voyage_x0020_RecordListItem";
+            //this.__metadata.type = "SP.Data.Flight_x0020_Crew_x0020_Voyage_x0020_RecordListItem";
+            this.__metadata.type = "SP.Data.Flight_x0020_Crew_x0020_Voyage_x0020_RecordListItems";
+            //
         }
         public Metadata __metadata { get; set; }
 

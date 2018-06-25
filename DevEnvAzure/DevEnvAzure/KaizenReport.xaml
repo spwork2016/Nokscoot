@@ -73,7 +73,7 @@
                                     <ColumnDefinition Width="*" />
                                     <ColumnDefinition Width="*" />
                                 </Grid.ColumnDefinitions>
-                                <Button x:Name="save_btn" WidthRequest="100" TextColor="Black" HorizontalOptions="CenterAndExpand" Text="Submit" BackgroundColor="#FDCE02"  Clicked="Save_clicked" Grid.Row="0" Grid.Column="0"/>
+                                <Button x:Name="save_btn" WidthRequest="100" TextColor="Black" HorizontalOptions="CenterAndExpand" Text="Submit" BackgroundColor="#FDCE02" Clicked="Save_clicked" Grid.Row="0" Grid.Column="0"/>
                                 <Button x:Name="savedrafts_btn" WidthRequest="130" TextColor="Black" HorizontalOptions="CenterAndExpand" Text="Save Draft"  BackgroundColor="#FDCE02" Clicked="savedrafts_btn_Clicked" Grid.Row="0" Grid.Column="1"/>
                             </Grid>
                         </StackLayout>

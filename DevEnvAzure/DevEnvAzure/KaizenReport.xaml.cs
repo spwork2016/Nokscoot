@@ -3,12 +3,9 @@ using DevEnvAzure.Utilities;
 using Newtonsoft.Json;
 using Plugin.Connectivity;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Headers;
-using System.Text;
-using System.Threading.Tasks;
 
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
@@ -30,7 +27,7 @@ namespace DevEnvAzure
 
             Title = "Kaizen Report";
         }
-        private void Save_clicked(object sender, XLabs.EventArgs<bool> e)
+        private void Save_clicked(object sender, EventArgs e)
         {
             if (string.IsNullOrEmpty(_KaizenReport.Subject))
             {
@@ -85,7 +82,8 @@ namespace DevEnvAzure
                     contents.Headers.ContentType = MediaTypeHeaderValue.Parse("application/json;odata=verbose");
                     if (CheckConnection())
                     {
-                        var postResult = await client.PostAsync(string.Format(ClientConfiguration.Default.SPListURL, "Kaizen Report"), contents);
+                        string url = SPUtility.GetListURL(SPUtility.ReportType.Kaizen);
+                        var postResult = await client.PostAsync(url, contents);
 
                         if (postResult.IsSuccessStatusCode)
                         {

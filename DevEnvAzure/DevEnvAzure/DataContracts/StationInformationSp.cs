@@ -24,7 +24,8 @@ namespace DevEnvAzure.DataContracts
         public StationInformationSp()
         {
             this.__metadata = new Metadata();
-            this.__metadata.type = "SP.Data.Ops_x0020_Line_x0020_Station_x0020_InformationListItem";
+            //this.__metadata.type = "SP.Data.Ops_x0020_Line_x0020_Station_x0020_InformationListItem";
+            this.__metadata.type = "SP.Data.Line_x0020_Station_x0020_Risk_x0020_AssessmentListItem";
         }
         public Metadata __metadata { get; set; }
 
