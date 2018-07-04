@@ -33,20 +33,20 @@
                                     <ColumnDefinition Width="*" />
                                 </Grid.ColumnDefinitions>
                                 <Label x:Name="SubjectLbl" Text="Subject *" TextColor="Black" Grid.Row="0" Grid.ColumnSpan="2" FontSize="Micro"/>
-                                <Entry x:Name="SubjectEntry"  Text="{Binding Subject, Mode=TwoWay}" TextColor="#03A9F4" Grid.Row="1" Grid.ColumnSpan="2"  />
+                                <Entry x:Name="SubjectEntry" Text="{Binding Subject, Mode=TwoWay}" TextColor="#03A9F4" Grid.Row="1" Grid.ColumnSpan="2"  />
 
                                 <Label x:Name="AreaLocationLbl" Text="Area / Location" TextColor="Black" Grid.Row="2" Grid.ColumnSpan="2"  FontSize="Micro"/>
-                                <Entry x:Name="AreaLocationEntry"  Text="{Binding AreaLocation, Mode=TwoWay}" TextColor="#03A9F4" Grid.Row="3" Grid.ColumnSpan="2"  />
+                                <Entry x:Name="AreaLocationEntry" Text="{Binding AreaLocation, Mode=TwoWay}" TextColor="#03A9F4" Grid.Row="3" Grid.ColumnSpan="2"  />
 
-                                <Label x:Name="InitialConditionlbl" Text="Initial Condition" TextColor="Black" Grid.Row="8" Grid.ColumnSpan="2" FontSize="Micro" />
-                                <Entry x:Name="InitialConditionEntry"   Text="{Binding InitialCondition, Mode=TwoWay}"  TextColor="#03A9F4" Grid.Row="9" Grid.ColumnSpan="2" />
+                                <Label x:Name="InitialConditionlbl" Text="Initial Condition" TextColor="Black" Grid.Row="4" Grid.ColumnSpan="2" FontSize="Micro" />
+                                <Entry x:Name="InitialConditionEntry" Text="{Binding InitialCondition, Mode=TwoWay}" TextColor="#03A9F4" Grid.Row="5" Grid.ColumnSpan="2" />
 
-                                <Label x:Name="Beforelbl" Text="Before" TextColor="Black" Grid.Row="4" Grid.ColumnSpan="2" FontSize="Micro" />
-                                <Entry x:Name="BeforeEntry"   Text="{Binding Before, Mode=TwoWay}"  TextColor="#03A9F4" Grid.Row="5" Grid.ColumnSpan="2" />
+                                <Label x:Name="Beforelbl" Text="Before" TextColor="Black" Grid.Row="6" Grid.ColumnSpan="2" FontSize="Micro" />
+                                <Entry x:Name="BeforeEntry" Text="{Binding Before, Mode=TwoWay}"  TextColor="#03A9F4" Grid.Row="7" Grid.ColumnSpan="2" />
 
-                                <Label x:Name="BenefitsCategorylbl" Text="Benefits Category" TextColor="Black" Grid.Row="6" Grid.ColumnSpan="2" FontSize="Micro" />
+                                <Label x:Name="BenefitsCategorylbl" Text="Benefits Category" TextColor="Black" Grid.Row="8" Grid.ColumnSpan="2" FontSize="Micro" />
                                 <Picker x:Name="BenefitsCategorypicker" SelectedIndex="{Binding BenefitsCategory,Mode=TwoWay}" SelectedIndexChanged="BenefitsCategorypicker_changed"
-                                TextColor="#03A9F4" Grid.Row="7" Grid.ColumnSpan="2" HorizontalOptions="FillAndExpand">
+                                TextColor="#03A9F4" Grid.Row="9" Grid.ColumnSpan="2" HorizontalOptions="FillAndExpand">
                                     <Picker.Items>
                                         <x:String></x:String>
                                         <x:String>Cost</x:String>
@@ -62,6 +62,24 @@
                                     </Picker.Items>
                                 </Picker>
                             </Grid>
+
+                            <Button x:Name="attachments" TextColor="Black" HorizontalOptions="FillAndExpand"
+                                    Clicked="Attachments_Clicked" Text="Attach Photo" BackgroundColor="#FDCE02" />
+                            <StackLayout x:Name="stkAttachment" VerticalOptions="FillAndExpand">
+                                <!--<ListView x:Name="attachmentList" HasUnevenRows="True" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" ItemTapped="AttachmentList_ItemTapped">
+                                    <ListView.ItemTemplate>
+                                        <DataTemplate>
+                                            <ViewCell>
+                                                <ViewCell.ContextActions>
+                                                    <MenuItem Clicked="MenuItem_OnDelete_Clicked" CommandParameter="{Binding .}" Text="Delete" IsDestructive="True" />
+                                                </ViewCell.ContextActions>
+                                                <Label Text="{Binding Key}" FontSize="Small" VerticalOptions="Fill" HorizontalOptions="FillAndExpand" 
+                                                   TextColor="Black" HeightRequest="25" Margin="5"/>
+                                            </ViewCell>
+                                        </DataTemplate>
+                                    </ListView.ItemTemplate>
+                                </ListView>-->
+                            </StackLayout>
                         </StackLayout>
 
                         <StackLayout>
@@ -85,6 +103,7 @@
                  AbsoluteLayout.LayoutBounds="0.5,0.5,-1,-1">
                 <Frame  Padding="20" IsClippedToBounds="True" BackgroundColor="Black" Opacity="0.5" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
                     <ActivityIndicator x:Name="activityIndicator" IsRunning="False" Color="White" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand"/>
+                    <Label x:Name="lblLoading" TextColor="White" FontSize="Small" HorizontalOptions="CenterAndExpand" VerticalOptions="FillAndExpand" />
                 </Frame>
             </StackLayout>
         </AbsoluteLayout>

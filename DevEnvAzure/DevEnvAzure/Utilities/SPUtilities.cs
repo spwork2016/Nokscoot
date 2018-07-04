@@ -2,11 +2,14 @@
 using DevEnvAzure.Models;
 using Newtonsoft.Json;
 using Plugin.Connectivity;
+using Plugin.Media;
+using Plugin.Media.Abstractions;
+using Plugin.Permissions;
+using Plugin.Permissions.Abstractions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace DevEnvAzure
@@ -34,6 +37,7 @@ namespace DevEnvAzure
 
         public static string GetListURL(ReportType reportType = ReportType.none)
         {
+            //throw new Exception("Are you sure sending a data to prod?");
             string url = "";
 
             switch (reportType)
@@ -101,6 +105,14 @@ namespace DevEnvAzure
             }
 
             return null;
+        }
+
+        public static async Task<HttpResponseMessage> SaveAttachment(string url, System.IO.Stream stream)
+        {
+            var client = await OAuthHelper.GetHTTPClient();
+            var response = await client.PostAsync(url, new StreamContent(stream));
+
+            return response;
         }
 
         private static List<PeoplePicker> ResponseToUsers(string response)
@@ -175,6 +187,62 @@ namespace DevEnvAzure
 
             }
             return "";
+        }
+
+        public static async Task<System.IO.Stream> TakePhotoAsync()
+        {
+            await CrossMedia.Current.Initialize();
+
+            var cameraStatus = await CrossPermissions.Current.CheckPermissionStatusAsync(Permission.Camera);
+            var storageStatus = await CrossPermissions.Current.CheckPermissionStatusAsync(Permission.Storage);
+
+            if (cameraStatus != PermissionStatus.Granted || storageStatus != PermissionStatus.Granted)
+            {
+                var results = await CrossPermissions.Current.RequestPermissionsAsync(new[] { Permission.Camera, Permission.Storage });
+                cameraStatus = results[Permission.Camera];
+                storageStatus = results[Permission.Storage];
+            }
+
+
+            if (cameraStatus == PermissionStatus.Granted && storageStatus == PermissionStatus.Granted)
+            {
+                var file = await CrossMedia.Current.TakePhotoAsync(new StoreCameraMediaOptions
+                {
+                    ModalPresentationStyle = MediaPickerModalPresentationStyle.OverFullScreen,
+                    SaveToAlbum = true,
+                    AllowCropping = true
+                });
+
+                if (file != null)
+                {
+                    var stream = file.GetStream();
+                    file.Dispose();
+                    return stream;
+                }
+            }
+            else
+            {
+                //await DisplayAlert("Permissions Denied", "Unable to take photos.", "OK");
+                //On iOS you may want to send your user to the settings screen.
+                CrossPermissions.Current.OpenAppSettings();
+            }
+
+            return null;
+        }
+
+        public static async Task<System.IO.Stream> PicPhotoAsync()
+        {
+            await CrossMedia.Current.Initialize();
+            var file = await CrossMedia.Current.PickPhotoAsync();
+
+            if (file != null)
+            {
+                var stream = file.GetStream();
+                file.Dispose();
+                return stream;
+            }
+
+            return null;
         }
     }
 }
