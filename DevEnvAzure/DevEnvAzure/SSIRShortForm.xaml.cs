@@ -1,9 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Headers;
-using System.Text;
 using System.Threading.Tasks;
 using DevEnvAzure.Model;
 using DevEnvAzure.Models;
@@ -48,36 +46,56 @@ namespace DevEnvAzure
 
             }
         }
-        protected override void OnAppearing()
+
+        protected async override void OnAppearing()
         {
+            base.OnAppearing();
+
+            string attachmentInfo = string.Empty;
+
             try
             {
                 switch (_classname)
                 {
                     case "safety":
+                        attachmentInfo = ((Models.FlightSafetyReportModel)_viewobject).Attachments;
                         Title = "Flight Safety";
                         break;
                     case "ground":
+                        attachmentInfo = ((Models.GroundSafetyReport)_viewobject).Attachments;
                         Title = "Ground Safety";
                         break;
                     case "cabin":
+                        attachmentInfo = ((Models.CabibSafetyReport)_viewobject).Attachments;
                         Title = "Cabin Safety";
                         break;
                     case "Injury":
+                        attachmentInfo = ((Models.InjuryIllnessReport)_viewobject).Attachments;
                         Title = "Injury Illness";
+                        break;
+                    case "security":
+                        attachmentInfo = ((Models.SecurityModel)_viewobject).Attachments;
+                        Title = "Security";
+                        break;
+                    case "fatigue":
+                        attachmentInfo = ((Models.FatigueReport)_viewobject).Attachments;
+                        Title = "Fatigue";
                         break;
                     default:
                         Title = char.ToUpper(_classname[0]) + _classname.Substring(1);
                         break;
                 }
 
-                base.OnAppearing();
+                var allFilesExists = await _attachementView.CheckAttachments(attachmentInfo);
+                if (!allFilesExists)
+                {
+                    await DisplayAlert("Warning", SPUtility.ATTACHMENT_FILES_NOT_FOUND, "Ok");
+                }
             }
-            catch
+            catch (Exception ex)
             {
-
+                await DisplayAlert("Error", ex.Message, "Ok");
             }
-            //  UpdateStatus();
         }
 
         ContentView _fullviewobj = null;
@@ -224,6 +242,7 @@ namespace DevEnvAzure
                         if (FlightSafetyReportView.PeoplePickercrew2email != null)
                             sf.FlightCrew2 = FlightSafetyReportView.PeoplePickercrew2email.Id.ToString();
 
+                        sf.Attachments = _attachementView.GetAttachmentInfoAsString();
                         sf = App.DAUtil.SaveOrUpdate(sf);
                         if (sf != null)
                         {
@@ -237,6 +256,7 @@ namespace DevEnvAzure
                         sd.ReportType = "Security" + idval.ToString();
                         sd.MOR = Convert.ToString(MORpicker.SelectedIndex);
                         sd.Created = DateTime.Now;
+                        sd.Attachments = _attachementView.GetAttachmentInfoAsString();
                         sd = App.DAUtil.SaveOrUpdate(sd);
                         if (sd != null)
                         {
@@ -251,6 +271,7 @@ namespace DevEnvAzure
                         gd.ReportType = "GroundSafety" + idval.ToString();
                         gd.MOR = Convert.ToString(MORpicker.SelectedIndex);
                         gd.Created = DateTime.Now;
+                        gd.Attachments = _attachementView.GetAttachmentInfoAsString();
                         gd = App.DAUtil.SaveOrUpdate(gd);
                         if (gd != null)
                         {
@@ -265,6 +286,7 @@ namespace DevEnvAzure
                         ft.ReportType = "Fatigue" + idval.ToString();
                         ft.MOR = Convert.ToString(MORpicker.SelectedIndex);
                         ft.Created = DateTime.Now;
+                        ft.Attachments = _attachementView.GetAttachmentInfoAsString();
                         ft = App.DAUtil.SaveOrUpdate(ft);
                         if (ft != null)
                         {
@@ -279,6 +301,7 @@ namespace DevEnvAzure
                         injr.ReportType = "InjuryIllness" + idval.ToString();
                         injr.MOR = Convert.ToString(MORpicker.SelectedIndex);
                         injr.Created = DateTime.Now;
+                        injr.Attachments = _attachementView.GetAttachmentInfoAsString();
                         injr = App.DAUtil.SaveOrUpdate(injr);
                         if (injr != null)
                         {
@@ -293,6 +316,7 @@ namespace DevEnvAzure
                         cd.ReportType = "Cabin" + idval.ToString();
                         cd.MOR = Convert.ToString(MORpicker.SelectedIndex);
                         cd.Created = DateTime.Now;
+                        cd.Attachments = _attachementView.GetAttachmentInfoAsString();
                         cd = App.DAUtil.SaveOrUpdate(cd);
                         if (cd != null)
                         {

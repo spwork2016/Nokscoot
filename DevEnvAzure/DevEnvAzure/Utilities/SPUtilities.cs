@@ -20,6 +20,7 @@ namespace DevEnvAzure
     public static class SPUtility
     {
         public const string SEPARATOR = "|<>|";
+        public const string ATTACHMENT_FILES_NOT_FOUND = "Some of the attachments were not available. Please re-check the attachments";
         public enum ReportType
         {
             Fatigue = 1,

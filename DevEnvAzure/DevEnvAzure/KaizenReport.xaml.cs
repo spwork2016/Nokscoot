@@ -25,7 +25,7 @@ namespace DevEnvAzure
         public KaizenReport(object viewObject, string modelname)
         {
             InitializeComponent();
-            _KaizenReport = (KaizenReportModel)viewObject; //new Models.KaizenReportModel();
+            _KaizenReport = (KaizenReportModel)viewObject;
             _attachementView = new AttachmentView();
 
             BindingContext = _KaizenReport;
@@ -33,6 +33,25 @@ namespace DevEnvAzure
             Title = "Kaizen Report";
             stkAttachment.Children.Add(_attachementView);
         }
+
+        protected async override void OnAppearing()
+        {
+            base.OnAppearing();
+
+            try
+            {
+                var allFilesExists = await _attachementView.CheckAttachments(_KaizenReport.Attachments);
+                if (!allFilesExists)
+                {
+                    await DisplayAlert("Warning", SPUtility.ATTACHMENT_FILES_NOT_FOUND, "Ok");
+                }
+            }
+            catch (Exception ex)
+            {
+                await DisplayAlert("Error", ex.Message, "Ok");
+            }
+        }
+
         private void Save_clicked(object sender, EventArgs e)
         {
             if (string.IsNullOrEmpty(_KaizenReport.Subject))
@@ -56,6 +75,7 @@ namespace DevEnvAzure
             _KaizenReport.ReportType = string.IsNullOrEmpty(_KaizenReport.ReportType) ? "Kaizen Report" + _KaizenReport.Id.ToString() : _KaizenReport.ReportType;
             _KaizenReport.DateOfEvent = DateTime.Now;
             _KaizenReport.Created = DateTime.Now;
+            _KaizenReport.Attachments = _attachementView.GetAttachmentInfoAsString();
             _KaizenReport = App.DAUtil.SaveOrUpdate(_KaizenReport);
             DependencyService.Get<IMessage>().ShortAlert("Item drafted");
         }
@@ -71,7 +91,7 @@ namespace DevEnvAzure
             string selectedOption = await DisplayActionSheet("Attachment", "Cancel", null, ClientConfiguration.Default.AttachmentOptions);
             try
             {
-                _attachementView.AskForAttachment(selectedOption);
+                await _attachementView.AskForAttachment(selectedOption);
             }
             catch (Exception ex)
             {

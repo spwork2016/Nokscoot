@@ -39,7 +39,7 @@ namespace DevEnvAzure
                 var allFilesExists = await _attachementView.CheckAttachments(_StationInformation.Attachments);
                 if (!allFilesExists)
                 {
-                    await DisplayAlert("Warning", "Some of the attachments were not available. Please re-check the attachments", "Ok");
+                    await DisplayAlert("Warning", SPUtility.ATTACHMENT_FILES_NOT_FOUND, "Ok");
                 }
             }
             catch (Exception ex)

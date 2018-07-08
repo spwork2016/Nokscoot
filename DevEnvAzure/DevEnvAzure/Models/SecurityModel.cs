@@ -95,6 +95,8 @@ namespace DevEnvAzure.Models
         //[JsonProperty(PropertyName = "Details_x0020_of_x0020_Event_x0020_/_x0020_Hazard")]
         //public int flightwhere
         //{ get; set; }
+
+        public string Attachments { get; set; }
     }
 }
 

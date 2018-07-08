@@ -59,6 +59,25 @@ namespace DevEnvAzure
             }
         }
 
+        protected async override void OnAppearing()
+        {
+            base.OnAppearing();
+
+            try
+            {
+                var allFilesExists = await _attachementView.CheckAttachments(_flightcrew.Attachments);
+                if (!allFilesExists)
+                {
+                    await DisplayAlert("Warning", SPUtility.ATTACHMENT_FILES_NOT_FOUND, "Ok");
+                }
+            }
+            catch (Exception ex)
+            {
+                await DisplayAlert("Error", ex.Message, "Ok");
+            }
+        }
+
+
         private bool ValidatePeoplePickers()
         {
             if (!string.IsNullOrEmpty(_flightcrew.ReportRaisedBy) && App.validatePeoplePicker(_flightcrew.ReportRaisedBy) != null)
@@ -104,6 +123,7 @@ namespace DevEnvAzure
             _flightcrew.DateOfEvent = DateTime.Now;
             if (!ValidatePeoplePickers()) return;
             _flightcrew.Created = DateTime.Now;
+            _flightcrew.Attachments = _attachementView.GetAttachmentInfoAsString();
 
             _flightcrew = App.DAUtil.SaveOrUpdate(_flightcrew);
             DependencyService.Get<IMessage>().ShortAlert("Item drafted");
@@ -197,6 +217,7 @@ namespace DevEnvAzure
                             var ex = await postResult.Content.ReadAsStringAsync();
                             await DisplayAlert("Error", ex, "Ok");
                         }
+
                         ToggleBusy(false);
                     });
                 }
@@ -208,9 +229,10 @@ namespace DevEnvAzure
                     dt.Created = DateTime.Now;
                     dt.ReportType = (int)ReportType.FlighCrewVoyage;
                     dt.Attachments = _attachementView.GetAttachmentInfoAsString();
-                    App.DAUtil.Save(dt);
 
-                    var vList = App.DAUtil.GetAll<OfflineItem>("OfflineItem");
+                    App.DAUtil.Save(dt);
+                    App.DAUtil.GetAll<OfflineItem>("OfflineItem");
+
                     DependencyService.Get<IMessage>().LongAlert("Item stored in local storage");
                 }
             }

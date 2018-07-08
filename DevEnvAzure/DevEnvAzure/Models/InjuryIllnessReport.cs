@@ -86,5 +86,7 @@ namespace DevEnvAzure.Models
         {
             get; set;
         }
+
+        public string Attachments { get; set; }
     }
 }
