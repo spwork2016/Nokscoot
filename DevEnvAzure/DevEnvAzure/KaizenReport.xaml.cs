@@ -68,9 +68,15 @@ namespace DevEnvAzure
 
         private async void Attachments_Clicked(object sender, EventArgs e)
         {
-            string[] options = { "Camera", "Gallery" };
-            string selectedOption = await DisplayActionSheet("Attachment", "Cancel", null, options);
-            _attachementView.AskForAttachment(selectedOption);
+            string selectedOption = await DisplayActionSheet("Attachment", "Cancel", null, ClientConfiguration.Default.AttachmentOptions);
+            try
+            {
+                _attachementView.AskForAttachment(selectedOption);
+            }
+            catch (Exception ex)
+            {
+                await DisplayAlert("Error", ex.Message, "Ok");
+            }
         }
 
         private bool CheckConnection()
@@ -89,21 +95,26 @@ namespace DevEnvAzure
                     foreach (var item in attachments)
                     {
                         string attachmentURL = string.Format("{0}({1})/AttachmentFiles/add(FileName='{2}')",
-                            SPUtility.GetListURL(SPUtility.ReportType.Kaizen), itemId, item.Key);
+                            SPUtility.GetListURL(SPUtility.ReportType.Kaizen), itemId, item.FileName);
 
-                        lblLoading.Text += "Sending- " + item.Key + Environment.NewLine;
-                        var attachemntResponse = await SPUtility.SaveAttachment(attachmentURL, item.Value);
+                        Stream stream = await item.GetStream();
+                        if (stream == null)
+                        {
+                            lblLoading.Text += "Not found - " + item.FileName + Environment.NewLine;
+                            continue;
+                        }
+
+                        lblLoading.Text += "Sending - " + item.FileName + Environment.NewLine;
+                        var attachemntResponse = await SPUtility.SaveAttachment(attachmentURL, stream);
                         if (!attachemntResponse.IsSuccessStatusCode)
                         {
                             var msg = await attachemntResponse.Content.ReadAsStringAsync();
-                            lblLoading.Text += "Failed- " + item.Key + " - " + msg + Environment.NewLine;
-                            //await DisplayAlert("Error - Unable to post attachments", msg, "Ok");
-
+                            lblLoading.Text += "Failed - " + item.FileName + " - " + msg + Environment.NewLine;
                         }
                         else
                         {
                             filesSent++;
-                            lblLoading.Text += "Attached- " + item.Key + Environment.NewLine;
+                            lblLoading.Text += "Sent - " + item.FileName + Environment.NewLine;
                         }
                     }
                 }
@@ -172,6 +183,7 @@ namespace DevEnvAzure
                         dt.Created = DateTime.Now;
                         dt.ReportType = (int)SPUtility.ReportType.Kaizen;
                         dt.Value = body;
+                        dt.Attachments = _attachementView.GetAttachmentInfoAsString();
                         App.DAUtil.Save<OfflineItem>(dt);
 
                         var vList = App.DAUtil.GetAll<OfflineItem>("OfflineItem");

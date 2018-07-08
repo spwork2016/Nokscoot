@@ -29,6 +29,8 @@ namespace DevEnvAzure.Droid
 			global::Microsoft.IdentityModel.Clients.ActiveDirectory.Resource.Id.agentWebView = global::DevEnvAzure.Droid.Resource.Id.agentWebView;
 			global::Microsoft.IdentityModel.Clients.ActiveDirectory.Resource.Layout.WebAuthenticationBroker = global::DevEnvAzure.Droid.Resource.Layout.WebAuthenticationBroker;
 			global::Microsoft.IdentityModel.Clients.ActiveDirectory.Resource.String.ApplicationName = global::DevEnvAzure.Droid.Resource.String.ApplicationName;
+			global::PCLStorage.Resource.String.ApplicationName = global::DevEnvAzure.Droid.Resource.String.ApplicationName;
+			global::PCLStorage.Resource.String.Hello = global::DevEnvAzure.Droid.Resource.String.Hello;
 			global::Plugin.LocalNotifications.Resource.Drawable.plugin_lc_smallicon = global::DevEnvAzure.Droid.Resource.Drawable.plugin_lc_smallicon;
 			global::SQLite.Net.Platform.XamarinAndroid.Resource.String.ApplicationName = global::DevEnvAzure.Droid.Resource.String.ApplicationName;
 			global::SQLite.Net.Platform.XamarinAndroid.Resource.String.Hello = global::DevEnvAzure.Droid.Resource.String.Hello;

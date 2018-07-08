@@ -167,10 +167,16 @@
                                     <Label x:Name="Email" FontSize="Micro" TextColor="Black" Text="Email of Submitter" Grid.Row="5" Grid.ColumnSpan="2" />
                                     <Entry PlaceholderColor="#F1F1F1" IsEnabled="False" Placeholder="Email of Submitter" x:Name="EmailEntry" Text="{Binding SubmitterEmail, Mode=TwoWay}"
                                            Grid.Row="6" TextColor="#03A9F4" Grid.ColumnSpan="2" />
-                                    
+
                                     <Label x:Name="SSQ" FontSize="Micro" Text="SSQ USE-Send Notifications" TextColor="Black" Grid.Row="7" Grid.Column="0" />
                                     <Switch x:Name="SSQEntry" HorizontalOptions="EndAndExpand" IsToggled="{Binding ssQ, Mode=TwoWay}" Grid.Row="7" Grid.Column="1" />
                                 </Grid>
+                            </StackLayout>
+                            <StackLayout BackgroundColor="White">
+                                <Button x:Name="attachments" TextColor="Black" HorizontalOptions="FillAndExpand"
+                                    Clicked="attachments_Clicked" Text="Attach Photo" BackgroundColor="#FDCE02" />
+                                <StackLayout x:Name="stkAttachment" VerticalOptions="FillAndExpand">
+                                </StackLayout>
                             </StackLayout>
                         </StackLayout>
                         <StackLayout Padding="10">
@@ -196,6 +202,7 @@
                  AbsoluteLayout.LayoutBounds="0.5,0.5,-1,-1">
                 <Frame  Padding="20" IsClippedToBounds="True" BackgroundColor="Black" Opacity="0.5" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
                     <ActivityIndicator x:Name="activityIndicator" IsRunning="False" Color="White" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand"/>
+                    <Label x:Name="lblLoading" Text="Sending..." TextColor="White" FontSize="Small" HorizontalOptions="CenterAndExpand" VerticalOptions="FillAndExpand" />
                 </Frame>
             </StackLayout>
         </AbsoluteLayout>

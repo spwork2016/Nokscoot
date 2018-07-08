@@ -4,12 +4,12 @@ namespace DevEnvAzure
     public partial class ClientConfiguration
     {
         const string RootURL = "https://nokscootth.sharepoint.com/";
-        public static ClientConfiguration Default { get { return ClientConfiguration.OneBox; } }
-        public static ClientConfiguration OneBox = new ClientConfiguration()
+        public static ClientConfiguration Default { get { return ClientConfiguration.NokScoot; } }
+        public static ClientConfiguration NokScoot = new ClientConfiguration()
         {
-            ActiveDirectoryResource = RootURL,
            
-
+            APPNAME = "NokScoot-Sharepoint-Mobile",
+            AttachmentOptions = new string[] { "Camera", "Gallery" },
             TLSVersion = ""
         };
 
@@ -44,10 +44,12 @@ namespace DevEnvAzure
         //Client secret is for web app/api , the below is invalid - if you want web app access correct the secret and use GetAuthenticationHeader(useWebAppAuthentication = true)
         public string ActiveDirectoryClientAppSecret { get; set; }
         public string SPRootURL { get; set; }
+        public string APPNAME { get; set; }
         public string SPRootURLList { get; set; }
         public string SPDocumentLibraryURL { get; set; }
         public string GraphAPIRootURL { get; set; }
         public string GraphAPIURL { get; set; }
+        public string[] AttachmentOptions { get; set; }
         public string SPListURL { get; private set; }
     }
 }

@@ -20,7 +20,6 @@ namespace DevEnvAzure.iOS
             }
             catch (Exception ex)
             {
-
             }
         }
     }

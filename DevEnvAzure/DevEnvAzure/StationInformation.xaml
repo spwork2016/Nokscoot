@@ -248,6 +248,13 @@
                                    Placeholder="Immigration / Customs Considerations" PlaceholderColor="#F1F1F1" TextColor="#03A9F4" Grid.Row="22" Grid.ColumnSpan="2"  />
                                 </Grid>
                             </StackLayout>
+                            <StackLayout BackgroundColor="White">
+                                <Button x:Name="attachments" TextColor="Black" HorizontalOptions="FillAndExpand"
+                                    Clicked="attachments_Clicked" Text="Attach Photo" BackgroundColor="#FDCE02" />
+                                <StackLayout x:Name="stkAttachment" VerticalOptions="FillAndExpand">
+                                </StackLayout>
+                                <Image x:Name="image" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand"></Image>
+                            </StackLayout>
                         </StackLayout>
                         <StackLayout>
                             <Grid>
@@ -270,6 +277,7 @@
                  AbsoluteLayout.LayoutBounds="0.5,0.5,-1,-1">
                 <Frame  Padding="20" IsClippedToBounds="True" BackgroundColor="Black" Opacity="0.5" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
                     <ActivityIndicator x:Name="activityIndicator" IsRunning="False" Color="White" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand"/>
+                    <Label x:Name="lblLoading" TextColor="White" FontSize="Small" HorizontalOptions="CenterAndExpand" VerticalOptions="FillAndExpand" />
                 </Frame>
             </StackLayout>
         </AbsoluteLayout>

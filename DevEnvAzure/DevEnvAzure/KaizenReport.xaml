@@ -66,19 +66,6 @@
                             <Button x:Name="attachments" TextColor="Black" HorizontalOptions="FillAndExpand"
                                     Clicked="Attachments_Clicked" Text="Attach Photo" BackgroundColor="#FDCE02" />
                             <StackLayout x:Name="stkAttachment" VerticalOptions="FillAndExpand">
-                                <!--<ListView x:Name="attachmentList" HasUnevenRows="True" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" ItemTapped="AttachmentList_ItemTapped">
-                                    <ListView.ItemTemplate>
-                                        <DataTemplate>
-                                            <ViewCell>
-                                                <ViewCell.ContextActions>
-                                                    <MenuItem Clicked="MenuItem_OnDelete_Clicked" CommandParameter="{Binding .}" Text="Delete" IsDestructive="True" />
-                                                </ViewCell.ContextActions>
-                                                <Label Text="{Binding Key}" FontSize="Small" VerticalOptions="Fill" HorizontalOptions="FillAndExpand" 
-                                                   TextColor="Black" HeightRequest="25" Margin="5"/>
-                                            </ViewCell>
-                                        </DataTemplate>
-                                    </ListView.ItemTemplate>
-                                </ListView>-->
                             </StackLayout>
                         </StackLayout>
 

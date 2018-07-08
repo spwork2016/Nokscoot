@@ -26,6 +26,7 @@ namespace DevEnvAzure
         public DateTime Created { get; set; }
         public string Error { get; set; }
         public bool InProgress { get; set; }
+        public string Attachments { get; set; }
     }
 
     public class DataAccess

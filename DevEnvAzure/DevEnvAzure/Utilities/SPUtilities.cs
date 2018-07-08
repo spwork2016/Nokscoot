@@ -8,14 +8,18 @@ using Plugin.Permissions;
 using Plugin.Permissions.Abstractions;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Net.Http;
+using System.Threading;
 using System.Threading.Tasks;
+using Xamarin.Forms;
 
 namespace DevEnvAzure
 {
     public static class SPUtility
     {
+        public const string SEPARATOR = "|<>|";
         public enum ReportType
         {
             Fatigue = 1,
@@ -33,6 +37,13 @@ namespace DevEnvAzure
             MORType = 13,
             none = -1,
             FlightCrewVoyageReport = 14
+        }
+
+        public static string[] GetPathsFromAttachemntInfo(string attachmentInfo)
+        {
+            if (string.IsNullOrEmpty(attachmentInfo)) return null;
+
+            return attachmentInfo.Split(new string[] { SEPARATOR }, StringSplitOptions.None);
         }
 
         public static string GetListURL(ReportType reportType = ReportType.none)
@@ -189,7 +200,7 @@ namespace DevEnvAzure
             return "";
         }
 
-        public static async Task<System.IO.Stream> TakePhotoAsync()
+        public static async Task<Attachment> TakePhotoAsync()
         {
             await CrossMedia.Current.Initialize();
 
@@ -203,6 +214,7 @@ namespace DevEnvAzure
                 storageStatus = results[Permission.Storage];
             }
 
+            string fileName = $"IMG_{DateTime.Now.ToString("yyyyMMdd")}_{DateTime.Now.ToString("HHmmss")}.jpg";
 
             if (cameraStatus == PermissionStatus.Granted && storageStatus == PermissionStatus.Granted)
             {
@@ -210,14 +222,16 @@ namespace DevEnvAzure
                 {
                     ModalPresentationStyle = MediaPickerModalPresentationStyle.OverFullScreen,
                     SaveToAlbum = true,
+                    Name = fileName,
+                    Directory = ClientConfiguration.Default.APPNAME,
                     AllowCropping = true
                 });
 
                 if (file != null)
                 {
-                    var stream = file.GetStream();
+                    string path = file.Path;
                     file.Dispose();
-                    return stream;
+                    return new Attachment { FilePath = path, FileName = fileName };
                 }
             }
             else
@@ -230,16 +244,17 @@ namespace DevEnvAzure
             return null;
         }
 
-        public static async Task<System.IO.Stream> PicPhotoAsync()
+        public static async Task<Attachment> PicPhotoAsync()
         {
             await CrossMedia.Current.Initialize();
             var file = await CrossMedia.Current.PickPhotoAsync();
-
             if (file != null)
             {
-                var stream = file.GetStream();
+                string path = file.Path;
+                string name = Path.GetFileName(file.Path);
+
                 file.Dispose();
-                return stream;
+                return new Attachment { FileName = name, FilePath = path };
             }
 
             return null;

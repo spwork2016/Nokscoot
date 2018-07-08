@@ -15,6 +15,7 @@ using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 using DevEnvAzure.Utilities;
 using Xamarin.Forms.Internals;
+using System.IO;
 
 namespace DevEnvAzure
 {
@@ -26,6 +27,7 @@ namespace DevEnvAzure
         public static string airregis;
         public static int MORTypeID;
         Jsonpropertyinitialise jsonInitObj = new Jsonpropertyinitialise();
+        AttachmentView _attachementView;
         public SSIRShortForm(object viewObject, string modelname)
         {
             try
@@ -34,6 +36,9 @@ namespace DevEnvAzure
                 _classname = modelname;
                 _viewobject = viewObject;
                 InitializeComponent();
+
+                _attachementView = new AttachmentView();
+                stkAttachment.Children.Add(_attachementView);
 
                 BindMORPicker();
                 SetSubmitterInfo(viewObject);
@@ -359,7 +364,13 @@ namespace DevEnvAzure
 
                         if (postResult.IsSuccessStatusCode)
                         {
-                            await DisplayAlert("Success", "Item created successfully", "Ok");
+                            lblLoading.Text = "Item created successfully." + Environment.NewLine;
+
+                            var spData = JsonConvert.DeserializeObject<SPData>(postResult.Content.ReadAsStringAsync().Result,
+                                new JsonSerializerSettings { DateParseHandling = DateParseHandling.None });
+                            int itemId = spData.d.Id;
+                            await SendAttachments(itemId);
+
                             MessagingCenter.Send<SSIRShortForm>(this, "home");
                         }
                         else
@@ -374,6 +385,7 @@ namespace DevEnvAzure
                         dt.Value = body;
                         dt.Created = DateTime.Now;
                         dt.ReportType = (int)reportType;
+                        dt.Attachments = _attachementView.GetAttachmentInfoAsString();
                         App.DAUtil.Save<OfflineItem>(dt);
 
                         await DisplayAlert("", "Item stored in local storage", "Ok");
@@ -535,6 +547,74 @@ namespace DevEnvAzure
         {
             activityStack.IsVisible = flag;
             activityIndicator.IsRunning = flag;
+        }
+
+        private async void attachments_Clicked(object sender, EventArgs e)
+        {
+            string selectedOption = await DisplayActionSheet("Attachment", "Cancel", null, ClientConfiguration.Default.AttachmentOptions);
+            try
+            {
+                _attachementView.AskForAttachment(selectedOption);
+            }
+            catch (Exception ex)
+            {
+                await DisplayAlert("Error", ex.Message, "Ok");
+            }
+        }
+
+        private async Task SendAttachments(int itemId)
+        {
+            try
+            {
+                var attachments = _attachementView.GetAttachments();
+                int filesSent = 0;
+                if (attachments.Count > 0)
+                {
+                    foreach (var item in attachments)
+                    {
+                        string attachmentURL = string.Format("{0}({1})/AttachmentFiles/add(FileName='{2}')",
+                            SPUtility.GetListURL(SPUtility.ReportType.Kaizen), itemId, item.FileName);
+
+                        Stream stream = await item.GetStream();
+                        if (stream == null)
+                        {
+                            lblLoading.Text += "Not found - " + item.FileName + Environment.NewLine;
+                            continue;
+                        }
+
+                        lblLoading.Text += "Sending - " + item.FileName + Environment.NewLine;
+                        var attachemntResponse = await SPUtility.SaveAttachment(attachmentURL, stream);
+                        if (!attachemntResponse.IsSuccessStatusCode)
+                        {
+                            var msg = await attachemntResponse.Content.ReadAsStringAsync();
+                            lblLoading.Text += "Failed - " + item.FileName + " - " + msg + Environment.NewLine;
+                            //await DisplayAlert("Error - Unable to post attachments", msg, "Ok");
+
+                        }
+                        else
+                        {
+                            filesSent++;
+                            lblLoading.Text += "Sent - " + item.FileName + Environment.NewLine;
+                        }
+                    }
+                }
+
+                if (filesSent == attachments.Count)
+                {
+                    await DisplayAlert("Success", "Item created successfully", "Ok");
+                }
+                else
+                {
+                    await DisplayAlert("Info", lblLoading.Text, "Ok");
+
+                }
+
+                MessagingCenter.Send(this, "home");
+            }
+            catch (Exception ex)
+            {
+                await DisplayAlert("Error", ex.Message, "Ok");
+            }
         }
     }
 }

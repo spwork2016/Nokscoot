@@ -164,6 +164,13 @@
                                     </Picker>
                                 </Grid>
                             </StackLayout>
+
+                            <StackLayout BackgroundColor="White">
+                                <Button x:Name="attachments" TextColor="Black" HorizontalOptions="FillAndExpand"
+                                    Clicked="attachments_Clicked" Text="Attach Photo" BackgroundColor="#FDCE02" />
+                                <StackLayout x:Name="stkAttachment" VerticalOptions="FillAndExpand">
+                                </StackLayout>
+                            </StackLayout>
                         </StackLayout>
                         <StackLayout>
                             <Grid>
@@ -186,6 +193,7 @@
                  AbsoluteLayout.LayoutBounds="0.5,0.5,-1,-1">
                 <Frame  Padding="20" IsClippedToBounds="True" BackgroundColor="Black" Opacity="0.5" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
                     <ActivityIndicator x:Name="activityIndicator" IsRunning="{Binding IsBusy}" Color="White" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand"/>
+                    <Label x:Name="lblLoading" Text="Sending..." TextColor="White" FontSize="Small" HorizontalOptions="CenterAndExpand" VerticalOptions="FillAndExpand" />
                 </Frame>
             </StackLayout>
         </AbsoluteLayout>
