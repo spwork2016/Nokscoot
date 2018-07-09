@@ -13,7 +13,7 @@ namespace DevEnvAzure.DataContracts
         public CabibSafetyReportSp()
         {
             this.__metadata = new Metadata();
-            this.__metadata.type = "SP.Data.Operational_x005f_Hazard_x005f_Event_x005f_Register_x005f_04042018ListItem";
+            this.__metadata.type = ClientConfiguration.Default.SHORTFORMURL;
         }
         public Metadata __metadata { get; set; }
         //public long SecurityID

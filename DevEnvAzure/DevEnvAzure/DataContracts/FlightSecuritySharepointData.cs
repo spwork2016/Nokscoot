@@ -12,7 +12,7 @@ namespace DevEnvAzure.DataContracts
         public FlightSecuritySharepointData()
         {
             this.__metadata = new Metadata();
-            this.__metadata.type = "SP.Data.Operational_x005f_Hazard_x005f_Event_x005f_Register_x005f_04042018ListItem";
+            this.__metadata.type = ClientConfiguration.Default.SHORTFORMURL;
         }
         public Metadata __metadata { get; set; }
         [JsonProperty(PropertyName = "Title_x0020_of_x0020_Event_Hazar")]
@@ -54,7 +54,7 @@ namespace DevEnvAzure.DataContracts
         [JsonProperty(PropertyName = "Email_x002d_IDOfSubmitter")]
         public string SubmitterEmail
         { get; set; }
-        [JsonProperty(PropertyName = "Email_x002d_IDOfSubmitter")]
+        [JsonProperty(PropertyName = "PoliceReport")]
         public SPFieldURL PoliceReport { get; set; }
 
         [JsonProperty(PropertyName = "MobileEntry")]

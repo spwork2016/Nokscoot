@@ -197,7 +197,7 @@ namespace DevEnvAzure
 
                     Device.BeginInvokeOnMainThread(async () =>
                     {
-                        string url = SPUtility.GetListURL(ReportType.FlightCrewVoyageReport);
+                        string url = SPUtility.GetListURL(ReportType.FlighCrewVoyage);
                         var postResult = await client.PostAsync(url, contents);
                         if (postResult.IsSuccessStatusCode)
                         {
@@ -208,6 +208,8 @@ namespace DevEnvAzure
                             var spData = JsonConvert.DeserializeObject<SPData>(postResult.Content.ReadAsStringAsync().Result,
                                 new JsonSerializerSettings { DateParseHandling = DateParseHandling.None });
                             int itemId = spData.d.Id;
+
+                            await Task.Delay(500);
                             await SendAttachments(itemId);
 
                             MessagingCenter.Send(this, "home");
@@ -263,7 +265,7 @@ namespace DevEnvAzure
                     foreach (var item in attachments)
                     {
                         string attachmentURL = string.Format("{0}({1})/AttachmentFiles/add(FileName='{2}')",
-                            SPUtility.GetListURL(SPUtility.ReportType.Kaizen), itemId, item.FileName);
+                            SPUtility.GetListURL(SPUtility.ReportType.FlighCrewVoyage), itemId, item.FileName);
 
                         Stream stream = await item.GetStream();
                         if (stream == null)
@@ -278,13 +280,13 @@ namespace DevEnvAzure
                         {
                             var msg = await attachemntResponse.Content.ReadAsStringAsync();
                             lblLoading.Text += "Failed - " + item.FileName + " - " + msg + Environment.NewLine;
-                            //await DisplayAlert("Error - Unable to post attachments", msg, "Ok");
-
                         }
                         else
                         {
                             filesSent++;
                             lblLoading.Text += "Sent - " + item.FileName + Environment.NewLine;
+                            // let sharepoint to complete its task before sending a new one
+                            await Task.Delay(1000);
                         }
                     }
                 }

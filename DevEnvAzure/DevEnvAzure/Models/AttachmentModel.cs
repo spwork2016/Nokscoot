@@ -20,14 +20,17 @@ namespace DevEnvAzure.Models
             FileName = Path.GetFileName(path);
         }
 
-        public async Task<Stream> GetStream()
+        public async Task<bool> Exists()
         {
-            if (string.IsNullOrEmpty(FilePath)) return null;
-
             IFolder folder = await FileSystem.Current.LocalStorage.GetFolderAsync(Path.GetDirectoryName(FilePath));
             var isFileExists = await folder.CheckExistsAsync(Path.GetFileName(FilePath));
 
-            if (isFileExists == ExistenceCheckResult.FileExists)
+            return isFileExists == ExistenceCheckResult.FileExists;
+        }
+
+        public async Task<Stream> GetStream()
+        {
+            if (await Exists())
             {
                 var file = await FileSystem.Current.GetFileFromPathAsync(FilePath);
                 return await file.OpenAsync(FileAccess.Read);

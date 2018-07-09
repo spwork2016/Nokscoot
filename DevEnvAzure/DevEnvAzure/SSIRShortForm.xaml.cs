@@ -161,59 +161,67 @@ namespace DevEnvAzure
             }
             else
             {
-                EventTitle.TextColor = Color.Black;
-                MOR.TextColor = Color.Black;
-                switch (_classname)
+                try
                 {
-                    case "safety":
-                        FlightSafetyReportModel sf = (FlightSafetyReportModel)_viewobject;
-                        sf.ReportType = "Safety" + sf.Id.ToString();
-                        MORTypeID = MORpicker.SelectedIndex;
-                        CreateItems(jsonInitObj.getflightSafetyJson(sf), SPUtility.ReportType.FlightSafety);
-                        App.DAUtil.Delete(sf);
-                        break;
-                    case "security":
-                        SecurityModel sd = (SecurityModel)_viewobject;
-                        sd.ReportType = "Security" + sd.Id.ToString();
-                        MORTypeID = MORpicker.SelectedIndex;
-                        DataContracts.FlightSecuritySharepointData spData = null;
-                        try
-                        {
-                            spData = jsonInitObj.getSecurity(sd);
-                        }
-                        catch (Exception ex)
-                        {
-                            await DisplayAlert("Please fill valid data", ex.Message, "Ok");
-                            return;
-                        }
+                    EventTitle.TextColor = Color.Black;
+                    MOR.TextColor = Color.Black;
+                    switch (_classname)
+                    {
+                        case "safety":
+                            FlightSafetyReportModel sf = (FlightSafetyReportModel)_viewobject;
+                            sf.ReportType = "Safety" + sf.Id.ToString();
+                            MORTypeID = MORpicker.SelectedIndex;
+                            CreateItems(jsonInitObj.getflightSafetyJson(sf), SPUtility.ReportType.FlightSafety);
+                            App.DAUtil.Delete(sf);
+                            break;
+                        case "security":
+                            SecurityModel sd = (SecurityModel)_viewobject;
+                            sd.ReportType = "Security" + sd.Id.ToString();
+                            MORTypeID = MORpicker.SelectedIndex;
+                            DataContracts.FlightSecuritySharepointData spData = null;
+                            try
+                            {
+                                spData = jsonInitObj.getSecurity(sd);
+                            }
+                            catch (Exception ex)
+                            {
+                                await DisplayAlert("Please fill valid data", ex.Message, "Ok");
+                                return;
+                            }
 
-                        CreateItems(spData, SPUtility.ReportType.Security);
-                        App.DAUtil.Delete(sd);
-                        break;
-                    case "ground":
-                        GroundSafetyReport gd = (GroundSafetyReport)_viewobject;
-                        gd.ReportType = "GroundSafety" + gd.Id.ToString();
-                        CreateItems(jsonInitObj.getGroundSafety(gd), SPUtility.ReportType.GroundSafety);
-                        App.DAUtil.Delete(gd);
-                        break;
-                    case "fatigue":
-                        FatigueReport ft = (FatigueReport)_viewobject;
-                        ft.ReportType = "Fatigue" + ft.Id.ToString();
-                        CreateItems(jsonInitObj.getFatigue(ft), SPUtility.ReportType.Fatigue);
-                        App.DAUtil.Delete(ft);
-                        break;
-                    case "Injury":
-                        InjuryIllnessReport injr = (InjuryIllnessReport)_viewobject;
-                        injr.ReportType = "InjuryIllness" + injr.Id.ToString();
-                        CreateItems(jsonInitObj.getInjuryJson(injr), SPUtility.ReportType.InjuryIllness);
-                        App.DAUtil.Delete(injr);
-                        break;
-                    case "cabin":
-                        CabibSafetyReport cd = (CabibSafetyReport)_viewobject;
-                        cd.ReportType = "Cabin" + cd.Id.ToString();
-                        CreateItems(jsonInitObj.getCabinSfetyJson(cd), SPUtility.ReportType.CabinSafety);
-                        App.DAUtil.Delete(cd);
-                        break;
+                            CreateItems(spData, SPUtility.ReportType.Security);
+                            App.DAUtil.Delete(sd);
+                            break;
+                        case "ground":
+                            GroundSafetyReport gd = (GroundSafetyReport)_viewobject;
+                            gd.ReportType = "GroundSafety" + gd.Id.ToString();
+                            CreateItems(jsonInitObj.getGroundSafety(gd), SPUtility.ReportType.GroundSafety);
+                            App.DAUtil.Delete(gd);
+                            break;
+                        case "fatigue":
+                            FatigueReport ft = (FatigueReport)_viewobject;
+                            ft.ReportType = "Fatigue" + ft.Id.ToString();
+                            CreateItems(jsonInitObj.getFatigue(ft), SPUtility.ReportType.Fatigue);
+                            App.DAUtil.Delete(ft);
+                            break;
+                        case "Injury":
+                            InjuryIllnessReport injr = (InjuryIllnessReport)_viewobject;
+                            injr.ReportType = "InjuryIllness" + injr.Id.ToString();
+                            CreateItems(jsonInitObj.getInjuryJson(injr), SPUtility.ReportType.InjuryIllness);
+                            App.DAUtil.Delete(injr);
+                            break;
+                        case "cabin":
+                            CabibSafetyReport cd = (CabibSafetyReport)_viewobject;
+                            cd.ReportType = "Cabin" + cd.Id.ToString();
+                            CreateItems(jsonInitObj.getCabinSfetyJson(cd), SPUtility.ReportType.CabinSafety);
+                            App.DAUtil.Delete(cd);
+                            break;
+                    }
+
+                }
+                catch (Exception ex)
+                {
+                    await DisplayAlert("Please fill valid data", ex.Message, "Ok");
                 }
             }
 
@@ -375,16 +383,31 @@ namespace DevEnvAzure
                     var client = await OAuthHelper.GetHTTPClient();
                     var data = reportObject;
 
-                    var body = JsonConvert.SerializeObject(data, Formatting.None,
+                    string body = "";
+                    try
+                    {
+                        body = JsonConvert.SerializeObject(data, Formatting.None,
                             new JsonSerializerSettings
                             {
                                 NullValueHandling = NullValueHandling.Ignore
                             });
+                    }
+                    catch (Exception ex)
+                    {
+                        await DisplayAlert("Error", ex.Message, "Ok");
+                    }
+
+                    if (string.IsNullOrEmpty(body))
+                    {
+                        await DisplayAlert("Error", "There is no content to send! - serializtion failed", "Ok");
+                        return;
+                    }
+
                     var contents = new StringContent(body);
                     contents.Headers.ContentType = MediaTypeHeaderValue.Parse("application/json;odata=verbose");
                     if (CheckConnection())
                     {
-                        var postResult = await client.PostAsync(SPUtility.GetListURL(), contents);
+                        var postResult = await client.PostAsync(SPUtility.GetListURL(reportType), contents);
 
                         if (postResult.IsSuccessStatusCode)
                         {
@@ -393,7 +416,9 @@ namespace DevEnvAzure
                             var spData = JsonConvert.DeserializeObject<SPData>(postResult.Content.ReadAsStringAsync().Result,
                                 new JsonSerializerSettings { DateParseHandling = DateParseHandling.None });
                             int itemId = spData.d.Id;
-                            await SendAttachments(itemId);
+
+                            await Task.Delay(500);
+                            await SendAttachments(itemId, reportType);
 
                             MessagingCenter.Send<SSIRShortForm>(this, "home");
                         }
@@ -578,7 +603,7 @@ namespace DevEnvAzure
             string selectedOption = await DisplayActionSheet("Attachment", "Cancel", null, ClientConfiguration.Default.AttachmentOptions);
             try
             {
-                _attachementView.AskForAttachment(selectedOption);
+                await _attachementView.AskForAttachment(selectedOption);
             }
             catch (Exception ex)
             {
@@ -586,7 +611,7 @@ namespace DevEnvAzure
             }
         }
 
-        private async Task SendAttachments(int itemId)
+        private async Task SendAttachments(int itemId, SPUtility.ReportType reportType)
         {
             try
             {
@@ -597,7 +622,7 @@ namespace DevEnvAzure
                     foreach (var item in attachments)
                     {
                         string attachmentURL = string.Format("{0}({1})/AttachmentFiles/add(FileName='{2}')",
-                            SPUtility.GetListURL(SPUtility.ReportType.Kaizen), itemId, item.FileName);
+                            SPUtility.GetListURL(reportType), itemId, item.FileName);
 
                         Stream stream = await item.GetStream();
                         if (stream == null)
@@ -612,13 +637,13 @@ namespace DevEnvAzure
                         {
                             var msg = await attachemntResponse.Content.ReadAsStringAsync();
                             lblLoading.Text += "Failed - " + item.FileName + " - " + msg + Environment.NewLine;
-                            //await DisplayAlert("Error - Unable to post attachments", msg, "Ok");
-
                         }
                         else
                         {
                             filesSent++;
                             lblLoading.Text += "Sent - " + item.FileName + Environment.NewLine;
+                            // let sharepoint to complete its task before sending a new one
+                            await Task.Delay(1000);
                         }
                     }
                 }

@@ -135,6 +135,8 @@ namespace DevEnvAzure
                         {
                             filesSent++;
                             lblLoading.Text += "Sent - " + item.FileName + Environment.NewLine;
+                            // let sharepoint to complete its task before sending a new one
+                            await Task.Delay(1000);
                         }
                     }
                 }
@@ -188,6 +190,8 @@ namespace DevEnvAzure
                             var spData = JsonConvert.DeserializeObject<SPData>(postResult.Content.ReadAsStringAsync().Result,
                                 new JsonSerializerSettings { DateParseHandling = DateParseHandling.None });
                             int itemId = spData.d.Id;
+
+                            await Task.Delay(500);
                             await SendAttachments(itemId);
                         }
                         else

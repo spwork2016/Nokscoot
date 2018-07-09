@@ -36,8 +36,7 @@ namespace DevEnvAzure
             DelayOccurance = 11,
             DelayHandling = 12,
             MORType = 13,
-            none = -1,
-            FlightCrewVoyageReport = 14
+            none = -1
         }
 
         public static string[] GetPathsFromAttachemntInfo(string attachmentInfo)
@@ -56,7 +55,6 @@ namespace DevEnvAzure
             {
                 case ReportType.CabinSafety:
                 case ReportType.Fatigue:
-                case ReportType.FlighCrewVoyage:
                 case ReportType.FlightSafety:
                 case ReportType.GroundSafety:
                 case ReportType.InjuryIllness:
@@ -72,7 +70,7 @@ namespace DevEnvAzure
                 case ReportType.MORType:
                     url = ClientConfiguration.Default.ActiveDirectoryResource + "SSQServices/_api/web/Lists(guid'32d46a92-0ee3-4a85-83ab-12ca72dce65e')/items";
                     break;
-                case ReportType.FlightCrewVoyageReport:
+                case ReportType.FlighCrewVoyage:
                     url = ClientConfiguration.Default.ActiveDirectoryResource + "SSQServices/_api/web/lists/GetByTitle('Flight Crew Voyage Record')/items";
                     break;
                 case ReportType.none:

@@ -4,13 +4,10 @@ namespace DevEnvAzure
     public partial class ClientConfiguration
     {
         const string RootURL = "https://nokscootth.sharepoint.com/";
-        public static ClientConfiguration Default { get { return ClientConfiguration.NokScoot; } }
+        public static ClientConfiguration Default { get { return NokScoot; } }
         public static ClientConfiguration NokScoot = new ClientConfiguration()
         {
-           
-            APPNAME = "NokScoot-Sharepoint-Mobile",
-            AttachmentOptions = new string[] { "Camera", "Gallery" },
-            TLSVersion = ""
+       
         };
 
         //public static ClientConfiguration OneBox = new ClientConfiguration()
@@ -51,5 +48,6 @@ namespace DevEnvAzure
         public string GraphAPIURL { get; set; }
         public string[] AttachmentOptions { get; set; }
         public string SPListURL { get; private set; }
+        public string SHORTFORMURL { get; set; }
     }
 }

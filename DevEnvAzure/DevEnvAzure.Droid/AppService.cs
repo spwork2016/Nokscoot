@@ -42,7 +42,6 @@ namespace DevEnvAzure.Droid
                 {
                     Plugin.Connectivity.CrossConnectivity.Current.ConnectivityChanged += Current_ConnectivityChanged;
 
-
                 }).Start();
             }
             builder = new Notification.Builder(this);
@@ -103,9 +102,6 @@ namespace DevEnvAzure.Droid
                 {
                     Device.BeginInvokeOnMainThread(() =>
                     {
-
-
-
                         if (App.DAUtil.GetAll<OfflineItem>("OfflineItem").Count == 0)
                         {
 
@@ -116,21 +112,8 @@ namespace DevEnvAzure.Droid
                 });
 
                 //  notification.SetDefaults(NotificationDefaults.Sound | NotificationDefaults.Vibrate);
-
-
-
             }
         }
-        //public override StartCommandResult OnStartCommand(Intent intent, StartCommandFlags flags, int startId)
-        //{
-        //    // start a task here
-        //    new Task(() =>
-        //    {
-        //        // long running code
-        //        DoWork();
-        //    }).Start();
-        //    return StartCommandResult.Sticky;
-        //}
 
     }
 }
