@@ -117,14 +117,6 @@ namespace DevEnvAzure
             return null;
         }
 
-        public static async Task<HttpResponseMessage> SaveAttachment(string url, System.IO.Stream stream)
-        {
-            var client = await OAuthHelper.GetHTTPClient();
-            var response = await client.PostAsync(url, new StreamContent(stream));
-
-            return response;
-        }
-
         private static List<PeoplePicker> ResponseToUsers(string response)
         {
             var spData = JsonConvert.DeserializeObject<SPData>(response, new JsonSerializerSettings { DateParseHandling = DateParseHandling.None });
@@ -254,6 +246,34 @@ namespace DevEnvAzure
 
                 file.Dispose();
                 return new Attachment { FileName = name, FilePath = path };
+            }
+
+            return null;
+        }
+
+        public static OfflineItem SaveOfflineItem(string serializedBody, ReportType reportType, string attachementInfo = "")
+        {
+            OfflineItem dt = new OfflineItem
+            {
+                Created = DateTime.Now,
+                ReportType = (int)reportType,
+                Value = serializedBody,
+                Attachments = attachementInfo
+            };
+
+            dt = App.DAUtil.Save<OfflineItem>(dt);
+            App.offlineItems.Add(dt);
+            return dt;
+        }
+
+        public static async Task<List<Value>> GetAttachedFilesForItem(string itemUrl)
+        {
+            var client = await OAuthHelper.GetHTTPClient();
+            var response = await client.GetStringAsync($"{itemUrl}/AttachmentFiles");
+            if (response != null)
+            {
+                var files = JsonConvert.DeserializeObject<AttachmentFiles>(response);
+                return files.value;
             }
 
             return null;

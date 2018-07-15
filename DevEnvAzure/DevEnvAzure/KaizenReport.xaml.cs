@@ -104,7 +104,7 @@ namespace DevEnvAzure
             return CrossConnectivity.Current.IsConnected;
         }
 
-        private async Task SendAttachments(int itemId)
+        private async Task SendAttachments(string itemURL, int itemId)
         {
             try
             {
@@ -117,15 +117,11 @@ namespace DevEnvAzure
                         string attachmentURL = string.Format("{0}({1})/AttachmentFiles/add(FileName='{2}')",
                             SPUtility.GetListURL(SPUtility.ReportType.Kaizen), itemId, item.FileName);
 
-                        Stream stream = await item.GetStream();
-                        if (stream == null)
-                        {
-                            lblLoading.Text += "Not found - " + item.FileName + Environment.NewLine;
-                            continue;
-                        }
+                        item.SaveToURL = attachmentURL;
 
                         lblLoading.Text += "Sending - " + item.FileName + Environment.NewLine;
-                        var attachemntResponse = await SPUtility.SaveAttachment(attachmentURL, stream);
+
+                        var attachemntResponse = await item.PostAttachment();
                         if (!attachemntResponse.IsSuccessStatusCode)
                         {
                             var msg = await attachemntResponse.Content.ReadAsStringAsync();
@@ -175,8 +171,10 @@ namespace DevEnvAzure
                             {
                                 NullValueHandling = NullValueHandling.Ignore
                             });
+
                     var contents = new StringContent(body);
                     contents.Headers.ContentType = MediaTypeHeaderValue.Parse("application/json;odata=verbose");
+
                     if (CheckConnection())
                     {
                         string url = SPUtility.GetListURL(SPUtility.ReportType.Kaizen);
@@ -192,7 +190,7 @@ namespace DevEnvAzure
                             int itemId = spData.d.Id;
 
                             await Task.Delay(500);
-                            await SendAttachments(itemId);
+                            await SendAttachments(url, itemId);
                         }
                         else
                         {
@@ -203,14 +201,8 @@ namespace DevEnvAzure
                     }
                     else
                     {
-                        OfflineItem dt = new OfflineItem();
-                        dt.Created = DateTime.Now;
-                        dt.ReportType = (int)SPUtility.ReportType.Kaizen;
-                        dt.Value = body;
-                        dt.Attachments = _attachementView.GetAttachmentInfoAsString();
-                        App.DAUtil.Save<OfflineItem>(dt);
+                        SPUtility.SaveOfflineItem(body, SPUtility.ReportType.Kaizen, _attachementView.GetAttachmentInfoAsString());
 
-                        var vList = App.DAUtil.GetAll<OfflineItem>("OfflineItem");
                         await DisplayAlert("", "Item stored in local storage", "Ok");
                         ToggleBusy(false);
                         MessagingCenter.Send(this, "home");
@@ -226,15 +218,11 @@ namespace DevEnvAzure
                 DependencyService.Get<IMessage>().ShortAlert("Upload Error" + ex.Message);
             }
         }
+
         private void ToggleBusy(bool flag)
         {
             activityStack.IsVisible = flag;
             activityIndicator.IsRunning = flag;
-        }
-
-        private async void AttachmentList_ItemTapped(object sender, ItemTappedEventArgs e)
-        {
-
         }
 
         private void MenuItem_OnDelete_Clicked(object sender, EventArgs e)

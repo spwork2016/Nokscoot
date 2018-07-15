@@ -8,12 +8,28 @@ using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Threading.Tasks;
 using Xamarin.Forms;
+using System.Linq;
 using static DevEnvAzure.SPUtility;
 
 namespace DevEnvAzure
 {
     public class DataUpload
     {
+        public static void RefreshofflineItem(OfflineItem item)
+        {
+            var found = App.offlineItems.FirstOrDefault(x => x.ContentID == item.ContentID);
+            int i = App.offlineItems.IndexOf(found);
+            App.offlineItems[i] = item;
+
+            App.DAUtil.Update(item);
+        }
+
+        public static void RemoveOfflineItem(OfflineItem oItem)
+        {
+            App.offlineItems.Remove(oItem);
+            App.DAUtil.Delete(oItem);
+        }
+
         public static async Task<int> CreateItemsOffline(List<OfflineItem> items)
         {
             var client = await OAuthHelper.GetHTTPClient();
@@ -23,69 +39,85 @@ namespace DevEnvAzure
                 int count = 0;
                 foreach (OfflineItem oItem in items)
                 {
-                    string url = GetListURL((ReportType)oItem.ReportType);
-                    if (string.IsNullOrEmpty(url))
+                    try
                     {
-                        if (string.IsNullOrEmpty(oItem.Error))
+                        string url = GetListURL((ReportType)oItem.ReportType);
+                        if (string.IsNullOrEmpty(url))
                         {
-                            oItem.Error = "Invalid url";
-                            App.DAUtil.Update(oItem);
+                            if (string.IsNullOrEmpty(oItem.Error))
+                            {
+                                oItem.Error = "Invalid url";
+                                App.DAUtil.Update(oItem);
+                            }
+
+                            continue;
                         }
 
-                        continue;
-                    }
+                        if (!string.IsNullOrEmpty(oItem.Error)) continue;
 
-                    if (oItem.InProgress) continue;
+                        var contents = new StringContent(oItem.Value);
+                        oItem.InProgress = true;
+                        RefreshofflineItem(oItem);
 
-                    var contents = new StringContent(oItem.Value);
-                    oItem.InProgress = true;
-                    App.DAUtil.Update(oItem);
-
-                    contents.Headers.ContentType = MediaTypeHeaderValue.Parse("application/json;odata=verbose");
-                    var postResult = await client.PostAsync(url, contents);
-                    if (postResult.IsSuccessStatusCode)
-                    {
-                        string[] paths = SPUtility.GetPathsFromAttachemntInfo(oItem.Attachments);
-                        foreach (string path in paths)
+                        contents.Headers.ContentType = MediaTypeHeaderValue.Parse("application/json;odata=verbose");
+                        var postResult = await client.PostAsync(url, contents);
+                        if (postResult.IsSuccessStatusCode)
                         {
-                            if (string.IsNullOrEmpty(path)) continue;
-
-                            Attachment attachment = new Attachment(path);
-
-                            var spData = JsonConvert.DeserializeObject<SPData>(postResult.Content.ReadAsStringAsync().Result,
-                               new JsonSerializerSettings { DateParseHandling = DateParseHandling.None });
-                            int itemId = spData.d.Id;
-
-                            string attachmentURL = string.Format("{0}({1})/AttachmentFiles/add(FileName='{2}')",
-                                        SPUtility.GetListURL(SPUtility.ReportType.Kaizen), itemId, attachment.FileName);
-
-                            Stream stream = await attachment.GetStream();
-                            if (stream == null)
+                            string[] paths = GetPathsFromAttachemntInfo(oItem.Attachments);
+                            if (paths == null)
                             {
-                                // What to do if a file not found?
+                                count++;
+                                RemoveOfflineItem(oItem);
                                 continue;
                             }
 
-                            var attachemntResponse = await SPUtility.SaveAttachment(attachmentURL, stream);
-                            if (!attachemntResponse.IsSuccessStatusCode)
+                            foreach (string path in paths)
                             {
-                                // what if something fails?
-                                //var msg = await attachemntResponse.Content.ReadAsStringAsync();
+                                if (string.IsNullOrEmpty(path)) continue;
+
+                                try
+                                {
+                                    var spData = JsonConvert.DeserializeObject<SPData>(postResult.Content.ReadAsStringAsync().Result,
+                                    new JsonSerializerSettings { DateParseHandling = DateParseHandling.None });
+
+                                    Attachment attachment = new Attachment(path);
+
+                                    int itemId = spData.d.Id;
+                                    string attachmentURL = string.Format("{0}({1})/AttachmentFiles/add(FileName='{2}')",
+                                             SPUtility.GetListURL((ReportType)oItem.ReportType), itemId, attachment.FileName);
+
+                                    attachment.SaveToURL = attachmentURL;
+
+                                    await Task.Delay(1000);
+                                    App.attachments.Add(attachment);
+                                }
+                                catch (Exception ex)
+                                {
+                                    oItem.Error = $"Error - {ex.Message}";
+                                    oItem.InProgress = false;
+                                    RefreshofflineItem(oItem);
+
+                                    continue;
+                                }
                             }
 
+                            count++;
+                            RemoveOfflineItem(oItem);
                         }
+                        else
+                        {
+                            oItem.Error = postResult.ReasonPhrase + "-" + await postResult.Content.ReadAsStringAsync();
+                            oItem.InProgress = false;
+                            RefreshofflineItem(oItem);
 
-                        count++;
-                        App.DAUtil.Delete(oItem);
-                        App.offlineItems.Remove(oItem);
+                            continue;
+                        }
                     }
-                    else
+                    catch (Exception ex)
                     {
-                        oItem.Error = postResult.ReasonPhrase + "-" + await postResult.Content.ReadAsStringAsync();
                         oItem.InProgress = false;
-                        App.DAUtil.Update(oItem);
-
-                        continue;
+                        oItem.Error = $"{ex.Message + Environment.NewLine} Info - + {ex.StackTrace}";
+                        RefreshofflineItem(oItem);
                     }
                 }
 
@@ -93,7 +125,7 @@ namespace DevEnvAzure
             }
             catch (Exception ex)
             {
-                DependencyService.Get<IMessage>().LongAlert($"Upload Error - {ex.Message}");
+                DependencyService.Get<IMessage>().LongAlert($"Offline items failed - {ex.Message} - {ex.StackTrace}");
             }
 
             return 0;

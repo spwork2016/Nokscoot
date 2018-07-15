@@ -27,17 +27,39 @@ namespace DevEnvAzure
         public DraftsPage()
         {
             InitializeComponent();
-            load_saveddrafts();
             BindingContext = this;
+        }
+
+        private void OfflineItems_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
+        {
+            load_saveddrafts();
+        }
+
+        protected override async void OnAppearing()
+        {
+            base.OnAppearing();
+            load_saveddrafts();
+
+            App.offlineItems.CollectionChanged += OfflineItems_CollectionChanged;
+        }
+
+        protected override void OnDisappearing()
+        {
+            base.OnDisappearing();
+            App.offlineItems.CollectionChanged -= OfflineItems_CollectionChanged;
+        }
+
+        private void ToggleBusy(bool flag)
+        {
+            activityStack.IsVisible = flag;
+            activityIndicator.IsRunning = flag;
         }
 
         public void load_saveddrafts()
         {
             try
             {
-                var d = App.DAUtil.GetAll<OfflineItem>("OfflineItem");
-                App.offlineItems = new ObservableCollection<OfflineItem>(d);
-
+                var d = App.offlineItems;
                 var dataSource = new List<ReportItem>();
                 foreach (var item in d)
                 {
@@ -85,7 +107,7 @@ namespace DevEnvAzure
                         Error = item.Error
                     });
                 }
-               
+
                 lstOfflineItems.ItemsSource = dataSource;
 
                 if (dataSource.Count == 0)
@@ -104,6 +126,7 @@ namespace DevEnvAzure
 
             }
         }
+
         private async void Details_OnClicked(object sender, EventArgs e)
         {
             try
@@ -145,6 +168,16 @@ namespace DevEnvAzure
             App.DAUtil.Delete(cp.Item);
 
             load_saveddrafts();
+        }
+
+        private async void ToolbarItem_Activated(object sender, EventArgs e)
+        {
+            ToggleBusy(true);
+
+            await DataUpload.CreateItemsOffline(App.offlineItems.ToList());
+            load_saveddrafts();
+
+            ToggleBusy(false);
         }
     }
 }

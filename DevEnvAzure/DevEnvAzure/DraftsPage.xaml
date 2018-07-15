@@ -2,41 +2,51 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="DevEnvAzure.DraftsPage" Title="Offline Items">
-    <StackLayout HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
-        <StackLayout Padding="50" IsVisible="False" x:Name="stkNodata" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
-            <Label Text="There are no offline items!" HorizontalOptions="CenterAndExpand" FontSize="Medium" />
-        </StackLayout>
-        <ScrollView>
-            <ListView x:Name="lstOfflineItems" HasUnevenRows="True" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
-                <ListView.ItemTemplate>
-                    <DataTemplate>
-                        <ViewCell>
-                            <ViewCell.ContextActions>
-                                <MenuItem Clicked="MenuItem_Clicked" CommandParameter="{Binding .}" Text="Delete" IsDestructive="True" />
-                            </ViewCell.ContextActions>
-                            <StackLayout BackgroundColor="#FDCE02" IsClippedToBounds="True" HorizontalOptions="FillAndExpand" Spacing="1" HeightRequest="60">
-                                <Grid>
-                                    <Grid.RowDefinitions>
-                                        <RowDefinition Height="30"/>
-                                        <RowDefinition Height="30"/>
-                                    </Grid.RowDefinitions>
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="*"/>
-                                        <ColumnDefinition Width="*"/>
-                                    </Grid.ColumnDefinitions>
+    <AbsoluteLayout HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
+        <StackLayout HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
+            <StackLayout Padding="50" IsVisible="False" x:Name="stkNodata" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
+                <Label Text="There are no offline items!" HorizontalOptions="CenterAndExpand" FontSize="Medium" />
+            </StackLayout>
+            <ScrollView>
+                <ListView x:Name="lstOfflineItems" HasUnevenRows="True" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <ViewCell>
+                                <ViewCell.ContextActions>
+                                    <MenuItem Clicked="MenuItem_Clicked" CommandParameter="{Binding .}" Text="Delete" IsDestructive="True" />
+                                </ViewCell.ContextActions>
+                                <StackLayout BackgroundColor="#FDCE02" IsClippedToBounds="True" HorizontalOptions="FillAndExpand" Spacing="1" HeightRequest="60">
+                                    <Grid>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="30"/>
+                                            <RowDefinition Height="30"/>
+                                        </Grid.RowDefinitions>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*"/>
+                                            <ColumnDefinition Width="*"/>
+                                        </Grid.ColumnDefinitions>
 
-                                    <Label Text="{Binding ReportName}" Grid.Row="0" Grid.Column="0" VerticalOptions="Center" HorizontalOptions="FillAndExpand"
+                                        <Label Text="{Binding ReportName}" Grid.Row="0" Grid.Column="0" VerticalOptions="Center" HorizontalOptions="FillAndExpand"
                                                TextColor="Black" FontSize="Medium" LineBreakMode="TailTruncation" FontAttributes="Bold"/>
-                                    <Button x:Name="btnError" Clicked="btnError_Clicked" CommandParameter="{Binding .}" Image="error.png" 
+                                        <Button x:Name="btnError" Clicked="btnError_Clicked" CommandParameter="{Binding .}" Image="error.png" 
                                     Grid.Row="0" Grid.Column="1" HorizontalOptions="End" VerticalOptions="Center" IsVisible="{Binding HasError}" />
-                                    <Label Text="{Binding Created}" Grid.Row="1" Grid.Column="0" VerticalOptions="Center" HorizontalOptions="StartAndExpand"
+                                        <Label Text="{Binding Created}" Grid.Row="1" Grid.Column="0" VerticalOptions="Center" HorizontalOptions="StartAndExpand"
                                                TextColor="Black" FontSize="Micro" LineBreakMode="TailTruncation" />
-                                </Grid>
-                            </StackLayout>
-                        </ViewCell>
-                    </DataTemplate>
-                </ListView.ItemTemplate>
-            </ListView>
-        </ScrollView>
-    </StackLayout>
+                                    </Grid>
+                                </StackLayout>
+                            </ViewCell>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+            </ScrollView>
+        </StackLayout>
+        <StackLayout x:Name="activityStack" IsVisible="False" Padding="20" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" 
+                 AbsoluteLayout.LayoutFlags="PositionProportional"
+                 AbsoluteLayout.LayoutBounds="0.5,0.5,-1,-1">
+            <Frame  Padding="20" IsClippedToBounds="True" BackgroundColor="Black" Opacity="0.5" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
+                <ActivityIndicator x:Name="activityIndicator" IsRunning="False" Color="White" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand"/>
+                <Label x:Name="lblLoading" Text="Sending..." TextColor="White" FontSize="Small" HorizontalOptions="CenterAndExpand" VerticalOptions="FillAndExpand" />
+            </Frame>
+        </StackLayout>
+    </AbsoluteLayout>
 </ContentPage>

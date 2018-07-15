@@ -363,6 +363,8 @@ namespace DevEnvAzure.Utilities
             sddp.BenefitsCategory = KaizenReport.BenefitsCategorypickerValue;
             sddp.InitialCondition = sd.InitialCondition != null ? "<div class=\"ExternalClass975C4DB74D7B48519471F19A3D26C255\"><br>\u200b" + sd.InitialCondition + "<br><\u002fdiv>" : null;
             sddp.Subject = sd.Subject;
+            sddp.Improvements = sd.Improvements;
+            sddp.Department = sd.DepartmentLookupSource[sd.SelectedDepartmentIndex];
             return sddp;
         }
         public StationInformationSp getStationInformationJson(StationInformationModel sd)

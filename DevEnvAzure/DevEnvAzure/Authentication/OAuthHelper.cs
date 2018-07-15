@@ -120,7 +120,6 @@ namespace DevEnvAzure
                 else
                 {
                     string str2 = await response.Content.ReadAsStringAsync();
-
                 }
             }
             catch (Exception ex)
@@ -134,7 +133,10 @@ namespace DevEnvAzure
         {
             var eValue = App.DAUtil.GetAll<OfflineItem>("OfflineItem");
             if (eValue != null && eValue.Count > 0)
+            {
+                App.offlineItems = new System.Collections.ObjectModel.ObservableCollection<OfflineItem>(eValue);
                 return await DataUpload.CreateItemsOffline(eValue);
+            }
 
             return 0;
         }

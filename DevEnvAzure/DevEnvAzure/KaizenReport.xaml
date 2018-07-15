@@ -26,6 +26,10 @@
                                     <RowDefinition Height="14" />
                                     <RowDefinition Height="*" />
                                     <RowDefinition Height="14" />
+                                    <RowDefinition Height="100" />
+                                    <RowDefinition Height="14" />
+                                    <RowDefinition Height="*" />
+                                    <RowDefinition Height="14" />
                                     <RowDefinition Height="*" />
                                 </Grid.RowDefinitions>
                                 <Grid.ColumnDefinitions>
@@ -38,15 +42,22 @@
                                 <Label x:Name="AreaLocationLbl" Text="Area / Location" TextColor="Black" Grid.Row="2" Grid.ColumnSpan="2"  FontSize="Micro"/>
                                 <Entry x:Name="AreaLocationEntry" Text="{Binding AreaLocation, Mode=TwoWay}" TextColor="#03A9F4" Grid.Row="3" Grid.ColumnSpan="2"  />
 
-                                <Label x:Name="InitialConditionlbl" Text="Initial Condition" TextColor="Black" Grid.Row="4" Grid.ColumnSpan="2" FontSize="Micro" />
-                                <Entry x:Name="InitialConditionEntry" Text="{Binding InitialCondition, Mode=TwoWay}" TextColor="#03A9F4" Grid.Row="5" Grid.ColumnSpan="2" />
+                                <Label Text="Department/Division" TextColor="Black" Grid.Row="4" Grid.ColumnSpan="2" FontSize="Micro"/>
+                                <Picker x:Name="departmentPicker" SelectedIndex="{Binding SelectedDepartmentIndex,Mode=TwoWay}" ItemsSource="{Binding DepartmentLookupSource}"
+                                TextColor="#03A9F4" Grid.Row="5" Grid.ColumnSpan="2" HorizontalOptions="FillAndExpand">
+                                </Picker>
 
-                                <Label x:Name="Beforelbl" Text="Before" TextColor="Black" Grid.Row="6" Grid.ColumnSpan="2" FontSize="Micro" />
-                                <Entry x:Name="BeforeEntry" Text="{Binding Before, Mode=TwoWay}"  TextColor="#03A9F4" Grid.Row="7" Grid.ColumnSpan="2" />
+                                <Label x:Name="InitialConditionlbl" Text="Initial Condition" TextColor="Black" Grid.Row="6" Grid.ColumnSpan="2" FontSize="Micro" />
+                                <Entry x:Name="InitialConditionEntry" Text="{Binding InitialCondition, Mode=TwoWay}" TextColor="#03A9F4" Grid.Row="7" Grid.ColumnSpan="2" />
 
-                                <Label x:Name="BenefitsCategorylbl" Text="Benefits Category" TextColor="Black" Grid.Row="8" Grid.ColumnSpan="2" FontSize="Micro" />
+                                <Label Text="Suggestions for improvement" TextColor="Black" Grid.Row="8" Grid.ColumnSpan="2" FontSize="Micro"/>
+                                <Frame HeightRequest="100" Padding="1" BackgroundColor="#DFDFDF" Grid.Row="9" Grid.ColumnSpan="2" IsClippedToBounds="True">
+                                    <Editor Text="{Binding Improvements, Mode=TwoWay}" TextColor="#03A9F4" HorizontalOptions="FillAndExpand" />
+                                </Frame>
+                                
+                                <Label x:Name="BenefitsCategorylbl" Text="Benefits Category" TextColor="Black" Grid.Row="10" Grid.ColumnSpan="2" FontSize="Micro" />
                                 <Picker x:Name="BenefitsCategorypicker" SelectedIndex="{Binding BenefitsCategory,Mode=TwoWay}" SelectedIndexChanged="BenefitsCategorypicker_changed"
-                                TextColor="#03A9F4" Grid.Row="9" Grid.ColumnSpan="2" HorizontalOptions="FillAndExpand">
+                                TextColor="#03A9F4" Grid.Row="11" Grid.ColumnSpan="2" HorizontalOptions="FillAndExpand">
                                     <Picker.Items>
                                         <x:String></x:String>
                                         <x:String>Cost</x:String>
@@ -61,6 +72,9 @@
                                         <x:String>Other</x:String>
                                     </Picker.Items>
                                 </Picker>
+
+                                <Label x:Name="Beforelbl" Text="Before" TextColor="Black" Grid.Row="12" Grid.ColumnSpan="2" FontSize="Micro" />
+                                <Entry x:Name="BeforeEntry" Text="{Binding Before, Mode=TwoWay}"  TextColor="#03A9F4" Grid.Row="13" Grid.ColumnSpan="2" />
                             </Grid>
 
                             <Button x:Name="attachments" TextColor="Black" HorizontalOptions="FillAndExpand"

@@ -31,11 +31,6 @@ namespace DevEnvAzure.Model
         public Deferred __deferred { get; set; }
     }
 
-    public class AttachmentFiles
-    {
-        public Deferred __deferred { get; set; }
-    }
-
     public class ContentType
     {
         public Deferred __deferred { get; set; }
@@ -228,6 +223,31 @@ namespace DevEnvAzure.Model
     public class SPData
     {
         public D d { get; set; }
+    }
+
+    public class FileNameAsPath
+    {
+        public string DecodedUrl { get; set; }
+    }
+
+    public class ServerRelativePath
+    {
+        public string DecodedUrl { get; set; }
+    }
+
+    public class Value
+    {
+        public string FileName { get; set; }
+        public FileNameAsPath FileNameAsPath { get; set; }
+        public ServerRelativePath ServerRelativePath { get; set; }
+        public string ServerRelativeUrl { get; set; }
+
+    }
+
+    public class AttachmentFiles
+    {
+        public Deferred __deferred { get; set; }
+        public List<Value> value { get; set; }
     }
 
     public class User

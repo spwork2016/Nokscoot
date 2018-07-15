@@ -225,16 +225,7 @@ namespace DevEnvAzure
                 }
                 else
                 {
-
-                    OfflineItem dt = new OfflineItem();
-                    dt.Value = body;
-                    dt.Created = DateTime.Now;
-                    dt.ReportType = (int)ReportType.FlighCrewVoyage;
-                    dt.Attachments = _attachementView.GetAttachmentInfoAsString();
-
-                    App.DAUtil.Save(dt);
-                    App.DAUtil.GetAll<OfflineItem>("OfflineItem");
-
+                    SaveOfflineItem(body, ReportType.FlighCrewVoyage, _attachementView.GetAttachmentInfoAsString());
                     DependencyService.Get<IMessage>().LongAlert("Item stored in local storage");
                 }
             }
@@ -267,15 +258,11 @@ namespace DevEnvAzure
                         string attachmentURL = string.Format("{0}({1})/AttachmentFiles/add(FileName='{2}')",
                             SPUtility.GetListURL(SPUtility.ReportType.FlighCrewVoyage), itemId, item.FileName);
 
-                        Stream stream = await item.GetStream();
-                        if (stream == null)
-                        {
-                            lblLoading.Text += "Not found - " + item.FileName + Environment.NewLine;
-                            continue;
-                        }
+                        item.SaveToURL = attachmentURL;
 
                         lblLoading.Text += "Sending - " + item.FileName + Environment.NewLine;
-                        var attachemntResponse = await SPUtility.SaveAttachment(attachmentURL, stream);
+
+                        var attachemntResponse = await item.PostAttachment();
                         if (!attachemntResponse.IsSuccessStatusCode)
                         {
                             var msg = await attachemntResponse.Content.ReadAsStringAsync();

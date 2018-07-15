@@ -28,8 +28,30 @@ namespace DevEnvAzure.Models
         { get; set; }
         public string Subject
         { get; set; }
+        public string Improvements
+        { get; set; }
+        public int SelectedDepartmentIndex
+        { get; set; }
 
 
+        public string[] DepartmentLookupSource
+        {
+            get
+            {
+                return new string[] { "", "CEO",
+                                        "CAB",
+                                        "COM",
+                                        "FIN",
+                                        "FLT",
+                                        "GRH/CGO",
+                                        "HR",
+                                        "MNT",
+                                        "PLN",
+                                        "SSQ",
+                                        "TRG",
+                                        "ALL OPS" };
+            }
+        }
         //local usage - to show datetime in drafts page
         public DateTime Created
         {

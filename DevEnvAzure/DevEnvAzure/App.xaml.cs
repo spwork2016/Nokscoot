@@ -39,11 +39,12 @@ namespace DevEnvAzure
         public static ObservableCollection<KaizenReportModel> kaizen = new ObservableCollection<KaizenReportModel>();
         public static ObservableCollection<FlightCrewVoyageRecordModel> fcVoyage = new ObservableCollection<FlightCrewVoyageRecordModel>();
         public static ObservableCollection<StationInformationModel> statInfo = new ObservableCollection<StationInformationModel>();
-
+        public static ObservableCollection<Attachment> attachments = new ObservableCollection<Attachment>();
         public static string EVENT_LAUNCH_MAIN_PAGE = "EVENT_LAUNCH_MAIN_PAGE";
         public App()
         {
             InitializeComponent();
+            attachments.CollectionChanged += Attachments_CollectionChanged;
             try
             {
                 if (CrossConnectivity.Current.IsConnected)
@@ -55,22 +56,27 @@ namespace DevEnvAzure
                         string uName = cred.Username;
                         string pwd = cred.Password;
                         MainPage = new StartPage();
+
                         OAuthHelper.GetAuthenticationHeader(uName, pwd).ContinueWith(async (x) =>
-                       {
-                           await SyncLocalData();
-                           await OAuthHelper.GetUserInfo(uName, pwd).ContinueWith((y) =>
-                           {
-                               Device.BeginInvokeOnMainThread(async () =>
-                               {
-                                   MessagingCenter.Send<App>(this, "userInfo");
-                                   if (App.AuthenticationResponse == null)
-                                   {
-                                       MainPage = new Login();
-                                       DependencyService.Get<IMessage>().ShortAlert("Login failed! Please check email/password");
-                                   }
-                               });
-                           });
-                       });
+                        {
+                            await OAuthHelper.GetUserInfo(uName, pwd).ContinueWith((y) =>
+                            {
+                                Device.BeginInvokeOnMainThread(async () =>
+                                {
+                                    MessagingCenter.Send<App>(this, "userInfo");
+                                    if (App.AuthenticationResponse == null)
+                                    {
+                                        MainPage = new Login();
+                                        DependencyService.Get<IMessage>().ShortAlert("Login failed! Please check email/password");
+                                    }
+                                });
+                            });
+
+                            await Task.Factory.StartNew(async () =>
+                             {
+                                 await SyncLocalData();
+                             });
+                        });
                     }
                     else
                     {
@@ -93,8 +99,45 @@ namespace DevEnvAzure
             }
             catch (Exception ex)
             {
-                DependencyService.Get<IMessage>().ShortAlert(string.Format("Error: {0}", ex.Message));
+                ShowError(ex.Message);
             }
+        }
+
+        private async void Attachments_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
+        {
+            try
+            {
+                var itemsToSync = e.NewItems;
+                if (e.Action != System.Collections.Specialized.NotifyCollectionChangedAction.Add) return;
+
+                foreach (Attachment item in itemsToSync)
+                {
+                    var attachemntResponse = await item.PostAttachment().ConfigureAwait(false);
+                    if (!attachemntResponse.IsSuccessStatusCode)
+                    {
+                        string postError = await attachemntResponse.Content.ReadAsStringAsync();
+                        string msg = $"Unble to post attachment - {item.FileName} {Environment.NewLine} {postError}";
+                        ShowError(msg);
+                    }
+                    else
+                    {
+                        await Task.Delay(1000);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                ShowError(ex.Message);
+            }
+
+        }
+
+        public void ShowError(string message)
+        {
+            Device.BeginInvokeOnMainThread(() =>
+            {
+                DependencyService.Get<IMessage>().ShortAlert(string.Format("Error: {0}", message));
+            });
         }
 
         public async static Task SyncOfflineItemsBG()
@@ -125,7 +168,7 @@ namespace DevEnvAzure
             }
             catch (Exception ex)
             {
-                DependencyService.Get<IMessage>().ShortAlert(string.Format("Unable to sync local info: {0}", ex.Message));
+                ShowError(string.Format("Unable to sync local info: {0}", ex.Message));
             }
         }
 
@@ -162,8 +205,6 @@ namespace DevEnvAzure
                 //iOS stuff
                 Plugin.Connectivity.CrossConnectivity.Current.ConnectivityChanged += Current_ConnectivityChanged;
             }
-            // Handle when your app starts
-            // Plugin.Connectivity.CrossConnectivity.Current.ConnectivityChanged += Current_ConnectivityChanged;
         }
 
         protected override void OnSleep()
@@ -179,7 +220,7 @@ namespace DevEnvAzure
             }
             catch (Exception ex)
             {
-                DependencyService.Get<IMessage>().ShortAlert(string.Format("Unable to refresh token: {0}", ex.Message));
+                ShowError(string.Format("Unable to refresh token: {0}", ex.Message));
             }
         }
 

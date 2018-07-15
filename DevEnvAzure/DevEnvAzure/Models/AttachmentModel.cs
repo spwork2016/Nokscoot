@@ -1,5 +1,6 @@
 ﻿using PCLStorage;
 using System.IO;
+using System.Net.Http;
 using System.Threading.Tasks;
 
 namespace DevEnvAzure.Models
@@ -8,6 +9,9 @@ namespace DevEnvAzure.Models
     {
         public string FileName { get; set; }
         public string FilePath { get; set; }
+
+        //used for offline items - sharepoint itemId
+        public string SaveToURL { get; set; }
 
         public Attachment()
         {
@@ -33,10 +37,33 @@ namespace DevEnvAzure.Models
             if (await Exists())
             {
                 var file = await FileSystem.Current.GetFileFromPathAsync(FilePath);
-                return await file.OpenAsync(FileAccess.Read);
+                if (file != null)
+                    return await file.OpenAsync(FileAccess.Read);
             }
 
             return null;
         }
+
+        public async Task<HttpResponseMessage> PostAttachment()
+        {
+            string url = SaveToURL;
+            if (string.IsNullOrEmpty(url)) return null;
+
+            Stream stream = await GetStream();
+            if (stream == null) return null;
+
+            var client = await OAuthHelper.GetHTTPClient();
+            var response = await client.PostAsync(url, new StreamContent(stream));
+            return response;
+        }
+
+        //public async Task<HttpResponseMessage> GetItem()
+        //{
+        //    if (string.IsNullOrEmpty(ItemURL)) return null;
+
+        //    var client = await OAuthHelper.GetHTTPClient();
+        //    var response = await client.GetAsync(ItemURL);
+        //    return response;
+        //}
     }
 }
