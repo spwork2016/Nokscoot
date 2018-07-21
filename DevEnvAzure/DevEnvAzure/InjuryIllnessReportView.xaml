@@ -89,8 +89,30 @@
                         <x:String>Stress/anxiety</x:String>
                     </Picker.Items>
                 </Picker>
+                
                 <Label x:Name="BodyPartlbl" Text="Body Part" TextColor="Black" Grid.Row="5" FontSize="Micro"   Grid.ColumnSpan="2" />
-                <Entry x:Name="BodyPartEntry"   Text="{Binding bodyPart, Mode=TwoWay}"  Placeholder="Body Part" PlaceholderColor="#F1F1F1" TextColor="#03A9F4" Grid.Row="6"  Grid.ColumnSpan="2"  />
+                <!--<Entry x:Name="BodyPartEntry"   Text="{Binding bodyPart, Mode=TwoWay}"  Placeholder="Body Part" PlaceholderColor="#F1F1F1" TextColor="#03A9F4" Grid.Row="6"  Grid.ColumnSpan="2"  />-->
+                <Picker x:Name="BodyPartPicker" SelectedItem="{Binding bodyPart,Mode=TwoWay}" TextColor="#03A9F4" Grid.Row="6" Grid.ColumnSpan="2" HorizontalOptions="FillAndExpand">
+                    <Picker.Items>
+                        <x:String>Arm</x:String>
+                        <x:String>Back</x:String>
+                        <x:String>Ear</x:String>
+                        <x:String>Eye</x:String>
+                        <x:String>Face</x:String>
+                        <x:String>Foot/toe</x:String>
+                        <x:String>Hand/Finger</x:String>
+                        <x:String>Head</x:String>
+                        <x:String>Hip/Buttock</x:String>
+                        <x:String>Knee</x:String>
+                        <x:String>Leg</x:String>
+                        <x:String>Mouth</x:String>
+                        <x:String>Neck</x:String>
+                        <x:String>Shoulder</x:String>
+                        <x:String>Torso/Trunk</x:String>
+                        <x:String>Wrist</x:String>
+                    </Picker.Items>
+                </Picker>
+                
                 <Label x:Name="HowInjuryOccurredlbl" Text="How Injury Occurred" TextColor="Black" FontSize="Micro"  Grid.Row="7" Grid.ColumnSpan="2"  />
                 <Picker x:Name="HowInjuryOccurredpicker" SelectedIndexChanged="HowInjuryOccurredValue_Changed" 
                         SelectedIndex="{Binding howinjuryOccurredIndex,Mode=TwoWay}" TextColor="#03A9F4" Grid.Row="8" Grid.ColumnSpan="2"  HorizontalOptions="FillAndExpand">
@@ -149,8 +171,10 @@
                     </Picker.Items>
                 </Picker>
                 <Label x:Name="Wheretheeventoccurredlbl" Text="Where the event occurred" FontSize="Micro" TextColor="Black" Grid.Row="15" Grid.ColumnSpan="2"  />
-                <Entry x:Name="WheretheeventoccurredEntry"   Text="{Binding whereEventOccur, Mode=TwoWay}"
-                       Placeholder="Where the event occurred" PlaceholderColor="#F1F1F1"  TextColor="#03A9F4" Grid.Row="16" Grid.ColumnSpan="2" />
+                <Frame HeightRequest="100" Padding="1" BackgroundColor="#DFDFDF"  Grid.Row="16" Grid.ColumnSpan="2" IsClippedToBounds="True">
+                    <Editor x:Name="WheretheeventoccurredEntry"
+                                               Text="{Binding whereEventOccur, Mode=TwoWay}" TextColor="#03A9F4" />
+                </Frame>
                 <Label x:Name="Partofbodyinjuredlbl" Text="Part of body injured" FontSize="Micro" TextColor="Black" Grid.Row="17" Grid.ColumnSpan="2" />
                 <Picker x:Name="Partofbodyinjuredpicker" SelectedIndexChanged="PartofbodyinjuredValue_Changed"
                         SelectedIndex="{Binding bodyPartInjuredIndex,Mode=TwoWay}" TextColor="#03A9F4" Grid.Row="18" Grid.ColumnSpan="2"  HorizontalOptions="FillAndExpand">

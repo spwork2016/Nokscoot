@@ -12,17 +12,17 @@
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="14" />
-                        <RowDefinition Height="*" />
+                        <RowDefinition Height="30" />
                         <RowDefinition Height="14" />
-                        <RowDefinition Height="*" />
+                        <RowDefinition Height="30" />
                         <RowDefinition Height="14" />
-                        <RowDefinition Height="*" />
+                        <RowDefinition Height="30" />
                         <RowDefinition Height="14" />
-                        <RowDefinition Height="*" />
+                        <RowDefinition Height="30" />
                         <RowDefinition Height="14" />
-                        <RowDefinition Height="*" />
+                        <RowDefinition Height="30" />
                         <RowDefinition Height="14" />
-                        <RowDefinition Height="*" />
+                        <RowDefinition Height="30" />
                     </Grid.RowDefinitions>
 
                     <Grid.ColumnDefinitions>
@@ -502,8 +502,9 @@
                         <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
                     <Label FontSize="Micro" x:Name="TypeofWarningsAlertsLbl" Text="Type of Warnings/Alerts" TextColor="Black" Grid.Row="0" />
-                    <Entry x:Name="TypeofWarningsAlertsEntry" Placeholder="Type of Warnings/Alerts" PlaceholderColor="#F1F1F1" Text="{Binding TypeofWarnings, Mode=TwoWay}"
-                           TextColor="#03A9F4" Grid.Row="1" />
+                    <Frame HeightRequest="100" Padding="1" BackgroundColor="#DFDFDF" Grid.Row="1" Grid.Column="0" IsClippedToBounds="True">
+                        <Editor x:Name="TypeofWarningsAlertsEntry" Text="{Binding TypeofWarnings, Mode=TwoWay}" TextColor="#03A9F4" />
+                    </Frame>
                 </Grid>
             </StackLayout>
 
@@ -514,16 +515,16 @@
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="14" />
-                        <RowDefinition Height="*" />
+                        <RowDefinition Height="30" />
 
                         <RowDefinition Height="14" />
-                        <RowDefinition Height="*" />
+                        <RowDefinition Height="30" />
 
                         <RowDefinition Height="14" />
-                        <RowDefinition Height="*" />
+                        <RowDefinition Height="30" />
 
                         <RowDefinition Height="14" />
-                        <RowDefinition Height="*" />
+                        <RowDefinition Height="30" />
 
                         <RowDefinition Height="14" />
                         <RowDefinition Height="*" />
@@ -565,7 +566,10 @@
                         </Picker.Items>
                     </Picker>
                     <Label FontSize="Micro" x:Name="ImpactAreaDamageLbl" Text="Impact Area and Damage" TextColor="Black" Grid.Row="8"  />
-                    <Entry x:Name="ImpactAreaDamageEntry"   Text="{Binding ImpactAreaDamage, Mode=TwoWay}"  Placeholder="Impact Area and Damage" PlaceholderColor="#F1F1F1" TextColor="#03A9F4" Grid.Row="9" />
+                    <Frame HeightRequest="100" Padding="1" BackgroundColor="#DFDFDF" Grid.Row="9" Grid.Column="0" IsClippedToBounds="True">
+                        <Editor x:Name="ImpactAreaDamageEntry"
+                                               Text="{Binding ImpactAreaDamage, Mode=TwoWay}" TextColor="#03A9F4" />
+                    </Frame>
                 </Grid>
             </StackLayout>
         </StackLayout>

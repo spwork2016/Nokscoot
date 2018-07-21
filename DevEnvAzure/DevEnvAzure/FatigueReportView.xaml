@@ -39,14 +39,16 @@
                         <RowDefinition Height="14" />
                         <RowDefinition Height="*" />
                         <RowDefinition Height="14" />
-                        <RowDefinition Height="*" />
+                        <RowDefinition Height="30" />
                     </Grid.RowDefinitions>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*" />
                         <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
                     <Label x:Name="Describehowyoufeltlbl" Text="Describe how you felt" FontSize="Micro" TextColor="Black" Grid.Row="0" Grid.ColumnSpan="2" />
-                    <Entry x:Name="DescribehowyoufeltEntry" Placeholder="Describe how you felt" PlaceholderColor="#F1F1F1" Text="{Binding describeFeel, Mode=TwoWay}" TextColor="#03A9F4" Grid.Row="1" Grid.ColumnSpan="2" />
+                    <Frame HeightRequest="100" Padding="1" BackgroundColor="#DFDFDF" Grid.Row="1" Grid.ColumnSpan="2" IsClippedToBounds="True">
+                        <Editor x:Name="DescribehowyoufeltEntry" Text="{Binding describeFeel, Mode=TwoWay}" TextColor="#03A9F4" />
+                    </Frame>
                     <Label x:Name="Ratehowyoufeltlbl" Text="Rate how you felt" TextColor="Black" Grid.Row="2" FontSize="Micro" Grid.ColumnSpan="2"/>
                     <Picker x:Name="Ratehowyoufeltpicker"  SelectedIndex="{Binding rateFeelIndex,Mode=TwoWay}" 
                             SelectedIndexChanged="Ratehowyoufelt_changed" TextColor="#03A9F4" Grid.Row="3" HorizontalOptions="FillAndExpand" Grid.ColumnSpan="2">
@@ -99,7 +101,9 @@
                     <Label x:Name="HotelDisturbancelbl" Text="Hotel Disturbance" TextColor="Black" FontSize="Micro" Grid.Row="5" Grid.Column="0" />
                     <Switch x:Name="HotelDisturbancechkbx" IsToggled="{Binding hotelDisturbance, Mode=TwoWay}"  HorizontalOptions="EndAndExpand"  Grid.Row="5" Grid.Column="1" />
                     <Label x:Name="OtherCommentslbl" Text="Other/Comments" TextColor="Black" Grid.Row="6" FontSize="Micro" Grid.ColumnSpan="2"/>
-                    <Entry x:Name="OtherCommentsEntry"   Text="{Binding otherComments, Mode=TwoWay}"  Placeholder="Other/Comments" PlaceholderColor="#F1F1F1"  TextColor="#03A9F4" Grid.Row="7" Grid.ColumnSpan="2"/>
+                    <Frame HeightRequest="100" Padding="1" BackgroundColor="#DFDFDF" Grid.Row="7" Grid.ColumnSpan="2" IsClippedToBounds="True">
+                        <Editor x:Name="OtherCommentsEntry" Text="{Binding otherComments, Mode=TwoWay}" TextColor="#03A9F4" />
+                    </Frame>
                 </Grid>
             </StackLayout>
             <StackLayout HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" Margin="0,15">
@@ -114,10 +118,9 @@
                         <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
                     <Label x:Name="Actionstakentomanageorreducefatiguelbl" Text="Actions taken to manage or reduce fatigue" FontSize="Micro" TextColor="Black" Grid.Row="0" />
-                    <Entry x:Name="ActionstakentomanageorreducefatigueEntry"  Text="{Binding actionToreduce, Mode=TwoWay}"  Placeholder="Actions taken to manage or reduce fatigue" PlaceholderColor="#F1F1F1"  TextColor="#03A9F4" Grid.Row="1" />
-
-                    <!--<Label x:Name="referencesLbl" Text="Attach any photo or textual references" FontSize="Micro" TextColor="Black" Grid.Row="2" Grid.ColumnSpan="2"/>
-                    <Entry x:Name="referencesEntry" Placeholder="Attach any photo or textual references" PlaceholderColor="#F1F1F1" TextColor="#03A9F4" Grid.Row="3" Grid.ColumnSpan="2"/>-->
+                    <Frame HeightRequest="100" Padding="1" BackgroundColor="#DFDFDF" Grid.Row="1" Grid.Column="0" IsClippedToBounds="True">
+                        <Editor x:Name="ActionstakentomanageorreducefatigueEntry" Text="{Binding actionToreduce, Mode=TwoWay}" TextColor="#03A9F4" />
+                    </Frame>
                 </Grid>
             </StackLayout>
         </StackLayout>

@@ -107,7 +107,7 @@
                                     <BoxView Color="#FDCE02" HorizontalOptions="FillAndExpand" Grid.Row="1" HeightRequest="1"/>
 
                                     <Label x:Name="EvntHazrd" Text="Describe what happened" TextColor="Black" FontSize="Micro" Grid.Row="2" />
-                                    <Frame HeightRequest="100" Padding="1" BackgroundColor="#DFDFDF" Grid.Row="3" Grid.Column="0" IsClippedToBounds="True">
+                                    <Frame HeightRequest="180" Padding="1" BackgroundColor="#DFDFDF" Grid.Row="3" Grid.Column="0" IsClippedToBounds="True">
                                         <Editor x:Name="EvntHazrdentry"
                                                Text="{Binding DescribeEvent, Mode=TwoWay}" TextColor="#03A9F4" />
                                     </Frame>

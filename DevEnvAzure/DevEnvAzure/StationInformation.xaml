@@ -117,31 +117,31 @@
                                 <Grid>
                                     <Grid.RowDefinitions>
                                         <RowDefinition Height="14" />
-                                        <RowDefinition Height="*" />
+                                        <RowDefinition Height="30" />
                                         <RowDefinition Height="14" />
-                                        <RowDefinition Height="*" />
+                                        <RowDefinition Height="30" />
                                         <RowDefinition Height="14" />
-                                        <RowDefinition Height="*" />
+                                        <RowDefinition Height="30" />
                                         <RowDefinition Height="14" />
-                                        <RowDefinition Height="*" />
+                                        <RowDefinition Height="30" />
                                         <RowDefinition Height="14" />
-                                        <RowDefinition Height="*" />
+                                        <RowDefinition Height="30" />
                                         <RowDefinition Height="14" />
-                                        <RowDefinition Height="*" />
+                                        <RowDefinition Height="30" />
                                         <RowDefinition Height="14" />
-                                        <RowDefinition Height="*" />
+                                        <RowDefinition Height="30" />
                                         <RowDefinition Height="14" />
-                                        <RowDefinition Height="*" />
+                                        <RowDefinition Height="30" />
                                         <RowDefinition Height="14" />
-                                        <RowDefinition Height="*" />
+                                        <RowDefinition Height="30" />
                                         <RowDefinition Height="14" />
-                                        <RowDefinition Height="*" />
+                                        <RowDefinition Height="30" />
                                         <RowDefinition Height="14" />
-                                        <RowDefinition Height="*" />
+                                        <RowDefinition Height="30" />
                                         <RowDefinition Height="14" />
-                                        <RowDefinition Height="*" />
+                                        <RowDefinition Height="100" />
                                         <RowDefinition Height="14" />
-                                        <RowDefinition Height="*" />
+                                        <RowDefinition Height="100" />
                                     </Grid.RowDefinitions>
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition Width="*" />
@@ -169,10 +169,18 @@
                                     <Entry x:Name="DoctorAtAirportEntry"  Text="{Binding Doctoratairport, Mode=TwoWay}" TextColor="#03A9F4" Placeholder="Doctor at airport" PlaceholderColor="#F1F1F1"  Grid.Row="19" Grid.ColumnSpan="2"  />
                                     <Label x:Name="RecommendedHospitalLbl" Text="Recommended hospital" TextColor="Black" Grid.Row="20" Grid.ColumnSpan="2" FontSize="Micro"  />
                                     <Entry x:Name="RecommendedHospitalEntry"  Text="{Binding Recommendedhospital, Mode=TwoWay}" TextColor="#03A9F4" Placeholder="Recommended hospital" PlaceholderColor="#F1F1F1"  Grid.Row="21" Grid.ColumnSpan="2"  />
+                                    
                                     <Label x:Name="HealthConsiderationslbl" Text="Health Considerations" TextColor="Black" Grid.Row="22" Grid.ColumnSpan="2" FontSize="Micro" />
-                                    <Entry x:Name="HealthConsiderationsEntry"   Text="{Binding HealthConsiderations, Mode=TwoWay}"  TextColor="#03A9F4" Placeholder="Health Considerations" PlaceholderColor="#F1F1F1"  Grid.Row="23" Grid.ColumnSpan="2"  />
+                                    <Frame HeightRequest="100" Padding="1" BackgroundColor="#DFDFDF"  Grid.Row="23" Grid.ColumnSpan="2" IsClippedToBounds="True">
+                                        <Editor x:Name="HealthConsiderationsEntry"
+                                               Text="{Binding HealthConsiderations, Mode=TwoWay}" TextColor="#03A9F4" />
+                                    </Frame>
+                                    
                                     <Label x:Name="RestaurantInfolbl" Text="Restaurant Info" TextColor="Black" Grid.Row="24" Grid.ColumnSpan="2" FontSize="Micro"  />
-                                    <Entry x:Name="RestaurantInfoEntry"   Text="{Binding RestaurantInfo, Mode=TwoWay}"  TextColor="#03A9F4" Placeholder="Restaurant Info" PlaceholderColor="#F1F1F1"  Grid.Row="25" Grid.ColumnSpan="2"  />
+                                    <Frame HeightRequest="100" Padding="1" BackgroundColor="#DFDFDF"  Grid.Row="25" Grid.ColumnSpan="2" IsClippedToBounds="True">
+                                        <Editor x:Name="RestaurantInfoEntry"
+                                               Text="{Binding RestaurantInfo, Mode=TwoWay}" TextColor="#03A9F4" />
+                                    </Frame>
                                 </Grid>
                             </StackLayout>
 
@@ -182,30 +190,30 @@
                                 <Grid>
                                     <Grid.RowDefinitions>
                                         <RowDefinition Height="14" />
-                                        <RowDefinition Height="*" />
+                                        <RowDefinition Height="30" />
                                         <RowDefinition Height="14" />
-                                        <RowDefinition Height="*" />
+                                        <RowDefinition Height="30" />
                                         <RowDefinition Height="14" />
-                                        <RowDefinition Height="*" />
+                                        <RowDefinition Height="30" />
                                         <RowDefinition Height="14" />
-                                        <RowDefinition Height="*" />
+                                        <RowDefinition Height="30" />
                                         <RowDefinition Height="14" />
-                                        <RowDefinition Height="*" />
+                                        <RowDefinition Height="30" />
 
                                         <RowDefinition Height="30" />
 
                                         <RowDefinition Height="14" />
-                                        <RowDefinition Height="*" />
+                                        <RowDefinition Height="30" />
                                         <RowDefinition Height="14" />
-                                        <RowDefinition Height="*" />
+                                        <RowDefinition Height="30" />
                                         <RowDefinition Height="14" />
-                                        <RowDefinition Height="*" />
+                                        <RowDefinition Height="100" />
                                         <RowDefinition Height="14" />
-                                        <RowDefinition Height="*" />
+                                        <RowDefinition Height="30" />
                                         <RowDefinition Height="14" />
-                                        <RowDefinition Height="*" />
+                                        <RowDefinition Height="100" />
                                         <RowDefinition Height="14" />
-                                        <RowDefinition Height="*" />
+                                        <RowDefinition Height="100" />
                                     </Grid.RowDefinitions>
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition Width="*" />
@@ -235,17 +243,23 @@
                                     <Entry x:Name="SafetyHazardsEntry"  Text="{Binding SafetyHazards, Mode=TwoWay}" Placeholder="Safety Hazards" 
                                    PlaceholderColor="#F1F1F1" TextColor="#03A9F4" Grid.Row="14" Grid.ColumnSpan="2"  />
                                     <Label x:Name="RecommendedSafetyPrecautionslbl" Text="Recommended Safety precautions" TextColor="Black" Grid.Row="15" Grid.ColumnSpan="2"  FontSize="Micro" />
-                                    <Entry x:Name="RecommendedSafetyPrecautionsEntry"   Text="{Binding RecommendedSafetyprecautions, Mode=TwoWay}" 
-                                   Placeholder="Recommended Safety precautions" PlaceholderColor="#F1F1F1" TextColor="#03A9F4" Grid.Row="16" Grid.ColumnSpan="2"  />
+                                    <Frame HeightRequest="100" Padding="1" BackgroundColor="#DFDFDF" Grid.Row="16" Grid.ColumnSpan="2" IsClippedToBounds="True">
+                                        <Editor x:Name="RecommendedSafetyPrecautionsEntry" Text="{Binding RecommendedSafetyprecautions, Mode=TwoWay}" TextColor="#03A9F4" />
+                                    </Frame>
+                                    
                                     <Label x:Name="SecurityThreatsLbl" Text="Security Threats" TextColor="Black" Grid.Row="17" Grid.ColumnSpan="2"  FontSize="Micro" />
                                     <Entry x:Name="SecurityThreatsEntry"  Text="{Binding SecurityThreats, Mode=TwoWay}"  Placeholder="Security Threats"
                                    PlaceholderColor="#F1F1F1" TextColor="#03A9F4" Grid.Row="18" Grid.ColumnSpan="2"  />
                                     <Label x:Name="RecommendedSecurityPrecautionslbl" Text="Recommended Security Precautions" TextColor="Black" Grid.Row="19" Grid.ColumnSpan="2"  FontSize="Micro" />
-                                    <Entry x:Name="RecommendedSecurityPrecautionsEntry"   Text="{Binding RecommendedSecurityPrecautions, Mode=TwoWay}" 
-                                   Placeholder="Recommended Security Precautions" PlaceholderColor="#F1F1F1" TextColor="#03A9F4" Grid.Row="20" Grid.ColumnSpan="2"  />
+                                    <Frame HeightRequest="100" Padding="1" BackgroundColor="#DFDFDF" Grid.Row="20" Grid.ColumnSpan="2" IsClippedToBounds="True">
+                                        <Editor x:Name="RecommendedSecurityPrecautionsEntry"
+                                               Text="{Binding RecommendedSecurityPrecautions, Mode=TwoWay}" TextColor="#03A9F4" />
+                                    </Frame>
                                     <Label x:Name="ImmigrationCustomsConsiderationslbl" Text="Immigration / Customs Considerations" TextColor="Black" Grid.Row="21" Grid.ColumnSpan="2" FontSize="Micro"  />
-                                    <Entry x:Name="ImmigrationCustomsConsiderationsEntry"   Text="{Binding ImmigrationCustomsConsiderations, Mode=TwoWay}"
-                                   Placeholder="Immigration / Customs Considerations" PlaceholderColor="#F1F1F1" TextColor="#03A9F4" Grid.Row="22" Grid.ColumnSpan="2"  />
+                                    <Frame HeightRequest="100" Padding="1" BackgroundColor="#DFDFDF" Grid.Row="22" Grid.ColumnSpan="2" IsClippedToBounds="True">
+                                        <Editor x:Name="ImmigrationCustomsConsiderationsEntry"
+                                               Text="{Binding ImmigrationCustomsConsiderations, Mode=TwoWay}" TextColor="#03A9F4" />
+                                    </Frame>
                                 </Grid>
                             </StackLayout>
                             <StackLayout BackgroundColor="White">

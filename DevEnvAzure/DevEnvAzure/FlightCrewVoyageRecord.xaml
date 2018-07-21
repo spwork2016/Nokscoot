@@ -102,19 +102,19 @@
                                 <Grid>
                                     <Grid.RowDefinitions>
                                         <RowDefinition Height="14" />
-                                        <RowDefinition Height="*" />
+                                        <RowDefinition Height="30" />
                                         <RowDefinition Height="14" />
-                                        <RowDefinition Height="*" />
+                                        <RowDefinition Height="30" />
                                         <RowDefinition Height="14" />
-                                        <RowDefinition Height="*" />
+                                        <RowDefinition Height="180" />
                                         <RowDefinition Height="14" />
-                                        <RowDefinition Height="*" />
+                                        <RowDefinition Height="30" />
                                         <RowDefinition Height="14" />
-                                        <RowDefinition Height="*" />
+                                        <RowDefinition Height="30" />
                                         <RowDefinition Height="14" />
-                                        <RowDefinition Height="*" />
+                                        <RowDefinition Height="30" />
                                         <RowDefinition Height="14" />
-                                        <RowDefinition Height="*" />
+                                        <RowDefinition Height="30" />
                                     </Grid.RowDefinitions>
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition Width="*" />
@@ -133,7 +133,9 @@
                                         </Picker.Items>
                                     </Picker>
                                     <Label x:Name="ReportDetailslbl" Text="Report Details" TextColor="Black" Grid.Row="4" Grid.ColumnSpan="2" FontSize="Micro" />
-                                    <Entry x:Name="ReportDetailsEntry"   Text="{Binding ReportDetails, Mode=TwoWay}"  TextColor="#03A9F4" Grid.Row="5" Grid.ColumnSpan="2"  />
+                                    <Frame HeightRequest="200" Padding="1" BackgroundColor="#DFDFDF" Grid.Row="5" Grid.ColumnSpan="2" IsClippedToBounds="True">
+                                        <Editor x:Name="ReportDetailsEntry" Text="{Binding ReportDetails, Mode=TwoWay}" TextColor="#03A9F4" />
+                                    </Frame>
                                     <Label x:Name="ReportRaisedByLbl" Text="Report Raised By" TextColor="Black" Grid.Row="6" Grid.ColumnSpan="2" FontSize="Micro" />
                                     <autocomplete:SfAutoComplete x:Name="ReportRaisedByEntry"  Text="{Binding ReportRaisedBy, Mode=TwoWay}" DisplayMemberPath="Name" 
                                                          ShowClearButton="True" TextColor="#03A9F4" Grid.Row="7" Grid.ColumnSpan="2"  />
