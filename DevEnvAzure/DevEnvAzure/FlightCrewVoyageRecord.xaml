@@ -70,23 +70,18 @@
                                         <DatePicker.Format>MM/dd/yyyy</DatePicker.Format>
                                     </DatePicker>
                                     <Label x:Name="FlightNumberLbl" Text="Flight Number" TextColor="Black" Grid.Row="2" Grid.ColumnSpan="2" FontSize="Micro"/>
-                                    <Entry x:Name="FlightNumberEntry"  Text="{Binding FlightNumber, Mode=TwoWay}" TextColor="#03A9F4" Grid.Row="3" Grid.ColumnSpan="2"/>
+                                    <Picker x:Name="FlightNumberPicker" SelectedItem="{Binding FlightNumber,Mode=TwoWay}" SelectedIndexChanged="FlightNumberPicker_SelectedIndexChanged"
+                                    TextColor="#03A9F4" Grid.Row="3"  Grid.ColumnSpan="2" HorizontalOptions="FillAndExpand">
+                                    </Picker>
+
                                     <Label x:Name="AircraftRegistrationlbl" Text="Aircraft Registration" TextColor="Black" Grid.Row="4" Grid.ColumnSpan="2" FontSize="Micro"/>
-                                    <Picker x:Name="AircraftRegistrationpicker" SelectedIndex="{Binding AircraftRegistration,Mode=TwoWay}" SelectedIndexChanged="AircraftRegistration_changed"
+                                    <Picker x:Name="AircraftRegistrationpicker" SelectedItem="{Binding AircraftRegistration,Mode=TwoWay}" 
                                     TextColor="#03A9F4" Grid.Row="5" Grid.ColumnSpan="2" HorizontalOptions="FillAndExpand">
-                                        <Picker.Items>
-                                            <x:String></x:String>
-                                            <x:String>HS-XBA</x:String>
-                                            <x:String>HS-XBB</x:String>
-                                            <x:String>HS-XBC</x:String>
-                                            <x:String>B-777</x:String>
-                                            <x:String>B-737</x:String>
-                                        </Picker.Items>
                                     </Picker>
                                     <Label x:Name="DepartureStationLbl" Text="Departure Station" TextColor="Black" Grid.Row="6" Grid.ColumnSpan="2" FontSize="Micro" />
-                                    <Entry x:Name="DepartureStationEntry"  Text="{Binding DepartureStation, Mode=TwoWay}" TextColor="#03A9F4" Grid.Row="7" Grid.ColumnSpan="2" />
+                                    <Entry x:Name="DepartureStationEntry" IsEnabled="False" Text="{Binding DepartureStation, Mode=TwoWay}" TextColor="#03A9F4" Grid.Row="7" Grid.ColumnSpan="2" />
                                     <Label x:Name="ArrivalStationLbl" Text="Arrival Station" TextColor="Black" Grid.Row="8" Grid.ColumnSpan="2" FontSize="Micro"/>
-                                    <Entry x:Name="ArrivalStationEntry"  Text="{Binding ArrivalStation, Mode=TwoWay}" TextColor="#03A9F4" Grid.Row="9" Grid.ColumnSpan="2" />
+                                    <Entry x:Name="ArrivalStationEntry" IsEnabled="False" Text="{Binding ArrivalStation, Mode=TwoWay}" TextColor="#03A9F4" Grid.Row="9" Grid.ColumnSpan="2" />
                                     <Label x:Name="LandingByLbl" Text="Landing By" TextColor="Black" Grid.Row="10" Grid.ColumnSpan="2" FontSize="Micro"/>
                                     <Entry x:Name="LandingByEntry"  Text="{Binding LandingBy, Mode=TwoWay}" TextColor="#03A9F4" Grid.Row="11" Grid.ColumnSpan="2" />
                                     <Label x:Name="ManualorAutolbl" Text="Manual or Auto" TextColor="Black" Grid.Row="12" Grid.ColumnSpan="2" FontSize="Micro"/>

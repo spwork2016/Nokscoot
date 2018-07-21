@@ -102,6 +102,7 @@
     <Compile Include="Models\GroundSafetyReport.cs" />
     <Compile Include="Models\InjuryIllnessReport.cs" />
     <Compile Include="Models\KaizenReportModel.cs" />
+    <Compile Include="Models\OperatingPlan.cs" />
     <Compile Include="Models\PeoplePicker.cs" />
     <Compile Include="Models\SafetyReportModel.cs" />
     <Compile Include="Models\SecurityModel.cs" />

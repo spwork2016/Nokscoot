@@ -138,7 +138,7 @@
                         <RowDefinition Height="*" />
 
                         <RowDefinition Height="30" />
-                        <RowDefinition Height="30" />
+                        <RowDefinition Height="40" />
 
                         <RowDefinition Height="14" />
                         <RowDefinition Height="*" />
@@ -361,46 +361,44 @@
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="14" />
-                        <RowDefinition Height="*" />
+                        <RowDefinition Height="30" />
 
                         <RowDefinition Height="14" />
-                        <RowDefinition Height="*" />
+                        <RowDefinition Height="30" />
 
                         <RowDefinition Height="14" />
-                        <RowDefinition Height="*" />
+                        <RowDefinition Height="30" />
 
-                        <RowDefinition Height="14" />
-                        <RowDefinition Height="*" />
+                        <RowDefinition Height="*" /> <!--6-->
 
                         <RowDefinition Height="30" />
                         <RowDefinition Height="30" />
 
                         <RowDefinition Height="14" />
+                        <RowDefinition Height="30" />
+
+                        <RowDefinition Height="14" /> <!--11--> 
+                        <RowDefinition Height="30" />
+
+                        <RowDefinition Height="14" /> <!--13-->
+                        <RowDefinition Height="30" />
+
                         <RowDefinition Height="*" />
 
-                        <RowDefinition Height="14" />
-                        <RowDefinition Height="*" />
+                        <RowDefinition Height="14" /> <!--16-->
+                        <RowDefinition Height="30" />
 
                         <RowDefinition Height="14" />
-                        <RowDefinition Height="*" />
+                        <RowDefinition Height="30" />
 
                         <RowDefinition Height="14" />
-                        <RowDefinition Height="*" />
+                        <RowDefinition Height="30" />
 
                         <RowDefinition Height="14" />
-                        <RowDefinition Height="*" />
+                        <RowDefinition Height="30" />
 
                         <RowDefinition Height="14" />
-                        <RowDefinition Height="*" />
-
-                        <RowDefinition Height="14" />
-                        <RowDefinition Height="*" />
-
-                        <RowDefinition Height="14" />
-                        <RowDefinition Height="*" />
-
-                        <RowDefinition Height="14" />
-                        <RowDefinition Height="*" />
+                        <RowDefinition Height="30" />
 
                     </Grid.RowDefinitions>
                     <Grid.ColumnDefinitions>
@@ -408,34 +406,73 @@
                         <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
                     <Label x:Name="ClearedAltitudeLbl" Text="Cleared Altitude" FontSize="Micro" TextColor="Black" Grid.Row="0" Grid.ColumnSpan="2" />
-                    <Entry x:Name="ClearedAltitudeEntry"  Text="{Binding ClearedAltitude , Mode=TwoWay}" Placeholder="Cleared Altitude" PlaceholderColor="#F1F1F1" Grid.ColumnSpan="2" TextColor="#03A9F4" Grid.Row="1" />
+                    <Entry x:Name="ClearedAltitudeEntry"  Text="{Binding ClearedAltitude , Mode=TwoWay}" Placeholder="Cleared Altitude" PlaceholderColor="#F1F1F1"
+                           Grid.ColumnSpan="2" TextColor="#03A9F4" Grid.Row="1" />
                     <Label x:Name="DeviationHorizontalLbl" Text="Deviation Horizontal (NM)" FontSize="Micro" TextColor="Black" Grid.Row="2" Grid.ColumnSpan="2" />
-                    <Entry x:Name="DeviationHorizontalEntry"  Text="{Binding DeviationHorizontal, Mode=TwoWay}" Placeholder="Deviation Horizontal (NM)" PlaceholderColor="#F1F1F1" TextColor="#03A9F4" Grid.ColumnSpan="2" Grid.Row="3"/>
+                    <Entry x:Name="DeviationHorizontalEntry"  Text="{Binding DeviationHorizontal, Mode=TwoWay}" Placeholder="Deviation Horizontal (NM)"
+                           PlaceholderColor="#F1F1F1" TextColor="#03A9F4" Grid.ColumnSpan="2" Grid.Row="3"/>
                     <Label x:Name="VerticalLbl" Text="Vertical (FT)" TextColor="Black" Grid.Row="4" FontSize="Micro" Grid.ColumnSpan="2" />
                     <Entry x:Name="VerticalEntry" Text="{Binding Vertical, Mode=TwoWay}" Placeholder="Vertical (FT)" PlaceholderColor="#F1F1F1" TextColor="#03A9F4" Grid.Row="5" Grid.ColumnSpan="2"/>
-                    <Label FontSize="Micro" x:Name="ReasonforDeviationLbl" Text="Reason for Deviation" TextColor="Black" Grid.Row="6" Grid.Column="0" />
-                    <Button x:Name="ReasonforDeviationbtn" Text="Choose" HorizontalOptions="EndAndExpand" Clicked="reasondeviamulti_clicked" TextColor="#03A9F4" Grid.Row="6" Grid.Column="1" />
-                    <Entry IsEnabled="False" x:Name="ReasonforDeviationEntry"   Text="{Binding ReasonforDeviation, Mode=TwoWay}" TextColor="Black" Grid.Row="7" Grid.ColumnSpan="2" />
-                    <Label FontSize="Micro" x:Name="TAAlertLbl" Text="TA Alert" TextColor="Black" Grid.Row="8" Grid.Column="0" />
-                    <Switch x:Name="TAAlertchkbx"  IsToggled="{Binding TAAlert, Mode=TwoWay}" HorizontalOptions="EndAndExpand" Grid.Row="8" Grid.Column="1" />
-                    <Label FontSize="Micro" x:Name="RAAlertLbl" Text="RA Alert" TextColor="Black" Grid.Row="9" Grid.Column="0" />
-                    <Switch x:Name="RAAlertchkbx"  IsToggled="{Binding RAAlert, Mode=TwoWay}"  HorizontalOptions="EndAndExpand" Grid.Row="9" Grid.Column="1" />
-                    <Label FontSize="Micro" x:Name="RACommandLbl" Text="RA Command" TextColor="Black" Grid.Row="10" Grid.ColumnSpan="2" />
-                    <Entry x:Name="RACommandEntry" Text="{Binding RACommand, Mode=TwoWay}"  Placeholder="RA Command" PlaceholderColor="#F1F1F1" TextColor="#03A9F4" Grid.Row="11" Grid.ColumnSpan="2"/>
-                    <Label FontSize="Micro" x:Name="IntruderTypeLbl" Text="Intruder A/C Type" TextColor="Black" Grid.Row="12" Grid.ColumnSpan="2"/>
-                    <Entry x:Name="IntruderTypeEntry"   Text="{Binding IntruderACType, Mode=TwoWay}" Placeholder="Intruder A/C Type" PlaceholderColor="#F1F1F1"  TextColor="#03A9F4" Grid.Row="13" Grid.ColumnSpan="2"/>
-                    <Label FontSize="Micro" x:Name="CallsignLbl" Text="Call sign" TextColor="Black" Grid.Row="14" Grid.ColumnSpan="2"/>
-                    <Entry x:Name="CallsignEntry"  Text="{Binding Callsign, Mode=TwoWay}" Placeholder="Call sign" PlaceholderColor="#F1F1F1" TextColor="#03A9F4" Grid.Row="15" Grid.ColumnSpan="2" />
-                    <Label FontSize="Micro" x:Name="RelativepositionLbl" Text="Relative position" TextColor="Black" Grid.Row="16" Grid.Column="0" />
-                    <Button x:Name="relativemultibutton" Text="Choose" HorizontalOptions="EndAndExpand" Clicked="RealtivePosimulti_clicked"  TextColor="#03A9F4" Grid.Row="16" Grid.Column="1" />
-                    <Entry IsEnabled="False" x:Name="RelativepositionEntry"   Text="{Binding Relativeposition, Mode=TwoWay}" TextColor="#03A9F4" Grid.Row="17" Grid.ColumnSpan="2" />
-                    <Label FontSize="Micro" x:Name="BearingLbl" Text="Bearing" TextColor="Black" Grid.Row="18" Grid.ColumnSpan="2" />
-                    <Entry x:Name="BearingEntry"  Text="{Binding  Bearing, Mode=TwoWay}"  Placeholder="Bearing" PlaceholderColor="#F1F1F1" TextColor="#03A9F4" Grid.Row="19" Grid.ColumnSpan="2" />
-                    <Label FontSize="Micro" x:Name="RangeLbl" Text="Range" TextColor="Black" Grid.Row="20" />
-                    <Entry x:Name="RangeEntry"   Text="{Binding Range, Mode=TwoWay}" Placeholder="Range" PlaceholderColor="#F1F1F1" TextColor="#03A9F4" Grid.Row="21" Grid.ColumnSpan="2" />
-                    <Label FontSize="Micro" x:Name="ATCorAirportReportFiledlbl" Text="ATC or Airport Report Filed?" TextColor="Black" Grid.Row="22" Grid.ColumnSpan="2"/>
+
+                    <StackLayout Padding="0" Grid.Row="6" Grid.ColumnSpan="2" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="10" />
+                                <RowDefinition Height="14" />
+                                <RowDefinition Height="*" />
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <Label FontSize="Micro" VerticalOptions="End" x:Name="ReasonforDeviationLbl" Text="Reason for Deviation" TextColor="Black" Grid.Row="1" Grid.Column="0" />
+                            <Button x:Name="ReasonforDeviationbtn" Text="Choose" HorizontalOptions="EndAndExpand" Clicked="reasondeviamulti_clicked" TextColor="#03A9F4" Grid.Row="1" Grid.Column="1" />
+                            <Entry IsEnabled="False" x:Name="ReasonforDeviationEntry" Text="{Binding ReasonforDeviation, Mode=TwoWay}" TextColor="Black" Grid.Row="2" Grid.ColumnSpan="2" />
+                        </Grid>
+                    </StackLayout>
+
+                    <Label FontSize="Micro" x:Name="TAAlertLbl" Text="TA Alert" TextColor="Black" Grid.Row="7" Grid.Column="0" />
+                    <Switch x:Name="TAAlertchkbx"  IsToggled="{Binding TAAlert, Mode=TwoWay}" HorizontalOptions="EndAndExpand" Grid.Row="7" Grid.Column="1" />
+                    
+                    <Label FontSize="Micro" x:Name="RAAlertLbl" Text="RA Alert" TextColor="Black" Grid.Row="8" Grid.Column="0" />
+                    <Switch x:Name="RAAlertchkbx"  IsToggled="{Binding RAAlert, Mode=TwoWay}"  HorizontalOptions="EndAndExpand" Grid.Row="8" Grid.Column="1" />
+
+                    <Label FontSize="Micro" x:Name="RACommandLbl" Text="RA Command" TextColor="Black" Grid.Row="9" Grid.ColumnSpan="2" />
+                    <Entry x:Name="RACommandEntry" Text="{Binding RACommand, Mode=TwoWay}"  Placeholder="RA Command" PlaceholderColor="#F1F1F1" TextColor="#03A9F4" Grid.Row="10" Grid.ColumnSpan="2"/>
+                    
+                    <Label FontSize="Micro" x:Name="IntruderTypeLbl" Text="Intruder A/C Type" TextColor="Black" Grid.Row="11" Grid.ColumnSpan="2"/>
+                    <Entry x:Name="IntruderTypeEntry"   Text="{Binding IntruderACType, Mode=TwoWay}" Placeholder="Intruder A/C Type" PlaceholderColor="#F1F1F1"  TextColor="#03A9F4" Grid.Row="12" Grid.ColumnSpan="2"/>
+                   
+                    <Label FontSize="Micro" x:Name="CallsignLbl" Text="Call sign if intruder" TextColor="Black" Grid.Row="13" Grid.ColumnSpan="2"/>
+                    <Entry x:Name="CallsignEntry"  Text="{Binding Callsign, Mode=TwoWay}" Placeholder="Call sign" PlaceholderColor="#F1F1F1" TextColor="#03A9F4" Grid.Row="14" Grid.ColumnSpan="2" />
+
+                    <StackLayout Padding="0" Grid.Row="15" Grid.ColumnSpan="2" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="10" />
+                                <RowDefinition Height="14" />
+                                <RowDefinition Height="*" />
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+
+                            <Label FontSize="Micro" x:Name="RelativepositionLbl" Text="Relative position" TextColor="Black" Grid.Row="1" Grid.Column="0" />
+                            <Button x:Name="relativemultibutton" VerticalOptions="End" Text="Choose" HorizontalOptions="EndAndExpand" Clicked="RealtivePosimulti_clicked"  TextColor="#03A9F4" Grid.Row="1" Grid.Column="1" />
+                            <Entry IsEnabled="False" x:Name="RelativepositionEntry"  Text="{Binding Relativeposition, Mode=TwoWay}" TextColor="#03A9F4" Grid.Row="2" Grid.ColumnSpan="2" />
+                        </Grid>
+                    </StackLayout>
+
+                    <Label FontSize="Micro" x:Name="BearingLbl" Text="Bearing" TextColor="Black" Grid.Row="16" Grid.ColumnSpan="2" />
+                    <Entry x:Name="BearingEntry"  Text="{Binding  Bearing, Mode=TwoWay}"  Placeholder="Bearing" PlaceholderColor="#F1F1F1" TextColor="#03A9F4" Grid.Row="17" Grid.ColumnSpan="2" />
+                    
+                    <Label FontSize="Micro" x:Name="RangeLbl" Text="Range" TextColor="Black" Grid.Row="18" />
+                    <Entry x:Name="RangeEntry"   Text="{Binding Range, Mode=TwoWay}" Placeholder="Range" PlaceholderColor="#F1F1F1" TextColor="#03A9F4" Grid.Row="19" Grid.ColumnSpan="2" />
+                   
+                    <Label FontSize="Micro" x:Name="ATCorAirportReportFiledlbl" Text="ATC or Airport Report Filed?" TextColor="Black" Grid.Row="20" Grid.ColumnSpan="2"/>
                     <Picker x:Name="ATCorAirportReportFiledpicker" SelectedIndex="{Binding ATC,Mode=TwoWay}" 
-                            SelectedIndexChanged="ATCorAirportReportFiledpicker_changed" TextColor="#03A9F4" Grid.Row="23" Grid.ColumnSpan="2" HorizontalOptions="FillAndExpand">
+                            SelectedIndexChanged="ATCorAirportReportFiledpicker_changed" TextColor="#03A9F4" Grid.Row="21" Grid.ColumnSpan="2" HorizontalOptions="FillAndExpand">
                         <Picker.Items>
                             <x:String></x:String>
                             <x:String>Yes</x:String>
@@ -443,10 +480,12 @@
                             <x:String>N/A</x:String>
                         </Picker.Items>
                     </Picker>
-                    <Label FontSize="Micro" x:Name="ATCUnitLbl" Text="ATC Unit" TextColor="Black" Grid.Row="24" Grid.ColumnSpan="2"/>
-                    <Entry x:Name="ATCUnitEntry"   Text="{Binding ATCUnit, Mode=TwoWay}" Placeholder="ATC Unit" PlaceholderColor="#F1F1F1" TextColor="Black" Grid.Row="25" Grid.ColumnSpan="2" />
-                    <Label FontSize="Micro" x:Name="FrequencyLbl" Text="Frequency" TextColor="Black" Grid.Row="26" />
-                    <Entry x:Name="FrequencyEntry"   Text="{Binding Frequency, Mode=TwoWay}" Placeholder="Frequency" PlaceholderColor="#F1F1F1" TextColor="#03A9F4" Grid.ColumnSpan="2" Grid.Row="27" />
+                   
+                    <Label FontSize="Micro" x:Name="ATCUnitLbl" Text="ATC Unit" TextColor="Black" Grid.Row="22" Grid.ColumnSpan="2"/>
+                    <Entry x:Name="ATCUnitEntry"   Text="{Binding ATCUnit, Mode=TwoWay}" Placeholder="ATC Unit" PlaceholderColor="#F1F1F1" TextColor="Black" Grid.Row="23" Grid.ColumnSpan="2" />
+                   
+                    <Label FontSize="Micro" x:Name="FrequencyLbl" Text="Frequency" TextColor="Black" Grid.Row="24" />
+                    <Entry x:Name="FrequencyEntry"   Text="{Binding Frequency, Mode=TwoWay}" Placeholder="Frequency" PlaceholderColor="#F1F1F1" TextColor="#03A9F4" Grid.ColumnSpan="2" Grid.Row="25" />
                 </Grid>
             </StackLayout>
 

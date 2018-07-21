@@ -137,6 +137,8 @@ namespace DevEnvAzure
                     }
                 }
 
+                ToggleBusy(false);
+
                 if (filesSent == attachments.Count)
                 {
                     await DisplayAlert("Success", "Item created successfully", "Ok");

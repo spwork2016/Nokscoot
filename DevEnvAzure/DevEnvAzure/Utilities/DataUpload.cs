@@ -53,7 +53,7 @@ namespace DevEnvAzure
                             continue;
                         }
 
-                        if (!string.IsNullOrEmpty(oItem.Error)) continue;
+                        if (oItem.InProgress) continue;
 
                         var contents = new StringContent(oItem.Value);
                         oItem.InProgress = true;
@@ -120,6 +120,8 @@ namespace DevEnvAzure
                         RefreshofflineItem(oItem);
                     }
                 }
+
+                MessagingCenter.Send(App.offlineItems, REFRESH_OFFLINE_ITEMS);
 
                 return count;
             }

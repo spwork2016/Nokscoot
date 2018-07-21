@@ -58,7 +58,9 @@
                                         <DatePicker.Format>MM/dd/yyyy</DatePicker.Format>
                                     </DatePicker>
                                     <Label x:Name="FlightNumber" Text="Flight Number" FontSize="Micro" TextColor="Black" Grid.Row="6"  />
-                                    <Entry x:Name="FlnumEntry" Placeholder="Flight Number" PlaceholderColor="#F1F1F1" Text="{Binding FlightNumber, Mode=TwoWay}" TextColor="#03A9F4" Grid.Row="7" />
+                                    <Picker x:Name="FlightNumberPicker" SelectedItem="{Binding FlightNumber,Mode=TwoWay}" SelectedIndexChanged="FlightNumberPicker_SelectedIndexChanged"
+                                    TextColor="#03A9F4" Grid.Row="7" HorizontalOptions="FillAndExpand">
+                                    </Picker>
                                     <Label x:Name="AirCraftReg" Text="Aircraft Registration" FontSize="Micro" TextColor="Black" Grid.Row="8" />
                                     <Picker x:Name="FlightPhasepicker" SelectedIndexChanged="aircraftRegis_Changed" SelectedIndex="{Binding AircraftRegis,Mode=TwoWay}"
                                     TextColor="#03A9F4" Grid.Row="9" HorizontalOptions="FillAndExpand">
@@ -75,9 +77,9 @@
                                     </Picker>
 
                                     <Label x:Name="DepartStn" Text="Departure Station" FontSize="Micro" TextColor="Black" Grid.Row="10" />
-                                    <Entry x:Name="DepartStnEntry"  Placeholder="Departure Station" PlaceholderColor="#F1F1F1" Text="{Binding DepartureStation, Mode=TwoWay}" TextColor="#03A9F4" Grid.Row="11" />
+                                    <Entry x:Name="DepartStnEntry" IsEnabled="False" Placeholder="Departure Station" PlaceholderColor="#F1F1F1" Text="{Binding DepartureStation, Mode=TwoWay}" TextColor="#03A9F4" Grid.Row="11" />
                                     <Label x:Name="ArrivStn" Text="Arrival Station" Grid.Row="12" TextColor="Black" FontSize="Micro" />
-                                    <Entry x:Name="ArrivStnEntry" Placeholder="Arrival Station" PlaceholderColor="#F1F1F1" Text="{Binding ArrivalStation, Mode=TwoWay}" TextColor="#03A9F4" Grid.Row="13" />
+                                    <Entry x:Name="ArrivStnEntry" IsEnabled="False" Placeholder="Arrival Station" PlaceholderColor="#F1F1F1" Text="{Binding ArrivalStation, Mode=TwoWay}" TextColor="#03A9F4" Grid.Row="13" />
 
                                     <Label x:Name="DivertStation" Text="Divert Station" Grid.Row="14" TextColor="Black" FontSize="Micro" />
                                     <Entry x:Name="DivertStEntry" Placeholder="Divert Station" PlaceholderColor="#F1F1F1" Text="{Binding DivertStation, Mode=TwoWay}" TextColor="#03A9F4" Grid.Row="15" />
@@ -105,11 +107,10 @@
                                     <BoxView Color="#FDCE02" HorizontalOptions="FillAndExpand" Grid.Row="1" HeightRequest="1"/>
 
                                     <Label x:Name="EvntHazrd" Text="Describe what happened" TextColor="Black" FontSize="Micro" Grid.Row="2" />
-                                    <Entry x:Name="EvntHazrdentry" Placeholder="Describe what happened" PlaceholderColor="#F1F1F1" Text="{Binding DescribeEvent, Mode=TwoWay}" TextColor="#03A9F4" 
-                                   Grid.Row="3" />
-                                    <!--<Label x:Name="eventAttachlbl" Text="Attach any photo or textual references" TextColor="Black" FontSize="Micro" Grid.Row="4" />
-                                    <Entry x:Name="eventAttachEntry" Placeholder="Attach any photo or textual references" PlaceholderColor="#F1F1F1" Focused="MORattach_clicked" Text="{Binding Attachment, Mode=TwoWay}" 
-                                   TextColor="#03A9F4" Grid.Row="5"/>-->
+                                    <Frame HeightRequest="100" Padding="1" BackgroundColor="#DFDFDF" Grid.Row="3" Grid.Column="0" IsClippedToBounds="True">
+                                        <Editor x:Name="EvntHazrdentry"
+                                               Text="{Binding DescribeEvent, Mode=TwoWay}" TextColor="#03A9F4" />
+                                    </Frame>
                                 </Grid>
                             </StackLayout>
                             <StackLayout x:Name="Stacklay3" Orientation="Vertical" VerticalOptions="FillAndExpand" Margin="0,15"  Padding="5,5">

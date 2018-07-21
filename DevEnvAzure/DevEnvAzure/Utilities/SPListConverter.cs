@@ -119,7 +119,6 @@ namespace DevEnvAzure.Model
         public FirstUniqueAncestorSecurableObject FirstUniqueAncestorSecurableObject { get; set; }
         public RoleAssignments RoleAssignments { get; set; }
         public Activities Activities { get; set; }
-        public AttachmentFiles AttachmentFiles { get; set; }
         public ContentType ContentType { get; set; }
         public GetDlpPolicyTip GetDlpPolicyTip { get; set; }
         public FieldValuesAsHtml FieldValuesAsHtml { get; set; }
@@ -165,6 +164,12 @@ namespace DevEnvAzure.Model
         public object UpdateDe { get; set; }
         public object DEPT_x0020_CODE { get; set; }
         public object Change_x0020_Update { get; set; }
+
+        public string Flight_x0020_Number { get; set; }
+        public int Departure_x0020_StationId { get; set; }
+        public int Arrival_x0020_StationId { get; set; }
+        public string IATA_x0020_Code { get; set; }
+        public string Aircraft_x0020_Registration { get; set; }
     }
 
     public class UserProfileProperties
@@ -241,10 +246,11 @@ namespace DevEnvAzure.Model
         public FileNameAsPath FileNameAsPath { get; set; }
         public ServerRelativePath ServerRelativePath { get; set; }
         public string ServerRelativeUrl { get; set; }
+        public string Flight_x0020_Number { get; set; }
 
     }
 
-    public class AttachmentFiles
+    public class LookUp
     {
         public Deferred __deferred { get; set; }
         public List<Value> value { get; set; }

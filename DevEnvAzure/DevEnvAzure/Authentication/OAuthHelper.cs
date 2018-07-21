@@ -109,7 +109,7 @@ namespace DevEnvAzure
                 var client = new HttpClient { BaseAddress = new Uri(aadTenant) };
 
                 // call sync
-                response = client.PostAsync("", content).Result;
+                response = await client.PostAsync("", content);
                 if (response.IsSuccessStatusCode)
                 {
                     string str = await response.Content.ReadAsStringAsync();
@@ -134,7 +134,6 @@ namespace DevEnvAzure
             var eValue = App.DAUtil.GetAll<OfflineItem>("OfflineItem");
             if (eValue != null && eValue.Count > 0)
             {
-                App.offlineItems = new System.Collections.ObjectModel.ObservableCollection<OfflineItem>(eValue);
                 return await DataUpload.CreateItemsOffline(eValue);
             }
 

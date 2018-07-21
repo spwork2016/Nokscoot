@@ -45,6 +45,11 @@ namespace DevEnvAzure
         {
             InitializeComponent();
             attachments.CollectionChanged += Attachments_CollectionChanged;
+
+            var eValue = DAUtil.GetAll<OfflineItem>("OfflineItem");
+            if (eValue != null && eValue.Count > 0)
+                App.offlineItems = new System.Collections.ObjectModel.ObservableCollection<OfflineItem>(eValue);
+
             try
             {
                 if (CrossConnectivity.Current.IsConnected)
@@ -72,11 +77,8 @@ namespace DevEnvAzure
                                 });
                             });
 
-                            await Task.Factory.StartNew(async () =>
-                             {
-                                 await SyncLocalData();
-                             });
-                        });
+                            await SyncLocalData();
+                        }).ConfigureAwait(false);
                     }
                     else
                     {
@@ -228,7 +230,25 @@ namespace DevEnvAzure
         {
             if (e.IsConnected)
             {
-                await OAuthHelper.SyncOfflineItems();
+                var userCredentials = App.DAUtil.GetMasterInfoByName("UserCredentials");
+                if (userCredentials != null)
+                {
+                    var cred = JsonConvert.DeserializeObject<dynamic>(userCredentials.content);
+                    string uName = cred.Username;
+                    string pwd = cred.Password;
+
+                    await OAuthHelper.GetAuthenticationHeader(uName, pwd).ContinueWith(async (x) =>
+                     {
+                         try
+                         {
+                             await OAuthHelper.SyncOfflineItems();
+                         }
+                         catch (Exception ex)
+                         {
+                             ShowError(ex.Message);
+                         }
+                     }).ConfigureAwait(false);
+                }
             }
         }
     }

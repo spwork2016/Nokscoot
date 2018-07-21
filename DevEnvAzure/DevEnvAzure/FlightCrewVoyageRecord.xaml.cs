@@ -30,6 +30,8 @@ namespace DevEnvAzure
         Models.FlightCrewVoyageRecordModel _flightcrew;
         Jsonpropertyinitialise jsonInitObj = new Jsonpropertyinitialise();
         AttachmentView _attachementView;
+        public List<OperatingPlan> OperatingPlans { get; private set; }
+
         public FlightCrewVoyageRecord(object viewObject, string modelname)
         {
             try
@@ -38,6 +40,9 @@ namespace DevEnvAzure
                 _flightcrew = (FlightCrewVoyageRecordModel)viewObject;
                 _flightcrew.ScheduledDeparture = DateTime.Now;
                 this.BindingContext = _flightcrew;
+
+                BindFlightNumbers();
+                BindAricraftRegs();
 
                 ReportRaisedByEntry.DataSource = App.peoplePickerDataSource;
                 if (!string.IsNullOrEmpty(_flightcrew.ReportRaisedBy))
@@ -77,6 +82,22 @@ namespace DevEnvAzure
             }
         }
 
+        protected async void BindFlightNumbers()
+        {
+            OperatingPlans = await SPUtility.GetOperatingPlans();
+            string selected = _flightcrew != null ? _flightcrew.FlightNumber : null;
+            FlightNumberPicker.ItemsSource = OperatingPlans.Select(x => x.FlighNumber).ToArray();
+            FlightNumberPicker.SelectedItem = selected;
+        }
+
+        protected async void BindAricraftRegs()
+        {
+            var regs = await SPUtility.GetAirCraftRegistrations();
+            string selected = _flightcrew != null ? _flightcrew.AircraftRegistration : null;
+
+            AircraftRegistrationpicker.ItemsSource = regs;
+            AircraftRegistrationpicker.SelectedItem = selected;
+        }
 
         private bool ValidatePeoplePickers()
         {
@@ -134,11 +155,7 @@ namespace DevEnvAzure
             if (SectorNumberpicker.SelectedIndex > 0)
                 SectorNumberpickerValue = SectorNumberpicker.Items.ElementAt(SectorNumberpicker.SelectedIndex);
         }
-        private void AircraftRegistration_changed(object sender, EventArgs e)
-        {
-            if (AircraftRegistrationpicker.SelectedIndex > 0)
-                AircraftRegistrationpickerValue = AircraftRegistrationpicker.Items.ElementAt(AircraftRegistrationpicker.SelectedIndex);
-        }
+
         private void ManualorAuto_changed(object sender, EventArgs e)
         {
             if (ManualorAutopicker.SelectedIndex > 0)
@@ -194,7 +211,6 @@ namespace DevEnvAzure
                 contents.Headers.ContentType = MediaTypeHeaderValue.Parse("application/json;odata=verbose");
                 if (CheckConnection())
                 {
-
                     Device.BeginInvokeOnMainThread(async () =>
                     {
                         string url = SPUtility.GetListURL(ReportType.FlighCrewVoyage);
@@ -301,11 +317,30 @@ namespace DevEnvAzure
             string selectedOption = await DisplayActionSheet("Attachment", "Cancel", null, ClientConfiguration.Default.AttachmentOptions);
             try
             {
-                _attachementView.AskForAttachment(selectedOption);
+                await _attachementView.AskForAttachment(selectedOption);
             }
             catch (Exception ex)
             {
                 await DisplayAlert("Error", ex.Message, "Ok");
+            }
+        }
+
+        private void FlightNumberPicker_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            string selectedItem = Convert.ToString(FlightNumberPicker.SelectedItem);
+            if (string.IsNullOrEmpty(selectedItem)) return;
+
+            var selectedOperatingPlan = OperatingPlans.Find(x => x.FlighNumber == selectedItem);
+
+            if (selectedOperatingPlan != null && _flightcrew != null)
+            {
+                string dep = selectedOperatingPlan.DepartureStation;
+                DepartureStationEntry.Text = dep;
+                _flightcrew.DepartureStation = dep;
+
+                string arv = selectedOperatingPlan.ArrivalStation;
+                ArrivalStationEntry.Text = arv;
+                _flightcrew.ArrivalStation = arv;
             }
         }
     }

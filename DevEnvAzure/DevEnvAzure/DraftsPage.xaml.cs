@@ -28,25 +28,27 @@ namespace DevEnvAzure
         {
             InitializeComponent();
             BindingContext = this;
+
+            App.offlineItems.CollectionChanged += OfflineItems_CollectionChanged;
         }
 
         private void OfflineItems_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
         {
-            load_saveddrafts();
+            Device.BeginInvokeOnMainThread(() =>
+            {
+                load_saveddrafts();
+            });
         }
 
         protected override async void OnAppearing()
         {
             base.OnAppearing();
             load_saveddrafts();
-
-            App.offlineItems.CollectionChanged += OfflineItems_CollectionChanged;
         }
 
         protected override void OnDisappearing()
         {
             base.OnDisappearing();
-            App.offlineItems.CollectionChanged -= OfflineItems_CollectionChanged;
         }
 
         private void ToggleBusy(bool flag)
@@ -123,7 +125,10 @@ namespace DevEnvAzure
             }
             catch (Exception ex)
             {
-
+                Device.BeginInvokeOnMainThread(() =>
+                {
+                    DependencyService.Get<IMessage>().ShortAlert(string.Format("Error: {0}", ex.Message));
+                });
             }
         }
 

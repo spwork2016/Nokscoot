@@ -97,16 +97,19 @@
                         <RowDefinition Height="*" />
                         <RowDefinition Height="*" />
                         <RowDefinition Height="*" />
-                        <RowDefinition Height="*" />
-                    </Grid.RowDefinitions>
+                            <RowDefinition Height="*" />
+                        </Grid.RowDefinitions>
 
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*" />
                         <ColumnDefinition Width="*" />
-
                     </Grid.ColumnDefinitions>
+
                     <Label x:Name="EvntHazrd" Text="Describe Event or Hazard" TextColor="#E65100" Grid.Row="0" Grid.Column="0" />
-                    <Entry x:Name="EvntHazrdentry"  Text="" TextColor="#0D47A1" Grid.Row="0" Grid.Column="1" />
+                    <Frame HeightRequest="100" Padding="1" BackgroundColor="#DFDFDF" Grid.Row="0" Grid.Column="1" IsClippedToBounds="True">
+                        <Editor x:Name="EvntHazrdentry" TextColor="#0D47A1" />
+                    </Frame>
+                    
                     <Label x:Name="comdPM" Text="Commander PF or PM" TextColor="#E65100" Grid.Row="1" Grid.Column="0" />
                     <Entry x:Name="comdPMEntry"  Text="" TextColor="#0D47A1" Grid.Row="1" Grid.Column="1" />
                 </Grid>

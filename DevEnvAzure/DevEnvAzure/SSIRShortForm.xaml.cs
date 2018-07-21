@@ -14,6 +14,7 @@ using Xamarin.Forms.Xaml;
 using DevEnvAzure.Utilities;
 using Xamarin.Forms.Internals;
 using System.IO;
+using System.Collections.Generic;
 
 namespace DevEnvAzure
 {
@@ -26,6 +27,7 @@ namespace DevEnvAzure
         public static int MORTypeID;
         Jsonpropertyinitialise jsonInitObj = new Jsonpropertyinitialise();
         AttachmentView _attachementView;
+        List<OperatingPlan> OperatingPlans = null;
         public SSIRShortForm(object viewObject, string modelname)
         {
             try
@@ -37,6 +39,8 @@ namespace DevEnvAzure
 
                 _attachementView = new AttachmentView();
                 stkAttachment.Children.Add(_attachementView);
+
+                BindFlightNumbers();
 
                 BindMORPicker();
                 SetSubmitterInfo(viewObject);
@@ -500,6 +504,23 @@ namespace DevEnvAzure
             }
         }
 
+        protected async void BindFlightNumbers()
+        {
+            OperatingPlans = await SPUtility.GetOperatingPlans();
+            string selectedItem = "";
+            if (_viewobject != null)
+            {
+                System.Reflection.PropertyInfo pi = _viewobject.GetType().GetProperty("FlightNumber");
+                if (pi != null)
+                {
+                    selectedItem = Convert.ToString(pi.GetValue(_viewobject));
+                }
+            }
+
+            FlightNumberPicker.ItemsSource = OperatingPlans.Select(x => x.FlighNumber).ToArray();
+            FlightNumberPicker.SelectedItem = selectedItem;
+        }
+
         protected async void BindMORPicker()
         {
             if (!CrossConnectivity.Current.IsConnected)
@@ -654,6 +675,33 @@ namespace DevEnvAzure
             catch (Exception ex)
             {
                 await DisplayAlert("Error", ex.Message, "Ok");
+            }
+        }
+
+        private void FlightNumberPicker_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            string selectedItem = Convert.ToString(FlightNumberPicker.SelectedItem);
+            if (string.IsNullOrEmpty(selectedItem)) return;
+
+            var selectedOperatingPlan = OperatingPlans.Find(x => x.FlighNumber == selectedItem);
+
+            if (selectedOperatingPlan != null && _viewobject != null)
+            {
+                System.Reflection.PropertyInfo ds = _viewobject.GetType().GetProperty("DepartureStation");
+                if (ds != null)
+                {
+                    string dep = selectedOperatingPlan.DepartureStation;
+                    ds.SetValue(_viewobject, dep);
+                    DepartStnEntry.Text = dep;
+                }
+
+                System.Reflection.PropertyInfo ars = _viewobject.GetType().GetProperty("ArrivalStation");
+                if (ars != null)
+                {
+                    string arv = selectedOperatingPlan.ArrivalStation;
+                    ars.SetValue(_viewobject, arv);
+                    ArrivStnEntry.Text = arv;
+                }
             }
         }
     }

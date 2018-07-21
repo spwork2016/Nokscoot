@@ -10,10 +10,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Net.Http;
-using System.Threading;
 using System.Threading.Tasks;
-using Xamarin.Forms;
 
 namespace DevEnvAzure
 {
@@ -21,6 +18,7 @@ namespace DevEnvAzure
     {
         public const string SEPARATOR = "|<>|";
         public const string ATTACHMENT_FILES_NOT_FOUND = "Some of the attachments were not available. Please re-check the attachments";
+        public const string REFRESH_OFFLINE_ITEMS = "REFRESH_OFFLINE_ITEMS";
         public enum ReportType
         {
             Fatigue = 1,
@@ -36,6 +34,8 @@ namespace DevEnvAzure
             DelayOccurance = 11,
             DelayHandling = 12,
             MORType = 13,
+            OperationPlan = 14,
+            AircraftRegistration = 15,
             none = -1
         }
 
@@ -72,6 +72,12 @@ namespace DevEnvAzure
                     break;
                 case ReportType.FlighCrewVoyage:
                     url = ClientConfiguration.Default.ActiveDirectoryResource + "SSQServices/_api/web/lists/GetByTitle('Flight Crew Voyage Record')/items";
+                    break;
+                case ReportType.OperationPlan:
+                    url = ClientConfiguration.Default.ActiveDirectoryResource + "SSQServices/_api/web/lists/GetByTitle('NokScoot Operating Plan')/items";
+                    break;
+                case ReportType.AircraftRegistration:
+                    url = ClientConfiguration.Default.ActiveDirectoryResource + "SSQServices/_api/web/lists/GetByTitle('Aicraft Fleet Information')/items";
                     break;
                 case ReportType.none:
                     url = ClientConfiguration.Default.ActiveDirectoryResource + "SSQServices/_api/web/lists/GetByTitle('Operational_Hazard_Event_Register')/items";
@@ -272,8 +278,119 @@ namespace DevEnvAzure
             var response = await client.GetStringAsync($"{itemUrl}/AttachmentFiles");
             if (response != null)
             {
-                var files = JsonConvert.DeserializeObject<AttachmentFiles>(response);
+                var files = JsonConvert.DeserializeObject<LookUp>(response);
                 return files.value;
+            }
+
+            return null;
+        }
+
+        public static async Task<string[]> GetAirCraftRegistrations()
+        {
+            MasterInfo mInfo = null;
+            if (!CrossConnectivity.Current.IsConnected)
+            {
+                mInfo = App.DAUtil.GetMasterInfoByName("AircraftRegistrations");
+            }
+            else
+            {
+                try
+                {
+                    var client = await OAuthHelper.GetHTTPClient();
+                    var response = await client.GetStringAsync(GetListURL(ReportType.AircraftRegistration));
+                    if (response != null)
+                    {
+                        mInfo = new MasterInfo { Name = "AircraftRegistrations", content = response };
+                        App.DAUtil.RefreshMasterInfo(mInfo);
+                    }
+                }
+                catch (Exception)
+                {
+                    mInfo = App.DAUtil.GetMasterInfoByName("AircraftRegistrations");
+                }
+            }
+
+            if (mInfo != null)
+            {
+                var stations = JsonConvert.DeserializeObject<SPData>(mInfo.content);
+                return stations.d.results.Select(x => x.Aircraft_x0020_Registration).ToArray();
+            }
+
+            return null;
+        }
+
+        public static async Task<Dictionary<int, string>> GetStations()
+        {
+            MasterInfo mInfo = null;
+            if (!CrossConnectivity.Current.IsConnected)
+            {
+                mInfo = App.DAUtil.GetMasterInfoByName("Stations");
+            }
+            else
+            {
+                try
+                {
+                    var client = await OAuthHelper.GetHTTPClient();
+                    var response = await client.GetStringAsync(GetListURL(ReportType.SationInfo));
+                    if (response != null)
+                    {
+                        mInfo = new MasterInfo { Name = "Stations", content = response };
+                        App.DAUtil.RefreshMasterInfo(mInfo);
+                    }
+                }
+                catch (Exception)
+                {
+                    mInfo = App.DAUtil.GetMasterInfoByName("Stations");
+                }
+            }
+
+            if (mInfo != null)
+            {
+                var stations = JsonConvert.DeserializeObject<SPData>(mInfo.content);
+                return stations.d.results.Select(x => new { Key = x.Id, Value = x.IATA_x0020_Code }).ToDictionary(v => v.Key, v => v.Value);
+            }
+
+            return null;
+        }
+
+        public static async Task<List<OperatingPlan>> GetOperatingPlans()
+        {
+            MasterInfo mInfo = null;
+            if (!CrossConnectivity.Current.IsConnected)
+            {
+                mInfo = App.DAUtil.GetMasterInfoByName("OperatingPlans");
+            }
+            else
+            {
+                try
+                {
+                    var client = await OAuthHelper.GetHTTPClient();
+                    var response = await client.GetStringAsync(GetListURL(ReportType.OperationPlan));
+                    if (response != null)
+                    {
+                        mInfo = new MasterInfo { Name = "OperatingPlans", content = response };
+                        App.DAUtil.RefreshMasterInfo(mInfo);
+                    }
+                }
+                catch (Exception)
+                {
+                    mInfo = App.DAUtil.GetMasterInfoByName("OperatingPlans");
+                }
+            }
+
+            if (mInfo != null)
+            {
+                var stations = await GetStations();
+                var oPlans = JsonConvert.DeserializeObject<SPData>(mInfo.content);
+                return oPlans.d.results.Select(x => new OperatingPlan
+                {
+                    FlighNumber = x.Flight_x0020_Number,
+                    ArrivalStationId = x.Arrival_x0020_StationId,
+                    DepartureStationId = x.Departure_x0020_StationId,
+
+                    ArrivalStation = stations[x.Arrival_x0020_StationId],
+                    DepartureStation = stations[x.Departure_x0020_StationId]
+                }).ToList();
             }
 
             return null;

@@ -339,7 +339,7 @@ namespace DevEnvAzure.Utilities
             sddp.SectorNumber = FlightCrewVoyageRecord.SectorNumberpickerValue;
             sddp.ScheduledDeparture = sd.ScheduledDeparture.ToString("yyyy-MM-dd") + "T07:00:00Z";
             sddp.FlightNumber = sd.FlightNumber;
-            sddp.AircraftRegistration = FlightCrewVoyageRecord.AircraftRegistrationpickerValue;
+            sddp.AircraftRegistration = sd.AircraftRegistration;
             sddp.DepartureStation = sd.DepartureStation;
             sddp.ArrivalStation = sd.ArrivalStation;
             sddp.LandingBy = sd.LandingBy;
