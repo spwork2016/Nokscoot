@@ -25,10 +25,10 @@ namespace DevEnvAzure.DataContracts
         [JsonProperty(PropertyName = "ScheduledDeparture")]
         public string ScheduledDeparture
         { get; set; }
-        [JsonProperty(PropertyName = "FltNumber")]
+        [JsonProperty(PropertyName = "Flt_x0020_NumberId")]
         public string FlightNumber
         { get; set; }
-        [JsonProperty(PropertyName = "AircraftRegistration")]
+        [JsonProperty(PropertyName = "Aircraft_x0020_RegistrationId")]
         public string AircraftRegistration
         { get; set; }
         [JsonProperty(PropertyName = "DepartureStation")]

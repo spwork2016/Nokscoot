@@ -39,6 +39,12 @@ namespace DevEnvAzure
             none = -1
         }
 
+        public enum LookupType
+        {
+            AircraftRegistraions = 1,
+            FlightNumbers = 2
+        }
+
         public static string[] GetPathsFromAttachemntInfo(string attachmentInfo)
         {
             if (string.IsNullOrEmpty(attachmentInfo)) return null;
@@ -351,6 +357,46 @@ namespace DevEnvAzure
             }
 
             return null;
+        }
+
+        public static string GetLookupIdFromValue(LookupType lType, string value)
+        {
+            string lookup = "";
+            switch (lType)
+            {
+                case LookupType.AircraftRegistraions:
+                    lookup = "AircraftRegistrations";
+                    break;
+                case LookupType.FlightNumbers:
+                    lookup = "OperatingPlans";
+                    break;
+                default:
+                    break;
+            }
+
+            MasterInfo mInfo = mInfo = App.DAUtil.GetMasterInfoByName(lookup);
+            var oPlans = JsonConvert.DeserializeObject<SPData>(mInfo.content);
+            int id = 0;
+            Result res = null;
+
+            switch (lType)
+            {
+                case LookupType.AircraftRegistraions:
+                    res = oPlans.d.results.FirstOrDefault(x => x.Aircraft_x0020_Registration == value);
+                    break;
+                case LookupType.FlightNumbers:
+                    res = oPlans.d.results.FirstOrDefault(x => x.Flight_x0020_Number == value);
+                    break;
+                default:
+                    break;
+            }
+
+            if (res != null)
+            {
+                id = res.ID;
+            }
+
+            return Convert.ToString(id);
         }
 
         public static async Task<List<OperatingPlan>> GetOperatingPlans()

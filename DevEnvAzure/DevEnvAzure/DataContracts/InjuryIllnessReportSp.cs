@@ -33,7 +33,7 @@ namespace DevEnvAzure.DataContracts
         [JsonProperty(PropertyName = "Flight_x0020_Number1")]
         public string FlightNumber
         { get; set; }
-        [JsonProperty(PropertyName = "Aircraft_x0020_Registration")]
+        [JsonProperty(PropertyName = "AircraftRegistrationNew")]
         public string AircraftRegis
         { get; set; }
         [JsonProperty(PropertyName = "Departure_x0020_Station")]
@@ -78,19 +78,19 @@ namespace DevEnvAzure.DataContracts
         [JsonProperty(PropertyName = "NatureOfInjury")]
         public string natureofInjuryIndex
         { get; set; }
-        [JsonProperty(PropertyName = "BodyPart")] //Body_x0020_Part
+        [JsonProperty(PropertyName = "BodyPart")]
         public string bodyPart
         { get; set; }
-        [JsonProperty(PropertyName = "HowInjuryOccurred")] //How_x0020_Injury_x0020_Occurred
+        [JsonProperty(PropertyName = "HowInjuryOccurred")]
         public string howinjuryOccurredIndex
         { get; set; }
-        [JsonProperty(PropertyName = "ObjectThatInjured")]//Object_x0020_that_x0020_Injured
+        [JsonProperty(PropertyName = "ObjectThatInjured")]
         public string objectInjuredIndex
         { get; set; }
-        [JsonProperty(PropertyName = "TypeOfTreatment")] //Type_x0020_of_x0020_Treatment
+        [JsonProperty(PropertyName = "TypeOfTreatment")]
         public string typeofTreatment
         { get; set; }
-        [JsonProperty(PropertyName = "Injury_x002f_Ilness_x0020_Treatm")]
+        [JsonProperty(PropertyName = "InjuryIlnessTreatmentBy")]
         public string treatmentByIndex
         { get; set; }
         [JsonProperty(PropertyName = "Where_x0020_the_x0020_event_x002")]

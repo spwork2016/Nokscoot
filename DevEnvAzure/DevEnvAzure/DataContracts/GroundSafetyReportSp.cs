@@ -32,7 +32,7 @@ namespace DevEnvAzure.DataContracts
         [JsonProperty(PropertyName = "Flight_x0020_Number1")]
         public string FlightNumber
         { get; set; }
-        [JsonProperty(PropertyName = "Aircraft_x0020_Registration")]
+        [JsonProperty(PropertyName = "AircraftRegistrationNew")]
         public string AircraftRegis
         { get; set; }
         [JsonProperty(PropertyName = "Departure_x0020_Station")]
@@ -75,30 +75,30 @@ namespace DevEnvAzure.DataContracts
         [JsonProperty(PropertyName = "Precipitation")]
         public string precipitationIndex
         { get; set; }
-        [JsonProperty(PropertyName = "Ground_x0020_Conditions")]
+        [JsonProperty(PropertyName = "GroundConditions")]
         public string groundconditions
         { get; set; }
 
-        [JsonProperty(PropertyName = "Type_x0020_of_x0020_Liquid_x0020")]
+        [JsonProperty(PropertyName = "TypeOfLiquidSpilled")]
         public string typeofLiquidIndex
         { get; set; }
         [JsonProperty(PropertyName = "AmountSpilled")]
         public string amountSpilled
         { get; set; }
-        [JsonProperty(PropertyName = "Where_x0020_Spill_x0020_Occurred")] //WhereSpillOccurred
+        [JsonProperty(PropertyName = "WhereSpillOccurred")]
         public string wherespillindex
         { get; set; }
 
-        [JsonProperty(PropertyName = "Load_x0020_Event_x0020_Baggage")]
+        [JsonProperty(PropertyName = "LoadEventBaggage")]
         public string baggageIndex
         { get; set; }
-        [JsonProperty(PropertyName = "Loading_x0020_Event_x0020_Cargo")]
+        [JsonProperty(PropertyName = "LoadingEventCargo")]
         public string cargoIndex
         { get; set; }
-        [JsonProperty(PropertyName = "Loading_x0020_Event_x0020_Load_x")]
+        [JsonProperty(PropertyName = "LoadingEventLoadSheet")]
         public string loadSheetIndex
         { get; set; }
-        [JsonProperty(PropertyName = "Loading_x0020_Event_x0020_Impact")]
+        [JsonProperty(PropertyName = "LoadingEventImpactToAircraftPerf")]
         public string impactTocraftIndex
         { get; set; }
         [JsonProperty(PropertyName = "DangerousGoodsPaxOrCargo")]

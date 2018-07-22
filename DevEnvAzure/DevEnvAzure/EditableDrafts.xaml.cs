@@ -38,71 +38,71 @@ namespace DevEnvAzure
 
                 App.safetyReport = new ObservableCollection<FlightSafetyReportModel>(App.DAUtil.GetAll<FlightSafetyReportModel>("SafetyReportModel"));
                 lblSafetyReportCount.Text = string.Format("({0})", App.safetyReport.Count.ToString());
-                stkSafetyReports.IsVisible = App.safetyReport.Count == 0 ? false : true;
+                stkSafetyReports.IsVisible = App.safetyReport.Count > 0;
                 MessagingCenter.Subscribe<DraftsExpandContentView>(this, "safety", (sendern) =>
                 {
-                    stkSafetyReports.IsVisible = App.safetyReport.Count == 0 ? false : true;
+                    stkSafetyReports.IsVisible = App.safetyReport.Count > 0;
                     lblSafetyReportCount.Text = string.Format("({0})", App.safetyReport.Count.ToString());
                     SetNoDataInfo();
                 });
 
                 App.cabinSafety = new ObservableCollection<CabibSafetyReport>(App.DAUtil.GetAll<CabibSafetyReport>("CabibSafetyReport"));
                 lblcabinSafetyReportCount.Text = string.Format("({0})", App.cabinSafety.Count.ToString());
-                stkcabinSafetyReports.IsVisible = App.cabinSafety.Count == 0 ? false : true;
+                stkcabinSafetyReports.IsVisible = App.cabinSafety.Count > 0;
                 MessagingCenter.Subscribe<DraftsExpandContentView>(this, "cabinsafety", (sendern) =>
                 {
                     lblcabinSafetyReportCount.Text = string.Format("({0})", App.safetyReport.Count.ToString());
-                    stkcabinSafetyReports.IsVisible = App.cabinSafety.Count == 0 ? false : true;
+                    stkcabinSafetyReports.IsVisible = App.cabinSafety.Count > 0;
                     SetNoDataInfo();
                 });
 
                 App.injuryIllness = new ObservableCollection<InjuryIllnessReport>(App.DAUtil.GetAll<InjuryIllnessReport>("InjuryIllnessReport"));
                 lblinjuryIllnessReportCount.Text = string.Format("({0})", App.injuryIllness.Count.ToString());
-                stkinjuryIllnessReports.IsVisible = App.injuryIllness.Count == 0 ? false : true;
+                stkinjuryIllnessReports.IsVisible = App.injuryIllness.Count > 0;
                 MessagingCenter.Subscribe<DraftsExpandContentView>(this, "injuryillness", (sendern) =>
                 {
                     lblinjuryIllnessReportCount.Text = string.Format("({0})", App.safetyReport.Count.ToString());
-                    stkinjuryIllnessReports.IsVisible = App.injuryIllness.Count == 0 ? false : true;
+                    stkinjuryIllnessReports.IsVisible = App.injuryIllness.Count > 0;
                     SetNoDataInfo();
                 });
 
                 App.groundSafety = new ObservableCollection<GroundSafetyReport>(App.DAUtil.GetAll<GroundSafetyReport>("GroundSafetyReport"));
                 lblGroundSafetyReportCount.Text = string.Format("({0})", App.groundSafety.Count.ToString());
-                stkGroundSafetyReports.IsVisible = App.groundSafety.Count == 0 ? false : true;
+                stkGroundSafetyReports.IsVisible = App.groundSafety.Count > 0;
                 MessagingCenter.Subscribe<DraftsExpandContentView>(this, "groundsafety", (sendern) =>
                 {
                     lblGroundSafetyReportCount.Text = string.Format("({0})", App.safetyReport.Count.ToString());
-                    stkGroundSafetyReports.IsVisible = App.groundSafety.Count == 0 ? false : true;
+                    stkGroundSafetyReports.IsVisible = App.groundSafety.Count > 0;
                     SetNoDataInfo();
                 });
 
                 App.fatigue = new ObservableCollection<FatigueReport>(App.DAUtil.GetAll<FatigueReport>("FatigueReport"));
                 lblFatigueReportCount.Text = string.Format("({0})", App.fatigue.Count.ToString());
-                stkFatigueReports.IsVisible = App.fatigue.Count == 0 ? false : true;
+                stkFatigueReports.IsVisible = App.fatigue.Count > 0;
                 MessagingCenter.Subscribe<DraftsExpandContentView>(this, "fatigue", (sendern) =>
                 {
                     lblFatigueReportCount.Text = string.Format("({0})", App.safetyReport.Count.ToString());
-                    stkFatigueReports.IsVisible = App.fatigue.Count == 0 ? false : true;
+                    stkFatigueReports.IsVisible = App.fatigue.Count > 0;
                     SetNoDataInfo();
                 });
 
                 App.kaizen = new ObservableCollection<KaizenReportModel>(App.DAUtil.GetAll<KaizenReportModel>("KaizenReportModel"));
                 kaizencnt.Text = string.Format("({0})", App.kaizen.Count.ToString());
-                stkKaizen.IsVisible = App.kaizen.Count == 0 ? false : true;
+                stkKaizen.IsVisible = App.kaizen.Count > 0;
                 MessagingCenter.Subscribe<DraftsExpandContentView>(this, "kaizen", (sendern) =>
                 {
                     kaizencnt.Text = string.Format("({0})", App.safetyReport.Count.ToString());
-                    stkKaizen.IsVisible = App.kaizen.Count == 0 ? false : true;
+                    stkKaizen.IsVisible = App.kaizen.Count > 0;
                     SetNoDataInfo();
                 });
 
                 App.fcVoyage = new ObservableCollection<FlightCrewVoyageRecordModel>(App.DAUtil.GetAll<FlightCrewVoyageRecordModel>("FlightCrewVoyageRecordModel"));
                 fcVoyageCnt.Text = string.Format("({0})", App.fcVoyage.Count.ToString());
-                sktfcVoyage.IsVisible = App.fcVoyage.Count == 0 ? false : true;
+                sktfcVoyage.IsVisible = App.fcVoyage.Count > 0;
                 MessagingCenter.Subscribe<DraftsExpandContentView>(this, "facvoyage", (sendern) =>
                 {
                     fcVoyageCnt.Text = string.Format("({0})", App.safetyReport.Count.ToString());
-                    sktfcVoyage.IsVisible = App.fcVoyage.Count == 0 ? false : true;
+                    sktfcVoyage.IsVisible = App.fcVoyage.Count > 0 ;
                     SetNoDataInfo();
                 });
 
@@ -112,7 +112,7 @@ namespace DevEnvAzure
                 MessagingCenter.Subscribe<DraftsExpandContentView>(this, "stninfo", (sendern) =>
                 {
                     StatnInfoCnt.Text = string.Format("({0})", App.safetyReport.Count.ToString());
-                    sktStatnInfo.IsVisible = App.statInfo.Count == 0 ? false : true;
+                    sktStatnInfo.IsVisible = App.statInfo.Count > 0;
                     SetNoDataInfo();
                 });
 
@@ -133,9 +133,10 @@ namespace DevEnvAzure
             totalCount += App.fatigue.Count;
             totalCount += App.security.Count;
             totalCount += App.groundSafety.Count;
-            totalCount += App.groundSafety.Count;
+            totalCount += App.injuryIllness.Count;
             totalCount += App.cabinSafety.Count;
             totalCount += App.safetyReport.Count;
+            totalCount += App.fcVoyage.Count;
 
             stkNodata.IsVisible = totalCount == 0;
         }

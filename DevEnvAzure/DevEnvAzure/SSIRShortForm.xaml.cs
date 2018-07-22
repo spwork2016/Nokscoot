@@ -23,7 +23,6 @@ namespace DevEnvAzure
     {
         public object _viewobject = null;
         public string _classname;
-        public static string airregis;
         public static int MORTypeID;
         Jsonpropertyinitialise jsonInitObj = new Jsonpropertyinitialise();
         AttachmentView _attachementView;
@@ -41,6 +40,7 @@ namespace DevEnvAzure
                 stkAttachment.Children.Add(_attachementView);
 
                 BindFlightNumbers();
+                BindAricraftRegs();
 
                 BindMORPicker();
                 SetSubmitterInfo(viewObject);
@@ -100,6 +100,15 @@ namespace DevEnvAzure
             {
                 await DisplayAlert("Error", ex.Message, "Ok");
             }
+        }
+
+
+        protected async void BindAricraftRegs()
+        {
+            string reg = GetPropValue(_viewobject, "AircraftRegistration");
+            var regs = await SPUtility.GetAirCraftRegistrations();
+            AircraftRegistrationpicker.ItemsSource = regs;
+            AircraftRegistrationpicker.SelectedItem = reg;
         }
 
         ContentView _fullviewobj = null;
@@ -468,6 +477,20 @@ namespace DevEnvAzure
             }
         }
 
+        private string GetPropValue(object obj, string prop)
+        {
+            if (obj != null)
+            {
+                System.Reflection.PropertyInfo pi = _viewobject.GetType().GetProperty(prop);
+                if (pi != null)
+                {
+                    return (string)(pi.GetValue(obj, null));
+                }
+            }
+
+            return string.Empty;
+        }
+
         private void SetSubmitterInfo(object obj)
         {
             if (obj != null && App.CurrentUser != null)
@@ -600,12 +623,6 @@ namespace DevEnvAzure
                     break;
             }
 
-        }
-
-        private void aircraftRegis_Changed(object sender, EventArgs e)
-        {
-            if (FlightPhasepicker.SelectedIndex > 0)
-                airregis = FlightPhasepicker.Items.ElementAt(FlightPhasepicker.SelectedIndex);
         }
 
         private void ToggleBusy(bool flag)

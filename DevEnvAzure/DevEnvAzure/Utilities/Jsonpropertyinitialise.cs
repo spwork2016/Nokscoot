@@ -16,8 +16,8 @@ namespace DevEnvAzure.Utilities
         {
             FlightSecuritySharepointData sddp = new FlightSecuritySharepointData();
             sddp.MobileEntry = true;
-            sddp.Type_x0020_of_x0020_Report = "Security Report";//sd.ReportType;
-            sddp.Aircraft_x0020_Registration = SSIRShortForm.airregis;//sd.AircraftRegis!=0? Convert.ToString(sd.AircraftRegis + 1):null; //
+            sddp.Type_x0020_of_x0020_Report = "Security Report";
+            sddp.Aircraft_x0020_Registration = sd.AircraftRegistration;
             sddp.Event_x0020_Title = sd.EventTitle;
             sddp.Details_x0020_of_x0020_Event_x0020__x0020_Hazard = sd.DescribeEvent != null ? "<div class=\"ExternalClass733EA004DCC641EFAFED516F5D12CCA7\"><br>\u200b" + sd.DescribeEvent + "<br><\u002fdiv>" : null;
             sddp.FlightNumber = sd.FlightNumber;
@@ -61,7 +61,7 @@ namespace DevEnvAzure.Utilities
             GroundSafetyReportSp sddp = new GroundSafetyReportSp();
             sddp.MobileEntry = true;
             sddp.ReportType = "Ground Safety Report";// sd.ReportType;
-            sddp.AircraftRegis = SSIRShortForm.airregis;// Convert.ToString(sd.AircraftRegis + 1);
+            sddp.AircraftRegis = sd.AircraftRegistration;
             sddp.EventTitle = sd.EventTitle;
             sddp.FlightNumber = sd.FlightNumber;
             sddp.DateOfEvent = sd.DateOfEvent.ToString("yyyy-MM-dd") + "T07:00:00Z";
@@ -101,7 +101,7 @@ namespace DevEnvAzure.Utilities
             FatigueReportSp sddp = new FatigueReportSp();
             sddp.MobileEntry = true;
             sddp.ReportType = "Fatigue Report";// sd.ReportType;
-            sddp.AircraftRegis = SSIRShortForm.airregis;// Convert.ToString(sd.AircraftRegis + 1);
+            sddp.AircraftRegis = sd.AircraftRegistration;
             sddp.EventTitle = sd.EventTitle;
             sddp.FlightNumber = sd.FlightNumber;
             sddp.DateOfEvent = sd.DateOfEvent.ToString("yyyy-MM-dd") + "T07:00:00Z";
@@ -141,7 +141,7 @@ namespace DevEnvAzure.Utilities
             CabibSafetyReportSp sddp = new CabibSafetyReportSp();
             sddp.MobileEntry = true;
             sddp.ReportType = "Cabin Safety Report"; //sd.ReportType;
-            sddp.AircraftRegis = SSIRShortForm.airregis;//sd.AircraftRegis!=0? Convert.ToString(sd.AircraftRegis + 1):null; //
+            sddp.AircraftRegis = sd.AircraftRegistration;
             sddp.EventTitle = sd.EventTitle;
             sddp.DescribeEvent = sd.DescribeEvent != null ? "<div class=\"ExternalClass733EA004DCC641EFAFED516F5D12CCA7\"><br>\u200b" + sd.DescribeEvent + "<br><\u002fdiv>" : null;
             sddp.FlightNumber = sd.FlightNumber;
@@ -173,7 +173,7 @@ namespace DevEnvAzure.Utilities
             InjuryIllnessReportSp sddp = new InjuryIllnessReportSp();
             sddp.MobileEntry = true;
             sddp.ReportType = "Injury-Illness Report"; //sd.ReportType;
-            sddp.AircraftRegis = SSIRShortForm.airregis;// Convert.ToString(sd.AircraftRegis + 1);
+            sddp.AircraftRegis = sd.AircraftRegistration;
             sddp.EventTitle = sd.EventTitle;
             sddp.FlightNumber = sd.FlightNumber;
             sddp.DateOfEvent = sd.DateOfEvent.ToString("yyyy-MM-dd") + "T07:00:00Z";
@@ -251,7 +251,7 @@ namespace DevEnvAzure.Utilities
 
 
             sddp.ReportType = "Flight Safety Report";// sd.ReportType;
-            sddp.AircraftRegis = SSIRShortForm.airregis;// Convert.ToString(sd.AircraftRegis + 1);
+            sddp.AircraftRegis = sd.AircraftRegistration;
             sddp.EventTitle = sd.EventTitle;
             sddp.FlightNumber = sd.FlightNumber;
             sddp.DateOfEvent = sd.DateOfEvent.ToString("yyyy-MM-dd") + "T07:00:00Z";
@@ -338,8 +338,8 @@ namespace DevEnvAzure.Utilities
             sddp.VoyageRecord = sd.VoyageRecord;
             sddp.SectorNumber = FlightCrewVoyageRecord.SectorNumberpickerValue;
             sddp.ScheduledDeparture = sd.ScheduledDeparture.ToString("yyyy-MM-dd") + "T07:00:00Z";
-            sddp.FlightNumber = sd.FlightNumber;
-            sddp.AircraftRegistration = sd.AircraftRegistration;
+            sddp.FlightNumber = SPUtility.GetLookupIdFromValue(SPUtility.LookupType.FlightNumbers, sd.FlightNumber);
+            sddp.AircraftRegistration = SPUtility.GetLookupIdFromValue(SPUtility.LookupType.AircraftRegistraions, sd.AircraftRegistration);
             sddp.DepartureStation = sd.DepartureStation;
             sddp.ArrivalStation = sd.ArrivalStation;
             sddp.LandingBy = sd.LandingBy;

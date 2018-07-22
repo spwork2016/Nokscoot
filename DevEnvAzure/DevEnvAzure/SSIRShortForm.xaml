@@ -62,18 +62,8 @@
                                     TextColor="#03A9F4" Grid.Row="7" HorizontalOptions="FillAndExpand">
                                     </Picker>
                                     <Label x:Name="AirCraftReg" Text="Aircraft Registration" FontSize="Micro" TextColor="Black" Grid.Row="8" />
-                                    <Picker x:Name="FlightPhasepicker" SelectedIndexChanged="aircraftRegis_Changed" SelectedIndex="{Binding AircraftRegis,Mode=TwoWay}"
+                                    <Picker x:Name="AircraftRegistrationpicker" SelectedItem="{Binding AircraftRegistration,Mode=TwoWay}"
                                     TextColor="#03A9F4" Grid.Row="9" HorizontalOptions="FillAndExpand">
-                                        <Picker.Items>
-                                            <x:String></x:String>
-                                            <x:String>HS-XBA</x:String>
-                                            <x:String>HS-XBB</x:String>
-                                            <x:String>HS-XBC</x:String>
-                                            <x:String>HS-XBD</x:String>
-                                            <x:String>B-777</x:String>
-                                            <x:String>B-737</x:String>
-                                            <x:String>N/A</x:String>
-                                        </Picker.Items>
                                     </Picker>
 
                                     <Label x:Name="DepartStn" Text="Departure Station" FontSize="Micro" TextColor="Black" Grid.Row="10" />

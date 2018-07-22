@@ -170,6 +170,7 @@ namespace DevEnvAzure.Model
         public int Arrival_x0020_StationId { get; set; }
         public string IATA_x0020_Code { get; set; }
         public string Aircraft_x0020_Registration { get; set; }
+        public string AircraftRegistrationNew { get; set; }
     }
 
     public class UserProfileProperties

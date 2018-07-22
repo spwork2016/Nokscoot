@@ -22,6 +22,7 @@ namespace DevEnvAzure.DataContracts
         public string Event_x0020_Title { get; set; }
         public string Date_x0020_of_x0020_Event { get; set; }
         public string Aircraft_x0020_Registration { get; set; }
+        public string AircraftRegistrationNew { get; set; }
         public string Departure_x0020_Station { get; set; }
         public string Arrival_x0020_Station { get; set; }
         public string Divert_x0020_Station { get; set; }
