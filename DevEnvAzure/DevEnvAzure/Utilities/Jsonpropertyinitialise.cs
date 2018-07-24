@@ -21,21 +21,31 @@ namespace DevEnvAzure.Utilities
             sddp.Event_x0020_Title = sd.EventTitle;
             sddp.Details_x0020_of_x0020_Event_x0020__x0020_Hazard = sd.DescribeEvent != null ? "<div class=\"ExternalClass733EA004DCC641EFAFED516F5D12CCA7\"><br>\u200b" + sd.DescribeEvent + "<br><\u002fdiv>" : null;
             sddp.FlightNumber = sd.FlightNumber;
-            sddp.Date_x0020_of_x0020_Event = sd.DateOfEvent.ToString("yyyy-MM-dd") + "T07:00:00Z"; //"2018-03-14T07:00:00Z";//
+            sddp.Date_x0020_of_x0020_Event = sd.DateOfEvent.ToString("yyyy-MM-dd") + "T07:00:00Z";
             sddp.Departure_x0020_Station = sd.DepartureStation;
             sddp.Arrival_x0020_Station = sd.ArrivalStation;
             sddp.Divert_x0020_Station = sd.DivertStation;
             sddp.Location_Station_Area_FIR_x0020_of_x0020_Event = sd.Area_FIR;
-            // sddp.Details_x0020_of_x0020_Event_x0020__x0020_Hazard = sd.DescribeEvent;
             sddp.Attachments = sd.Attachment;
             sddp.MOR_x0020_TypeId = SSIRShortForm.MORTypeID != null ? Convert.ToString(SSIRShortForm.MORTypeID + 1) : null;
             sddp.CONFIDENTIAL_x0020_REPORT = sd.ConfiReport == true ? "1" : "0";
             sddp.Send_x0020_Notifications = sd.ssQ == true ? "1" : "0";
             sddp.Others_x0020_Persons_x0020_Invol = sd.pax;
 
-            sddp.groudWhere = securityReportView.flightwheresel; //sd.onGround!=0? Convert.ToString(sd.onGround + 1):null;
-            sddp.FlightEvent = securityReportView.flightphase;//sd.flightEvent != 0 ? Convert.ToString(sd.flightEvent + 1) : null;
-            sddp.securityEvent = sd.securityEvent; //!= 0 ? Convert.ToString(sd.securityEvent + 1) : null;
+            sddp.groudWhere = securityReportView.flightwheresel;
+            sddp.FlightEvent = securityReportView.flightphase;
+
+            List<string> strData = sd.securityEvent != null ? sd.securityEvent.Trim(',').Split(',').ToList() : null;
+
+            if (strData != null)
+            {
+                SecurityEventFieldChoice sfapp = new SecurityEventFieldChoice();
+                sfapp.results = strData;
+                Metadata1 md1 = new Metadata1();
+                md1.type = "Collection(Edm.String)";
+                sfapp.__metadata = md1;
+                sddp.securityEvent = sfapp;
+            }
 
             if (!string.IsNullOrEmpty(sd.policereport))
             {

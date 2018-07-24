@@ -110,6 +110,9 @@
     <Compile Include="ImageViewerPopup.xaml.cs">
       <DependentUpon>ImageViewerPopup.xaml</DependentUpon>
     </Compile>
+    <Compile Include="SecurtyEventType.xaml.cs">
+      <DependentUpon>SecurtyEventType.xaml</DependentUpon>
+    </Compile>
     <Compile Include="MultiSelectMenuPage.xaml.cs">
       <DependentUpon>MultiSelectMenuPage.xaml</DependentUpon>
     </Compile>
@@ -465,6 +468,12 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="ImageViewerPopup.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="SecurtyEventType.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
       <SubType>Designer</SubType>
     </EmbeddedResource>

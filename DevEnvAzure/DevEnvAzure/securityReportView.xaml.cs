@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Rg.Plugins.Popup.Extensions;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -27,6 +28,16 @@ namespace DevEnvAzure
         {
             if (flightwherepicker.SelectedIndex > 0)
                 flightwheresel = flightwherepicker.Items.ElementAt(flightwherepicker.SelectedIndex);
+        }
+
+        private async void secEventEntrybtn_Clicked(object sender, EventArgs e)
+        {
+            await Navigation.PushPopupAsync(new SecurityEventType(secEventEntry.Text));
+
+            MessagingCenter.Subscribe<SecurityEventType, string>(this, "SelectedItems", (sender1, arg) =>
+            {
+                secEventEntry.Text = arg.ToString().TrimEnd(',');
+            });
         }
     }
 }

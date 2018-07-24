@@ -40,7 +40,7 @@
     <EmbedAssembliesIntoApk>true</EmbedAssembliesIntoApk>
     <BundleAssemblies>false</BundleAssemblies>
     <AndroidCreatePackagePerAbi>False</AndroidCreatePackagePerAbi>
-    <Debugger>Native</Debugger>
+    <Debugger>Xamarin</Debugger>
     <AotAssemblies>false</AotAssemblies>
     <EnableLLVM>false</EnableLLVM>
     <AndroidEnableMultiDex>False</AndroidEnableMultiDex>

@@ -10,39 +10,39 @@
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="14" />
-                    <RowDefinition Height="*" />
+                    <RowDefinition Height="30" />
 
                     <RowDefinition Height="30" />
 
                     <RowDefinition Height="14" />
-                    <RowDefinition Height="*" />
+                    <RowDefinition Height="30" />
 
                     <RowDefinition Height="14" />
-                    <RowDefinition Height="*" />
+                    <RowDefinition Height="30" />
 
                     <RowDefinition Height="14" />
-                    <RowDefinition Height="*" />
+                    <RowDefinition Height="30" />
 
                     <RowDefinition Height="14" />
-                    <RowDefinition Height="*" />
+                    <RowDefinition Height="30" />
 
                     <RowDefinition Height="14" />
-                    <RowDefinition Height="*" />
+                    <RowDefinition Height="30" />
 
                     <RowDefinition Height="14" />
-                    <RowDefinition Height="*" />
+                    <RowDefinition Height="30" />
 
                     <RowDefinition Height="14" />
-                    <RowDefinition Height="*" />
+                    <RowDefinition Height="100" />
 
                     <RowDefinition Height="14" />
-                    <RowDefinition Height="*" />
+                    <RowDefinition Height="30" />
 
                     <RowDefinition Height="14" />
-                    <RowDefinition Height="*" />
+                    <RowDefinition Height="30" />
 
                     <RowDefinition Height="14" />
-                    <RowDefinition Height="*" />
+                    <RowDefinition Height="30" />
                     
                 </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
@@ -91,7 +91,6 @@
                 </Picker>
                 
                 <Label x:Name="BodyPartlbl" Text="Body Part" TextColor="Black" Grid.Row="5" FontSize="Micro"   Grid.ColumnSpan="2" />
-                <!--<Entry x:Name="BodyPartEntry"   Text="{Binding bodyPart, Mode=TwoWay}"  Placeholder="Body Part" PlaceholderColor="#F1F1F1" TextColor="#03A9F4" Grid.Row="6"  Grid.ColumnSpan="2"  />-->
                 <Picker x:Name="BodyPartPicker" SelectedItem="{Binding bodyPart,Mode=TwoWay}" TextColor="#03A9F4" Grid.Row="6" Grid.ColumnSpan="2" HorizontalOptions="FillAndExpand">
                     <Picker.Items>
                         <x:String>Arm</x:String>
@@ -171,10 +170,16 @@
                     </Picker.Items>
                 </Picker>
                 <Label x:Name="Wheretheeventoccurredlbl" Text="Where the event occurred" FontSize="Micro" TextColor="Black" Grid.Row="15" Grid.ColumnSpan="2"  />
-                <Frame HeightRequest="100" Padding="1" BackgroundColor="#DFDFDF"  Grid.Row="16" Grid.ColumnSpan="2" IsClippedToBounds="True">
-                    <Editor x:Name="WheretheeventoccurredEntry"
-                                               Text="{Binding whereEventOccur, Mode=TwoWay}" TextColor="#03A9F4" />
-                </Frame>
+                <OnPlatform x:TypeArguments="View">
+                    <OnPlatform.iOS>
+                        <Frame HeightRequest="100" Padding="1" BackgroundColor="#DFDFDF"  Grid.Row="16" Grid.ColumnSpan="2" IsClippedToBounds="True">
+                            <Editor BackgroundColor="White" Text="{Binding whereEventOccur, Mode=TwoWay}" TextColor="#03A9F4" />
+                        </Frame>
+                    </OnPlatform.iOS>
+                    <OnPlatform.Android>
+                        <Editor HeightRequest="100" BackgroundColor="White"  Grid.Row="16" Grid.ColumnSpan="2" Text="{Binding whereEventOccur, Mode=TwoWay}" TextColor="#03A9F4" />
+                    </OnPlatform.Android>
+                </OnPlatform>
                 <Label x:Name="Partofbodyinjuredlbl" Text="Part of body injured" FontSize="Micro" TextColor="Black" Grid.Row="17" Grid.ColumnSpan="2" />
                 <Picker x:Name="Partofbodyinjuredpicker" SelectedIndexChanged="PartofbodyinjuredValue_Changed"
                         SelectedIndex="{Binding bodyPartInjuredIndex,Mode=TwoWay}" TextColor="#03A9F4" Grid.Row="18" Grid.ColumnSpan="2"  HorizontalOptions="FillAndExpand">

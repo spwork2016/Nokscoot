@@ -106,10 +106,17 @@
                     </Grid.ColumnDefinitions>
 
                     <Label x:Name="EvntHazrd" Text="Describe Event or Hazard" TextColor="#E65100" Grid.Row="0" Grid.Column="0" />
-                    <Frame HeightRequest="100" Padding="1" BackgroundColor="#DFDFDF" Grid.Row="0" Grid.Column="1" IsClippedToBounds="True">
-                        <Editor x:Name="EvntHazrdentry" TextColor="#0D47A1" />
-                    </Frame>
-                    
+                    <OnPlatform x:TypeArguments="View">
+                       <OnPlatform.iOS>
+                          <Frame HeightRequest="100" Padding="1" BackgroundColor="#DFDFDF" Grid.Row="0" Grid.Column="1" IsClippedToBounds="True">
+                           <Editor TextColor="#0D47A1" BackgroundColor="White"/>
+                          </Frame>
+                       </OnPlatform.iOS>
+                       <OnPlatform.Android>
+                           <Editor HeightRequest="100" TextColor="#0D47A1" BackgroundColor="White" Grid.Row="0" Grid.Column="1"/>
+                       </OnPlatform.Android>
+                    </OnPlatform>
+
                     <Label x:Name="comdPM" Text="Commander PF or PM" TextColor="#E65100" Grid.Row="1" Grid.Column="0" />
                     <Entry x:Name="comdPMEntry"  Text="" TextColor="#0D47A1" Grid.Row="1" Grid.Column="1" />
                 </Grid>

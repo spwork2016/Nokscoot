@@ -191,7 +191,6 @@ namespace DevEnvAzure
         }
         private async void approachmulti_clicked(object sender, EventArgs e)
         {
-            // ApproachTypeEntry.BindingContext = MultiSelectMenuPage1.approachvalue;
             await Navigation.PushPopupAsync(new MultiSelectMenuPage1(ApproachTypeEntry.Text));
 
             MessagingCenter.Subscribe<MultiSelectMenuPage1, string>(this, "SelectedItems", (sender1, arg) =>

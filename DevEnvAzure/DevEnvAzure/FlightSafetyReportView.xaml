@@ -184,7 +184,11 @@
                     <Switch x:Name="AutothrottlesOnchkbx"  IsToggled="{Binding ATOn, Mode=TwoWay}" HorizontalOptions="EndAndExpand" Grid.Row="5" Grid.Column="1" />
 
                     <Label x:Name="ApproachTypeLbl" Text="Approach Type" TextColor="Black" Grid.Row="6" Grid.Column="0" FontSize="Micro"/>
-                    <Button x:Name="ApproachTypebtn" Text="Choose" HorizontalOptions="EndAndExpand" Clicked="approachmulti_clicked" TextColor="#03A9F4" Grid.Row="6" Grid.Column="1" />
+                    <Label x:Name="ApproachTypebtn" Text="Choose" BackgroundColor="White" HorizontalOptions="EndAndExpand" TextColor="#03A9F4" Grid.Row="6" Grid.Column="1" FontSize="Micro">
+                        <Label.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="approachmulti_clicked" />
+                        </Label.GestureRecognizers>
+                    </Label>
                     <Entry IsEnabled="False" x:Name="ApproachTypeEntry" Text="{Binding ApproachType}" Placeholder="Approach Type" PlaceholderColor="#F1F1F1"  TextColor="#03A9F4" Grid.Row="7" Grid.ColumnSpan="2" />
 
                     <Label x:Name="HeadingLbl" Text="Heading" TextColor="Black" Grid.Row="8" Grid.ColumnSpan="2" FontSize="Micro"/>
@@ -426,8 +430,12 @@
                                 <ColumnDefinition Width="*" />
                             </Grid.ColumnDefinitions>
                             <Label FontSize="Micro" VerticalOptions="End" x:Name="ReasonforDeviationLbl" Text="Reason for Deviation" TextColor="Black" Grid.Row="1" Grid.Column="0" />
-                            <Button x:Name="ReasonforDeviationbtn" Text="Choose" HorizontalOptions="EndAndExpand" Clicked="reasondeviamulti_clicked" TextColor="#03A9F4" Grid.Row="1" Grid.Column="1" />
-                            <Entry IsEnabled="False" x:Name="ReasonforDeviationEntry" Text="{Binding ReasonforDeviation, Mode=TwoWay}" TextColor="Black" Grid.Row="2" Grid.ColumnSpan="2" />
+                            <Label x:Name="ReasonforDeviationbtn" Text="Choose" HorizontalOptions="EndAndExpand" TextColor="#03A9F4" Grid.Row="1" Grid.Column="1" FontSize="Micro">
+                                <Label.GestureRecognizers>
+                                   <TapGestureRecognizer Tapped="reasondeviamulti_clicked" />
+                                </Label.GestureRecognizers>
+                            </Label>
+                                <Entry IsEnabled="False" x:Name="ReasonforDeviationEntry" Text="{Binding ReasonforDeviation, Mode=TwoWay}" TextColor="Black" Grid.Row="2" Grid.ColumnSpan="2" />
                         </Grid>
                     </StackLayout>
 
@@ -459,7 +467,11 @@
                             </Grid.ColumnDefinitions>
 
                             <Label FontSize="Micro" x:Name="RelativepositionLbl" Text="Relative position" TextColor="Black" Grid.Row="1" Grid.Column="0" />
-                            <Button x:Name="relativemultibutton" VerticalOptions="End" Text="Choose" HorizontalOptions="EndAndExpand" Clicked="RealtivePosimulti_clicked"  TextColor="#03A9F4" Grid.Row="1" Grid.Column="1" />
+                            <Label x:Name="relativemultibutton" VerticalOptions="End" Text="Choose" HorizontalOptions="EndAndExpand" TextColor="#03A9F4" Grid.Row="1" Grid.Column="1" FontSize="Micro">
+                                <Label.GestureRecognizers>
+                                    <TapGestureRecognizer Tapped="RealtivePosimulti_clicked" />
+                                </Label.GestureRecognizers>
+                            </Label>
                             <Entry IsEnabled="False" x:Name="RelativepositionEntry"  Text="{Binding Relativeposition, Mode=TwoWay}" TextColor="#03A9F4" Grid.Row="2" Grid.ColumnSpan="2" />
                         </Grid>
                     </StackLayout>
@@ -502,9 +514,16 @@
                         <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
                     <Label FontSize="Micro" x:Name="TypeofWarningsAlertsLbl" Text="Type of Warnings/Alerts" TextColor="Black" Grid.Row="0" />
-                    <Frame HeightRequest="100" Padding="1" BackgroundColor="#DFDFDF" Grid.Row="1" Grid.Column="0" IsClippedToBounds="True">
-                        <Editor x:Name="TypeofWarningsAlertsEntry" Text="{Binding TypeofWarnings, Mode=TwoWay}" TextColor="#03A9F4" />
-                    </Frame>
+                    <OnPlatform x:TypeArguments="View">
+                        <OnPlatform.iOS>
+                            <Frame HeightRequest="100" Padding="1" BackgroundColor="#DFDFDF" Grid.Row="1" Grid.Column="0" IsClippedToBounds="True">
+                                <Editor BackgroundColor="White" Text="{Binding TypeofWarnings, Mode=TwoWay}" TextColor="#03A9F4" />
+                            </Frame>
+                        </OnPlatform.iOS>
+                        <OnPlatform.Android>
+                            <Editor HeightRequest="100" BackgroundColor="White" Grid.Row="1" Grid.Column="0" Text="{Binding TypeofWarnings, Mode=TwoWay}" TextColor="#03A9F4" />
+                        </OnPlatform.Android>
+                    </OnPlatform>
                 </Grid>
             </StackLayout>
 
@@ -566,10 +585,18 @@
                         </Picker.Items>
                     </Picker>
                     <Label FontSize="Micro" x:Name="ImpactAreaDamageLbl" Text="Impact Area and Damage" TextColor="Black" Grid.Row="8"  />
-                    <Frame HeightRequest="100" Padding="1" BackgroundColor="#DFDFDF" Grid.Row="9" Grid.Column="0" IsClippedToBounds="True">
-                        <Editor x:Name="ImpactAreaDamageEntry"
+                    <OnPlatform x:TypeArguments="View">
+                        <OnPlatform.iOS>
+                            <Frame HeightRequest="100" Padding="1" BackgroundColor="#DFDFDF" Grid.Row="9" Grid.Column="0" IsClippedToBounds="True">
+                                <Editor BackgroundColor="White"
                                                Text="{Binding ImpactAreaDamage, Mode=TwoWay}" TextColor="#03A9F4" />
-                    </Frame>
+                            </Frame>
+                        </OnPlatform.iOS>
+                        <OnPlatform.Android>
+                            <Editor HeightRequest="100" BackgroundColor="White" Grid.Row="9" Grid.Column="0"
+                                               Text="{Binding ImpactAreaDamage, Mode=TwoWay}" TextColor="#03A9F4" />
+                        </OnPlatform.Android>
+                    </OnPlatform>
                 </Grid>
             </StackLayout>
         </StackLayout>

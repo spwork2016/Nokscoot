@@ -19,6 +19,13 @@ namespace DevEnvAzure.DataContracts
         public Metadata1 __metadata { get; set; }
         public List<string> results { get; set; }
     }
+
+    public class SecurityEventFieldChoice
+    {
+        public Metadata1 __metadata { get; set; }
+        public List<string> results { get; set; }
+    }
+
     public class Metadata2
     {
         public string type { get; set; }

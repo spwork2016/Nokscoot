@@ -21,9 +21,10 @@
                 </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
-                <Label x:Name="FlightPhase" Text="If flight event - select phase" TextColor="Black" FontSize="Micro" Grid.Row="0" />
-                <Picker x:Name="FlightPhasepicker" SelectedIndex="{Binding flightEvent,Mode=TwoWay}" 
+                <Label x:Name="FlightPhase" Text="If flight event - select phase" TextColor="Black" FontSize="Micro" Grid.Row="0" Grid.ColumnSpan="2" />
+                <Picker x:Name="FlightPhasepicker" SelectedIndex="{Binding flightEvent,Mode=TwoWay}"  Grid.ColumnSpan="2"
                         SelectedIndexChanged="flightphase_selected" TextColor="#03A9F4" Grid.Row="1" HorizontalOptions="FillAndExpand">
                     <Picker.Items>
                         <x:String></x:String>
@@ -43,8 +44,8 @@
                         <x:String>Towing</x:String>
                     </Picker.Items>
                 </Picker>
-                <Label x:Name="flightwhere" Text="If on ground - select where" TextColor="Black" FontSize="Micro" Grid.Row="2" />
-                <Picker x:Name="flightwherepicker" SelectedIndex="{Binding onGround,Mode=TwoWay}" 
+                <Label x:Name="flightwhere" Text="If on ground - select where" TextColor="Black" FontSize="Micro" Grid.Row="2"  Grid.ColumnSpan="2"/>
+                <Picker x:Name="flightwherepicker" SelectedIndex="{Binding onGround,Mode=TwoWay}"  Grid.ColumnSpan="2"
                         SelectedIndexChanged="flightwhere_selected" TextColor="#03A9F4" Grid.Row="3" HorizontalOptions="FillAndExpand">
                     <Picker.Items>
                         <x:String></x:String>
@@ -58,11 +59,30 @@
                         <x:String>Hotel</x:String>
                     </Picker.Items>
                 </Picker>
-                <Label x:Name="secEvent" Text="Security Event - Type" TextColor="Black" FontSize="Micro" Grid.Row="4" />
-                <Entry x:Name="secEventEntry"   Text="{Binding securityEvent, Mode=TwoWay}" Placeholder="Security Event - Type" PlaceholderColor="#F1F1F1" TextColor="#03A9F4" Grid.Row="5" />
-                <!--Hyper Link-->
-                <Label x:Name="policereport" TextColor="Black" FontSize="Micro" Text="Reported to Police" Grid.Row="6" />
-                <Entry x:Name="policereportEntry"   Text="{Binding policereport, Mode=TwoWay}" Placeholder="Reported to Police" PlaceholderColor="#F1F1F1" TextColor="#03A9F4" Grid.Row="7" />
+
+                <!--<StackLayout Padding="0" Grid.Row="4"  Grid.Column="0" Grid.ColumnSpan="2" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="10" />
+                            <RowDefinition Height="14" />
+                            <RowDefinition Height="*" />
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>-->
+                        <Label x:Name="secEvent" Text="Security Event - Type" TextColor="Black" FontSize="Micro" Grid.Row="4" Grid.Column="0"  />
+                <Label x:Name="secEventEntrybtn" Text="Choose" HorizontalOptions="EndAndExpand" TextColor="#03A9F4" Grid.Row="4" Grid.Column="1" FontSize="Micro">
+                    <Label.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="secEventEntrybtn_Clicked" />
+                    </Label.GestureRecognizers>
+                </Label>
+                <Entry x:Name="secEventEntry" IsEnabled="False" Text="{Binding securityEvent, Mode=TwoWay}" Placeholder="Security Event - Type" PlaceholderColor="#F1F1F1" TextColor="#03A9F4" Grid.Row="5" Grid.ColumnSpan="2" />
+                    <!--</Grid>
+                </StackLayout>-->
+                 <!--Hyper Link-->
+                <Label x:Name="policereport" TextColor="Black" FontSize="Micro" Text="Police Report" Grid.Row="6"  Grid.ColumnSpan="2"/>
+                <Entry x:Name="policereportEntry" Text="{Binding policereport, Mode=TwoWay}" Placeholder="Reported to Police" PlaceholderColor="#F1F1F1" TextColor="#03A9F4" Grid.Row="7" Grid.ColumnSpan="2"/>
             </Grid>
         </StackLayout>
     </ContentView.Content>

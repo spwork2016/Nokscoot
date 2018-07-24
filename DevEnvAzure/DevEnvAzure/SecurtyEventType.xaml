@@ -1,0 +1,94 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<pages:PopupPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:pages="clr-namespace:Rg.Plugins.Popup.Pages;assembly=Rg.Plugins.Popup"
+             xmlns:animations="clr-namespace:Rg.Plugins.Popup.Animations;assembly=Rg.Plugins.Popup"
+             x:Class="DevEnvAzure.SecurityEventType">
+  <pages:PopupPage.Animation>
+    <animations:ScaleAnimation
+  PositionIn="Center"
+  PositionOut="Center"
+  ScaleIn="1.2"
+  ScaleOut="0.8"
+  DurationIn="400"
+  DurationOut="300"
+  EasingIn="SinOut"
+  EasingOut="SinIn"
+  HasBackgroundAnimation="True"/>
+  </pages:PopupPage.Animation>
+  <StackLayout VerticalOptions="Center" HorizontalOptions="FillAndExpand" Padding="20">
+    <StackLayout BackgroundColor="White" Padding="0, 10, 0, 0">
+      <Label Text="Approach Type" TextColor="Gray" FontSize="20" HorizontalOptions="Center"></Label>
+      <ScrollView>
+        <StackLayout>
+          <StackLayout Orientation="Horizontal" Padding="10">
+            <Grid>
+              <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+              </Grid.RowDefinitions>
+              <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+              </Grid.ColumnDefinitions>
+
+              <Label x:Name="lblAssault" TextColor="Black" FontSize="Small" Text="Assault/Violence" Grid.Row="0" Grid.Column="0" />
+              <Switch x:Name="assaultSwt"  Grid.Row="0" Grid.Column="1" HorizontalOptions="EndAndExpand"/>
+
+              <Label x:Name="lblDamag" TextColor="Black" FontSize="Small" Text="Damage" Grid.Row="1" Grid.Column="0" />
+              <Switch x:Name="damageSwt"  Grid.Row="1" Grid.Column="1" HorizontalOptions="EndAndExpand"/>
+
+              <Label x:Name="lblDisp" TextColor="Black" FontSize="Small" Text="Disruptive/Unruly" Grid.Row="2" Grid.Column="0" />
+              <Switch x:Name="dispSwt"  Grid.Row="2" Grid.Column="1" HorizontalOptions="EndAndExpand"/>
+              
+              <Label x:Name="lblFraud" TextColor="Black" FontSize="Small" Text="Fraud" Grid.Row="3" Grid.Column="0" />
+              <Switch x:Name="fraudSwt" Grid.Row="3" Grid.Column="1" HorizontalOptions="EndAndExpand" />
+              
+              <Label x:Name="lblInaComment" TextColor="Black" FontSize="Small" Text="Inappropriate Comment" Grid.Row="4" Grid.Column="0" />
+              <Switch x:Name="inaCommentSwt"  Grid.Row="4" Grid.Column="1" HorizontalOptions="EndAndExpand"/>
+              
+              <Label x:Name="lblIncBrdPass" TextColor="Black" FontSize="Small" Text="Incorrect Boarding Pass" Grid.Row="5" Grid.Column="0" />
+              <Switch x:Name="SwtIncBrdPass"  Grid.Row="5" Grid.Column="1" HorizontalOptions="EndAndExpand"/>
+
+              <Label x:Name="lblPassFraud" TextColor="Black" FontSize="Small" Text="Passport Fraud" Grid.Row="6" Grid.Column="0" />
+              <Switch x:Name="SwtPassFraud"  Grid.Row="6" Grid.Column="1" HorizontalOptions="EndAndExpand"/>
+
+              <Label x:Name="lblProItem" TextColor="Black" FontSize="Small" Text="Prohibited Item" Grid.Row="7" Grid.Column="0" />
+              <Switch x:Name="SwtProbItem"  Grid.Row="7" Grid.Column="1" HorizontalOptions="EndAndExpand"/>
+
+              <Label x:Name="lblSabotage" TextColor="Black" FontSize="Small" Text="Sabotage" Grid.Row="8" Grid.Column="0" />
+              <Switch x:Name="swtSabotage"  Grid.Row="8" Grid.Column="1" HorizontalOptions="EndAndExpand"/>
+
+              <Label x:Name="lblThreat" TextColor="Black" FontSize="Small" Text="Threat" Grid.Row="9" Grid.Column="0" />
+              <Switch x:Name="swtThreat"  Grid.Row="9" Grid.Column="1" HorizontalOptions="EndAndExpand"/>
+
+              <Label x:Name="lblTheft" TextColor="Black" FontSize="Small" Text="Theft" Grid.Row="10" Grid.Column="0" />
+              <Switch x:Name="swtTheft"  Grid.Row="10" Grid.Column="1" HorizontalOptions="EndAndExpand"/>
+
+              <Label x:Name="lblunaccess" TextColor="Black" FontSize="Small" Text="Unauthorised Access" Grid.Row="11" Grid.Column="0" />
+              <Switch x:Name="swtunaccess"  Grid.Row="11" Grid.Column="1" HorizontalOptions="EndAndExpand"/>
+
+              <Label x:Name="lblUnAircraft" TextColor="Black" FontSize="Small" Text="Unguarded Aircraft" Grid.Row="12" Grid.Column="0" />
+              <Switch x:Name="swtUnAircraft"  Grid.Row="12" Grid.Column="1" HorizontalOptions="EndAndExpand"/>
+
+              <Button Text="Close" TextColor="Black" Clicked="OnClose" BackgroundColor="#FDCE02" Grid.Row="13" Grid.Column="0"></Button>
+              <Button Text="OK" TextColor="Black" Clicked="OnSave" BackgroundColor="#FDCE02" Grid.Row="13" Grid.Column="1"></Button>
+            </Grid>
+          </StackLayout>
+        </StackLayout>
+      </ScrollView>
+    </StackLayout>
+  </StackLayout>
+</pages:PopupPage>

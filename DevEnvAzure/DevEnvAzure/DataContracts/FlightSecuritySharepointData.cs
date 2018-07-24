@@ -48,7 +48,7 @@ namespace DevEnvAzure.DataContracts
         [JsonProperty(PropertyName = "If_x0020_flight_x0020_event_x002")]
         public string FlightEvent { get; set; }
         [JsonProperty(PropertyName = "SecurityEvent_x002d_Type")]
-        public string securityEvent { get; set; }
+        public SecurityEventFieldChoice securityEvent { get; set; }
         [JsonProperty(PropertyName = "Person_x0020_submitting_x0020_re")]
         public string NameStaffNumber
         { get; set; }
@@ -60,28 +60,5 @@ namespace DevEnvAzure.DataContracts
 
         [JsonProperty(PropertyName = "MobileEntry")]
         public bool MobileEntry { get; set; }
-
-        //public string Employee_x0020_Name { get; set; }
-        //public int? Employee_x0020_Age { get; set; }
-        //public int? DepartmentId { get; set; }
-        //public string Employee_x0020_Details { get; set; }
-        //public string Gender { get; set; }
-        //public int? Salary { get; set; }
-        //public DateTime? Joining_x0020_Date { get; set; }
-        //public bool Active_x0020_Employee { get; set; }
-
-
-
-        //this.__metadata = new Metadata();
-        //this.__metadata.type = "SP.Data.TestFormListItem";
     }
-
-    //   protected Metadata __metadata { get; set; }
-    //protected class Metadata
-    //{
-    //    public string id { get; set; }
-    //    public string uri { get; set; }
-    //    public string etag { get; set; }
-    //    public string type { get; set; }
-    //}
 }
