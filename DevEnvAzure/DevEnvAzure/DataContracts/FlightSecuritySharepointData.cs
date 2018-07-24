@@ -21,6 +21,7 @@ namespace DevEnvAzure.DataContracts
         [JsonProperty(PropertyName = "Title")]
         public string Event_x0020_Title { get; set; }
         public string Date_x0020_of_x0020_Event { get; set; }
+        [JsonProperty(PropertyName = "AircraftRegistrationNew")]
         public string Aircraft_x0020_Registration { get; set; }
         public string AircraftRegistrationNew { get; set; }
         public string Departure_x0020_Station { get; set; }
