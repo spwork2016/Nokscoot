@@ -177,7 +177,7 @@ namespace DevEnvAzure
 
         private bool CheckConnection()
         {
-            return CrossConnectivity.Current.IsConnected;
+            return SPUtility.IsConnected();
         }
 
         private async Task<HttpClient> GetHTTPClient()

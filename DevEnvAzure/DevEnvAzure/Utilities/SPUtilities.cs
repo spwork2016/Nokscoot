@@ -11,6 +11,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using Xamarin.Forms;
 
 namespace DevEnvAzure
 {
@@ -158,7 +159,7 @@ namespace DevEnvAzure
 
         public static async Task<List<PeoplePicker>> GetUsersForPicker()
         {
-            if (!CrossConnectivity.Current.IsConnected)
+            if (!SPUtility.IsConnected())
             {
                 return GetUsers();
             }
@@ -227,7 +228,8 @@ namespace DevEnvAzure
                     SaveToAlbum = true,
                     Name = fileName,
                     Directory = ClientConfiguration.Default.APPNAME,
-                    AllowCropping = true
+                    AllowCropping = true,
+                    PhotoSize = PhotoSize.Small
                 });
 
                 if (file != null)
@@ -294,7 +296,7 @@ namespace DevEnvAzure
         public static async Task<string[]> GetAirCraftRegistrations()
         {
             MasterInfo mInfo = null;
-            if (!CrossConnectivity.Current.IsConnected)
+            if (!SPUtility.IsConnected())
             {
                 mInfo = App.DAUtil.GetMasterInfoByName("AircraftRegistrations");
             }
@@ -328,7 +330,7 @@ namespace DevEnvAzure
         public static async Task<Dictionary<int, string>> GetStations()
         {
             MasterInfo mInfo = null;
-            if (!CrossConnectivity.Current.IsConnected)
+            if (!SPUtility.IsConnected())
             {
                 mInfo = App.DAUtil.GetMasterInfoByName("Stations");
             }
@@ -402,7 +404,7 @@ namespace DevEnvAzure
         public static async Task<List<OperatingPlan>> GetOperatingPlans()
         {
             MasterInfo mInfo = null;
-            if (!CrossConnectivity.Current.IsConnected)
+            if (!SPUtility.IsConnected())
             {
                 mInfo = App.DAUtil.GetMasterInfoByName("OperatingPlans");
             }
@@ -440,6 +442,19 @@ namespace DevEnvAzure
             }
 
             return null;
+        }
+
+        public static bool IsConnected()
+        {
+            if (Device.RuntimePlatform == Device.iOS) return CrossConnectivity.Current.IsConnected;
+            else if (Device.RuntimePlatform == Device.Android)
+            {
+                var networkConnection = DependencyService.Get<INetworkConnection>();
+                networkConnection.CheckNetworkConnection();
+                return networkConnection.IsConnected;
+            }
+
+            return false;
         }
     }
 }

@@ -65,7 +65,7 @@ namespace DevEnvAzure.iOS
             var result = UIBackgroundFetchResult.NoData;
             try
             {
-                if (CrossConnectivity.Current.IsConnected)
+                if (SPUtility.IsConnected())
                 {
                     await App.SyncOfflineItemsBG();
                     result = UIBackgroundFetchResult.NewData;

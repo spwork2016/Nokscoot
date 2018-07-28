@@ -88,7 +88,7 @@ namespace DevEnvAzure
         }
         private bool CheckConnection()
         {
-            return CrossConnectivity.Current.IsConnected;
+            return SPUtility.IsConnected();
         }
 
         private void ToggleBusy(bool flag)

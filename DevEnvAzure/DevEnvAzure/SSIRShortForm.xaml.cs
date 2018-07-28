@@ -382,7 +382,7 @@ namespace DevEnvAzure
         }
         private bool CheckConnection()
         {
-            return CrossConnectivity.Current.IsConnected;
+            return SPUtility.IsConnected();
         }
 
         protected void CreateItems<U>(U reportObject, SPUtility.ReportType reportType) where U : class
@@ -546,7 +546,7 @@ namespace DevEnvAzure
 
         protected async void BindMORPicker()
         {
-            if (!CrossConnectivity.Current.IsConnected)
+            if (!SPUtility.IsConnected())
             {
                 BindMORSavedInfo();
                 return;

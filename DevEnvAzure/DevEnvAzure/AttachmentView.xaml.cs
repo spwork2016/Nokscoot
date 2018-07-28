@@ -95,20 +95,24 @@ namespace DevEnvAzure
                 btnAttachment.CommandParameter = item.FileName;
                 btnAttachment.Clicked += BtnAttachment_Clicked;
 
-                Button btnDelete = new Button()
-                {
-                    Image = "delete.png",
-                    HeightRequest = 14,
-                    WidthRequest = 14,
-                    HorizontalOptions = LayoutOptions.EndAndExpand,
-                    CommandParameter = item.FileName
-                };
+                // // Commented as the delete func moved to pop-over - just as a backup, I have commented this
+                //Button btnDelete = new Button()
+                //{
+                //    Text = "X",
+                //    FontSize = 14,
+                //    HeightRequest = 20,
+                //    WidthRequest = 50,
+                //    BorderColor = Color.FromHex("FFFFFF"),
+                //    BackgroundColor = Color.FromHex("FFFFFF"),
+                //    HorizontalOptions = LayoutOptions.EndAndExpand,
+                //    CommandParameter = item.FileName
+                //};
 
-                btnDelete.Clicked += OnAttachmentDelete;
+                //btnDelete.Clicked += OnAttachmentDelete;
 
                 StackLayout stk = new StackLayout
                 {
-                    Children = { btnAttachment, btnDelete },
+                    Children = { btnAttachment },
                     Orientation = StackOrientation.Horizontal,
                     HorizontalOptions = LayoutOptions.StartAndExpand
                 };
@@ -127,6 +131,12 @@ namespace DevEnvAzure
                 if (string.IsNullOrEmpty(fileName)) return;
 
                 string filePath = Attachments.Find(x => x.FileName == fileName).FilePath;
+                MessagingCenter.Subscribe<ImageViewerPopup>(this, "DELETE_ATTACHEMNT", (fName) =>
+                {
+                    Attachments.Remove(Attachments.Find((obj) => obj.FileName == fileName));
+                    BindAttachments();
+                });
+
                 await Navigation.PushPopupAsync(new ImageViewerPopup(filePath));
             }
             catch (Exception)

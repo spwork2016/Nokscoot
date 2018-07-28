@@ -45,7 +45,7 @@ namespace DevEnvAzure
 
         private async Task<bool> DataBind(string fPath)
         {
-            if (!CrossConnectivity.Current.IsConnected) return false;
+            if (!SPUtility.IsConnected()) return false;
 
             Device.BeginInvokeOnMainThread(() =>
             {

@@ -21,5 +21,6 @@
       <Image x:Name="image" VerticalOptions="Start" HorizontalOptions="FillAndExpand"></Image>
     </ScrollView>
     <Button Text="Close" TextColor="Black" Clicked="OnClose" BackgroundColor="#FDCE02"></Button>
+    <Button Text="Delete" TextColor="Black" Clicked="OnDelete" BackgroundColor="#FDCE02"></Button>
   </StackLayout>
 </pages:PopupPage>

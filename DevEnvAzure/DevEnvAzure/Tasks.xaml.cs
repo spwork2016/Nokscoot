@@ -77,7 +77,7 @@ namespace DevEnvAzure
 
         private async Task DataBind()
         {
-            if (!CrossConnectivity.Current.IsConnected) return;
+            if (!SPUtility.IsConnected()) return;
 
             Items.Clear();
 

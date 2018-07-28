@@ -18,18 +18,18 @@
                             <Grid>
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="14" />
-                                    <RowDefinition Height="30" />
+                                    <RowDefinition Height="40" />
                                     <RowDefinition Height="14" />
-                                    <RowDefinition Height="30" />
+                                    <RowDefinition Height="40" />
                                     <RowDefinition Height="14" />
-                                    <RowDefinition Height="30" />
+                                    <RowDefinition Height="40" />
                                     
                                     <RowDefinition Height="14" />
                                     <RowDefinition Height="100" />
                                     <RowDefinition Height="14" />
                                     <RowDefinition Height="200" />
                                     <RowDefinition Height="14" />
-                                    <RowDefinition Height="30" />
+                                    <RowDefinition Height="40" />
                                     <RowDefinition Height="14" />
                                     <RowDefinition Height="100" />
                                 </Grid.RowDefinitions>

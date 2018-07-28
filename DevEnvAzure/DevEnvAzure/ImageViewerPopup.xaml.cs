@@ -18,5 +18,11 @@ namespace DevEnvAzure
         {
             await PopupNavigation.PopAsync();
         }
+
+        private async void OnDelete(object sender, EventArgs e)
+        {
+            MessagingCenter.Send(this, "DELETE_ATTACHEMNT");
+            await PopupNavigation.PopAsync();
+        }
     }
 }

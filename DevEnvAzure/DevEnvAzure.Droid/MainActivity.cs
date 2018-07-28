@@ -10,6 +10,8 @@ using Microsoft.IdentityModel.Clients.ActiveDirectory;
 using Android.Content;
 using ImageCircle.Forms.Plugin.Droid;
 using Xamarin.Forms;
+using Plugin.Permissions;
+using Plugin.CurrentActivity;
 
 namespace DevEnvAzure.Droid
 {
@@ -22,6 +24,7 @@ namespace DevEnvAzure.Droid
             ToolbarResource = Resource.Layout.Toolbar;
 
             base.OnCreate(bundle);
+            CrossCurrentActivity.Current.Init(this, bundle);
             try
             {
                 global::Xamarin.Forms.Forms.Init(this, bundle);
@@ -39,7 +42,7 @@ namespace DevEnvAzure.Droid
                     }
                 });
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
 
             }
@@ -48,14 +51,7 @@ namespace DevEnvAzure.Droid
         {
             var intent = new Intent(this, typeof(AppService));
 
-            if (Android.OS.Build.VERSION.SdkInt >= Android.OS.BuildVersionCodes.M)
-            {
-                StartService(intent);
-            }
-            else
-            {
-                StartService(intent);
-            }
+            StartService(intent);
         }
 
         protected override void OnActivityResult(int requestCode, Result resultCode, Intent data)
@@ -64,6 +60,10 @@ namespace DevEnvAzure.Droid
             AuthenticationAgentContinuationHelper.SetAuthenticationAgentContinuationEventArgs(requestCode, resultCode, data);
         }
 
+        public override void OnRequestPermissionsResult(int requestCode, string[] permissions, [GeneratedEnum] Permission[] grantResults)
+        {
+            PermissionsImplementation.Current.OnRequestPermissionsResult(requestCode, permissions, grantResults);
+        }
     }
 }
 

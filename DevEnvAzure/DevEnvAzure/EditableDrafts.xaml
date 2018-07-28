@@ -23,7 +23,7 @@
                     <Label TextColor="Black" Grid.Row="0" Grid.Column="0" FontSize="Medium" VerticalTextAlignment="End" Text="Safety Reports" />
                     <Label x:Name="lblSafetyReportCount" TextColor="Black" FontSize="Micro" Grid.Row="0" Grid.Column="1" 
                            VerticalTextAlignment="Center" Text="{Binding SafetyReportCount}" />
-                    <Button x:Name="btnSafetyPanel" Text="+" TextColor="Black" Clicked="Safety_Expand" Grid.Row="0" Grid.Column="2" BackgroundColor="#FDCE02" />
+                    <Button x:Name="btnSafetyPanel" Text="+" TextColor="Black" Clicked="Safety_Expand" FontSize="Micro" Grid.Row="0" Grid.Column="2" BackgroundColor="#FDCE02" />
                     <BoxView Color="#FDCE02" HorizontalOptions="FillAndExpand" Grid.Row="1" Grid.ColumnSpan="3" HeightRequest="1"/>
 
                     <StackLayout x:Name="SafetyLayout" Orientation="Vertical" Grid.Row="2" Grid.ColumnSpan="3"/>
@@ -46,7 +46,7 @@
                     <Label TextColor="Black" Grid.Row="0" Grid.Column="0" FontSize="Medium" VerticalTextAlignment="End" Text="Ground Safety Reports" />
                     <Label x:Name="lblGroundSafetyReportCount" TextColor="Black" FontSize="Micro" Grid.Row="0" Grid.Column="1" 
                            VerticalTextAlignment="Center" />
-                    <Button x:Name="btnGroundSafetyPanel" Text="+" TextColor="Black" Clicked="GroundSafety_Expand" Grid.Row="0" Grid.Column="2" BackgroundColor="#FDCE02" />
+                    <Button x:Name="btnGroundSafetyPanel" Text="+" TextColor="Black" Clicked="GroundSafety_Expand" FontSize="Micro" Grid.Row="0" Grid.Column="2" BackgroundColor="#FDCE02" />
                     <BoxView Color="#FDCE02" HorizontalOptions="FillAndExpand" Grid.Row="1" Grid.ColumnSpan="3" HeightRequest="1"/>
 
                     <StackLayout x:Name="groundSafetyLayout" Orientation="Vertical" Grid.Row="2" Grid.ColumnSpan="3"/>
@@ -69,7 +69,7 @@
                     <Label TextColor="Black" Grid.Row="0" Grid.Column="0" FontSize="Medium" VerticalTextAlignment="End" Text="Security Reports" />
                     <Label x:Name="lblSecurityReportCount" TextColor="Black" FontSize="Micro" Grid.Row="0" Grid.Column="1" 
                            VerticalTextAlignment="Center" />
-                    <Button x:Name="btnSecurityPanel" Text="+" TextColor="Black" Clicked="Security_Expand" Grid.Row="0" Grid.Column="2" BackgroundColor="#FDCE02" />
+                    <Button x:Name="btnSecurityPanel" Text="+" TextColor="Black" Clicked="Security_Expand" FontSize="Micro" Grid.Row="0" Grid.Column="2" BackgroundColor="#FDCE02" />
                     <BoxView Color="#FDCE02" HorizontalOptions="FillAndExpand" Grid.Row="1" Grid.ColumnSpan="3" HeightRequest="1"/>
 
                     <StackLayout x:Name="securityLayout" Orientation="Vertical" Grid.Row="2" Grid.ColumnSpan="3"/>
@@ -92,7 +92,7 @@
                     <Label TextColor="Black" Grid.Row="0" Grid.Column="0" FontSize="Medium" VerticalTextAlignment="End" Text="Fatigue Reports" />
                     <Label x:Name="lblFatigueReportCount" TextColor="Black" FontSize="Micro" Grid.Row="0" Grid.Column="1" 
                            VerticalTextAlignment="Center" />
-                    <Button x:Name="btnFatiguePanel" Text="+" TextColor="Black" Clicked="Fatigue_Expand" Grid.Row="0" Grid.Column="2" BackgroundColor="#FDCE02" />
+                    <Button x:Name="btnFatiguePanel" Text="+" TextColor="Black" Clicked="Fatigue_Expand" FontSize="Micro" Grid.Row="0" Grid.Column="2" BackgroundColor="#FDCE02" />
                     <BoxView Color="#FDCE02" HorizontalOptions="FillAndExpand" Grid.Row="1" Grid.ColumnSpan="3" HeightRequest="1"/>
 
                     <StackLayout x:Name="fatigueLayout" Orientation="Vertical" Grid.Row="2" Grid.ColumnSpan="3"/>
@@ -115,15 +115,11 @@
                     <Label TextColor="Black" Grid.Row="0" Grid.Column="0" FontSize="Medium" VerticalTextAlignment="End" Text="Cabin Safety Reports" />
                     <Label x:Name="lblcabinSafetyReportCount" TextColor="Black" FontSize="Micro" Grid.Row="0" Grid.Column="1" 
                            VerticalTextAlignment="Center" />
-                    <Button x:Name="btnCabinPanel" Text="+" TextColor="Black" Clicked="Cabin_Expand" Grid.Row="0" Grid.Column="2" BackgroundColor="#FDCE02" />
+                    <Button x:Name="btnCabinPanel" Text="+" TextColor="Black" Clicked="Cabin_Expand" FontSize="Micro" Grid.Row="0" Grid.Column="2" BackgroundColor="#FDCE02" />
                     <BoxView Color="#FDCE02" HorizontalOptions="FillAndExpand" Grid.Row="1" Grid.ColumnSpan="3" HeightRequest="1"/>
 
                     <StackLayout x:Name="cabinSafetyLayout" Orientation="Vertical" Grid.Row="2" Grid.ColumnSpan="3"/>
                 </Grid>
-
-                <!--<Button Text="Cabin Safety Report" TextColor="Black" Clicked="cabin_Expand"/>
-                <StackLayout x:Name="cabinSafetyLayout" Orientation="Vertical" VerticalOptions="FillAndExpand" Padding="10,0">
-                </StackLayout>-->
             </StackLayout>
             <StackLayout x:Name="stkinjuryIllnessReports" Orientation="Vertical"  VerticalOptions="Fill" Padding="5,5" BackgroundColor="White">
                 <Grid HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
@@ -141,7 +137,7 @@
                     <Label TextColor="Black" Grid.Row="0" Grid.Column="0" FontSize="Medium" VerticalTextAlignment="End" Text="Injury Illness Reports" />
                     <Label x:Name="lblinjuryIllnessReportCount" TextColor="Black" FontSize="Micro" Grid.Row="0" Grid.Column="1" 
                            VerticalTextAlignment="Center" />
-                    <Button x:Name="btnInjuryIllnessPanel" Text="+" TextColor="Black" Clicked="Injuryillness_Expand" Grid.Row="0" Grid.Column="2" BackgroundColor="#FDCE02" />
+                    <Button x:Name="btnInjuryIllnessPanel" Text="+" TextColor="Black" Clicked="Injuryillness_Expand" FontSize="Micro" Grid.Row="0" Grid.Column="2" BackgroundColor="#FDCE02" />
                     <BoxView Color="#FDCE02" HorizontalOptions="FillAndExpand" Grid.Row="1" Grid.ColumnSpan="3" HeightRequest="1"/>
 
                     <StackLayout x:Name="injuryillnessLayout" Orientation="Vertical" Grid.Row="2" Grid.ColumnSpan="3"/>
@@ -163,7 +159,7 @@
                     <Label TextColor="Black" Grid.Row="0" Grid.Column="0" FontSize="Medium" VerticalTextAlignment="End" Text="Kaizen Reports" />
                     <Label x:Name="kaizencnt" TextColor="Black" FontSize="Micro" Grid.Row="0" Grid.Column="1" 
                            VerticalTextAlignment="Center" />
-                    <Button x:Name="btnkaizen" Text="+" TextColor="Black" Clicked="kaizen_Expand" Grid.Row="0" Grid.Column="2" BackgroundColor="#FDCE02" />
+                    <Button x:Name="btnkaizen" Text="+" TextColor="Black" Clicked="kaizen_Expand" Grid.Row="0" FontSize="Micro" Grid.Column="2" BackgroundColor="#FDCE02" />
                     <BoxView Color="#FDCE02" HorizontalOptions="FillAndExpand" Grid.Row="1" Grid.ColumnSpan="3" HeightRequest="1"/>
 
                     <StackLayout x:Name="kaizenLayout" Orientation="Vertical" Grid.Row="2" Grid.ColumnSpan="3"/>
@@ -186,7 +182,7 @@
                     <Label TextColor="Black" Grid.Row="0" Grid.Column="0" FontSize="Medium" VerticalTextAlignment="End" Text="Flight Screw Voyage Reports" />
                     <Label x:Name="fcVoyageCnt" TextColor="Black" FontSize="Micro" Grid.Row="0" Grid.Column="1" 
                            VerticalTextAlignment="Center" />
-                    <Button x:Name="btnfcVoyage" Text="+" TextColor="Black" Clicked="fcVoyage_Expand" Grid.Row="0" Grid.Column="2" BackgroundColor="#FDCE02" />
+                    <Button x:Name="btnfcVoyage" Text="+" TextColor="Black" Clicked="fcVoyage_Expand" Grid.Row="0" FontSize="Micro" Grid.Column="2" BackgroundColor="#FDCE02" />
                     <BoxView Color="#FDCE02" HorizontalOptions="FillAndExpand" Grid.Row="1" Grid.ColumnSpan="3" HeightRequest="1"/>
 
                     <StackLayout x:Name="fcVoyageLayout" Orientation="Vertical" Grid.Row="2" Grid.ColumnSpan="3"/>
@@ -209,16 +205,12 @@
                     <Label TextColor="Black" Grid.Row="0" Grid.Column="0" FontSize="Medium" VerticalTextAlignment="End" Text="Station Information Reports" />
                     <Label x:Name="StatnInfoCnt" TextColor="Black" FontSize="Micro" Grid.Row="0" Grid.Column="1" 
                            VerticalTextAlignment="Center" />
-                    <Button x:Name="btnStatnInfo" Text="+" TextColor="Black" Clicked="StatnInfo_Expand" Grid.Row="0" Grid.Column="2" BackgroundColor="#FDCE02" />
+                    <Button x:Name="btnStatnInfo" Text="+" TextColor="Black" Clicked="StatnInfo_Expand" Grid.Row="0" FontSize="Micro" Grid.Column="2" BackgroundColor="#FDCE02" />
                     <BoxView Color="#FDCE02" HorizontalOptions="FillAndExpand" Grid.Row="1" Grid.ColumnSpan="3" HeightRequest="1"/>
 
                     <StackLayout x:Name="StatnInfoLayout" Orientation="Vertical" Grid.Row="2" Grid.ColumnSpan="3"/>
                 </Grid>
             </StackLayout>
-
-            <!--<Button Text="Injury Illness Report" TextColor="Black" Clicked="injuryillness_Expand"/>
-                <StackLayout x:Name="injuryillnessLayout" Orientation="Vertical" VerticalOptions="FillAndExpand" Padding="10,0">
-                </StackLayout>-->
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

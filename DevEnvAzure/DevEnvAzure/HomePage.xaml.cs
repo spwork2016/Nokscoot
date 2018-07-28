@@ -165,7 +165,7 @@ namespace DevEnvAzure
 
         private bool CheckConnection()
         {
-            return CrossConnectivity.Current.IsConnected;
+            return SPUtility.IsConnected();
 
             //var networkConnection = DependencyService.Get<INetworkConnection>();
             //networkConnection.CheckNetworkConnection();

@@ -6,8 +6,6 @@ using Plugin.Connectivity;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using Xamarin.Forms;
 using Plugin.LocalNotifications;
@@ -48,11 +46,11 @@ namespace DevEnvAzure
 
             var eValue = DAUtil.GetAll<OfflineItem>("OfflineItem");
             if (eValue != null && eValue.Count > 0)
-                App.offlineItems = new System.Collections.ObjectModel.ObservableCollection<OfflineItem>(eValue);
+                App.offlineItems = new ObservableCollection<OfflineItem>(eValue);
 
             try
             {
-                if (CrossConnectivity.Current.IsConnected)
+                if (SPUtility.IsConnected())
                 {
                     var userCredentials = App.DAUtil.GetMasterInfoByName("UserCredentials");
                     if (userCredentials != null)
@@ -64,20 +62,28 @@ namespace DevEnvAzure
 
                         OAuthHelper.GetAuthenticationHeader(uName, pwd).ContinueWith(async (x) =>
                         {
-                            await OAuthHelper.GetUserInfo(uName, pwd).ContinueWith((y) =>
+                            if (CrossConnectivity.Current.IsReachable(ClientConfiguration.NokScoot.SPRootURL).Result)
                             {
-                                Device.BeginInvokeOnMainThread(async () =>
+                                await OAuthHelper.GetUserInfo(uName, pwd).ContinueWith((y) =>
                                 {
-                                    MessagingCenter.Send<App>(this, "userInfo");
-                                    if (App.AuthenticationResponse == null)
+                                    Device.BeginInvokeOnMainThread(() =>
                                     {
-                                        MainPage = new Login();
-                                        DependencyService.Get<IMessage>().ShortAlert("Login failed! Please check email/password");
-                                    }
-                                });
-                            });
+                                        DependencyService.Get<IMessage>().ShortAlert("user info");
+                                    });
 
-                            await SyncLocalData();
+                                    Device.BeginInvokeOnMainThread(async () =>
+                                    {
+                                        MessagingCenter.Send<App>(this, "userInfo");
+                                        if (App.AuthenticationResponse == null)
+                                        {
+                                            MainPage = new Login();
+                                            DependencyService.Get<IMessage>().ShortAlert("Login failed! Please check email/password");
+                                        }
+                                    });
+                                });
+
+                                await SyncLocalData();
+                            }
                         }).ConfigureAwait(false);
                     }
                     else
@@ -93,6 +99,22 @@ namespace DevEnvAzure
                     else
                     {
                         App.AuthenticationResponse = JsonConvert.DeserializeObject<AuthenticationResponse>(authResponse.content);
+                        var uInfo = App.DAUtil.GetMasterInfoByName("UserInfo");
+                        if (uInfo != null)
+                        {
+                            var obj = JsonConvert.DeserializeObject<SPData>(uInfo.content, new JsonSerializerSettings { DateParseHandling = DateParseHandling.None });
+                            if (obj != null)
+                            {
+                                App.CurrentUser = new User
+                                {
+                                    Id = obj.d.Id,
+                                    Name = obj.d.Title,
+                                    Email = obj.d.Email,
+                                    //PictureBytes = GetPicture(username, password).Result
+                                };
+                            }
+                        }
+
                         MainPage = new StartPage();
                     }
                 }
@@ -205,7 +227,7 @@ namespace DevEnvAzure
             if (Device.RuntimePlatform == Device.iOS)
             {
                 //iOS stuff
-                Plugin.Connectivity.CrossConnectivity.Current.ConnectivityChanged += Current_ConnectivityChanged;
+                CrossConnectivity.Current.ConnectivityChanged += Current_ConnectivityChanged;
             }
         }
 

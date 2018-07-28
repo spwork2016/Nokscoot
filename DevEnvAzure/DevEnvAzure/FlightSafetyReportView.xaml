@@ -12,17 +12,17 @@
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="14" />
-                        <RowDefinition Height="30" />
+                        <RowDefinition Height="40" />
                         <RowDefinition Height="14" />
-                        <RowDefinition Height="30" />
+                        <RowDefinition Height="40" />
                         <RowDefinition Height="14" />
-                        <RowDefinition Height="30" />
+                        <RowDefinition Height="40" />
                         <RowDefinition Height="14" />
-                        <RowDefinition Height="30" />
+                        <RowDefinition Height="40" />
                         <RowDefinition Height="14" />
-                        <RowDefinition Height="30" />
+                        <RowDefinition Height="40" />
                         <RowDefinition Height="14" />
-                        <RowDefinition Height="30" />
+                        <RowDefinition Height="40" />
                     </Grid.RowDefinitions>
 
                     <Grid.ColumnDefinitions>
@@ -140,7 +140,7 @@
                         <RowDefinition Height="30" />
                         <RowDefinition Height="40" />
 
-                        <RowDefinition Height="14" />
+                        <RowDefinition Height="16" />
                         <RowDefinition Height="*" />
 
                         <RowDefinition Height="14" />
@@ -184,7 +184,7 @@
                     <Switch x:Name="AutothrottlesOnchkbx"  IsToggled="{Binding ATOn, Mode=TwoWay}" HorizontalOptions="EndAndExpand" Grid.Row="5" Grid.Column="1" />
 
                     <Label x:Name="ApproachTypeLbl" Text="Approach Type" TextColor="Black" Grid.Row="6" Grid.Column="0" FontSize="Micro"/>
-                    <Label x:Name="ApproachTypebtn" Text="Choose" BackgroundColor="White" HorizontalOptions="EndAndExpand" TextColor="#03A9F4" Grid.Row="6" Grid.Column="1" FontSize="Micro">
+                    <Label x:Name="ApproachTypebtn" Text="Choose" FontSize="Small" BackgroundColor="White" HorizontalOptions="EndAndExpand" TextColor="#03A9F4" Grid.Row="6" Grid.Column="1">
                         <Label.GestureRecognizers>
                             <TapGestureRecognizer Tapped="approachmulti_clicked" />
                         </Label.GestureRecognizers>
@@ -365,44 +365,44 @@
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="14" />
-                        <RowDefinition Height="30" />
+                        <RowDefinition Height="40" />
 
                         <RowDefinition Height="14" />
-                        <RowDefinition Height="30" />
+                        <RowDefinition Height="40" />
 
                         <RowDefinition Height="14" />
-                        <RowDefinition Height="30" />
+                        <RowDefinition Height="40" />
 
                         <RowDefinition Height="*" /> <!--6-->
 
                         <RowDefinition Height="30" />
-                        <RowDefinition Height="30" />
+                        <RowDefinition Height="40" />
 
                         <RowDefinition Height="14" />
-                        <RowDefinition Height="30" />
+                        <RowDefinition Height="40" />
 
                         <RowDefinition Height="14" /> <!--11--> 
-                        <RowDefinition Height="30" />
+                        <RowDefinition Height="40" />
 
                         <RowDefinition Height="14" /> <!--13-->
-                        <RowDefinition Height="30" />
+                        <RowDefinition Height="40" />
 
                         <RowDefinition Height="*" />
 
                         <RowDefinition Height="14" /> <!--16-->
-                        <RowDefinition Height="30" />
+                        <RowDefinition Height="40" />
 
                         <RowDefinition Height="14" />
-                        <RowDefinition Height="30" />
+                        <RowDefinition Height="40" />
 
                         <RowDefinition Height="14" />
-                        <RowDefinition Height="30" />
+                        <RowDefinition Height="40" />
 
                         <RowDefinition Height="14" />
-                        <RowDefinition Height="30" />
+                        <RowDefinition Height="40" />
 
                         <RowDefinition Height="14" />
-                        <RowDefinition Height="30" />
+                        <RowDefinition Height="40" />
 
                     </Grid.RowDefinitions>
                     <Grid.ColumnDefinitions>
@@ -422,7 +422,7 @@
                         <Grid>
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="10" />
-                                <RowDefinition Height="14" />
+                                <RowDefinition Height="16" />
                                 <RowDefinition Height="*" />
                             </Grid.RowDefinitions>
                             <Grid.ColumnDefinitions>
@@ -430,12 +430,12 @@
                                 <ColumnDefinition Width="*" />
                             </Grid.ColumnDefinitions>
                             <Label FontSize="Micro" VerticalOptions="End" x:Name="ReasonforDeviationLbl" Text="Reason for Deviation" TextColor="Black" Grid.Row="1" Grid.Column="0" />
-                            <Label x:Name="ReasonforDeviationbtn" Text="Choose" HorizontalOptions="EndAndExpand" TextColor="#03A9F4" Grid.Row="1" Grid.Column="1" FontSize="Micro">
+                            <Label x:Name="ReasonforDeviationbtn" Text="Choose" HorizontalOptions="EndAndExpand" TextColor="#03A9F4" Grid.Row="1" Grid.Column="1" FontSize="Small">
                                 <Label.GestureRecognizers>
                                    <TapGestureRecognizer Tapped="reasondeviamulti_clicked" />
                                 </Label.GestureRecognizers>
                             </Label>
-                                <Entry IsEnabled="False" x:Name="ReasonforDeviationEntry" Text="{Binding ReasonforDeviation, Mode=TwoWay}" TextColor="Black" Grid.Row="2" Grid.ColumnSpan="2" />
+                            <Entry IsEnabled="False" x:Name="ReasonforDeviationEntry" Text="{Binding ReasonforDeviation, Mode=TwoWay}" TextColor="Black" Grid.Row="2" Grid.ColumnSpan="2" />
                         </Grid>
                     </StackLayout>
 
@@ -458,7 +458,7 @@
                         <Grid>
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="10" />
-                                <RowDefinition Height="14" />
+                                <RowDefinition Height="16" />
                                 <RowDefinition Height="*" />
                             </Grid.RowDefinitions>
                             <Grid.ColumnDefinitions>
@@ -467,7 +467,7 @@
                             </Grid.ColumnDefinitions>
 
                             <Label FontSize="Micro" x:Name="RelativepositionLbl" Text="Relative position" TextColor="Black" Grid.Row="1" Grid.Column="0" />
-                            <Label x:Name="relativemultibutton" VerticalOptions="End" Text="Choose" HorizontalOptions="EndAndExpand" TextColor="#03A9F4" Grid.Row="1" Grid.Column="1" FontSize="Micro">
+                            <Label x:Name="relativemultibutton" VerticalOptions="End" Text="Choose" HorizontalOptions="EndAndExpand" TextColor="#03A9F4" Grid.Row="1" Grid.Column="1" FontSize="Small">
                                 <Label.GestureRecognizers>
                                     <TapGestureRecognizer Tapped="RealtivePosimulti_clicked" />
                                 </Label.GestureRecognizers>
@@ -534,16 +534,16 @@
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="14" />
-                        <RowDefinition Height="30" />
+                        <RowDefinition Height="40" />
 
                         <RowDefinition Height="14" />
-                        <RowDefinition Height="30" />
+                        <RowDefinition Height="40" />
 
                         <RowDefinition Height="14" />
-                        <RowDefinition Height="30" />
+                        <RowDefinition Height="40" />
 
                         <RowDefinition Height="14" />
-                        <RowDefinition Height="30" />
+                        <RowDefinition Height="40" />
 
                         <RowDefinition Height="14" />
                         <RowDefinition Height="*" />

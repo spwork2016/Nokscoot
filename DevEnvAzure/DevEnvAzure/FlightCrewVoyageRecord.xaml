@@ -47,19 +47,19 @@
                                 <Grid>
                                     <Grid.RowDefinitions>
                                         <RowDefinition Height="14" />
-                                        <RowDefinition Height="*" />
+                                        <RowDefinition Height="40" />
                                         <RowDefinition Height="14" />
-                                        <RowDefinition Height="*" />
+                                        <RowDefinition Height="40" />
                                         <RowDefinition Height="14" />
-                                        <RowDefinition Height="*" />
+                                        <RowDefinition Height="40" />
                                         <RowDefinition Height="14" />
-                                        <RowDefinition Height="*" />
+                                        <RowDefinition Height="40" />
                                         <RowDefinition Height="14" />
-                                        <RowDefinition Height="*" />
+                                        <RowDefinition Height="40" />
                                         <RowDefinition Height="14" />
-                                        <RowDefinition Height="*" />
+                                        <RowDefinition Height="40" />
                                         <RowDefinition Height="14" />
-                                        <RowDefinition Height="*" />
+                                        <RowDefinition Height="40" />
                                     </Grid.RowDefinitions>
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition Width="*" />
@@ -78,9 +78,9 @@
                                     <Picker x:Name="AircraftRegistrationpicker" SelectedItem="{Binding AircraftRegistration,Mode=TwoWay}" 
                                     TextColor="#03A9F4" Grid.Row="5" Grid.ColumnSpan="2" HorizontalOptions="FillAndExpand">
                                     </Picker>
-                                    <Label x:Name="DepartureStationLbl" TextColor="Black" Grid.Row="6" Grid.ColumnSpan="2" FontSize="Micro" />
+                                    <Label x:Name="DepartureStationLbl" Text="Departure Station" TextColor="Black" Grid.Row="6" Grid.ColumnSpan="2" FontSize="Micro" />
                                     <Entry x:Name="DepartureStationEntry" IsEnabled="False" Text="{Binding DepartureStation, Mode=TwoWay}" TextColor="#03A9F4" Grid.Row="7" Grid.ColumnSpan="2" />
-                                    <Label x:Name="ArrivalStationLbl" TextColor="Black" Grid.Row="8" Grid.ColumnSpan="2" FontSize="Micro"/>
+                                    <Label x:Name="ArrivalStationLbl" Text="Arrival Station" TextColor="Black" Grid.Row="8" Grid.ColumnSpan="2" FontSize="Micro"/>
                                     <Entry x:Name="ArrivalStationEntry" IsEnabled="False" Text="{Binding ArrivalStation, Mode=TwoWay}" TextColor="#03A9F4" Grid.Row="9" Grid.ColumnSpan="2" />
                                     <Label x:Name="LandingByLbl" Text="Landing By" TextColor="Black" Grid.Row="10" Grid.ColumnSpan="2" FontSize="Micro"/>
                                     <Entry x:Name="LandingByEntry"  Text="{Binding LandingBy, Mode=TwoWay}" TextColor="#03A9F4" Grid.Row="11" Grid.ColumnSpan="2" />
@@ -102,19 +102,19 @@
                                 <Grid>
                                     <Grid.RowDefinitions>
                                         <RowDefinition Height="14" />
-                                        <RowDefinition Height="30" />
+                                        <RowDefinition Height="40" />
                                         <RowDefinition Height="14" />
-                                        <RowDefinition Height="30" />
+                                        <RowDefinition Height="40" />
                                         <RowDefinition Height="14" />
                                         <RowDefinition Height="180" />
                                         <RowDefinition Height="14" />
-                                        <RowDefinition Height="30" />
+                                        <RowDefinition Height="40" />
                                         <RowDefinition Height="14" />
-                                        <RowDefinition Height="30" />
+                                        <RowDefinition Height="40" />
                                         <RowDefinition Height="14" />
-                                        <RowDefinition Height="30" />
+                                        <RowDefinition Height="40" />
                                         <RowDefinition Height="14" />
-                                        <RowDefinition Height="30" />
+                                        <RowDefinition Height="40" />
                                     </Grid.RowDefinitions>
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition Width="*" />

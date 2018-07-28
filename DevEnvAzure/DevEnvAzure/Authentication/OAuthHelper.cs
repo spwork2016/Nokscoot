@@ -2,6 +2,7 @@
 using Microsoft.IdentityModel.Clients.ActiveDirectory;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using PCLStorage;
 using Plugin.Connectivity;
 using System;
 using System.Collections.Generic;
@@ -142,11 +143,13 @@ namespace DevEnvAzure
 
         public static async Task<HttpClient> GetHTTPClient(string access_token = "")
         {
-            // await RefreshAccessToken();
-            if (Device.RuntimePlatform == Device.iOS)
+            if (App.AuthenticationResponse == null)
             {
                 await RefreshAccessToken();
             }
+
+            if (App.AuthenticationResponse == null) return null;
+
             HttpClient client = new HttpClient();
             client.DefaultRequestHeaders.Add("Accept", "application/json;odata=verbose");
             client.DefaultRequestHeaders.Add("ContentType", "application/json");
@@ -158,8 +161,31 @@ namespace DevEnvAzure
 
         public static async Task<User> GetUserInfo(string username, string password)
         {
+            if (!SPUtility.IsConnected())
+            {
+                var uInfo = App.DAUtil.GetMasterInfoByName("UserInfo");
+                if (uInfo != null)
+                {
+                    var obj = JsonConvert.DeserializeObject<SPData>(uInfo.content, new JsonSerializerSettings { DateParseHandling = DateParseHandling.None });
+                    if (obj != null)
+                    {
+                        App.CurrentUser = new User
+                        {
+                            Id = obj.d.Id,
+                            Name = obj.d.Title,
+                            Email = obj.d.Email,
+                            //PictureBytes = GetPicture(username, password).Result
+                        };
+                    }
+                }
+                else return null;
+            }
+
             var client = await OAuthHelper.GetHTTPClient();
-            if (client == null) { return null; }
+            if (client == null)
+            {
+                return null;
+            }
 
             try
             {
@@ -170,7 +196,13 @@ namespace DevEnvAzure
                     var spData = JsonConvert.DeserializeObject<SPData>(response, new JsonSerializerSettings { DateParseHandling = DateParseHandling.None });
                     if (spData != null)
                     {
-                        App.CurrentUser = new User { Id = spData.d.Id, Name = spData.d.Title, Email = spData.d.Email, PictureBytes = GetPicture(username, password).Result };
+                        App.CurrentUser = new User
+                        {
+                            Id = spData.d.Id,
+                            Name = spData.d.Title,
+                            Email = spData.d.Email,
+                            PictureBytes = GetPicture(username, password).Result
+                        };
                     }
                 }
 
@@ -182,6 +214,17 @@ namespace DevEnvAzure
 
             return null;
         }
+
+        //public async Task PCLStorageSample()
+        //{
+        //    IFolder rootFolder = FileSystem.Current.LocalStorage;
+        //    IFolder folder = await rootFolder.CreateFolderAsync("NokScoot-Sharepoint-Mobile",
+        //        CreationCollisionOption.OpenIfExists);
+        //    IFile file = await folder.CreateFileAsync("profilepic.jpg",
+        //        CreationCollisionOption.ReplaceExisting);
+        //    await FileSystem.Current.LocalStorage.
+        //    await file.WriteAllTextAsync("42");
+        //}
 
         public static async Task<byte[]> GetPicture(string username, string password)
         {
@@ -209,7 +252,7 @@ namespace DevEnvAzure
 
         public static bool IsLoggedIn()
         {
-            if (!CrossConnectivity.Current.IsConnected)
+            if (!SPUtility.IsConnected())
             {
                 MasterInfo auth = App.DAUtil.GetMasterInfoByName("Authentication");
                 if (auth != null)
@@ -230,17 +273,17 @@ namespace DevEnvAzure
             if (App.AuthenticationResponse == null) return false;
 
             //For offline fuctionality
-            if (App.AuthenticationResponse != null && !CrossConnectivity.Current.IsConnected) return true;
+            if (App.AuthenticationResponse != null && !SPUtility.IsConnected()) return true;
 
             DateTime expries = new DateTime(1970, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc);
             expries = expries.AddSeconds(long.Parse(App.AuthenticationResponse.expires_on)).ToLocalTime();
 
-            return CrossConnectivity.Current.IsConnected && expries > DateTime.Now;
+            return SPUtility.IsConnected() && expries > DateTime.Now;
         }
 
         public static async Task<bool> RefreshAccessToken()
         {
-            if (!CrossConnectivity.Current.IsConnected) return false;
+            if (!SPUtility.IsConnected()) return false;
 
             if (App.AuthenticationResponse == null)
             {

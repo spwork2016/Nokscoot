@@ -19,7 +19,7 @@ namespace DevEnvAzure
             BindingContext = this;
 
             var userCredentials = App.DAUtil.GetMasterInfoByName("UserCredentials");
-            if (CrossConnectivity.Current.IsConnected && userCredentials != null)
+            if (SPUtility.IsConnected() && userCredentials != null)
             {
                 var cred = JsonConvert.DeserializeObject<dynamic>(userCredentials.content);
                 string uName = cred.Username;

@@ -2,7 +2,7 @@
 <Project ToolsVersion="14.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <SelectedDevice>Samsung SM-J700F</SelectedDevice>
-    <DefaultDevice>1</DefaultDevice>
+    <DefaultDevice>Nexus 4 %28Marshmallow%29</DefaultDevice>
     <ProjectView>ShowAllFiles</ProjectView>
     <AndroidDesignerPreferredDevice>Nexus 10</AndroidDesignerPreferredDevice>
   </PropertyGroup>
