@@ -25,22 +25,23 @@ namespace DevEnvAzure.Droid
 
             base.OnCreate(bundle);
             CrossCurrentActivity.Current.Init(this, bundle);
+            
             try
             {
                 global::Xamarin.Forms.Forms.Init(this, bundle);
                 ImageCircleRenderer.Init();
                 LoadApplication(new App());
-                MessagingCenter.Subscribe<object>(this, "StartService", (arg) =>
-                {
-                    try
-                    {
-                        serviceStarter();
-                    }
-                    catch (Exception ex)
-                    {
+                //MessagingCenter.Subscribe<object>(this, "StartService", (arg) =>
+                //{
+                //    try
+                //    {
+                //        serviceStarter();
+                //    }
+                //    catch (Exception ex)
+                //    {
 
-                    }
-                });
+                //    }
+                //});
             }
             catch (Exception ex)
             {

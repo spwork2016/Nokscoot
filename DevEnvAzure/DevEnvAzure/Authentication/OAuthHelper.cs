@@ -161,24 +161,24 @@ namespace DevEnvAzure
 
         public static async Task<User> GetUserInfo(string username, string password)
         {
+            var uInfo = App.DAUtil.GetMasterInfoByName("UserInfo");
+            if (uInfo != null)
+            {
+                var obj = JsonConvert.DeserializeObject<SPData>(uInfo.content, new JsonSerializerSettings { DateParseHandling = DateParseHandling.None });
+                if (obj != null)
+                {
+                    App.CurrentUser = new User
+                    {
+                        Id = obj.d.Id,
+                        Name = obj.d.Title,
+                        Email = obj.d.Email,
+                    };
+                }
+            }
+
             if (!SPUtility.IsConnected())
             {
-                var uInfo = App.DAUtil.GetMasterInfoByName("UserInfo");
-                if (uInfo != null)
-                {
-                    var obj = JsonConvert.DeserializeObject<SPData>(uInfo.content, new JsonSerializerSettings { DateParseHandling = DateParseHandling.None });
-                    if (obj != null)
-                    {
-                        App.CurrentUser = new User
-                        {
-                            Id = obj.d.Id,
-                            Name = obj.d.Title,
-                            Email = obj.d.Email,
-                            //PictureBytes = GetPicture(username, password).Result
-                        };
-                    }
-                }
-                else return null;
+                return null;
             }
 
             var client = await OAuthHelper.GetHTTPClient();
@@ -214,17 +214,6 @@ namespace DevEnvAzure
 
             return null;
         }
-
-        //public async Task PCLStorageSample()
-        //{
-        //    IFolder rootFolder = FileSystem.Current.LocalStorage;
-        //    IFolder folder = await rootFolder.CreateFolderAsync("NokScoot-Sharepoint-Mobile",
-        //        CreationCollisionOption.OpenIfExists);
-        //    IFile file = await folder.CreateFileAsync("profilepic.jpg",
-        //        CreationCollisionOption.ReplaceExisting);
-        //    await FileSystem.Current.LocalStorage.
-        //    await file.WriteAllTextAsync("42");
-        //}
 
         public static async Task<byte[]> GetPicture(string username, string password)
         {

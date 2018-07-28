@@ -62,28 +62,25 @@ namespace DevEnvAzure
 
                         OAuthHelper.GetAuthenticationHeader(uName, pwd).ContinueWith(async (x) =>
                         {
-                            if (CrossConnectivity.Current.IsReachable(ClientConfiguration.NokScoot.SPRootURL).Result)
+                            await OAuthHelper.GetUserInfo(uName, pwd).ContinueWith((y) =>
                             {
-                                await OAuthHelper.GetUserInfo(uName, pwd).ContinueWith((y) =>
+                                Device.BeginInvokeOnMainThread(() =>
                                 {
-                                    Device.BeginInvokeOnMainThread(() =>
-                                    {
-                                        DependencyService.Get<IMessage>().ShortAlert("user info");
-                                    });
-
-                                    Device.BeginInvokeOnMainThread(async () =>
-                                    {
-                                        MessagingCenter.Send<App>(this, "userInfo");
-                                        if (App.AuthenticationResponse == null)
-                                        {
-                                            MainPage = new Login();
-                                            DependencyService.Get<IMessage>().ShortAlert("Login failed! Please check email/password");
-                                        }
-                                    });
+                                    DependencyService.Get<IMessage>().ShortAlert("user info");
                                 });
 
-                                await SyncLocalData();
-                            }
+                                Device.BeginInvokeOnMainThread(async () =>
+                                {
+                                    MessagingCenter.Send<App>(this, "userInfo");
+                                    if (App.AuthenticationResponse == null)
+                                    {
+                                        MainPage = new Login();
+                                        DependencyService.Get<IMessage>().ShortAlert("Login failed! Please check email/password");
+                                    }
+                                });
+                            });
+
+                            await SyncLocalData();
                         }).ConfigureAwait(false);
                     }
                     else
@@ -229,6 +226,18 @@ namespace DevEnvAzure
                 //iOS stuff
                 CrossConnectivity.Current.ConnectivityChanged += Current_ConnectivityChanged;
             }
+            else if (Device.RuntimePlatform == Device.Android)
+            {
+                CrossConnectivity.Current.ConnectivityTypeChanged += Current_ConnectivityTypeChanged;
+            }
+        }
+
+        private void Current_ConnectivityTypeChanged(object sender, Plugin.Connectivity.Abstractions.ConnectivityTypeChangedEventArgs e)
+        {
+            if (e.IsConnected)
+            {
+                ConnectionChanged();
+            }
         }
 
         protected override void OnSleep()
@@ -252,25 +261,30 @@ namespace DevEnvAzure
         {
             if (e.IsConnected)
             {
-                var userCredentials = App.DAUtil.GetMasterInfoByName("UserCredentials");
-                if (userCredentials != null)
-                {
-                    var cred = JsonConvert.DeserializeObject<dynamic>(userCredentials.content);
-                    string uName = cred.Username;
-                    string pwd = cred.Password;
+                ConnectionChanged();
+            }
+        }
 
-                    await OAuthHelper.GetAuthenticationHeader(uName, pwd).ContinueWith(async (x) =>
-                     {
-                         try
-                         {
-                             await OAuthHelper.SyncOfflineItems();
-                         }
-                         catch (Exception ex)
-                         {
-                             ShowError(ex.Message);
-                         }
-                     }).ConfigureAwait(false);
-                }
+        private async void ConnectionChanged()
+        {
+            var userCredentials = App.DAUtil.GetMasterInfoByName("UserCredentials");
+            if (userCredentials != null)
+            {
+                var cred = JsonConvert.DeserializeObject<dynamic>(userCredentials.content);
+                string uName = cred.Username;
+                string pwd = cred.Password;
+
+                await OAuthHelper.GetAuthenticationHeader(uName, pwd).ContinueWith(async (x) =>
+                {
+                    try
+                    {
+                        await OAuthHelper.SyncOfflineItems();
+                    }
+                    catch (Exception ex)
+                    {
+                        ShowError(ex.Message);
+                    }
+                }).ConfigureAwait(false);
             }
         }
     }
