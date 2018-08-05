@@ -171,6 +171,9 @@ namespace DevEnvAzure.Model
         public string IATA_x0020_Code { get; set; }
         public string Aircraft_x0020_Registration { get; set; }
         public string AircraftRegistrationNew { get; set; }
+        public string City_x0020_Name { get; set; }
+        public string Country { get; set; }
+        public string Airport_x0020_Type { get; set; }
     }
 
     public class UserProfileProperties
@@ -229,6 +232,11 @@ namespace DevEnvAzure.Model
     public class SPData
     {
         public D d { get; set; }
+    }
+
+    public class StationInformationSpRoot
+    {
+        public DataContracts.StationInformationSp d { get; set; }
     }
 
     public class FileNameAsPath

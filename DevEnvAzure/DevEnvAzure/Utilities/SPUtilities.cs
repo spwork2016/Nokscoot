@@ -293,6 +293,27 @@ namespace DevEnvAzure
             return null;
         }
 
+        public static async Task<DataContracts.StationInformationSp> GetStationInfoItem(int id)
+        {
+            var client = await OAuthHelper.GetHTTPClient();
+            string url = GetListURL(ReportType.SationInfo) + $"({id})";
+            try
+            {
+                var response = await client.GetStringAsync(url);
+                var sInfo = JsonConvert.DeserializeObject<StationInformationSpRoot>(response,
+                            new JsonSerializerSettings
+                            {
+                                NullValueHandling = NullValueHandling.Ignore
+                            });
+                return sInfo.d;
+            }
+            catch (Exception ex)
+            {
+            }
+
+            return null;
+        }
+
         public static async Task<string[]> GetAirCraftRegistrations()
         {
             MasterInfo mInfo = null;
@@ -429,6 +450,7 @@ namespace DevEnvAzure
             if (mInfo != null)
             {
                 var stations = await GetStations();
+
                 var oPlans = JsonConvert.DeserializeObject<SPData>(mInfo.content);
                 return oPlans.d.results.Select(x => new OperatingPlan
                 {

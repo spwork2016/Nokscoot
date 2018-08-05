@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using DevEnvAzure.Models;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,7 +20,7 @@ namespace DevEnvAzure.DataContracts
         public string Url { get; set; }
     }
 
-    class StationInformationSp
+    public class StationInformationSp
     {
         public StationInformationSp()
         {
@@ -27,8 +28,59 @@ namespace DevEnvAzure.DataContracts
             //this.__metadata.type = "SP.Data.Ops_x0020_Line_x0020_Station_x0020_InformationListItem";
             this.__metadata.type = "SP.Data.Line_x0020_Station_x0020_Risk_x0020_AssessmentListItem";
         }
-        public Metadata __metadata { get; set; }
 
+        public StationInformationModel GetModel()
+        {
+            StationInformationModel model = new StationInformationModel();
+            model.Id = Id;
+           
+            model.AddressThaiConsulate = AddressThaiConsulate;
+            model.AircraftInsecticidebyCabinCrew = AircraftInsecticidebyCabinCrew;
+            model.BridgeConnect = BridgeConnect;
+            model.CAAContactNameNumber = CAAContactNameNumber;
+            model.Calltime = Calltime;
+            model.Contactemail = Contactemail;
+            model.DebriefingProceedto = DebriefingProceedto;
+            model.Doctoratairport = Doctoratairport;
+            model.Doctorathotel = Doctorathotel;
+            model.DoorOperation = DoorOperation;
+            model.EmailRep1 = EmailRep1;
+            model.EmailRep2 = EmailRep2;
+            model.EmailThaiConsulate = EmailThaiConsulate;
+            model.Engineeronboard = Convert.ToBoolean(Engineeronboard);
+            model.FaxThaiConsulate = FaxThaiConsulate;
+            model.FirstLastDoor = FirstLastDoor;
+            model.GMT = GMT;
+            model.HealthConsiderations = HealthConsiderations;
+            model.Hoteladdress = Hoteladdress;
+            model.HotelContactName = HotelContactName;
+            model.HotelName = HotelName;
+            model.HotelTel = HotelTel;
+            model.IATACode = IATACode;
+            model.ImmigrationCustomsConsiderations = ImmigrationCustomsConsiderations;
+            model.NameofAirport = NameofAirport != null ? NameofAirport.Description : "";
+            model.noofEquipmentinCompartment = noofEquipmentinCompartment;
+            model.Pickuptime = Pickuptime;
+            model.Recommendedhospital = Recommendedhospital;
+            model.RecommendedSafetyprecautions = RecommendedSafetyprecautions;
+            model.RecommendedSecurityPrecautions = RecommendedSecurityPrecautions;
+            model.RestaurantInfo = RestaurantInfo;
+            model.SafetyHazards = SafetyHazards;
+            model.SecurityThreats = SecurityThreats;
+            model.StationRep1Name = StationRep1Name;
+            model.StationRep2Name = StationRep2Name;
+            model.TelRep1 = TelRep1;
+            model.TelRep2 = TelRep2;
+            model.TelThaiConsulate = TelThaiConsulate;
+            model.TerminalRowwhereweoperate = TerminalRowwhereweoperate;
+            model.Transportationcontactinfo = Transportationcontactinfo;
+            model.WorkingHoursThaiConsulate = WorkingHoursThaiConsulate;
+
+            return model;
+        }
+
+        public Metadata __metadata { get; set; }
+        public int Id { get; set; }
         [JsonProperty(PropertyName = "IATA_x0020_Code")]
         public string IATACode
         { get; set; }

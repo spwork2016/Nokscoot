@@ -133,7 +133,7 @@ namespace DevEnvAzure
                     StationInformationModel listitem8 = (from itm in App.statInfo
                                                          where itm.Id == id
                                                          select itm).FirstOrDefault();
-                    await Navigation.PushAsync(new StationInformation(listitem8, "stsnInfo"));
+                    await Navigation.PushAsync(new StationInformation(listitem8));
                     break;
             }
         }

@@ -20,14 +20,14 @@ namespace DevEnvAzure
         Models.StationInformationModel _StationInformation;
         Jsonpropertyinitialise jsonInitObj = new Jsonpropertyinitialise();
         AttachmentView _attachementView;
-        public StationInformation(object viewObject, string modelname)
+        public StationInformation(object viewObject)
         {
             _StationInformation = (Models.StationInformationModel)viewObject;
             this.BindingContext = _StationInformation;
             InitializeComponent();
 
             _attachementView = new AttachmentView();
-            stkAttachment.Children.Add(_attachementView);
+            //stkAttachment.Children.Add(_attachementView);
         }
 
         protected async override void OnAppearing()

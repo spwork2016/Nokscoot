@@ -64,11 +64,6 @@ namespace DevEnvAzure
                         {
                             await OAuthHelper.GetUserInfo(uName, pwd).ContinueWith((y) =>
                             {
-                                Device.BeginInvokeOnMainThread(() =>
-                                {
-                                    DependencyService.Get<IMessage>().ShortAlert("user info");
-                                });
-
                                 Device.BeginInvokeOnMainThread(async () =>
                                 {
                                     MessagingCenter.Send<App>(this, "userInfo");

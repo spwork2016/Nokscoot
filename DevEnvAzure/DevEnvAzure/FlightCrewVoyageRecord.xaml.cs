@@ -240,7 +240,10 @@ namespace DevEnvAzure
                 else
                 {
                     SaveOfflineItem(body, ReportType.FlighCrewVoyage, _attachementView.GetAttachmentInfoAsString());
-                    DependencyService.Get<IMessage>().LongAlert("Item stored in local storage");
+
+                    await DisplayAlert("", "Item stored in local storage", "Ok");
+                    ToggleBusy(false);
+                    MessagingCenter.Send(this, "home");
                 }
             }
             catch (HttpRequestException ex)

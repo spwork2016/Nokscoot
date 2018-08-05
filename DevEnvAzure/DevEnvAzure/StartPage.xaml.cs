@@ -35,7 +35,7 @@ namespace DevEnvAzure
                 var reportingPage = new MasterPageItem() { Title = "Reporting", Icon = "reporting.png", TargetType = typeof(ReportsPage) };
                 var tasksPage = new MasterPageItem() { Title = "My Tasks", Icon = "mytasks.png", TargetType = typeof(Tasks) };
                 var docsPage = new MasterPageItem() { Title = "Documents", Icon = "documents.png", TargetType = typeof(DocumentLibrary) };
-                var StationInformationPage = new MasterPageItem() { Title = "Station Information", Icon = "stationinfo.png", TargetType = typeof(StationInformation) };
+                var StationInformationPage = new MasterPageItem() { Title = "Station Information", Icon = "stationinfo.png", TargetType = typeof(ViewStationInformation) };
                 var editableDraftsPage = new MasterPageItem() { Title = "Editable Drafts", Icon = "editabledrafts.png", TargetType = typeof(EditableDrafts) };
                 var notificationsPage = new MasterPageItem() { Title = "Notifications", Icon = "notifications.png", TargetType= typeof(Notifications) };
               
@@ -181,7 +181,7 @@ namespace DevEnvAzure
             {
                 IsPresented = false;
 
-                SetNavigationPage((Page)Activator.CreateInstance(item.TargetType, new StationInformationModel(), "StationInfo"));
+                SetNavigationPage((Page)Activator.CreateInstance(item.TargetType));
             }
 
             else if (item.TargetType != null)
