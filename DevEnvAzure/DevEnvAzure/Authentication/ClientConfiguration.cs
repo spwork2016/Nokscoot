@@ -7,7 +7,19 @@ namespace DevEnvAzure
         public static ClientConfiguration Default { get { return NokScoot; } }
         public static ClientConfiguration NokScoot = new ClientConfiguration()
         {
-       
+            ActiveDirectoryResource = RootURL,
+            ActiveDirectoryTenant = "",
+            ActiveDirectoryClientAppId = "",
+            SPRootURL = string.Format("{0}_api/", RootURL),
+            SPRootURLList = string.Format("{0}_api/web/lists/", RootURL),
+            SPListURL = "https://nokscootth.sharepoint.com/_api/web/lists/GetByTitle('{0}')/items",
+            SPDocumentLibraryURL = string.Format("{0}_api/web/GetFolderByServerRelativeUrl('/SampleDocuments')/Folders", RootURL),
+            GraphAPIRootURL = "https://graph.windows.net/",
+            GraphAPIURL = "",
+            APPNAME = "NokScoot-Sharepoint-Mobile",
+            AttachmentOptions = new string[] { "Camera", "Gallery" },
+            TLSVersion = "",
+            SHORTFORMURL = "SP.Data.Test_x005f_SSRListItem"
         };
 
         //public static ClientConfiguration OneBox = new ClientConfiguration()
