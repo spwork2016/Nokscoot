@@ -37,7 +37,7 @@ namespace DevEnvAzure
 
             ToggleBusy(true);
 
-            var stations = await SPUtility.GetStations();
+            var stations = await SPUtility.GetStations(true);
             iataPicker.ItemsSource = stations.Select(x => x.Value).ToList();
 
             ToggleBusy(false);
@@ -48,6 +48,17 @@ namespace DevEnvAzure
             ToggleBusy(true);
 
             var SelectedValue = iataPicker.Items.ElementAt(iataPicker.SelectedIndex);
+            if (!SPUtility.IsConnected())
+            {
+                Device.BeginInvokeOnMainThread(() =>
+                {
+                    DependencyService.Get<IMessage>().ShortAlert("No active internet connection was found!");
+                });
+
+                ToggleBusy(false);
+                return;
+            }
+
             await BindStationInfoByIATA(SelectedValue);
 
             ToggleBusy(false);
@@ -64,8 +75,18 @@ namespace DevEnvAzure
             {
                 var spData = JsonConvert.DeserializeObject<SPData>(response,
                              new JsonSerializerSettings { DateParseHandling = DateParseHandling.None, NullValueHandling = NullValueHandling.Ignore });
-                lstStationInfo.ItemsSource = spData.d.results;
-                lstStationInfo.HeightRequest = 80 * spData.d.results.Count;
+                //stkList.IsVisible = true;
+                //lstStationInfo.ItemsSource = spData.d.results;
+                //lstStationInfo.HeightRequest = 80 * spData.d.results.Count;
+
+                if (spData.d.results.Count > 0)
+                {
+                    int id = spData.d.results[0].Id;
+                    DataContracts.StationInformationSp sInfo = await SPUtility.GetStationInfoItem(id);
+
+                    ToggleBusy(false);
+                    await Navigation.PushAsync(new StationInformation(sInfo.GetModel()));
+                }
             }
         }
 

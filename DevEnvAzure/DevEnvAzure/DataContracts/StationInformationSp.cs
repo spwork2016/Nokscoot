@@ -33,7 +33,7 @@ namespace DevEnvAzure.DataContracts
         {
             StationInformationModel model = new StationInformationModel();
             model.Id = Id;
-           
+
             model.AddressThaiConsulate = AddressThaiConsulate;
             model.AircraftInsecticidebyCabinCrew = AircraftInsecticidebyCabinCrew;
             model.BridgeConnect = BridgeConnect;
@@ -59,6 +59,7 @@ namespace DevEnvAzure.DataContracts
             model.IATACode = IATACode;
             model.ImmigrationCustomsConsiderations = ImmigrationCustomsConsiderations;
             model.NameofAirport = NameofAirport != null ? NameofAirport.Description : "";
+            model.NameofAirportLink = NameofAirport != null ? NameofAirport.Url : "";
             model.noofEquipmentinCompartment = noofEquipmentinCompartment;
             model.Pickuptime = Pickuptime;
             model.Recommendedhospital = Recommendedhospital;

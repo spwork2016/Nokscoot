@@ -224,5 +224,13 @@ namespace DevEnvAzure
                 await DisplayAlert("Error", ex.Message, "Ok");
             }
         }
+
+        private void TapGestureRecognizer_Tapped(object sender, EventArgs e)
+        {
+            if (!string.IsNullOrEmpty(_StationInformation.NameofAirportLink))
+            {
+                Device.OpenUri(new Uri(_StationInformation.NameofAirportLink));
+            }
+        }
     }
 }

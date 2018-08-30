@@ -38,7 +38,7 @@
                             <BoxView Color="#FDCE02" Grid.Row="1" HorizontalOptions="FillAndExpand" HeightRequest="1"/>
                             <StackLayout Grid.Row="2" Padding="20">
                                 <Button Text="Flight Crew Voyage Report" TextColor="Black" FontSize="Medium" Clicked="Button_Clicked_1" BackgroundColor="#FDCE02" />
-                                <Button Text="Technical Delay" TextColor="Black"  FontSize="Medium" BackgroundColor="#FDCE02" />
+                                <!--<Button Text="Technical Delay" TextColor="Black"  FontSize="Medium" BackgroundColor="#FDCE02" />-->
                             </StackLayout>
                         </Grid>
                     </StackLayout>

@@ -75,7 +75,7 @@ namespace DevEnvAzure
                     url = ClientConfiguration.Default.ActiveDirectoryResource + "SSQServices/_api/web/lists/GetByTitle('Kaizen Report')/items";
                     break;
                 case ReportType.MORType:
-                    url = ClientConfiguration.Default.ActiveDirectoryResource + "SSQServices/_api/web/Lists(guid'32d46a92-0ee3-4a85-83ab-12ca72dce65e')/items";
+                    url = ClientConfiguration.Default.ActiveDirectoryResource + "SSQServices/_api/web/Lists(guid'32d46a92-0ee3-4a85-83ab-12ca72dce65e')/items?$orderby=Order0 asc";
                     break;
                 case ReportType.FlighCrewVoyage:
                     url = ClientConfiguration.Default.ActiveDirectoryResource + "SSQServices/_api/web/lists/GetByTitle('Flight Crew Voyage Record')/items";
@@ -348,7 +348,7 @@ namespace DevEnvAzure
             return null;
         }
 
-        public static async Task<Dictionary<int, string>> GetStations()
+        public static async Task<Dictionary<int, string>> GetStations(bool isOpen = false)
         {
             MasterInfo mInfo = null;
             if (!SPUtility.IsConnected())
@@ -360,7 +360,13 @@ namespace DevEnvAzure
                 try
                 {
                     var client = await OAuthHelper.GetHTTPClient();
-                    var response = await client.GetStringAsync(GetListURL(ReportType.SationInfo));
+                    string url = GetListURL(ReportType.SationInfo);
+                    if (isOpen)
+                    {
+                        url += "?$filter=Status eq 'Open'";
+                    }
+
+                    var response = await client.GetStringAsync(url);
                     if (response != null)
                     {
                         mInfo = new MasterInfo { Name = "Stations", content = response };

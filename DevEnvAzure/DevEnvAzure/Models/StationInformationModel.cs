@@ -21,6 +21,9 @@ namespace DevEnvAzure.Models
         { get; set; }
         public string NameofAirport
         { get; set; }                  // check the hyper link binding
+        public string NameofAirportLink
+        { get; set; }
+
         public string GMT
         { get; set; }
         public string TerminalRowwhereweoperate

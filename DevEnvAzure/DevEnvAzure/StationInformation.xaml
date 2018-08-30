@@ -29,7 +29,12 @@
                                     <Label x:Name="IATACodeLbl"  Text="IATA Code *" TextColor="Black" Grid.Row="0" Grid.ColumnSpan="2" FontSize="Micro"  />
                                     <Entry x:Name="IATACodeEntry" IsEnabled="False"  Text="{Binding IATACode, Mode=TwoWay}" PlaceholderColor="#F1F1F1" TextColor="#03A9F4" Grid.Row="1" Grid.ColumnSpan="2" />
                                     <Label x:Name="NameofAirportInfoLbl" TextColor="Black" Text="Name of Airport and Info" Grid.Row="2" Grid.ColumnSpan="2" FontSize="Micro"  />
-                                    <Entry x:Name="NameofAirportInfoEntry" IsEnabled="False"   Text="{Binding NameofAirport, Mode=TwoWay}" PlaceholderColor="#F1F1F1"  TextColor="#03A9F4" Grid.Row="3" Grid.ColumnSpan="2" />
+                                    <Label x:Name="NameofAirportInfoLink" Text="{Binding NameofAirport}" Grid.Row="3" Grid.ColumnSpan="2" FontSize="Medium" TextColor="#03A9F4">
+                                        <Label.GestureRecognizers>
+                                            <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped" CommandParameter="{Binding NameofAirportLink}" />
+                                        </Label.GestureRecognizers>
+                                    </Label>
+                                    <!--<Entry x:Name="NameofAirportInfoEntry" IsEnabled="False" Text="{Binding NameofAirport, Mode=TwoWay}" PlaceholderColor="#F1F1F1"  TextColor="#03A9F4" Grid.Row="3" Grid.ColumnSpan="2" />-->
                                     <Label x:Name="GMTLbl" Text="GMT" TextColor="Black" Grid.Row="4" Grid.Column="0" FontSize="Micro" />
                                     <Entry x:Name="GMTEntry" IsEnabled="False" Text="{Binding GMT, Mode=TwoWay}" TextColor="#03A9F4" PlaceholderColor="#F1F1F1"  Grid.Row="5" Grid.ColumnSpan="2" />
                                     <Label x:Name="TerminalAndRowLbl" Text="Terminal and Row where we operate" TextColor="Black" Grid.Row="6" Grid.ColumnSpan="2" FontSize="Micro"  />
@@ -169,9 +174,9 @@
                                     <Entry x:Name="DoctorAtAirportEntry"  IsEnabled="False" Text="{Binding Doctoratairport, Mode=TwoWay}" TextColor="#03A9F4" PlaceholderColor="#F1F1F1"  Grid.Row="19" Grid.ColumnSpan="2"  />
                                     <Label x:Name="RecommendedHospitalLbl" Text="Recommended hospital" TextColor="Black" Grid.Row="20" Grid.ColumnSpan="2" FontSize="Micro"  />
                                     <Entry x:Name="RecommendedHospitalEntry"  IsEnabled="False" Text="{Binding Recommendedhospital, Mode=TwoWay}" TextColor="#03A9F4" PlaceholderColor="#F1F1F1"  Grid.Row="21" Grid.ColumnSpan="2"  />
-                                    
+
                                     <Label x:Name="HealthConsiderationslbl" Text="Health Considerations" TextColor="Black" Grid.Row="22" Grid.ColumnSpan="2" FontSize="Micro" />
-                                   
+
                                     <OnPlatform x:TypeArguments="View">
                                         <OnPlatform.iOS>
                                             <Frame HeightRequest="100" Padding="1" BackgroundColor="#DFDFDF"  Grid.Row="23" Grid.ColumnSpan="2" IsClippedToBounds="True">
@@ -255,7 +260,7 @@
                                     <Label x:Name="SafetyHazardsLbl" Text="Safety Hazards" TextColor="Black" Grid.Row="13" Grid.ColumnSpan="2"  FontSize="Micro" />
                                     <Entry x:Name="SafetyHazardsEntry" IsEnabled="False"  Text="{Binding SafetyHazards, Mode=TwoWay}" PlaceholderColor="#F1F1F1" TextColor="#03A9F4" Grid.Row="14" Grid.ColumnSpan="2"  />
                                     <Label x:Name="RecommendedSafetyPrecautionslbl" Text="Recommended Safety precautions" TextColor="Black" Grid.Row="15" Grid.ColumnSpan="2"  FontSize="Micro" />
-                                    
+
                                     <OnPlatform x:TypeArguments="View">
                                         <OnPlatform.iOS>
                                             <Frame HeightRequest="100" IsEnabled="False"  Padding="1" BackgroundColor="#DFDFDF" Grid.Row="16" Grid.ColumnSpan="2" IsClippedToBounds="True">
@@ -283,7 +288,7 @@
                                                Text="{Binding RecommendedSecurityPrecautions, Mode=TwoWay}" TextColor="#03A9F4" />
                                         </OnPlatform.Android>
                                     </OnPlatform>
-                                    
+
                                     <Label x:Name="ImmigrationCustomsConsiderationslbl" Text="Immigration / Customs Considerations" TextColor="Black" Grid.Row="21" Grid.ColumnSpan="2" FontSize="Micro"  />
                                     <OnPlatform x:TypeArguments="View">
                                         <OnPlatform.iOS>
