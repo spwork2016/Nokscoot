@@ -46,7 +46,7 @@ namespace DevEnvAzure.Droid
                // string path = Environment.GetFolderPath(Environment.SpecialFolder.Personal);
                // return Path.Combine(path, filename);
                 //var plat = new SQLite.Net.Platform.XamarinAndroid.SQLitePlatformAndroid();
-                var platform = new SQLite.Net.Platform.XamarinAndroid.SQLitePlatformAndroid();
+                var platform = new SQLite.Net.Platform.XamarinAndroid.SQLitePlatformAndroidN();
                 var conn = new SQLite.Net.SQLiteConnection(platform, path);
                 //  var conn = new SQLite.SQLiteConnection(path);
                 return conn;

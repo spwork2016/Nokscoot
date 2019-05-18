@@ -13,16 +13,16 @@
                                 <RowDefinition Height="1"/>
                                 <RowDefinition Height="*"/>
                             </Grid.RowDefinitions>
-                                <Label  Grid.Row="0" Text="Safety" VerticalOptions="Center" HorizontalOptions="StartAndExpand" FontSize="16" LineBreakMode="TailTruncation" 
+                                <Label  Grid.Row="0" Text="Safety" VerticalOptions="Center" HorizontalOptions="StartAndExpand" FontSize="14" LineBreakMode="TailTruncation" 
                            TextColor="Black" FontAttributes="Bold"/>
                             <BoxView Color="#FDCE02" Grid.Row="1" HorizontalOptions="FillAndExpand" HeightRequest="1"/>
                             <StackLayout Grid.Row="2" Padding="20">
-                                <Button Text="Flight Safety Report" TextColor="Black" FontSize="Medium" Clicked="Button_Clicked" BackgroundColor="#FDCE02" />
-                                <Button Text="Cabin Safety Report" TextColor="Black" FontSize="Medium" Clicked="CabinSafety_Clicked" BackgroundColor="#FDCE02" />
-                                <Button Text="Ground Safety Report" TextColor="Black" FontSize="Medium" Clicked="GroundSafety_Clicked" BackgroundColor="#FDCE02" />
-                                <Button Text="Security Report" TextColor="Black"  FontSize="Medium" Clicked="Security_Clicked" BackgroundColor="#FDCE02" />
-                                <Button Text="Injury/Illness Report" TextColor="Black" FontSize="Medium" Clicked="InjuryIllness_Clicked" BackgroundColor="#FDCE02" />
-                                <Button Text="Fatigue Report" TextColor="Black" FontSize="Medium" Clicked="Fatigue_Clicked" BackgroundColor="#FDCE02" />
+                                <Button Text="Flight Safety Report" TextColor="Black" FontSize="14" Clicked="Button_Clicked" BackgroundColor="#FDCE02" />
+                                <Button Text="Cabin Safety Report" TextColor="Black" FontSize="14" Clicked="CabinSafety_Clicked" BackgroundColor="#FDCE02" />
+                                <Button Text="Ground Safety Report" TextColor="Black" FontSize="14" Clicked="GroundSafety_Clicked" BackgroundColor="#FDCE02" />
+                                <Button Text="Security Report" TextColor="Black"  FontSize="14" Clicked="Security_Clicked" BackgroundColor="#FDCE02" />
+                                <Button Text="Injury/Illness Report" TextColor="Black" FontSize="14" Clicked="InjuryIllness_Clicked" BackgroundColor="#FDCE02" />
+                                <Button Text="Fatigue Report" TextColor="Black" FontSize="14" Clicked="Fatigue_Clicked" BackgroundColor="#FDCE02" />
                             </StackLayout>
                         </Grid>
                     </StackLayout>
@@ -33,11 +33,11 @@
                                 <RowDefinition Height="1"/>
                                 <RowDefinition Height="*"/>
                             </Grid.RowDefinitions>
-                            <Label  Grid.Row="0" Text="Operations" VerticalOptions="FillAndExpand" HorizontalOptions="StartAndExpand" FontSize="16" LineBreakMode="TailTruncation" 
+                            <Label  Grid.Row="0" Text="Operations" VerticalOptions="FillAndExpand" HorizontalOptions="StartAndExpand" FontSize="14" LineBreakMode="TailTruncation" 
                            TextColor="Black" FontAttributes="Bold"/>
                             <BoxView Color="#FDCE02" Grid.Row="1" HorizontalOptions="FillAndExpand" HeightRequest="1"/>
                             <StackLayout Grid.Row="2" Padding="20">
-                                <Button Text="Flight Crew Voyage Report" TextColor="Black" FontSize="Medium" Clicked="Button_Clicked_1" BackgroundColor="#FDCE02" />
+                                <Button Text="Flight Crew Voyage Report" TextColor="Black" FontSize="14" Clicked="Button_Clicked_1" BackgroundColor="#FDCE02" />
                                 <!--<Button Text="Technical Delay" TextColor="Black"  FontSize="Medium" BackgroundColor="#FDCE02" />-->
                             </StackLayout>
                         </Grid>
@@ -49,11 +49,11 @@
                                 <RowDefinition Height="1"/>
                                 <RowDefinition Height="*"/>
                             </Grid.RowDefinitions>
-                            <Label  Grid.Row="0" Text="Kaizen" VerticalOptions="FillAndExpand" HorizontalOptions="StartAndExpand" FontSize="16" LineBreakMode="TailTruncation" 
+                            <Label  Grid.Row="0" Text="Kaizen" VerticalOptions="FillAndExpand" HorizontalOptions="StartAndExpand" FontSize="14" LineBreakMode="TailTruncation" 
                            TextColor="Black" FontAttributes="Bold"/>
                             <BoxView Color="#FDCE02" Grid.Row="1" HorizontalOptions="FillAndExpand" HeightRequest="1"/>
                             <StackLayout Grid.Row="2" Padding="20">
-                                <Button Text="Kaizen Report" TextColor="Black" FontSize="Medium" Clicked="Button_Clicked_2" BackgroundColor="#FDCE02" />
+                                <Button Text="Kaizen Report" TextColor="Black" FontSize="14" Clicked="Button_Clicked_2" BackgroundColor="#FDCE02" />
                             </StackLayout>
                         </Grid>
                     </StackLayout>

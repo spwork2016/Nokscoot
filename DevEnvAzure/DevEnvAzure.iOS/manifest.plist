@@ -11,19 +11,19 @@
 					<key>kind</key>
 					<string>software-package</string>
 					<key>url</key>
-					<string>https://dl.dropboxusercontent.com/s/534j8x8abbcuc0p/DevEnvAzure.iOS.ipa</string>
+					<string>https://dl.dropboxusercontent.com/s/ka7a29av849wqt6/NokScoot%20Mobile%20Awesome.ipa</string>
 				</dict>
 			</array>
 			<key>metadata</key>
 			<dict>
-				<key>bundle-identifier</key>
-				<string>com.sptechnophiles.nokscoot</string>
 				<key>bundle-version</key>
 				<string>1.0</string>
 				<key>kind</key>
 				<string>software</string>
+				<key>bundle-identifier</key>
+				<string>com.nokscoot.mobile.awesome</string>
 				<key>title</key>
-				<string>Nokscoot</string>
+				<string>NokScoot Mobile Awesome</string>
 			</dict>
 		</dict>
 	</array>

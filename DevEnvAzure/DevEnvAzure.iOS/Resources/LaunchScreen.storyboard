@@ -20,15 +20,12 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="logo.png" translatesAutoresizingMaskIntoConstraints="NO" id="23" misplaced="YES">
-                                <rect key="frame" x="158" y="304" width="60" height="60"/>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="logo.png" translatesAutoresizingMaskIntoConstraints="NO" id="268" fixedFrame="YES">
+                                <rect key="frame" x="89" y="254" width="181" height="159"/>
                                 <rect key="contentStretch" x="0.0" y="0.0" width="0.0" height="0.0"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
                         </subviews>
-                        <constraints>
-                            <constraint firstItem="23" firstAttribute="centerY" secondItem="yd7-JS-zBw" secondAttribute="centerY" priority="1" id="39"/>
-                            <constraint firstItem="23" firstAttribute="centerX" secondItem="yd7-JS-zBw" secondAttribute="centerX" priority="1" id="41"/>
-                        </constraints>
                         <color key="tintColor" colorSpace="calibratedRGB" red="1" green="0.6470588235294118" blue="0" alpha="1"/>
                         <color key="backgroundColor" colorSpace="calibratedRGB" red="0.984313725490196" green="0.75294117647058822" blue="0.17647058823529413" alpha="1"/>
                     </view>
@@ -39,10 +36,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="Icon-60.png" width="60" height="60"/>
-        <image name="EMP_info.png" width="256" height="256"/>
-        <image name="Hamburger_icon.png" width="1200" height="1200"/>
-        <image name="login.PNG" width="287" height="171"/>
         <image name="logo.png" width="180" height="159"/>
         <image name="Default-568h.png" width="320" height="568"/>
         <image name="Default-Portrait.png" width="768" height="1004"/>
@@ -50,10 +43,29 @@
         <image name="Icon-76.png" width="76" height="76"/>
         <image name="Icon-Small-40.png" width="40" height="40"/>
         <image name="Icon-Small.png" width="29" height="29"/>
-        <image name="LoginIco.png" width="980" height="980"/>
-        <image name="logout.png" width="256" height="256"/>
+        <image name="logout.png" width="64" height="64"/>
         <image name="Nokscoot.png" width="300" height="300"/>
         <image name="icon.png" width="72" height="72"/>
+        <image name="checkmark.png" width="128" height="128"/>
+        <image name="delete.png" width="128" height="128"/>
+        <image name="documents.png" width="64" height="64"/>
+        <image name="drive.png" width="64" height="64"/>
+        <image name="editabledrafts.png" width="64" height="64"/>
+        <image name="error.png" width="512" height="512"/>
+        <image name="file.png" width="128" height="128"/>
+        <image name="folder.png" width="1000" height="1000"/>
+        <image name="home.png" width="64" height="64"/>
+        <image name="mobilehome_bottom.png" width="1200" height="562"/>
+        <image name="mobilehome_top.png" width="1200" height="1227"/>
+        <image name="mytasks.png" width="64" height="64"/>
+        <image name="notifications.png" width="64" height="64"/>
+        <image name="offlinedrafts.png" width="64" height="64"/>
+        <image name="onenote.png" width="64" height="64"/>
+        <image name="reporting.png" width="64" height="64"/>
+        <image name="saba.png" width="64" height="64"/>
+        <image name="stationinfo.png" width="64" height="64"/>
+        <image name="tasks.png" width="512" height="512"/>
+        <image name="workday.png" width="64" height="64"/>
     </resources>
     <color key="tintColor" colorSpace="calibratedRGB" red="1" green="0.6470588235294118" blue="0" alpha="1"/>
 </document>

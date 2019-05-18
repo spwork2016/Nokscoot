@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="14.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
-    <SelectedDevice>vivo Y51L</SelectedDevice>
+    <SelectedDevice>Nexus 4 %28Marshmallow%29</SelectedDevice>
     <DefaultDevice>Nexus 4 %28Marshmallow%29</DefaultDevice>
     <ProjectView>ShowAllFiles</ProjectView>
     <AndroidDesignerPreferredDevice>Nexus 10</AndroidDesignerPreferredDevice>

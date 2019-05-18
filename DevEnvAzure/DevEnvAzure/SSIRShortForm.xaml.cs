@@ -21,7 +21,7 @@ namespace DevEnvAzure
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class SSIRShortForm : ContentPage
     {
-        public object _viewobject = null;
+        public dynamic _viewobject = null;
         public string _classname;
         public static int MORTypeID;
         Jsonpropertyinitialise jsonInitObj = new Jsonpropertyinitialise();
@@ -346,8 +346,8 @@ namespace DevEnvAzure
 
                         break;
                 }
-
-                DependencyService.Get<IMessage>().ShortAlert("Item drafted");
+                DependencyService.Get<IMessage>().ShortAlert(_viewobject.MOR);
+                //DependencyService.Get<IMessage>().ShortAlert("Item drafted");
             }
             catch (Exception)
             {
@@ -387,6 +387,7 @@ namespace DevEnvAzure
 
         protected void CreateItems<U>(U reportObject, SPUtility.ReportType reportType) where U : class
         {
+            return; 
             try
             {
                 ToggleBusy(true);

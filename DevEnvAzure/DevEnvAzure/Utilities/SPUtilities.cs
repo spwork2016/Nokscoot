@@ -457,16 +457,26 @@ namespace DevEnvAzure
             {
                 var stations = await GetStations();
 
-                var oPlans = JsonConvert.DeserializeObject<SPData>(mInfo.content);
-                return oPlans.d.results.Select(x => new OperatingPlan
+                try
                 {
-                    FlighNumber = x.Flight_x0020_Number,
-                    ArrivalStationId = x.Arrival_x0020_StationId,
-                    DepartureStationId = x.Departure_x0020_StationId,
+                    var oPlans = JsonConvert.DeserializeObject<SPData>(mInfo.content, new JsonSerializerSettings { DateParseHandling = DateParseHandling.None,
+                        NullValueHandling = NullValueHandling.Ignore,
+                        MissingMemberHandling = MissingMemberHandling.Ignore
+                    });
+                    return oPlans.d.results.Select(x => new OperatingPlan
+                    {
+                        FlighNumber = x.Flight_x0020_Number,
+                        ArrivalStationId = x.Arrival_x0020_StationId,
+                        DepartureStationId = x.Departure_x0020_StationId,
 
-                    ArrivalStation = stations[x.Arrival_x0020_StationId],
-                    DepartureStation = stations[x.Departure_x0020_StationId]
-                }).ToList();
+                        ArrivalStation = stations[x.Arrival_x0020_StationId],
+                        DepartureStation = stations[x.Departure_x0020_StationId]
+                    }).ToList();
+                }
+                catch(Exception ex)
+                {
+
+                }
             }
 
             return null;

@@ -6,33 +6,35 @@
     <ContentPage.Content>
         <AbsoluteLayout HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
             <StackLayout AbsoluteLayout.LayoutFlags="All" AbsoluteLayout.LayoutBounds="0,0,1,1">
-                <ScrollView>
-                    <StackLayout>
-                        <StackLayout VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand">
-                            <StackLayout IsVisible="False" x:Name="lblNoData" VerticalOptions="Start" HorizontalOptions="FillAndExpand" Margin="10">
-                                <Label FontSize="Medium" Style="{DynamicResource TitleStyle}"
+                <ScrollView VerticalOptions="FillAndExpand">
+                    <StackLayout VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand">
+                        <StackLayout IsVisible="False" x:Name="lblNoData" VerticalOptions="Start" HorizontalOptions="FillAndExpand" Margin="10">
+                            <Label FontSize="Medium" Style="{DynamicResource TitleStyle}"
                                                                 VerticalOptions="Center" TextColor="Black" Text="No tasks were assigned!"/>
-                            </StackLayout>
-                            <ListView  x:Name="lstTasks" ItemsSource="{Binding Items}"
-                                local:MultiSelectListView.IsMultiSelect="True">
-                                <ListView.ItemTemplate>
-                                    <DataTemplate>
-                                        <local:SelectableViewCell Appearing="SelectableViewCell_Appearing">
-                                            <Grid Grid.Row="0">
-                                                <Grid.ColumnDefinitions>
-                                                    <ColumnDefinition Width="*" />
-                                                    <ColumnDefinition Width="Auto" />
-                                                </Grid.ColumnDefinitions>
-                                                <Label Text="{Binding Title}" Grid.Row="0" Grid.Column="0" FontSize="Small" TextColor="Black"
-                                                                VerticalOptions="StartAndExpand" />
-                                                <Label Text="{Binding DueDate, StringFormat='{0:MMMM dd, yyyy}'}" Grid.Row="1" Grid.Column="0"
-                         FontSize="Micro" VerticalOptions="Center" TextColor="Black" LineBreakMode="TailTruncation"/>
-                                            </Grid>
-                                        </local:SelectableViewCell>
-                                    </DataTemplate>
-                                </ListView.ItemTemplate>
-                            </ListView>
                         </StackLayout>
+                        <ListView VerticalOptions="FillAndExpand" x:Name="lstTasks" ItemsSource="{Binding Items}" HasUnevenRows="True"
+                                local:MultiSelectListView.IsMultiSelect="True">
+                            <ListView.ItemTemplate>
+                                <DataTemplate>
+                                    <local:SelectableViewCell Appearing="SelectableViewCell_Appearing">
+                                        <Grid HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="*" />
+                                                <RowDefinition Height="15" />
+                                            </Grid.RowDefinitions>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="*" />
+                                                <ColumnDefinition Width="Auto" />
+                                            </Grid.ColumnDefinitions>
+                                            <Label HorizontalOptions="FillAndExpand" Text="{Binding Title}" Grid.Row="0" Grid.Column="0" FontSize="12" TextColor="Black"
+                                                                VerticalOptions="FillAndExpand" />
+                                            <Label HeightRequest="20" Text="{Binding DueDate, StringFormat='{0:MMMM dd, yyyy}'}" Grid.Row="1" Grid.Column="0"
+                         FontSize="10" VerticalOptions="FillAndExpand" TextColor="Black" LineBreakMode="TailTruncation"/>
+                                        </Grid>
+                                    </local:SelectableViewCell>
+                                </DataTemplate>
+                            </ListView.ItemTemplate>
+                        </ListView>
                     </StackLayout>
                 </ScrollView>
             </StackLayout>
