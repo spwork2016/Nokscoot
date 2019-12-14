@@ -8,14 +8,14 @@ namespace DevEnvAzure
         public static ClientConfiguration NokScoot = new ClientConfiguration()
         {
             ActiveDirectoryResource = RootURL,
-            ActiveDirectoryTenant = "",
-            ActiveDirectoryClientAppId = "",
+            ActiveDirectoryTenant = "https://login.microsoftonline.com/287f1604-8fc2-4b4b-8c61-4641962f35fd/oauth2/token",
+            ActiveDirectoryClientAppId = "1e7bd4f8-f87f-442e-b5ab-5056de3aa58b",
             SPRootURL = string.Format("{0}_api/", RootURL),
             SPRootURLList = string.Format("{0}_api/web/lists/", RootURL),
             SPListURL = "https://nokscootth.sharepoint.com/_api/web/lists/GetByTitle('{0}')/items",
             SPDocumentLibraryURL = string.Format("{0}_api/web/GetFolderByServerRelativeUrl('/SampleDocuments')/Folders", RootURL),
             GraphAPIRootURL = "https://graph.windows.net/",
-            GraphAPIURL = "",
+            GraphAPIURL = "https://graph.windows.net/287f1604-8fc2-4b4b-8c61-4641962f35fd",
             APPNAME = "NokScoot-Sharepoint-Mobile",
             AttachmentOptions = new string[] { "Camera", "Gallery" },
             TLSVersion = "",
