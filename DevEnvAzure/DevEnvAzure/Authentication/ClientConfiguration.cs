@@ -8,7 +8,8 @@ namespace DevEnvAzure
         public static ClientConfiguration NokScoot = new ClientConfiguration()
         {
             ActiveDirectoryResource = RootURL,
-            ActiveDirectoryTenant = "https://login.microsoftonline.com/287f1604-8fc2-4b4b-8c61-4641962f35fd/oauth2/token",
+            //ActiveDirectoryTenant = "https://login.microsoftonline.com/287f1604-8fc2-4b4b-8c61-4641962f35fd/oauth2/token",
+            ActiveDirectoryTenant = "https://login.microsoftonline.com/287f1604-8fc2-4b4b-8c61-4641962f35fd",
             ActiveDirectoryClientAppId = "1e7bd4f8-f87f-442e-b5ab-5056de3aa58b",
             SPRootURL = string.Format("{0}_api/", RootURL),
             SPRootURLList = string.Format("{0}_api/web/lists/", RootURL),

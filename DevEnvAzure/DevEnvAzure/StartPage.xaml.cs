@@ -1,5 +1,6 @@
 ﻿using DevEnvAzure.Model;
 using DevEnvAzure.Models;
+using Microsoft.IdentityModel.Clients.ActiveDirectory;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -70,20 +71,27 @@ namespace DevEnvAzure
 
         protected override async void OnAppearing()
         {
-            if (App.CurrentUser != null)
+           try
             {
-                loggrInUser.Text = App.CurrentUser?.Name;
-                if (App.CurrentUser.PictureBytes != null)
-                    profilePic.Source = ImageSource.FromStream(() => new MemoryStream(App.CurrentUser?.PictureBytes));
-            }
-            else
-            {
-                MessagingCenter.Subscribe<App>(this, "userInfo", (arg) =>
+                if (App.CurrentUser != null)
                 {
                     loggrInUser.Text = App.CurrentUser?.Name;
-                    if (App.CurrentUser.PictureBytes != null)
+                    if (App.CurrentUser?.PictureBytes != null)
                         profilePic.Source = ImageSource.FromStream(() => new MemoryStream(App.CurrentUser?.PictureBytes));
-                });
+                }
+                else
+                {
+                    MessagingCenter.Subscribe<App>(this, "userInfo", (arg) =>
+                    {
+                        loggrInUser.Text = App.CurrentUser?.Name;
+                        if (App.CurrentUser?.PictureBytes != null)
+                            profilePic.Source = ImageSource.FromStream(() => new MemoryStream(App.CurrentUser?.PictureBytes));
+                    });
+                }
+            }
+            catch (Exception ex)
+            {
+
             }
         }
 
@@ -142,7 +150,7 @@ namespace DevEnvAzure
             });
         }
 
-        private void OnMenuItemSelected(object sender, SelectedItemChangedEventArgs e)
+        private async Task OnMenuItemSelected(object sender, SelectedItemChangedEventArgs e)
         {
             var item = (MasterPageItem)e.SelectedItem;
             ((ListView)sender).SelectedItem = null;
@@ -163,12 +171,16 @@ namespace DevEnvAzure
             {
                 IsPresented = false;
 
-                App.AuthenticationResponse = null;
+                AuthenticationContext ac = new AuthenticationContext(ClientConfiguration.NokScoot.ActiveDirectoryTenant);
+                ac.TokenCache.Clear();
+
+                App.AuthResult = null;
                 App.DAUtil.DeleteMasterInfo("UserCredentials");
 
                 DependencyService.Get<IMessage>().LongAlert("Logged out successfully.");
 
-                SetNavigationPage(new Login());
+                // make sure it redirects to multi factor authentication
+               //  await OAuthHelper.GetAccessToken();
                 return;
             }
 

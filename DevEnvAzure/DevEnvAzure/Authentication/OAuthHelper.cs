@@ -27,7 +27,7 @@ namespace DevEnvAzure
         /// Retrieves an authentication header from the service.
         /// </summary>
         /// <returns>The authentication header for th.e Web API call.</returns>
-        public static async Task<bool> GetAuthenticationHeader(string username, string password, bool useWebAppAuthentication = false)
+        public static async Task<bool> GetAuthenticationHeader(string username = "", string password = "", bool useWebAppAuthentication = false)
         {
             string aadTenant = ClientConfiguration.Default.ActiveDirectoryTenant;
             string aadClientAppId = ClientConfiguration.Default.ActiveDirectoryClientAppId;
@@ -68,13 +68,7 @@ namespace DevEnvAzure
                     throw new Exception("Failed OAuth by empty password.");
                 }
 
-                var authResponse = await GetAccessToken(username, password, aadClientAppId, aadResource, aadTenant);
-                if (authResponse != null)
-                {
-                    var str = JsonConvert.SerializeObject(new { Username = username, Password = password });
-                    App.DAUtil.RefreshMasterInfo(new MasterInfo { content = str, Name = "UserCredentials" });
-                    App.AuthenticationResponse = authResponse;
-                }
+                await GetAccessToken();
 
                 //try
                 //{
@@ -92,43 +86,43 @@ namespace DevEnvAzure
             return false;
         }
 
-        public static async Task<AuthenticationResponse> GetAccessToken(string username, string password, string aadClientAppId, string aadResource, string aadTenant)
-        {
-            var pairs = new List<KeyValuePair<string, string>>
-                    {
-                        new KeyValuePair<string, string>("grant_type", "password"),
-                        new KeyValuePair<string, string>("username", username),
-                        new KeyValuePair<string, string>("password", password),
-                        new KeyValuePair<string, string>("client_id", aadClientAppId),
-                        new KeyValuePair<string, string>("resource", aadResource)
-                    };
+        //public static async Task<AuthenticationResponse> GetAccessToken(string username, string password, string aadClientAppId, string aadResource, string aadTenant)
+        //{
+        //    var pairs = new List<KeyValuePair<string, string>>
+        //            {
+        //                new KeyValuePair<string, string>("grant_type", "password"),
+        //                new KeyValuePair<string, string>("username", username),
+        //                new KeyValuePair<string, string>("password", password),
+        //                new KeyValuePair<string, string>("client_id", aadClientAppId),
+        //                new KeyValuePair<string, string>("resource", aadResource)
+        //            };
 
-            HttpResponseMessage response = null;
-            try
-            {
-                var content = new FormUrlEncodedContent(pairs);
-                var client = new HttpClient { BaseAddress = new Uri(aadTenant) };
+        //    HttpResponseMessage response = null;
+        //    try
+        //    {
+        //        var content = new FormUrlEncodedContent(pairs);
+        //        var client = new HttpClient { BaseAddress = new Uri(aadTenant) };
 
-                // call sync
-                response = await client.PostAsync("", content);
-                if (response.IsSuccessStatusCode)
-                {
-                    string str = await response.Content.ReadAsStringAsync();
-                    App.DAUtil.RefreshMasterInfo(new MasterInfo { content = str, Name = "Authentication" });
-                    AuthenticationResponse json = JsonConvert.DeserializeObject<AuthenticationResponse>(str);
-                    return json;
-                }
-                else
-                {
-                    string str2 = await response.Content.ReadAsStringAsync();
-                }
-            }
-            catch (Exception ex)
-            {
-            }
+        //        // call sync
+        //        response = await client.PostAsync("", content);
+        //        if (response.IsSuccessStatusCode)
+        //        {
+        //            string str = await response.Content.ReadAsStringAsync();
+        //            App.DAUtil.RefreshMasterInfo(new MasterInfo { content = str, Name = "Authentication" });
+        //            AuthenticationResponse json = JsonConvert.DeserializeObject<AuthenticationResponse>(str);
+        //            return json;
+        //        }
+        //        else
+        //        {
+        //            string str2 = await response.Content.ReadAsStringAsync();
+        //        }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //    }
 
-            return null;
-        }
+        //    return null;
+        //}
 
         public static async Task<int> SyncOfflineItems()
         {
@@ -143,23 +137,19 @@ namespace DevEnvAzure
 
         public static async Task<HttpClient> GetHTTPClient(string access_token = "")
         {
-            if (App.AuthenticationResponse == null)
-            {
-                await RefreshAccessToken();
-            }
+            await GetAccessToken();
 
-            if (App.AuthenticationResponse == null) return null;
+            if (App.AuthResult == null) return null;
 
             HttpClient client = new HttpClient();
             client.DefaultRequestHeaders.Add("Accept", "application/json;odata=verbose");
             client.DefaultRequestHeaders.Add("ContentType", "application/json");
-            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(App.AuthenticationResponse.token_type,
-                access_token != "" ? access_token : App.AuthenticationResponse.access_token);
+            client.DefaultRequestHeaders.Add("Authorization", App.AuthResult.CreateAuthorizationHeader());
 
             return client;
         }
 
-        public static async Task<User> GetUserInfo(string username, string password)
+        public static async Task<User> GetUserInfo()
         {
             var uInfo = App.DAUtil.GetMasterInfoByName("UserInfo");
             if (uInfo != null)
@@ -181,7 +171,7 @@ namespace DevEnvAzure
                 return null;
             }
 
-            var client = await OAuthHelper.GetHTTPClient();
+            var client = await GetHTTPClient();
             if (client == null)
             {
                 return null;
@@ -201,7 +191,7 @@ namespace DevEnvAzure
                             Id = spData.d.Id,
                             Name = spData.d.Title,
                             Email = spData.d.Email,
-                            PictureBytes = GetPicture(username, password).Result
+                            PictureBytes = GetPicture().Result
                         };
                     }
                 }
@@ -215,7 +205,7 @@ namespace DevEnvAzure
             return null;
         }
 
-        public static async Task<byte[]> GetPicture(string username, string password)
+        public static async Task<byte[]> GetPicture()
         {
             string aadTenant = ClientConfiguration.Default.ActiveDirectoryTenant;
             string aadClientAppId = ClientConfiguration.Default.ActiveDirectoryClientAppId;
@@ -223,10 +213,10 @@ namespace DevEnvAzure
 
             try
             {
-                var authResponse = await GetAccessToken(username, password, aadClientAppId, aadResource, aadTenant);
-                if (authResponse != null)
+                await GetAccessToken();
+                if (App.AuthResult != null)
                 {
-                    var client = await GetHTTPClient(authResponse.access_token);
+                    var client = await GetHTTPClient();
                     var picResponse = await client.GetByteArrayAsync(aadResource + "v1.0/me/photo/$value");
                     return picResponse;
                 }
@@ -246,8 +236,8 @@ namespace DevEnvAzure
                 MasterInfo auth = App.DAUtil.GetMasterInfoByName("Authentication");
                 if (auth != null)
                 {
-                    AuthenticationResponse json = JsonConvert.DeserializeObject<AuthenticationResponse>(auth.content);
-                    App.AuthenticationResponse = json;
+                    AuthenticationResult json = JsonConvert.DeserializeObject<AuthenticationResult>(auth.content);
+                    App.AuthResult = json;
                 }
 
                 MasterInfo userInfo = App.DAUtil.GetMasterInfoByName("UserInfo");
@@ -259,63 +249,88 @@ namespace DevEnvAzure
                 }
             }
 
-            if (App.AuthenticationResponse == null) return false;
+            if (App.AuthResult == null) return false;
 
             //For offline fuctionality
-            if (App.AuthenticationResponse != null && !SPUtility.IsConnected()) return true;
+            if (App.AuthResult != null && !SPUtility.IsConnected()) return true;
 
-            DateTime expries = new DateTime(1970, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc);
-            expries = expries.AddSeconds(long.Parse(App.AuthenticationResponse.expires_on)).ToLocalTime();
-
-            return SPUtility.IsConnected() && expries > DateTime.Now;
+            return SPUtility.IsConnected() && App.AuthResult.ExpiresOn > DateTime.UtcNow;
         }
 
-        public static async Task<bool> RefreshAccessToken()
+        //public static async Task<bool> RefreshAccessToken()
+        //{
+        //    if (!SPUtility.IsConnected()) return false;
+
+        //    if (App.AuthenticationResponse == null)
+        //    {
+        //        MasterInfo auth = App.DAUtil.GetMasterInfoByName("Authentication");
+        //        if (auth != null)
+        //        {
+        //            AuthenticationResponse json = JsonConvert.DeserializeObject<AuthenticationResponse>(auth.content);
+        //            App.AuthenticationResponse = json;
+        //        }
+        //        else return false;
+        //    }
+
+        //    DateTime expries = new DateTime(1970, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc);
+        //    expries = expries.AddSeconds(long.Parse(App.AuthenticationResponse.expires_on)).ToLocalTime();
+
+        //    if (expries > DateTime.Now) return true;
+        //    else
+        //    {
+        //        MasterInfo userInfo = App.DAUtil.GetMasterInfoByName("UserCredentials");
+        //        if (userInfo != null)
+        //        {
+        //            var cred = JsonConvert.DeserializeObject<dynamic>(userInfo.content, new JsonSerializerSettings { DateParseHandling = DateParseHandling.None });
+        //            if (cred != null)
+        //            {
+        //                string aadTenant = ClientConfiguration.Default.ActiveDirectoryTenant;
+        //                string aadClientAppId = ClientConfiguration.Default.ActiveDirectoryClientAppId;
+        //                string aadResource = ClientConfiguration.Default.ActiveDirectoryResource;
+
+        //                string uname = cred.Username;
+        //                string pwd = cred.Password;
+        //                var authResponse = await GetAccessToken(uname, pwd, aadClientAppId, aadResource, aadTenant);
+        //                if (authResponse != null)
+        //                {
+        //                    var str = JsonConvert.SerializeObject(new { cred.Username, cred.Password });
+        //                    App.DAUtil.RefreshMasterInfo(new MasterInfo { content = str, Name = "UserCredentials" });
+        //                    App.AuthenticationResponse = authResponse;
+        //                    return true;
+        //                }
+        //            }
+        //        }
+        //    }
+
+        //    return false;
+        //}
+
+        public static async Task GetAccessToken()
         {
-            if (!SPUtility.IsConnected()) return false;
-
-            if (App.AuthenticationResponse == null)
+            try
             {
-                MasterInfo auth = App.DAUtil.GetMasterInfoByName("Authentication");
-                if (auth != null)
+                var auth = DependencyService.Get<IAuthenticator>();
+                var nokScootConfig = ClientConfiguration.NokScoot;
+
+                if (App.AuthResult == null)
                 {
-                    AuthenticationResponse json = JsonConvert.DeserializeObject<AuthenticationResponse>(auth.content);
-                    App.AuthenticationResponse = json;
+                    App.AuthResult = await auth.Authenticate(nokScootConfig.ActiveDirectoryTenant,
+                                                                nokScootConfig.ActiveDirectoryResource, // "https://nokscootth.sharepoint.com",
+                                                                nokScootConfig.ActiveDirectoryClientAppId,
+                                                                nokScootConfig.ActiveDirectoryResource);
                 }
-                else return false;
+                //else if (App.AuthResult.ExpiresOn < DateTime.UtcNow)
+                //{
+                //    App.AuthResult = await auth.ReAuthenticate(nokScootConfig.ActiveDirectoryTenant,
+                //                                            nokScootConfig.GraphAPIRootURL,
+                //                                            nokScootConfig.ActiveDirectoryClientAppId,
+                //                                            nokScootConfig.ActiveDirectoryResource);
+                //}
             }
-
-            DateTime expries = new DateTime(1970, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc);
-            expries = expries.AddSeconds(long.Parse(App.AuthenticationResponse.expires_on)).ToLocalTime();
-
-            if (expries > DateTime.Now) return true;
-            else
+            catch (Exception ex)
             {
-                MasterInfo userInfo = App.DAUtil.GetMasterInfoByName("UserCredentials");
-                if (userInfo != null)
-                {
-                    var cred = JsonConvert.DeserializeObject<dynamic>(userInfo.content, new JsonSerializerSettings { DateParseHandling = DateParseHandling.None });
-                    if (cred != null)
-                    {
-                        string aadTenant = ClientConfiguration.Default.ActiveDirectoryTenant;
-                        string aadClientAppId = ClientConfiguration.Default.ActiveDirectoryClientAppId;
-                        string aadResource = ClientConfiguration.Default.ActiveDirectoryResource;
-
-                        string uname = cred.Username;
-                        string pwd = cred.Password;
-                        var authResponse = await GetAccessToken(uname, pwd, aadClientAppId, aadResource, aadTenant);
-                        if (authResponse != null)
-                        {
-                            var str = JsonConvert.SerializeObject(new { cred.Username, cred.Password });
-                            App.DAUtil.RefreshMasterInfo(new MasterInfo { content = str, Name = "UserCredentials" });
-                            App.AuthenticationResponse = authResponse;
-                            return true;
-                        }
-                    }
-                }
+                throw ex;
             }
-
-            return false;
         }
 
         public static Exception CreateExceptionFromResponseErrors(HttpResponseMessage response)
@@ -360,16 +375,16 @@ namespace DevEnvAzure
         }
     }
 
-    public class AuthenticationResponse
-    {
-        public string token_type { get; set; }
-        public string scope { get; set; }
-        public string expires_in { get; set; }
-        public string ext_expires_in { get; set; }
-        public string expires_on { get; set; }
-        public string not_before { get; set; }
-        public string resource { get; set; }
-        public string access_token { get; set; }
-        public string refresh_token { get; set; }
-    }
+    //public class AuthenticationResponse
+    //{
+    //    public string token_type { get; set; }
+    //    public string scope { get; set; }
+    //    public string expires_in { get; set; }
+    //    public string ext_expires_in { get; set; }
+    //    public string expires_on { get; set; }
+    //    public string not_before { get; set; }
+    //    public string resource { get; set; }
+    //    public string access_token { get; set; }
+    //    public string refresh_token { get; set; }
+    //}
 }

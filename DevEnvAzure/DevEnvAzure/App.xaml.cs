@@ -14,14 +14,9 @@ namespace DevEnvAzure
 {
     public partial class App : Application
     {
-        public static string ApplicationID = "d4c9dc64-803f-4dce-842c-380ce91f60d4";
-        public static string tenanturl = "https://login.windows.net/common";// "https://login.microsoftonline.com/542381e6-b9d2-4fe3-a20b-e575f656c08c";
-        public static string ReturnUri = "http://DevEnvAzure.microsoft.net";
-        public static string GraphResourceUri = "https://nok365.sharepoint.com"; // "https://graph.microsoft.com";
-        public static AuthenticationResponse AuthenticationResponse = null;
+        public static AuthenticationResult AuthResult = null;
         public static User CurrentUser = null;
         static DataAccess dbUtils;
-        public static AuthenticationContext authcontext = null;
         public static List<PeoplePicker> peoplePickerDataSource;
         public static ObservableCollection<Employee> employees = new ObservableCollection<Employee>();
         public static ObservableCollection<OfflineItem> offlineItems = new ObservableCollection<OfflineItem>();
@@ -39,6 +34,8 @@ namespace DevEnvAzure
         public static ObservableCollection<StationInformationModel> statInfo = new ObservableCollection<StationInformationModel>();
         public static ObservableCollection<Attachment> attachments = new ObservableCollection<Attachment>();
         public static string EVENT_LAUNCH_MAIN_PAGE = "EVENT_LAUNCH_MAIN_PAGE";
+        public static string AUTHENTICATION_SUCCESS = "AUTHENTICATION_SUCCESS";
+
         public App()
         {
             InitializeComponent();
@@ -52,45 +49,64 @@ namespace DevEnvAzure
             {
                 if (SPUtility.IsConnected())
                 {
-                    var userCredentials = App.DAUtil.GetMasterInfoByName("UserCredentials");
-                    if (userCredentials != null)
-                    {
-                        var cred = JsonConvert.DeserializeObject<dynamic>(userCredentials.content);
-                        string uName = cred.Username;
-                        string pwd = cred.Password;
-                        MainPage = new StartPage();
+                    MainPage = new Login();
+                    //OAuthHelper.GetAccessToken().ContinueWith(async (x) =>
+                    //{
+                    //    await OAuthHelper.GetUserInfo().ContinueWith((y) =>
+                    //    {
+                    //        Device.BeginInvokeOnMainThread(async () =>
+                    //        {
+                    //            MessagingCenter.Send<App>(this, "userInfo");
+                    //            MessagingCenter.Send<App>(this, AUTHENTICATION_SUCCESS);
+                    //            if (App.AuthResult == null)
+                    //            {
+                    //                DependencyService.Get<IMessage>().ShortAlert("Login failed! Please check email/password");
+                    //            }
+                    //        });
+                    //    });
 
-                        OAuthHelper.GetAuthenticationHeader(uName, pwd).ContinueWith(async (x) =>
-                        {
-                            await OAuthHelper.GetUserInfo(uName, pwd).ContinueWith((y) =>
-                            {
-                                Device.BeginInvokeOnMainThread(async () =>
-                                {
-                                    MessagingCenter.Send<App>(this, "userInfo");
-                                    if (App.AuthenticationResponse == null)
-                                    {
-                                        MainPage = new Login();
-                                        DependencyService.Get<IMessage>().ShortAlert("Login failed! Please check email/password");
-                                    }
-                                });
-                            });
+                    //    await SyncLocalData();
+                    //}).ConfigureAwait(false);
 
-                            await SyncLocalData();
-                        }).ConfigureAwait(false);
-                    }
-                    else
-                    {
-                        MainPage = new Login();
-                    }
+                    //var userCredentials = App.DAUtil.GetMasterInfoByName("UserCredentials");
+                    //if (userCredentials != null)
+                    //{
+                    //    var cred = JsonConvert.DeserializeObject<dynamic>(userCredentials.content);
+                    //    string uName = cred.Username;
+                    //    string pwd = cred.Password;
+                    //    MainPage = new StartPage();
+
+                    //    OAuthHelper.GetAuthenticationHeader(uName, pwd).ContinueWith(async (x) =>
+                    //    {
+                    //        await OAuthHelper.GetUserInfo(uName, pwd).ContinueWith((y) =>
+                    //        {
+                    //            Device.BeginInvokeOnMainThread(async () =>
+                    //            {
+                    //                MessagingCenter.Send<App>(this, "userInfo");
+                    //                if (App.AuthResult == null)
+                    //                {
+                    //                    //MainPage = new Login();
+                    //                    DependencyService.Get<IMessage>().ShortAlert("Login failed! Please check email/password");
+                    //                }
+                    //            });
+                    //        });
+
+                    //        await SyncLocalData();
+                    //    }).ConfigureAwait(false);
+                    //}
+                    //else
+                    //{
+                    //    //MainPage = new Login();
+                    //}
                 }
                 else
                 {
                     var authResponse = App.DAUtil.GetMasterInfoByName("Authentication");
                     if (authResponse == null)
-                        MainPage = new Login();
+                        DependencyService.Get<IMessage>().ShortAlert("Please connect to internet and try again!");
                     else
                     {
-                        App.AuthenticationResponse = JsonConvert.DeserializeObject<AuthenticationResponse>(authResponse.content);
+                        AuthResult = JsonConvert.DeserializeObject<AuthenticationResult>(authResponse.content);
                         var uInfo = App.DAUtil.GetMasterInfoByName("UserInfo");
                         if (uInfo != null)
                         {
@@ -112,6 +128,7 @@ namespace DevEnvAzure
                 }
 
                 MessagingCenter.Subscribe<object>(this, EVENT_LAUNCH_MAIN_PAGE, SetMainPageAsRootPage);
+                //MessagingCenter.Subscribe<object>(this, AUTHENTICATION_SUCCESS, SetMainPageAsRootPage);
             }
             catch (Exception ex)
             {
@@ -244,7 +261,7 @@ namespace DevEnvAzure
         {
             try
             {
-                await OAuthHelper.RefreshAccessToken();
+                await OAuthHelper.GetAccessToken();
             }
             catch (Exception ex)
             {

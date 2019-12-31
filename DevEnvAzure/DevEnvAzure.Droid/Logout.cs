@@ -11,6 +11,7 @@ using Android.Views;
 using Android.Widget;
 using Xamarin.Forms;
 using Android.Webkit;
+using Microsoft.IdentityModel.Clients.ActiveDirectory;
 
 [assembly: Dependency(typeof(DevEnvAzure.Droid.Logout))]
 namespace DevEnvAzure.Droid
@@ -26,8 +27,15 @@ namespace DevEnvAzure.Droid
                 //    Android.Webkit.CookieManager.Instance.RemoveAllCookies(null);
                 //else
                 //    Android.Webkit.CookieManager.Instance.RemoveAllCookie();
-                App.authcontext.TokenCache.Clear();
-              //  App.authcontext.TokenCache.DeleteItem()
+                // App.AuthResult..Clear();
+                //  App.authcontext.TokenCache.DeleteItem()
+
+                if (App.AuthResult != null)
+                {
+                    AuthenticationContext ac = new AuthenticationContext(ClientConfiguration.NokScoot.ActiveDirectoryTenant);
+                    ac.TokenCache.Clear();
+                }
+
                 return true;
             }
             catch(Exception ex)

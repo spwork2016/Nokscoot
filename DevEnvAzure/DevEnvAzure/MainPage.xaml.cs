@@ -17,27 +17,6 @@ namespace DevEnvAzure
         public MainPage()
         {
             InitializeComponent();
-            //MessagingCenter.Subscribe<object, string>(this, "UpdateLabel", (s, e) =>
-            //{
-            //    Device.BeginInvokeOnMainThread(() =>
-            //    {
-            //        BackgroundServiceLabel.Text = e;
-            //    });
-            //});
-            //recheck.Text  = DependencyService.Get<IGetValue>().Height.ToString();
-            ////auth();
-        }
-
-        public async void  auth()
-        {
-            AuthenticationResult data = await DependencyService.Get<IAuthenticator>()
-                                  .ReAuthenticate(App.tenanturl, App.GraphResourceUri, App.ApplicationID, App.ReturnUri);
-            if (data != null)
-            {
-                //App.AuthenticationResponse = data;
-                // Messgage.Text = App.username = data.UserInfo.GivenName + " " + data.UserInfo.FamilyName;
-            }
-           
         }
     }
 }

@@ -83,12 +83,20 @@ namespace DevEnvAzure
 
             IsBusy = true;
             var data = await GetTasks();
-            foreach (var item in data)
-            {
-                Items.Add(item);
-            }
             IsBusy = false;
-            ToggleVisibility();
+            if (data != null)
+            {
+                foreach (var item in data)
+                {
+                    Items.Add(item);
+                }
+
+                ToggleVisibility();
+            }
+            else
+            {
+
+            }
         }
 
         protected override async void OnAppearing()
@@ -155,13 +163,15 @@ namespace DevEnvAzure
                     }
                 }
             }
-            catch (Exception)
+            catch (Exception ex)
             {
                 Device.BeginInvokeOnMainThread(() =>
                 {
+                    DependencyService.Get<IMessage>().ShortAlert(ex.Message);
                     IsBusy = false;
                 });
             }
+
             return null;
         }
 

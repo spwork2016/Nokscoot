@@ -14,19 +14,38 @@ namespace DevEnvAzure.Droid
         {
             try
             {
-                
-                App.authcontext = new AuthenticationContext(tenantUrl);
-                if (App.authcontext.TokenCache.ReadItems().Any())
-                    App.authcontext = new AuthenticationContext(App.authcontext.TokenCache.ReadItems().FirstOrDefault().Authority);
-                var authResult = await App.authcontext.AcquireTokenAsync(graphResourceUri, ApplicationID, new Uri(returnUri), new PlatformParameters((Activity)Forms.Context));
-           
+
+                var authContext = new AuthenticationContext(tenantUrl);
+                if (authContext.TokenCache.ReadItems().Any())
+                    authContext = new AuthenticationContext(authContext.TokenCache.ReadItems().FirstOrDefault().Authority);
+                var authResult = await authContext.AcquireTokenAsync(graphResourceUri, ApplicationID, new Uri(returnUri), new PlatformParameters((Activity)Forms.Context));
+
                 return authResult;
             }
-            catch(Exception)
+            catch (Exception)
             {
                 return null;
             }
         }
+
+        public async Task<AuthenticationResult> Authenticate(string tenantUrl, string returnUri, ClientCredential clientCredential)
+        {
+            try
+            {
+
+                var authContext = new AuthenticationContext(tenantUrl);
+                if (authContext.TokenCache.ReadItems().Any())
+                    authContext = new AuthenticationContext(authContext.TokenCache.ReadItems().FirstOrDefault().Authority);
+                var authResult = await authContext.AcquireTokenAsync((returnUri), clientCredential);
+
+                return authResult;
+            }
+            catch (Exception)
+            {
+                return null;
+            }
+        }
+
         public async Task<AuthenticationResult> ReAuthenticate(string tenantUrl, string graphResourceUri, string ApplicationID, string returnUri)
         {
             try

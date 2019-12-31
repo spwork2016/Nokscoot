@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using Microsoft.IdentityModel.Clients.ActiveDirectory;
+using Newtonsoft.Json;
 using Plugin.Connectivity;
 using System;
 using System.ComponentModel;
@@ -9,6 +10,9 @@ namespace DevEnvAzure
 {
     public partial class Login : ContentPage, INotifyPropertyChanged
     {
+        private AuthenticationResult authResult = null;
+
+
         public Login()
         {
             InitializeComponent();
@@ -17,7 +21,7 @@ namespace DevEnvAzure
             Password.Keyboard = Keyboard.Create(KeyboardFlags.None);
 
             BindingContext = this;
-
+            IsBusy = true;
             var userCredentials = App.DAUtil.GetMasterInfoByName("UserCredentials");
             if (SPUtility.IsConnected() && userCredentials != null)
             {
@@ -28,7 +32,33 @@ namespace DevEnvAzure
                 Username.Text = uName;
                 Password.Text = pwd;
 
-                Login_OnClicked(btnLogin, null);
+                // Login_OnClicked(btnLogin, null);
+
+            }
+        }
+
+        protected override async void OnAppearing()
+        {
+            //await PerformLoginAsync();
+        }
+
+        private async Task PerformLoginAsync()
+        {
+            try
+            {
+                await OAuthHelper.GetAccessToken();
+                IsBusy = false;
+                if (App.AuthResult != null)
+                {
+                    await Task.Run(async () =>
+                    {
+                        MessagingCenter.Send<object>(this, App.EVENT_LAUNCH_MAIN_PAGE);
+                    });
+                }
+            }
+            catch (Exception ex)
+            {
+                await DisplayAlert("Error", ex.Message, "Ok");
             }
         }
 
@@ -36,11 +66,11 @@ namespace DevEnvAzure
         {
             try
             {
-                if (string.IsNullOrEmpty(Username.Text.Trim()) || string.IsNullOrEmpty(Username.Text.Trim()))
-                {
-                    DependencyService.Get<IMessage>().LongAlert("Login Failed! Please check email/password");
-                    return;
-                }
+                //if (string.IsNullOrEmpty(Username.Text.Trim()) || string.IsNullOrEmpty(Username.Text.Trim()))
+                //{
+                //    DependencyService.Get<IMessage>().LongAlert("Login Failed! Please check email/password");
+                //    return;
+                //}
 
                 IsBusy = true;
                 btnLogin.IsVisible = false;
@@ -49,12 +79,12 @@ namespace DevEnvAzure
                {
                    await OAuthHelper.GetAuthenticationHeader(Username.Text, Password.Text).ContinueWith(async (x) =>
                  {
-                     await OAuthHelper.GetUserInfo(Username.Text, Password.Text).ContinueWith((y) =>
+                     await OAuthHelper.GetUserInfo().ContinueWith((y) =>
                     {
                         Device.BeginInvokeOnMainThread(async () =>
                         {
                             IsBusy = false;
-                            if (App.AuthenticationResponse != null)
+                            if (App.AuthResult != null)
                             {
                                 MessagingCenter.Send<object>(this, App.EVENT_LAUNCH_MAIN_PAGE);
                             }
