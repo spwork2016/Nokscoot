@@ -10,41 +10,67 @@ namespace DevEnvAzure.Droid
 {
     class Authenticator : IAuthenticator
     {
-        public async Task<AuthenticationResult> Authenticate(string tenantUrl, string graphResourceUri, string ApplicationID, string returnUri)
+        public async Task<AuthenticationResult> Authenticate(string authority, string graphResourceUri, string ApplicationID, string returnUri)
         {
             try
             {
-
-                var authContext = new AuthenticationContext(tenantUrl);
+                var authContext = new AuthenticationContext(authority);
                 if (authContext.TokenCache.ReadItems().Any())
                     authContext = new AuthenticationContext(authContext.TokenCache.ReadItems().FirstOrDefault().Authority);
-                var authResult = await authContext.AcquireTokenAsync(graphResourceUri, ApplicationID, new Uri(returnUri), new PlatformParameters((Activity)Forms.Context));
 
-                return authResult;
+                AuthenticationResult result = null;
+
+                try
+                {
+                    result = await authContext.AcquireTokenAsync(graphResourceUri, ApplicationID, new Uri(returnUri), new PlatformParameters((Activity)Forms.Context));
+
+                    //result = await authContext.AcquireTokenSilentAsync(graphResourceUri, ApplicationID);
+                }
+                catch (AdalException adlException)
+                {
+                    if (adlException.ErrorCode == "user_interaction_required")
+                    {
+                        try
+                        {
+                            result = await authContext.AcquireTokenAsync(graphResourceUri, ApplicationID, new Uri(returnUri), new PlatformParameters((Activity)Forms.Context));
+                        }
+                        catch (Exception ex)
+                        {
+
+                        }
+                    }
+                }
+                catch (Exception unknownEx)
+                {
+
+                }
+
+                return result;
             }
-            catch (Exception)
+            catch (Exception ex)
             {
                 return null;
             }
         }
 
-        public async Task<AuthenticationResult> Authenticate(string tenantUrl, string returnUri, ClientCredential clientCredential)
-        {
-            try
-            {
+        //public async Task<AuthenticationResult> Authenticate(string tenantUrl, string graphResourceUri, string ApplicationID, string returnUri)
+        //{
+        //    try
+        //    {
+        //        var authContext = new AuthenticationContext(tenantUrl);
+        //        if (authContext.TokenCache.ReadItems().Any())
+        //            authContext = new AuthenticationContext(authContext.TokenCache.ReadItems().FirstOrDefault().Authority);
 
-                var authContext = new AuthenticationContext(tenantUrl);
-                if (authContext.TokenCache.ReadItems().Any())
-                    authContext = new AuthenticationContext(authContext.TokenCache.ReadItems().FirstOrDefault().Authority);
-                var authResult = await authContext.AcquireTokenAsync((returnUri), clientCredential);
+        //        var authResult = await authContext.AcquireTokenAsync(graphResourceUri, ApplicationID, new Uri(returnUri), new PlatformParameters((Activity)Forms.Context));
 
-                return authResult;
-            }
-            catch (Exception)
-            {
-                return null;
-            }
-        }
+        //        var items = authContext.TokenCache.ReadItems();
+        //        return authResult;
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        return null;
+        //    }
+        //}
 
         public async Task<AuthenticationResult> ReAuthenticate(string tenantUrl, string graphResourceUri, string ApplicationID, string returnUri)
         {
@@ -59,7 +85,7 @@ namespace DevEnvAzure.Droid
                 }
                 return authResult;
             }
-            catch (Exception)
+            catch (Exception ex)
             {
                 return null;
             }

@@ -32,7 +32,7 @@ namespace DevEnvAzure
             if (mInfo != null)
             {
                 var stationsOffline = JsonConvert.DeserializeObject<SPData>(mInfo.content);
-                iataPicker.ItemsSource = stationsOffline.d.results.Select(x => x.IATA_x0020_Code).ToList();
+                iataPicker.ItemsSource = stationsOffline.results.Select(x => x.IATA_x0020_Code).ToList();
             }
 
             ToggleBusy(true);
@@ -66,7 +66,7 @@ namespace DevEnvAzure
 
         private async Task BindStationInfoByIATA(string IATACode)
         {
-            var client = await OAuthHelper.GetHTTPClient();
+            var client = await OAuthHelper.GetHTTPClientAsync();
             if (client == null) return;
 
             string url = ClientConfiguration.Default.ActiveDirectoryResource + string.Format("SSQServices/_api/Web/lists/GetByTitle('(Ops) Line Station Information')/items?$select=IATA_x0020_Code,Title,City_x0020_Name,Id,Country,Airport_x0020_Type&$filter=IATA_x0020_Code eq '{0}'&Status eq '{1}'", IATACode, "Open");
@@ -79,9 +79,9 @@ namespace DevEnvAzure
                 //lstStationInfo.ItemsSource = spData.d.results;
                 //lstStationInfo.HeightRequest = 80 * spData.d.results.Count;
 
-                if (spData.d.results.Count > 0)
+                if (spData.results.Count > 0)
                 {
-                    int id = spData.d.results[0].Id;
+                    int id = Convert.ToInt32(spData.results[0].Id);
                     DataContracts.StationInformationSp sInfo = await SPUtility.GetStationInfoItem(id);
 
                     ToggleBusy(false);

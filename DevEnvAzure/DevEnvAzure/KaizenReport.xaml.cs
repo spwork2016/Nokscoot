@@ -115,7 +115,7 @@ namespace DevEnvAzure
                     foreach (var item in attachments)
                     {
                         string attachmentURL = string.Format("{0}({1})/AttachmentFiles/add(FileName='{2}')",
-                            SPUtility.GetListURL(SPUtility.ReportType.Kaizen), itemId, item.FileName);
+                            SPUtility.GetListURL(ReportType.Kaizen), itemId, item.FileName);
 
                         item.SaveToURL = attachmentURL;
 
@@ -165,7 +165,7 @@ namespace DevEnvAzure
                 Device.BeginInvokeOnMainThread(async () =>
                 {
                     lblLoading.Text = "Sending...";
-                    var client = await OAuthHelper.GetHTTPClient();
+                    var client = await OAuthHelper.GetHTTPClientAsync();
                     var data = reportObject;
 
                     var body = JsonConvert.SerializeObject(data, Formatting.None,
@@ -175,11 +175,11 @@ namespace DevEnvAzure
                             });
 
                     var contents = new StringContent(body);
-                    contents.Headers.ContentType = MediaTypeHeaderValue.Parse("application/json;odata=verbose");
+                    contents.Headers.ContentType = MediaTypeHeaderValue.Parse("application/json");
 
                     if (CheckConnection())
                     {
-                        string url = SPUtility.GetListURL(SPUtility.ReportType.Kaizen);
+                        string url = SPUtility.GetListURL(ReportType.Kaizen, "");
                         var postResult = await client.PostAsync(url, contents);
 
                         if (postResult.IsSuccessStatusCode)
@@ -187,7 +187,7 @@ namespace DevEnvAzure
                             App.DAUtil.Delete(_KaizenReport);
                             lblLoading.Text = "Item created successfully." + Environment.NewLine;
 
-                            var spData = JsonConvert.DeserializeObject<SPData>(postResult.Content.ReadAsStringAsync().Result,
+                            var spData = JsonConvert.DeserializeObject<SPData>(await postResult.Content.ReadAsStringAsync(),
                                 new JsonSerializerSettings { DateParseHandling = DateParseHandling.None });
                             int itemId = spData.d.Id;
 
@@ -203,7 +203,7 @@ namespace DevEnvAzure
                     }
                     else
                     {
-                        SPUtility.SaveOfflineItem(body, SPUtility.ReportType.Kaizen, _attachementView.GetAttachmentInfoAsString());
+                        SPUtility.SaveOfflineItem(body, ReportType.Kaizen, _attachementView.GetAttachmentInfoAsString());
 
                         await DisplayAlert("", "Item stored in local storage", "Ok");
                         ToggleBusy(false);

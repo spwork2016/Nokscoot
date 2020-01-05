@@ -3,12 +3,12 @@ using DevEnvAzure.Models;
 using Microsoft.IdentityModel.Clients.ActiveDirectory;
 using Newtonsoft.Json;
 using Plugin.Connectivity;
+using Plugin.LocalNotifications;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 using Xamarin.Forms;
-using Plugin.LocalNotifications;
 
 namespace DevEnvAzure
 {
@@ -34,6 +34,7 @@ namespace DevEnvAzure
         public static ObservableCollection<StationInformationModel> statInfo = new ObservableCollection<StationInformationModel>();
         public static ObservableCollection<Attachment> attachments = new ObservableCollection<Attachment>();
         public static string EVENT_LAUNCH_MAIN_PAGE = "EVENT_LAUNCH_MAIN_PAGE";
+        public static string EVENT_LAUNCH_MULTIFACTOR_PAGE = "EVENT_LAUNCH_MULTIFACTOR_PAGE";
         public static string AUTHENTICATION_SUCCESS = "AUTHENTICATION_SUCCESS";
 
         public App()
@@ -49,7 +50,7 @@ namespace DevEnvAzure
             {
                 if (SPUtility.IsConnected())
                 {
-                    MainPage = new Login();
+                    MainPage = new MultiFactorLogin();
                     //OAuthHelper.GetAccessToken().ContinueWith(async (x) =>
                     //{
                     //    await OAuthHelper.GetUserInfo().ContinueWith((y) =>
@@ -110,15 +111,14 @@ namespace DevEnvAzure
                         var uInfo = App.DAUtil.GetMasterInfoByName("UserInfo");
                         if (uInfo != null)
                         {
-                            var obj = JsonConvert.DeserializeObject<SPData>(uInfo.content, new JsonSerializerSettings { DateParseHandling = DateParseHandling.None });
+                            var obj = JsonConvert.DeserializeObject<UserInfo>(uInfo.content, new JsonSerializerSettings { DateParseHandling = DateParseHandling.None });
                             if (obj != null)
                             {
                                 App.CurrentUser = new User
                                 {
-                                    Id = obj.d.Id,
-                                    Name = obj.d.Title,
-                                    Email = obj.d.Email,
-                                    //PictureBytes = GetPicture(username, password).Result
+                                    Id = obj.UniqueId,
+                                    Name = obj.GivenName + " " + obj.FamilyName,
+                                    Email = obj.DisplayableId
                                 };
                             }
                         }
@@ -128,6 +128,7 @@ namespace DevEnvAzure
                 }
 
                 MessagingCenter.Subscribe<object>(this, EVENT_LAUNCH_MAIN_PAGE, SetMainPageAsRootPage);
+                MessagingCenter.Subscribe<object>(this, EVENT_LAUNCH_MULTIFACTOR_PAGE, SetMultiFactorAuthenticationPage);
                 //MessagingCenter.Subscribe<object>(this, AUTHENTICATION_SUCCESS, SetMainPageAsRootPage);
             }
             catch (Exception ex)
@@ -189,7 +190,7 @@ namespace DevEnvAzure
             }
         }
 
-        private async Task SyncLocalData()
+        public async Task SyncLocalData()
         {
             try
             {
@@ -207,7 +208,13 @@ namespace DevEnvAzure
 
         public void SetMainPageAsRootPage(object sender)
         {
+            Device.BeginInvokeOnMainThread(async () => await SyncLocalData());
             MainPage = new StartPage();
+        }
+
+        public void SetMultiFactorAuthenticationPage(object sender)
+        {
+            MainPage = new MultiFactorLogin();
         }
 
         public static PeoplePicker validatePeoplePicker(string name)
@@ -259,14 +266,14 @@ namespace DevEnvAzure
 
         protected async override void OnResume()
         {
-            try
-            {
-                await OAuthHelper.GetAccessToken();
-            }
-            catch (Exception ex)
-            {
-                ShowError(string.Format("Unable to refresh token: {0}", ex.Message));
-            }
+            //try
+            //{
+            //    await OAuthHelper.GetAccessToken();
+            //}
+            //catch (Exception ex)
+            //{
+            //    ShowError(string.Format("Unable to refresh token: {0}", ex.Message));
+            //}
         }
 
         private async void Current_ConnectivityChanged(object sender, Plugin.Connectivity.Abstractions.ConnectivityChangedEventArgs e)

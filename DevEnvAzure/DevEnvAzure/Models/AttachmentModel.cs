@@ -52,7 +52,7 @@ namespace DevEnvAzure.Models
             Stream stream = await GetStream();
             if (stream == null) return null;
 
-            var client = await OAuthHelper.GetHTTPClient();
+            var client = await OAuthHelper.GetHTTPClientAsync();
             var response = await client.PostAsync(url, new StreamContent(stream));
             return response;
         }

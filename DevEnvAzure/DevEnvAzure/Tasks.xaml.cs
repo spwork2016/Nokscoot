@@ -115,7 +115,7 @@ namespace DevEnvAzure
         private async Task CompleteTheTask(Result item)
         {
             IsBusy = true;
-            var client = await OAuthHelper.GetHTTPClient();
+            var client = await OAuthHelper.GetHTTPClientAsync();
 
             var data = new DataContracts.TaskSp();
             data.PercentComplete = 100;
@@ -137,7 +137,7 @@ namespace DevEnvAzure
             var postResult = await client.PostAsync(item.__metadata.uri, contents);
             if (!postResult.IsSuccessStatusCode)
             {
-                var httpErrorObject = postResult.Content.ReadAsStringAsync().Result;
+                var httpErrorObject = await postResult.Content.ReadAsStringAsync();
             }
             else
             {
@@ -151,7 +151,7 @@ namespace DevEnvAzure
         {
             try
             {
-                var client = await OAuthHelper.GetHTTPClient();
+                var client = await OAuthHelper.GetHTTPClientAsync();
                 var response = await client.GetStringAsync(SPTasksURL);
                 if (response != null)
                 {
@@ -159,7 +159,7 @@ namespace DevEnvAzure
                     var spData = JsonConvert.DeserializeObject<SPData>(response, new JsonSerializerSettings { DateParseHandling = DateParseHandling.None });
                     if (spData != null)
                     {
-                        return spData.d.results;
+                        return spData.results;
                     }
                 }
             }

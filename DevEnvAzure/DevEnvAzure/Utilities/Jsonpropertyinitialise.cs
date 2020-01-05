@@ -348,8 +348,8 @@ namespace DevEnvAzure.Utilities
             sddp.VoyageRecord = sd.VoyageRecord;
             sddp.SectorNumber = FlightCrewVoyageRecord.SectorNumberpickerValue;
             sddp.ScheduledDeparture = sd.ScheduledDeparture.ToString("yyyy-MM-dd") + "T07:00:00Z";
-            sddp.FlightNumber = SPUtility.GetLookupIdFromValue(SPUtility.LookupType.FlightNumbers, sd.FlightNumber);
-            sddp.AircraftRegistration = SPUtility.GetLookupIdFromValue(SPUtility.LookupType.AircraftRegistraions, sd.AircraftRegistration);
+            sddp.FlightNumber = SPUtility.GetLookupIdFromValue(LookupType.FlightNumbers, sd.FlightNumber);
+            sddp.AircraftRegistration = SPUtility.GetLookupIdFromValue(LookupType.AircraftRegistraions, sd.AircraftRegistration);
             sddp.DepartureStation = sd.DepartureStation;
             sddp.ArrivalStation = sd.ArrivalStation;
             sddp.LandingBy = sd.LandingBy;

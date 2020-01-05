@@ -45,7 +45,7 @@ namespace DevEnvAzure.Droid
             }
             catch (Exception ex)
             {
-
+                
             }
         }
         public void serviceStarter()

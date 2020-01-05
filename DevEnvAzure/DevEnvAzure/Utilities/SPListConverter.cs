@@ -104,7 +104,7 @@ namespace DevEnvAzure.Model
         public Metadata __metadata { get; set; }
         public Alerts Alerts { get; set; }
         public Groups Groups { get; set; }
-        public int Id { get; set; }
+        public object Id { get; set; }
         public bool IsHiddenInUI { get; set; }
         public string LoginName { get; set; }
         public string Title { get; set; }
@@ -174,6 +174,22 @@ namespace DevEnvAzure.Model
         public string City_x0020_Name { get; set; }
         public string Country { get; set; }
         public string Airport_x0020_Type { get; set; }
+
+        [JsonProperty("fields")]
+        public GraphFields Fields { get; set; }
+
+
+        // users graph api
+        public string mail { get; set; }
+        public string displayName { get; set; }
+        public string givenName { get; set; }
+    }
+
+    public class GraphFields
+    {
+        public string Body { get; set; }
+        public string Title { get; set; }
+        public DateTime Expires { get; set; }
     }
 
     public class UserProfileProperties
@@ -231,6 +247,9 @@ namespace DevEnvAzure.Model
 
     public class SPData
     {
+        [JsonProperty("value")]
+        public IList<Result> results { get; set; }
+
         public D d { get; set; }
     }
 
@@ -267,7 +286,7 @@ namespace DevEnvAzure.Model
 
     public class User
     {
-        public int Id { get; set; }
+        public string Id { get; set; }
         public string Name { get; set; }
         public string Email { get; set; }
         public byte[] PictureBytes { get; set; }

@@ -32,7 +32,7 @@ namespace DevEnvAzure
 
         public static async Task<int> CreateItemsOffline(List<OfflineItem> items)
         {
-            var client = await OAuthHelper.GetHTTPClient();
+            var client = await OAuthHelper.GetHTTPClientAsync();
 
             try
             {
@@ -77,7 +77,7 @@ namespace DevEnvAzure
 
                                 try
                                 {
-                                    var spData = JsonConvert.DeserializeObject<SPData>(postResult.Content.ReadAsStringAsync().Result,
+                                    var spData = JsonConvert.DeserializeObject<SPData>(await postResult.Content.ReadAsStringAsync(),
                                     new JsonSerializerSettings { DateParseHandling = DateParseHandling.None });
 
                                     Attachment attachment = new Attachment(path);

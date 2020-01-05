@@ -105,7 +105,7 @@ namespace DevEnvAzure
                 Device.BeginInvokeOnMainThread(async () =>
                 {
                     // StringContent contents = null;
-                    var client = await OAuthHelper.GetHTTPClient();
+                    var client = await OAuthHelper.GetHTTPClientAsync();
                     var data = reportObject;// _viewobject;
 
                     var body = JsonConvert.SerializeObject(data, Formatting.None,
@@ -126,7 +126,7 @@ namespace DevEnvAzure
 
                             lblLoading.Text = "Item created successfully." + Environment.NewLine;
 
-                            var spData = JsonConvert.DeserializeObject<SPData>(postResult.Content.ReadAsStringAsync().Result,
+                            var spData = JsonConvert.DeserializeObject<SPData>(await postResult.Content.ReadAsStringAsync(),
                                 new JsonSerializerSettings { DateParseHandling = DateParseHandling.None });
                             int itemId = spData.d.Id;
 

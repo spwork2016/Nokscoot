@@ -184,7 +184,7 @@ namespace DevEnvAzure
                             FlightSafetyReportModel sf = (FlightSafetyReportModel)_viewobject;
                             sf.ReportType = "Safety" + sf.Id.ToString();
                             MORTypeID = MORpicker.SelectedIndex;
-                            CreateItems(jsonInitObj.getflightSafetyJson(sf), SPUtility.ReportType.FlightSafety);
+                            CreateItems(jsonInitObj.getflightSafetyJson(sf), ReportType.FlightSafety);
                             App.DAUtil.Delete(sf);
                             break;
                         case "security":
@@ -202,31 +202,31 @@ namespace DevEnvAzure
                                 return;
                             }
 
-                            CreateItems(spData, SPUtility.ReportType.Security);
+                            CreateItems(spData, ReportType.Security);
                             App.DAUtil.Delete(sd);
                             break;
                         case "ground":
                             GroundSafetyReport gd = (GroundSafetyReport)_viewobject;
                             gd.ReportType = "GroundSafety" + gd.Id.ToString();
-                            CreateItems(jsonInitObj.getGroundSafety(gd), SPUtility.ReportType.GroundSafety);
+                            CreateItems(jsonInitObj.getGroundSafety(gd), ReportType.GroundSafety);
                             App.DAUtil.Delete(gd);
                             break;
                         case "fatigue":
                             FatigueReport ft = (FatigueReport)_viewobject;
                             ft.ReportType = "Fatigue" + ft.Id.ToString();
-                            CreateItems(jsonInitObj.getFatigue(ft), SPUtility.ReportType.Fatigue);
+                            CreateItems(jsonInitObj.getFatigue(ft), ReportType.Fatigue);
                             App.DAUtil.Delete(ft);
                             break;
                         case "Injury":
                             InjuryIllnessReport injr = (InjuryIllnessReport)_viewobject;
                             injr.ReportType = "InjuryIllness" + injr.Id.ToString();
-                            CreateItems(jsonInitObj.getInjuryJson(injr), SPUtility.ReportType.InjuryIllness);
+                            CreateItems(jsonInitObj.getInjuryJson(injr), ReportType.InjuryIllness);
                             App.DAUtil.Delete(injr);
                             break;
                         case "cabin":
                             CabibSafetyReport cd = (CabibSafetyReport)_viewobject;
                             cd.ReportType = "Cabin" + cd.Id.ToString();
-                            CreateItems(jsonInitObj.getCabinSfetyJson(cd), SPUtility.ReportType.CabinSafety);
+                            CreateItems(jsonInitObj.getCabinSfetyJson(cd), ReportType.CabinSafety);
                             App.DAUtil.Delete(cd);
                             break;
                     }
@@ -385,16 +385,15 @@ namespace DevEnvAzure
             return SPUtility.IsConnected();
         }
 
-        protected void CreateItems<U>(U reportObject, SPUtility.ReportType reportType) where U : class
+        protected void CreateItems<U>(U reportObject, ReportType reportType) where U : class
         {
-            return; 
             try
             {
                 ToggleBusy(true);
 
                 Device.BeginInvokeOnMainThread(async () =>
                 {
-                    var client = await OAuthHelper.GetHTTPClient();
+                    var client = await OAuthHelper.GetHTTPClientAsync();
                     var data = reportObject;
 
                     string body = "";
@@ -519,7 +518,7 @@ namespace DevEnvAzure
             {
                 var spData = JsonConvert.DeserializeObject<SPData>(results.content, new JsonSerializerSettings { DateParseHandling = DateParseHandling.None });
 
-                foreach (var val in spData.d.results)
+                foreach (var val in spData.results)
                 {
                     MORpicker.Items.Add(val.Title);
                 }
@@ -553,11 +552,11 @@ namespace DevEnvAzure
                 return;
             }
 
-            var client = await OAuthHelper.GetHTTPClient();
+            var client = await OAuthHelper.GetHTTPClientAsync();
             if (client == null) { return; }
             try
             {
-                string url = SPUtility.GetListURL(SPUtility.ReportType.MORType);
+                string url = SPUtility.GetListURL(ReportType.MORType);
                 var result = await client.GetStringAsync(url);
 
                 if (result != null)
@@ -565,7 +564,7 @@ namespace DevEnvAzure
                     App.DAUtil.RefreshMasterInfo(new MasterInfo { content = result, Name = "MORItems" });
                     var spData = JsonConvert.DeserializeObject<SPData>(result, new JsonSerializerSettings { DateParseHandling = DateParseHandling.None });
 
-                    foreach (var val in spData.d.results)
+                    foreach (var val in spData.results)
                     {
                         MORpicker.Items.Add(val.Title);
                     }
@@ -645,7 +644,7 @@ namespace DevEnvAzure
             }
         }
 
-        private async Task SendAttachments(int itemId, SPUtility.ReportType reportType)
+        private async Task SendAttachments(int itemId, ReportType reportType)
         {
             try
             {

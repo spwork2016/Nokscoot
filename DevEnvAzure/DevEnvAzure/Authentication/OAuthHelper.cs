@@ -1,15 +1,10 @@
 ﻿using DevEnvAzure.Model;
 using Microsoft.IdentityModel.Clients.ActiveDirectory;
 using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
-using PCLStorage;
-using Plugin.Connectivity;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
-using System.Net.Http.Headers;
-using System.Text;
 using System.Threading.Tasks;
 using Xamarin.Forms;
 
@@ -135,14 +130,15 @@ namespace DevEnvAzure
             return 0;
         }
 
-        public static async Task<HttpClient> GetHTTPClient(string access_token = "")
+        public static async Task<HttpClient> GetHTTPClientAsync()
         {
-            await GetAccessToken();
+            //await GetAccessToken();
 
             if (App.AuthResult == null) return null;
 
             HttpClient client = new HttpClient();
-            client.DefaultRequestHeaders.Add("Accept", "application/json;odata=verbose");
+            // if nto adal - used application/json;odata=verbose
+            client.DefaultRequestHeaders.Add("Accept", "application/json");
             client.DefaultRequestHeaders.Add("ContentType", "application/json");
             client.DefaultRequestHeaders.Add("Authorization", App.AuthResult.CreateAuthorizationHeader());
 
@@ -154,14 +150,14 @@ namespace DevEnvAzure
             var uInfo = App.DAUtil.GetMasterInfoByName("UserInfo");
             if (uInfo != null)
             {
-                var obj = JsonConvert.DeserializeObject<SPData>(uInfo.content, new JsonSerializerSettings { DateParseHandling = DateParseHandling.None });
+                var obj = JsonConvert.DeserializeObject<UserInfo>(uInfo.content, new JsonSerializerSettings { DateParseHandling = DateParseHandling.None });
                 if (obj != null)
                 {
                     App.CurrentUser = new User
                     {
-                        Id = obj.d.Id,
-                        Name = obj.d.Title,
-                        Email = obj.d.Email,
+                        Id = obj.UniqueId,
+                        Name = obj.GivenName + " " + obj.FamilyName,
+                        Email = obj.DisplayableId,
                     };
                 }
             }
@@ -171,7 +167,7 @@ namespace DevEnvAzure
                 return null;
             }
 
-            var client = await GetHTTPClient();
+            var client = GetHTTPClientAsync();
             if (client == null)
             {
                 return null;
@@ -179,22 +175,22 @@ namespace DevEnvAzure
 
             try
             {
-                var response = await client.GetStringAsync(ClientConfiguration.Default.SPRootURL + "web/currentuser");
-                if (response != null)
+                //var response = await client.GetStringAsync(ClientConfiguration.Default.SPRootURL + "web/currentuser");
+                //if (response != null)
+                //{
+                var userInfo = App.AuthResult?.UserInfo;
+                App.DAUtil.RefreshMasterInfo(new MasterInfo { Name = "UserInfo", content = JsonConvert.SerializeObject(userInfo) });
+                if (App.AuthResult?.UserInfo != null)
                 {
-                    App.DAUtil.RefreshMasterInfo(new MasterInfo { Name = "UserInfo", content = response });
-                    var spData = JsonConvert.DeserializeObject<SPData>(response, new JsonSerializerSettings { DateParseHandling = DateParseHandling.None });
-                    if (spData != null)
+                    App.CurrentUser = new User
                     {
-                        App.CurrentUser = new User
-                        {
-                            Id = spData.d.Id,
-                            Name = spData.d.Title,
-                            Email = spData.d.Email,
-                            PictureBytes = GetPicture().Result
-                        };
-                    }
+                        Id = userInfo.UniqueId,
+                        Name = userInfo.GivenName + " " + userInfo.FamilyName,
+                        Email = userInfo.DisplayableId,
+                        PictureBytes = await GetPicture()
+                    };
                 }
+                //}
 
             }
             catch (Exception ex)
@@ -207,17 +203,16 @@ namespace DevEnvAzure
 
         public static async Task<byte[]> GetPicture()
         {
-            string aadTenant = ClientConfiguration.Default.ActiveDirectoryTenant;
-            string aadClientAppId = ClientConfiguration.Default.ActiveDirectoryClientAppId;
-            string aadResource = "https://graph.microsoft.com/";
-
             try
             {
                 await GetAccessToken();
                 if (App.AuthResult != null)
                 {
-                    var client = await GetHTTPClient();
-                    var picResponse = await client.GetByteArrayAsync(aadResource + "v1.0/me/photo/$value");
+                    var auth = DependencyService.Get<IAuthenticator>();
+                    var nokScootConfig = ClientConfiguration.NokScoot;
+
+                    var client = await GetHTTPClientAsync();
+                    var picResponse = await client.GetByteArrayAsync(nokScootConfig.GraphAPIRootURL + "v1.0/me/photo/$value");
                     return picResponse;
                 }
             }
@@ -243,9 +238,9 @@ namespace DevEnvAzure
                 MasterInfo userInfo = App.DAUtil.GetMasterInfoByName("UserInfo");
                 if (userInfo != null)
                 {
-                    var spData = JsonConvert.DeserializeObject<SPData>(userInfo.content, new JsonSerializerSettings { DateParseHandling = DateParseHandling.None });
-                    if (spData.d != null)
-                        App.CurrentUser = new User { Name = spData.d.Title, Email = spData.d.Email };
+                    var spData = JsonConvert.DeserializeObject<UserInfo>(userInfo.content, new JsonSerializerSettings { DateParseHandling = DateParseHandling.None });
+                    if (spData != null)
+                        App.CurrentUser = new User { Name = spData.GivenName + " " + spData.FamilyName, Email = spData.DisplayableId };
                 }
             }
 
@@ -312,20 +307,11 @@ namespace DevEnvAzure
                 var auth = DependencyService.Get<IAuthenticator>();
                 var nokScootConfig = ClientConfiguration.NokScoot;
 
-                if (App.AuthResult == null)
-                {
-                    App.AuthResult = await auth.Authenticate(nokScootConfig.ActiveDirectoryTenant,
-                                                                nokScootConfig.ActiveDirectoryResource, // "https://nokscootth.sharepoint.com",
-                                                                nokScootConfig.ActiveDirectoryClientAppId,
-                                                                nokScootConfig.ActiveDirectoryResource);
-                }
-                //else if (App.AuthResult.ExpiresOn < DateTime.UtcNow)
-                //{
-                //    App.AuthResult = await auth.ReAuthenticate(nokScootConfig.ActiveDirectoryTenant,
-                //                                            nokScootConfig.GraphAPIRootURL,
-                //                                            nokScootConfig.ActiveDirectoryClientAppId,
-                //                                            nokScootConfig.ActiveDirectoryResource);
-                //}
+                App.AuthResult = await auth.Authenticate(nokScootConfig.ActiveDirectoryTenant,
+                                                            nokScootConfig.GraphAPIRootURL,
+                                                            nokScootConfig.ActiveDirectoryClientAppId,
+                                                            nokScootConfig.ActiveDirectoryResource);
+
             }
             catch (Exception ex)
             {

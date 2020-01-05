@@ -10,9 +10,6 @@ namespace DevEnvAzure
 {
     public partial class Login : ContentPage, INotifyPropertyChanged
     {
-        private AuthenticationResult authResult = null;
-
-
         public Login()
         {
             InitializeComponent();
@@ -39,7 +36,7 @@ namespace DevEnvAzure
 
         protected override async void OnAppearing()
         {
-            //await PerformLoginAsync();
+            await PerformLoginAsync();
         }
 
         private async Task PerformLoginAsync()

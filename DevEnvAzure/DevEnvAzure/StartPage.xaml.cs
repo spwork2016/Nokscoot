@@ -1,12 +1,7 @@
-﻿using DevEnvAzure.Model;
-using DevEnvAzure.Models;
-using Microsoft.IdentityModel.Clients.ActiveDirectory;
+﻿using Microsoft.IdentityModel.Clients.ActiveDirectory;
 using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.IO;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 using Xamarin.Forms;
@@ -38,8 +33,8 @@ namespace DevEnvAzure
                 var docsPage = new MasterPageItem() { Title = "Documents", Icon = "documents.png", TargetType = typeof(DocumentLibrary) };
                 var StationInformationPage = new MasterPageItem() { Title = "Station Information", Icon = "stationinfo.png", TargetType = typeof(ViewStationInformation) };
                 var editableDraftsPage = new MasterPageItem() { Title = "Editable Drafts", Icon = "editabledrafts.png", TargetType = typeof(EditableDrafts) };
-                var notificationsPage = new MasterPageItem() { Title = "Notifications", Icon = "notifications.png", TargetType= typeof(Notifications) };
-              
+                var notificationsPage = new MasterPageItem() { Title = "Notifications", Icon = "notifications.png", TargetType = typeof(Notifications) };
+
                 menuList.Add(homePage);
                 menuList.Add(reportingPage);
 
@@ -71,7 +66,7 @@ namespace DevEnvAzure
 
         protected override async void OnAppearing()
         {
-           try
+            try
             {
                 if (App.CurrentUser != null)
                 {
@@ -175,20 +170,22 @@ namespace DevEnvAzure
                 ac.TokenCache.Clear();
 
                 App.AuthResult = null;
+
                 App.DAUtil.DeleteMasterInfo("UserCredentials");
+                App.DAUtil.DeleteMasterInfo("UserInfo");
 
                 DependencyService.Get<IMessage>().LongAlert("Logged out successfully.");
 
-                // make sure it redirects to multi factor authentication
-               //  await OAuthHelper.GetAccessToken();
+                MessagingCenter.Send<object>(this, App.EVENT_LAUNCH_MULTIFACTOR_PAGE);
                 return;
             }
 
             if (!OAuthHelper.IsLoggedIn())
             {
-                Navigation.PushModalAsync(new Login());
+                MessagingCenter.Send<object>(this, App.EVENT_LAUNCH_MULTIFACTOR_PAGE);
                 return;
             }
+
             if (item.Title == "Station Information")
             {
                 IsPresented = false;

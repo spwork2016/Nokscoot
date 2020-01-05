@@ -182,7 +182,7 @@ namespace DevEnvAzure
 
         private async Task<HttpClient> GetHTTPClient()
         {
-            var client = await OAuthHelper.GetHTTPClient();
+            var client = await OAuthHelper.GetHTTPClientAsync();
 
             if (client == null)
             {
@@ -273,7 +273,7 @@ namespace DevEnvAzure
                     foreach (var item in attachments)
                     {
                         string attachmentURL = string.Format("{0}({1})/AttachmentFiles/add(FileName='{2}')",
-                            SPUtility.GetListURL(SPUtility.ReportType.FlighCrewVoyage), itemId, item.FileName);
+                            SPUtility.GetListURL(ReportType.FlighCrewVoyage), itemId, item.FileName);
 
                         item.SaveToURL = attachmentURL;
 

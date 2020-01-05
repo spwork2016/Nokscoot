@@ -2,10 +2,8 @@
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Text.RegularExpressions;
+using System.Threading.Tasks;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -51,15 +49,15 @@ namespace DevEnvAzure
                     IsBusy = true;
                 });
                 List<NotificationItem> items = new List<NotificationItem>();
-                var client = await OAuthHelper.GetHTTPClient();
-                var result = await client.GetStringAsync(string.Format(ClientConfiguration.Default.SPListURL, "announcements"));
+                var client = await OAuthHelper.GetHTTPClientAsync();
+                var result = await client.GetStringAsync(SPUtility.GetListURL(ReportType.Announcements, "items?$expand=fields&$select=id,fields"));
                 if (result != null)
                 {
                     var spData = JsonConvert.DeserializeObject<SPData>(result, new JsonSerializerSettings { DateParseHandling = DateParseHandling.None });
                     int id = 1;
-                    foreach (var val in spData.d.results)
+                    foreach (var val in spData.results)
                     {
-                        items.Add(new NotificationItem { Id = id, Modified = val.Modified, Title = val.Title, Body = val.Body, IsBodyVisible = false });
+                        items.Add(new NotificationItem { Id = id, Modified = val.Fields.Expires, Title = val.Fields.Title, Body = val.Fields.Body, IsBodyVisible = false });
                         id++;
                     }
 
@@ -72,7 +70,7 @@ namespace DevEnvAzure
                     IsBusy = false;
                 }
             }
-            catch (Exception)
+            catch (Exception ex)
             {
                 Device.BeginInvokeOnMainThread(() =>
                 {

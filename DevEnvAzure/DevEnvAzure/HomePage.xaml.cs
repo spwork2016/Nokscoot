@@ -110,7 +110,7 @@ namespace DevEnvAzure
 
         private async Task<HttpClient> GetHTTPClient()
         {
-            var client = await OAuthHelper.GetHTTPClient();
+            var client = await OAuthHelper.GetHTTPClientAsync();
 
             if (client == null)
             {
@@ -133,7 +133,7 @@ namespace DevEnvAzure
                 if (result != null)
                 {
                     var spData = JsonConvert.DeserializeObject<SPData>(result, new JsonSerializerSettings { DateParseHandling = DateParseHandling.None });
-                    foreach (var val in spData.d.results)
+                    foreach (var val in spData.results)
                     {
                         deptemp.Items.Add(val.DepartmentName);
                     }
@@ -148,7 +148,7 @@ namespace DevEnvAzure
 
         protected async void FetchListItems()
         {
-            var client = await OAuthHelper.GetHTTPClient();
+            var client = await OAuthHelper.GetHTTPClientAsync();
             if (client == null) { return; }
             try
             {
@@ -195,7 +195,7 @@ namespace DevEnvAzure
             {
                 if (CheckConnection())
                 {
-                    var client = await OAuthHelper.GetHTTPClient();
+                    var client = await OAuthHelper.GetHTTPClientAsync();
                     //var body = "{\"__metadata\":{\"type\":\"SP.Data.TestFormListItem\"},\"Employee_x0020_Details\":\"" + empdetails + "\",\"DepartmentId\":\"" + dptname + "\",\"Salary\":\"" + sal +
                     //"\",\"Active_x0020_Employee\":\"" + actemp + "\",\"Joining_x0020_Date\":\"" + date + "\",\"Employee_x0020_Age\":\"" + empage + 
                     //"\",\"Employee_x0020_Name\":\"" + empName + "\",\"Gender\": \"" + gender + "\"}";
@@ -217,7 +217,7 @@ namespace DevEnvAzure
                     contents.Headers.ContentType = MediaTypeHeaderValue.Parse("application/json;odata=verbose");
                     //contents.Headers.Add("Accept", "application/json");
 
-                    var postResult = client.PostAsync("https://sptechnophiles.sharepoint.com/_api/web/lists/GetByTitle('TestForm')/items", contents).Result;
+                    var postResult = await client.PostAsync("https://sptechnophiles.sharepoint.com/_api/web/lists/GetByTitle('TestForm')/items", contents);
                     //var result = postResult.EnsureSuccessStatusCode();
 
                     if (!postResult.IsSuccessStatusCode)
