@@ -12,6 +12,7 @@ using Plugin.Connectivity;
 using System.Threading.Tasks;
 using DevEnvAzure.Model;
 using System.IO;
+using Microsoft.Graph;
 
 namespace DevEnvAzure
 {
@@ -162,11 +163,15 @@ namespace DevEnvAzure
             try
             {
                 ToggleBusy(true);
-                Device.BeginInvokeOnMainThread(async () =>
+                Xamarin.Forms.Device.BeginInvokeOnMainThread(async () =>
                 {
                     lblLoading.Text = "Sending...";
                     var client = await OAuthHelper.GetHTTPClientAsync();
                     var data = reportObject;
+
+                    //var graphClient = OAuthHelper.GetGraphClient(App.AuthResult.AccessToken);
+                    //graphClient.Sites.Root.Lists["d"].Items.
+                    // https://github.com/microsoftgraph/msgraph-sdk-dotnet/issues/308
 
                     var body = JsonConvert.SerializeObject(data, Formatting.None,
                             new JsonSerializerSettings

@@ -1,10 +1,12 @@
 ﻿using DevEnvAzure.Model;
+using Microsoft.Graph;
 using Microsoft.IdentityModel.Clients.ActiveDirectory;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Threading.Tasks;
 using Xamarin.Forms;
 
@@ -12,6 +14,7 @@ namespace DevEnvAzure
 {
     public class OAuthHelper
     {
+        private static readonly HttpProvider httpProvider = new HttpProvider(new HttpClientHandler(), false);
         /// <summary>
         /// The header to use for OAuth authentication.
         /// </summary>
@@ -145,7 +148,7 @@ namespace DevEnvAzure
             return client;
         }
 
-        public static async Task<User> GetUserInfo()
+        public static async Task<Model.User> GetUserInfo()
         {
             var uInfo = App.DAUtil.GetMasterInfoByName("UserInfo");
             if (uInfo != null)
@@ -153,7 +156,7 @@ namespace DevEnvAzure
                 var obj = JsonConvert.DeserializeObject<UserInfo>(uInfo.content, new JsonSerializerSettings { DateParseHandling = DateParseHandling.None });
                 if (obj != null)
                 {
-                    App.CurrentUser = new User
+                    App.CurrentUser = new Model.User
                     {
                         Id = obj.UniqueId,
                         Name = obj.GivenName + " " + obj.FamilyName,
@@ -182,7 +185,7 @@ namespace DevEnvAzure
                 App.DAUtil.RefreshMasterInfo(new MasterInfo { Name = "UserInfo", content = JsonConvert.SerializeObject(userInfo) });
                 if (App.AuthResult?.UserInfo != null)
                 {
-                    App.CurrentUser = new User
+                    App.CurrentUser = new Model.User
                     {
                         Id = userInfo.UniqueId,
                         Name = userInfo.GivenName + " " + userInfo.FamilyName,
@@ -240,7 +243,7 @@ namespace DevEnvAzure
                 {
                     var spData = JsonConvert.DeserializeObject<UserInfo>(userInfo.content, new JsonSerializerSettings { DateParseHandling = DateParseHandling.None });
                     if (spData != null)
-                        App.CurrentUser = new User { Name = spData.GivenName + " " + spData.FamilyName, Email = spData.DisplayableId };
+                        App.CurrentUser = new Model.User { Name = spData.GivenName + " " + spData.FamilyName, Email = spData.DisplayableId };
                 }
             }
 
@@ -317,6 +320,20 @@ namespace DevEnvAzure
             {
                 throw ex;
             }
+        }
+
+        public static GraphServiceClient GetGraphClient(string accessToken, IHttpProvider provider = null)
+        {
+            var delegateAuthProvider = new DelegateAuthenticationProvider((requestMessage) =>
+            {
+                requestMessage.Headers.Authorization = new AuthenticationHeaderValue("bearer", accessToken);
+
+                return Task.FromResult(0);
+            });
+
+            var graphClient = new GraphServiceClient(delegateAuthProvider, provider ?? httpProvider);
+
+            return graphClient;
         }
 
         public static Exception CreateExceptionFromResponseErrors(HttpResponseMessage response)
