@@ -6,7 +6,7 @@
   <ItemGroup>
     <PackageReference Include="ExifLib.PCL" Version="1.0.1" />
     <PackageReference Include="Microsoft.IdentityModel.Clients.ActiveDirectory" Version="5.2.5" />
-    <PackageReference Include="Newtonsoft.Json" Version="10.0.3" />
+    <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
     <PackageReference Include="PCLStorage" Version="1.0.2" />
     <PackageReference Include="Plugin.Permissions" Version="3.0.0.12" />
     <PackageReference Include="Rg.Plugins.Popup" Version="1.2.0.223" />
@@ -17,12 +17,12 @@
     <PackageReference Include="System.Reflection" Version="4.3.0" />
     <PackageReference Include="System.Reflection.Extensions" Version="4.3.0" />
     <PackageReference Include="System.Reflection.Primitives" Version="4.3.0" />
-    <PackageReference Include="Xam.Plugin.Connectivity" Version="3.0.1" />
+    <PackageReference Include="Xam.Plugin.Connectivity" Version="3.2.0" />
     <PackageReference Include="Xam.Plugin.FilePicker" Version="1.1.0" />
     <PackageReference Include="Xam.Plugin.Media" Version="4.0.1.1" />
     <PackageReference Include="Xam.Plugins.Forms.ImageCircle" Version="2.0.2" />
     <PackageReference Include="Xam.Plugins.Notifier" Version="2.1.0" />
-    <PackageReference Include="Xamarin.Forms" Version="2.5.0.280555" />
+    <PackageReference Include="Xamarin.Forms" Version="4.4.0.991265" />
     <PackageReference Include="Xamarin.Plugin.FilePicker" Version="1.2.1" />
     <PackageReference Include="XLabs.Core" Version="2.0.5782" />
     <PackageReference Include="XLabs.Forms" Version="2.0.5782" />

@@ -156,7 +156,7 @@ namespace DevEnvAzure
         }
 
         public static int idval;
-        private async void Save_clicked(object sender, XLabs.EventArgs<bool> e)
+        private async void Save_clicked(object sender, EventArgs e)
         {
             if (Convert.ToString(EventTitleEntry.Text).Length == 0 || dtevntPicker.Date == null || Convert.ToString(MORpicker.SelectedItem).Length == 0)
             {

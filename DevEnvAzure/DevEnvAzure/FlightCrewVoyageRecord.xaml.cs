@@ -2,7 +2,6 @@
 using DevEnvAzure.Models;
 using DevEnvAzure.Utilities;
 using Newtonsoft.Json;
-using Plugin.Connectivity;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -113,7 +112,7 @@ namespace DevEnvAzure
             return true;
         }
 
-        private void Save_clicked(object sender, XLabs.EventArgs<bool> e)
+        private void Save_clicked(object sender, EventArgs e)
         {
             _flightcrew.ReportType = null;
             _flightcrew.DateOfEvent = null;

@@ -2,7 +2,6 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Threading.Tasks;
 
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
@@ -143,9 +142,10 @@ namespace DevEnvAzure
 
                 }
             });
+
         }
 
-        private async Task OnMenuItemSelected(object sender, SelectedItemChangedEventArgs e)
+        private void OnMenuItemSelected(object sender, SelectedItemChangedEventArgs e)
         {
             var item = (MasterPageItem)e.SelectedItem;
             ((ListView)sender).SelectedItem = null;
