@@ -38,7 +38,7 @@ namespace DevEnvAzure.Models
             {
                 var file = await FileSystem.Current.GetFileFromPathAsync(FilePath);
                 if (file != null)
-                    return await file.OpenAsync(FileAccess.Read);
+                    return await file.OpenAsync(PCLStorage.FileAccess.Read);
             }
 
             return null;
