@@ -80,10 +80,12 @@ namespace DevEnvAzure
         private async void Button_Clicked_2(object sender, EventArgs e)
         {
             var kaizen = new Models.KaizenReportModel();
-           // kaizen.BenefitsCategory = null;
-            
+            // kaizen.BenefitsCategory = null;
 
-             await Navigation.PushAsync(new KaizenReport(kaizen, "kaizen"));
+            var graphClient = OAuthHelper.GetGraphClient(App.AuthResult.AccessToken);
+            var me = graphClient.Me;
+
+            await Navigation.PushAsync(new KaizenReport(kaizen, "kaizen"));
         }
     }
 }

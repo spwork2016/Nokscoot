@@ -32,7 +32,7 @@ namespace DevEnvAzure
             if (mInfo != null)
             {
                 var stationsOffline = JsonConvert.DeserializeObject<SPData>(mInfo.content);
-                iataPicker.ItemsSource = stationsOffline.results.Select(x => x.IATA_x0020_Code).ToList();
+                iataPicker.ItemsSource = stationsOffline.results.Select(x => x.Fields.IATA_x0020_Code).ToList();
             }
 
             ToggleBusy(true);

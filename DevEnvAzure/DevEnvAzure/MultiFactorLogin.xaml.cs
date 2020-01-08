@@ -27,12 +27,9 @@ namespace DevEnvAzure
                 var auth = DependencyService.Get<IAuthenticator>();
                 var nokScootConfig = ClientConfiguration.NokScoot;
 
-                if (App.AuthResult == null)
-                {
-                    await OAuthHelper.GetAccessToken();
-                    await OAuthHelper.GetUserInfo();
-                    MessagingCenter.Send<object>(this, App.EVENT_LAUNCH_MAIN_PAGE);
-                }
+                await OAuthHelper.GetAccessToken();
+                await OAuthHelper.GetUserInfo();
+                MessagingCenter.Send<object>(this, App.EVENT_LAUNCH_MAIN_PAGE);
             }
             catch (Exception ex)
             {

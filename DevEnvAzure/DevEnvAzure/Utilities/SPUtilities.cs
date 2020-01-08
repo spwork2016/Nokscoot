@@ -55,7 +55,7 @@ namespace DevEnvAzure
             return attachmentInfo.Split(new string[] { SEPARATOR }, StringSplitOptions.None);
         }
 
-        public static string GetListURL(ReportType reportType = ReportType.none, string query = "items")
+        public static string GetListURL(ReportType reportType = ReportType.none, string query = "items?expand=fields&select=id,fields")
         {
             //throw new Exception("Are you sure sending a data to prod?");
             string url = string.Format(ClientConfiguration.Default.GraphAPISPListsURL, "41a6b336-29f7-4808-86cf-217a380eea15", query);
@@ -339,7 +339,8 @@ namespace DevEnvAzure
                 try
                 {
                     var client = await OAuthHelper.GetHTTPClientAsync();
-                    var response = await client.GetStringAsync(GetListURL(ReportType.AircraftRegistration));
+                    var url = GetListURL(ReportType.AircraftRegistration, "items?expand=fields($select=Aircraft_x0020_Registration)&select=id,fields");
+                    var response = await client.GetStringAsync(url);
                     if (response != null)
                     {
                         mInfo = new MasterInfo { Name = "AircraftRegistrations", content = response };
@@ -355,7 +356,7 @@ namespace DevEnvAzure
             if (mInfo != null)
             {
                 var stations = JsonConvert.DeserializeObject<SPData>(mInfo.content);
-                return stations.results.Select(x => x.Aircraft_x0020_Registration).ToArray();
+                return stations.results.Select(x => x.Fields.Aircraft_x0020_Registration).ToArray();
             }
 
             return null;
@@ -364,7 +365,7 @@ namespace DevEnvAzure
         public static async Task<Dictionary<int, string>> GetStations(bool isOpen = false)
         {
             MasterInfo mInfo = null;
-            if (!SPUtility.IsConnected())
+            if (!IsConnected())
             {
                 mInfo = App.DAUtil.GetMasterInfoByName("Stations");
             }
@@ -376,7 +377,7 @@ namespace DevEnvAzure
                     string url = GetListURL(ReportType.SationInfo);
                     if (isOpen)
                     {
-                        url += "?$filter=Status eq 'Open'";
+                        url += "&$filter=Status eq 'Open'";
                     }
 
                     var response = await client.GetStringAsync(url);
@@ -386,7 +387,7 @@ namespace DevEnvAzure
                         App.DAUtil.RefreshMasterInfo(mInfo);
                     }
                 }
-                catch (Exception)
+                catch (Exception ex)
                 {
                     mInfo = App.DAUtil.GetMasterInfoByName("Stations");
                 }
@@ -394,8 +395,16 @@ namespace DevEnvAzure
 
             if (mInfo != null)
             {
-                var stations = JsonConvert.DeserializeObject<SPData>(mInfo.content);
-                return stations.results.Select(x => new { Key = Convert.ToInt32(x.Id), Value = x.IATA_x0020_Code }).ToDictionary(v => v.Key, v => v.Value);
+                try
+                {
+                    var stations = JsonConvert.DeserializeObject<SPData>(mInfo.content);
+                    return stations.results.Select(x => new { Key = Convert.ToInt32(x.Id), Value = x.Fields.IATA_x0020_Code }).ToDictionary(v => v.Key, v => v.Value);
+
+                }
+                catch (Exception ex)
+                {
+
+                }
             }
 
             return null;
@@ -424,10 +433,10 @@ namespace DevEnvAzure
             switch (lType)
             {
                 case LookupType.AircraftRegistraions:
-                    res = oPlans.results.FirstOrDefault(x => x.Aircraft_x0020_Registration == value);
+                    res = oPlans.results.FirstOrDefault(x => x.Fields.Aircraft_x0020_Registration == value);
                     break;
                 case LookupType.FlightNumbers:
-                    res = oPlans.results.FirstOrDefault(x => x.Flight_x0020_Number == value);
+                    res = oPlans.results.FirstOrDefault(x => x.Fields.Flight_x0020_Number == value);
                     break;
                 default:
                     break;
@@ -453,7 +462,8 @@ namespace DevEnvAzure
                 try
                 {
                     var client = await OAuthHelper.GetHTTPClientAsync();
-                    var response = await client.GetStringAsync(GetListURL(ReportType.OperationPlan));
+                    var url = GetListURL(ReportType.OperationPlan);
+                    var response = await client.GetStringAsync(url);
                     if (response != null)
                     {
                         mInfo = new MasterInfo { Name = "OperatingPlans", content = response };
@@ -468,25 +478,28 @@ namespace DevEnvAzure
 
             if (mInfo != null)
             {
-                var stations = await GetStations();
-
                 try
                 {
+                    var stations = await GetStations();
+
                     var oPlans = JsonConvert.DeserializeObject<SPData>(mInfo.content, new JsonSerializerSettings
                     {
                         DateParseHandling = DateParseHandling.None,
                         NullValueHandling = NullValueHandling.Ignore,
                         MissingMemberHandling = MissingMemberHandling.Ignore
                     });
-                    return oPlans.results.Select(x => new OperatingPlan
-                    {
-                        FlighNumber = x.Flight_x0020_Number,
-                        ArrivalStationId = x.Arrival_x0020_StationId,
-                        DepartureStationId = x.Departure_x0020_StationId,
 
-                        ArrivalStation = stations[x.Arrival_x0020_StationId],
-                        DepartureStation = stations[x.Departure_x0020_StationId]
+                    var plans = oPlans.results.Select(x => new OperatingPlan
+                    {
+                        FlighNumber = x.Fields.Flight_x0020_Number,
+                        ArrivalStationId = x.Fields.Arrival_x0020_StationLookupId,
+                        DepartureStationId = x.Fields.Departure_x0020_StationLookupId,
+
+                        ArrivalStation = stations[x.Fields.Arrival_x0020_StationLookupId],
+                        DepartureStation = stations[x.Fields.Departure_x0020_StationLookupId]
                     }).ToList();
+
+                    return plans;
                 }
                 catch (Exception ex)
                 {

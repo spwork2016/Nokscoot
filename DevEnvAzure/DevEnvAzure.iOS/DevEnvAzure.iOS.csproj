@@ -330,12 +330,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\DevEnvAzure\DevEnvAzure.csproj">
-      <Project>{cfbe44cb-46c0-426f-b406-ede56e0b62b7}</Project>
-      <Name>DevEnvAzure</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <BundleResource Include="Resources\logout.png" />
   </ItemGroup>
   <ItemGroup>
@@ -460,6 +454,12 @@
     <ImageAsset Include="Resources\Media.xcassets\AppIcons.appiconset\87x87.png">
       <Visible>false</Visible>
     </ImageAsset>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\DevEnvAzure\DevEnvAzure.csproj">
+      <Project>{8432d969-6818-4a45-a398-540533e73b5e}</Project>
+      <Name>DevEnvAzure</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

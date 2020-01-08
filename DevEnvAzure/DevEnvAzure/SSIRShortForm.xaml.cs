@@ -556,7 +556,7 @@ namespace DevEnvAzure
             if (client == null) { return; }
             try
             {
-                string url = SPUtility.GetListURL(ReportType.MORType);
+                string url = SPUtility.GetListURL(ReportType.MORType, "items?expand=fields(select=id,Title)");
                 var result = await client.GetStringAsync(url);
 
                 if (result != null)
@@ -566,7 +566,7 @@ namespace DevEnvAzure
 
                     foreach (var val in spData.results)
                     {
-                        MORpicker.Items.Add(val.Title);
+                        MORpicker.Items.Add(val.Fields.Title);
                     }
 
                     SetMORPickerValue();

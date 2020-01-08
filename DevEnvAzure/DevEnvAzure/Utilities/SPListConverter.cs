@@ -165,12 +165,13 @@ namespace DevEnvAzure.Model
         public object DEPT_x0020_CODE { get; set; }
         public object Change_x0020_Update { get; set; }
 
-        public string Flight_x0020_Number { get; set; }
-        public int Departure_x0020_StationId { get; set; }
-        public int Arrival_x0020_StationId { get; set; }
-        public string IATA_x0020_Code { get; set; }
-        public string Aircraft_x0020_Registration { get; set; }
-        public string AircraftRegistrationNew { get; set; }
+        //public string Flight_x0020_Number { get; set; }
+        //public int Departure_x0020_StationId { get; set; }
+
+        //public int Arrival_x0020_StationId { get; set; }
+        //public string IATA_x0020_Code { get; set; }
+        //public string Aircraft_x0020_Registration { get; set; }
+        //public string AircraftRegistrationNew { get; set; }
         public string City_x0020_Name { get; set; }
         public string Country { get; set; }
         public string Airport_x0020_Type { get; set; }
@@ -190,6 +191,13 @@ namespace DevEnvAzure.Model
         public string Body { get; set; }
         public string Title { get; set; }
         public DateTime Expires { get; set; }
+
+
+        public string Flight_x0020_Number { get; set; }
+        public int Departure_x0020_StationLookupId { get; set; }
+        public int Arrival_x0020_StationLookupId { get; set; }
+        public string IATA_x0020_Code { get; set; }
+        public string Aircraft_x0020_Registration { get; set; }
     }
 
     public class UserProfileProperties

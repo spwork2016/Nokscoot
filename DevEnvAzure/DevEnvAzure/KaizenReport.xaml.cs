@@ -1,18 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using DevEnvAzure.Model;
+using DevEnvAzure.Models;
+using DevEnvAzure.Utilities;
+using Newtonsoft.Json;
+using System;
 using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Headers;
+using System.Threading.Tasks;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
-using Newtonsoft.Json;
-using DevEnvAzure.Models;
-using DevEnvAzure.Utilities;
-using Plugin.Connectivity;
-using System.Threading.Tasks;
-using DevEnvAzure.Model;
-using System.IO;
-using Microsoft.Graph;
 
 namespace DevEnvAzure
 {
@@ -53,7 +49,7 @@ namespace DevEnvAzure
             }
         }
 
-        private void Save_clicked(object sender, EventArgs e)
+        protected void Save_clicked(object sender, EventArgs e)
         {
             if (string.IsNullOrEmpty(_KaizenReport.Subject))
             {
@@ -163,14 +159,12 @@ namespace DevEnvAzure
             try
             {
                 ToggleBusy(true);
-                Xamarin.Forms.Device.BeginInvokeOnMainThread(async () =>
+                Device.BeginInvokeOnMainThread(async () =>
                 {
                     lblLoading.Text = "Sending...";
                     var client = await OAuthHelper.GetHTTPClientAsync();
                     var data = reportObject;
 
-                    //var graphClient = OAuthHelper.GetGraphClient(App.AuthResult.AccessToken);
-                    //graphClient.Sites.Root.Lists["d"].Items.
                     // https://github.com/microsoftgraph/msgraph-sdk-dotnet/issues/308
 
                     var body = JsonConvert.SerializeObject(data, Formatting.None,

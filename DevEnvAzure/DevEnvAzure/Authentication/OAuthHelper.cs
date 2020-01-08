@@ -140,7 +140,7 @@ namespace DevEnvAzure
             if (App.AuthResult == null) return null;
 
             HttpClient client = new HttpClient();
-            // if nto adal - used application/json;odata=verbose
+            // if not adal - used application/json;odata=verbose
             client.DefaultRequestHeaders.Add("Accept", "application/json");
             client.DefaultRequestHeaders.Add("ContentType", "application/json");
             client.DefaultRequestHeaders.Add("Authorization", App.AuthResult.CreateAuthorizationHeader());
