@@ -159,7 +159,7 @@ namespace DevEnvAzure
                     var spData = JsonConvert.DeserializeObject<SPData>(response, new JsonSerializerSettings { DateParseHandling = DateParseHandling.None });
                     if (spData != null)
                     {
-                        return spData.results;
+                        return spData.d.results;
                     }
                 }
             }

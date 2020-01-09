@@ -37,4 +37,105 @@
   <ItemGroup>
     <Folder Include="Properties\" />
   </ItemGroup>
+  <ItemGroup>
+    <None Update="App.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </None>
+    <None Update="AttachmentView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </None>
+    <None Update="CabinSafetyReportView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </None>
+    <None Update="DocumentLibrary.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </None>
+    <None Update="DraftsContentPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </None>
+    <None Update="DraftsExpandContentView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </None>
+    <None Update="DraftsPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </None>
+    <None Update="EditableDrafts.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </None>
+    <None Update="FatigueReportView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </None>
+    <None Update="FlightCrewVoyageRecord.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </None>
+    <None Update="FlightSafetyReportView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </None>
+    <None Update="GroundSafetyReportView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </None>
+    <None Update="HomePage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </None>
+    <None Update="ImageViewerPopup.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </None>
+    <None Update="InjuryIllnessReportView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </None>
+    <None Update="IntruderRelativePositionMultiSelect.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </None>
+    <None Update="KaizenReport.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </None>
+    <None Update="Login.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </None>
+    <None Update="MainPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </None>
+    <None Update="MultiFactorLogin.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </None>
+    <None Update="MultiSelectMenuPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </None>
+    <None Update="Notifications.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </None>
+    <None Update="ReasonforDeviationMultiSelect.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </None>
+    <None Update="ReportsPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </None>
+    <None Update="SafetyReport.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </None>
+    <None Update="SafetyReportFull.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </None>
+    <None Update="securityReportView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </None>
+    <None Update="SecurtyEventType.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </None>
+    <None Update="SSIRShortForm.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </None>
+    <None Update="StartPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </None>
+    <None Update="StationInformation.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </None>
+    <None Update="Tasks.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </None>
+    <None Update="ViewStationInformation.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </None>
+  </ItemGroup>
 </Project>

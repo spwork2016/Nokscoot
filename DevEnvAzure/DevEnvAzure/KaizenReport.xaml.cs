@@ -178,7 +178,7 @@ namespace DevEnvAzure
 
                     if (CheckConnection())
                     {
-                        string url = SPUtility.GetListURL(ReportType.Kaizen, "");
+                        string url = SPUtility.GetListURL(ReportType.Kaizen);
                         var postResult = await client.PostAsync(url, contents);
 
                         if (postResult.IsSuccessStatusCode)

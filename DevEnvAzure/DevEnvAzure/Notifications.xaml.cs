@@ -50,14 +50,14 @@ namespace DevEnvAzure
                 });
                 List<NotificationItem> items = new List<NotificationItem>();
                 var client = await OAuthHelper.GetHTTPClientAsync();
-                var result = await client.GetStringAsync(SPUtility.GetListURL(ReportType.Announcements, "items?$expand=fields&$select=id,fields"));
+                var result = await client.GetStringAsync(string.Format(ClientConfiguration.Default.SPListURL, "announcements"));
                 if (result != null)
                 {
                     var spData = JsonConvert.DeserializeObject<SPData>(result, new JsonSerializerSettings { DateParseHandling = DateParseHandling.None });
                     int id = 1;
-                    foreach (var val in spData.results)
+                    foreach (var val in spData.d.results)
                     {
-                        items.Add(new NotificationItem { Id = id, Modified = val.Fields.Expires, Title = val.Fields.Title, Body = val.Fields.Body, IsBodyVisible = false });
+                        items.Add(new NotificationItem { Id = id, Modified = val.Modified, Title = val.Title, Body = val.Body, IsBodyVisible = false });
                         id++;
                     }
 
@@ -70,7 +70,7 @@ namespace DevEnvAzure
                     IsBusy = false;
                 }
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 Device.BeginInvokeOnMainThread(() =>
                 {
@@ -86,9 +86,9 @@ namespace DevEnvAzure
         {
             NotificationItem selectedItem = (NotificationItem)e.Item;
             int index = NotificationSource.FindIndex((x) =>
-             {
-                 return x.Id == selectedItem.Id;
-             });
+            {
+                return x.Id == selectedItem.Id;
+            });
 
 
             string strippedString = StripHtml(selectedItem.Body);

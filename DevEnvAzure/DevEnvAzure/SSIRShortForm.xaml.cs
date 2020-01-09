@@ -1,20 +1,18 @@
-﻿using System;
+﻿using DevEnvAzure.Model;
+using DevEnvAzure.Models;
+using DevEnvAzure.Utilities;
+using Newtonsoft.Json;
+using Plugin.FilePicker;
+using Plugin.FilePicker.Abstractions;
+using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Threading.Tasks;
-using DevEnvAzure.Model;
-using DevEnvAzure.Models;
-using Newtonsoft.Json;
-using Plugin.Connectivity;
-using Plugin.FilePicker;
-using Plugin.FilePicker.Abstractions;
 using Xamarin.Forms;
-using Xamarin.Forms.Xaml;
-using DevEnvAzure.Utilities;
 using Xamarin.Forms.Internals;
-using System.IO;
-using System.Collections.Generic;
+using Xamarin.Forms.Xaml;
 
 namespace DevEnvAzure
 {
@@ -518,7 +516,7 @@ namespace DevEnvAzure
             {
                 var spData = JsonConvert.DeserializeObject<SPData>(results.content, new JsonSerializerSettings { DateParseHandling = DateParseHandling.None });
 
-                foreach (var val in spData.results)
+                foreach (var val in spData.d.results)
                 {
                     MORpicker.Items.Add(val.Title);
                 }
@@ -556,7 +554,7 @@ namespace DevEnvAzure
             if (client == null) { return; }
             try
             {
-                string url = SPUtility.GetListURL(ReportType.MORType, "items?expand=fields(select=id,Title)");
+                string url = SPUtility.GetListURL(ReportType.MORType);
                 var result = await client.GetStringAsync(url);
 
                 if (result != null)
@@ -564,9 +562,9 @@ namespace DevEnvAzure
                     App.DAUtil.RefreshMasterInfo(new MasterInfo { content = result, Name = "MORItems" });
                     var spData = JsonConvert.DeserializeObject<SPData>(result, new JsonSerializerSettings { DateParseHandling = DateParseHandling.None });
 
-                    foreach (var val in spData.results)
+                    foreach (var val in spData.d.results)
                     {
-                        MORpicker.Items.Add(val.Fields.Title);
+                        MORpicker.Items.Add(val.Title);
                     }
 
                     SetMORPickerValue();

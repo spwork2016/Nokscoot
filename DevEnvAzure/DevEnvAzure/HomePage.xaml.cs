@@ -133,7 +133,7 @@ namespace DevEnvAzure
                 if (result != null)
                 {
                     var spData = JsonConvert.DeserializeObject<SPData>(result, new JsonSerializerSettings { DateParseHandling = DateParseHandling.None });
-                    foreach (var val in spData.results)
+                    foreach (var val in spData.d.results)
                     {
                         deptemp.Items.Add(val.DepartmentName);
                     }

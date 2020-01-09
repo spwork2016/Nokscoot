@@ -29,6 +29,7 @@ namespace DevEnvAzure
 
                 await OAuthHelper.GetAccessToken();
                 await OAuthHelper.GetUserInfo();
+
                 MessagingCenter.Send<object>(this, App.EVENT_LAUNCH_MAIN_PAGE);
             }
             catch (Exception ex)

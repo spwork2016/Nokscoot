@@ -140,7 +140,11 @@ namespace DevEnvAzure
 
             HttpClient client = new HttpClient();
             // if not adal - used application/json;odata=verbose
-            client.DefaultRequestHeaders.Add("Accept", "application/json");
+            if (IsGraphRequest)
+                client.DefaultRequestHeaders.Add("Accept", "application/json");
+            else
+                client.DefaultRequestHeaders.Add("Accept", "application/json;odata=verbose");
+
             client.DefaultRequestHeaders.Add("ContentType", "application/json");
             client.DefaultRequestHeaders.Add("Authorization",
                 IsGraphRequest ?
@@ -168,12 +172,6 @@ namespace DevEnvAzure
             }
 
             if (!SPUtility.IsConnected())
-            {
-                return null;
-            }
-
-            var client = GetHTTPClientAsync();
-            if (client == null)
             {
                 return null;
             }
@@ -216,7 +214,7 @@ namespace DevEnvAzure
                     var auth = DependencyService.Get<IAuthenticator>();
                     var nokScootConfig = ClientConfiguration.NokScoot;
 
-                    var client = await GetHTTPClientAsync();
+                    var client = await GetHTTPClientAsync(true);
                     var picResponse = await client.GetByteArrayAsync(nokScootConfig.GraphAPIRootURL + "v1.0/me/photo/$value");
                     return picResponse;
                 }

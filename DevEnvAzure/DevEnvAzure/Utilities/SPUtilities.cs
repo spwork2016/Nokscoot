@@ -32,8 +32,6 @@ namespace DevEnvAzure
         MORType = 13,
         OperationPlan = 14,
         AircraftRegistration = 15,
-
-        Announcements = 16,
         none = -1
     }
 
@@ -42,6 +40,7 @@ namespace DevEnvAzure
         AircraftRegistraions = 1,
         FlightNumbers = 2
     }
+
     public static class SPUtility
     {
         public const string SEPARATOR = "|<>|";
@@ -55,10 +54,10 @@ namespace DevEnvAzure
             return attachmentInfo.Split(new string[] { SEPARATOR }, StringSplitOptions.None);
         }
 
-        public static string GetListURL(ReportType reportType = ReportType.none, string query = "items?expand=fields&select=id,fields")
+        public static string GetListURL(ReportType reportType = ReportType.none)
         {
             //throw new Exception("Are you sure sending a data to prod?");
-            string url = string.Format(ClientConfiguration.Default.GraphAPISPListsURL, "41a6b336-29f7-4808-86cf-217a380eea15", query);
+            string url = "";
 
             switch (reportType)
             {
@@ -68,40 +67,28 @@ namespace DevEnvAzure
                 case ReportType.GroundSafety:
                 case ReportType.InjuryIllness:
                 case ReportType.Security:
+                    url = ClientConfiguration.Default.ActiveDirectoryResource + "SSQServices/_api/web/lists/GetByTitle('Operational_Hazard_Event_Register')/items";
                     break;
                 case ReportType.SationInfo:
                     url = ClientConfiguration.Default.ActiveDirectoryResource + "SSQServices/_api/web/lists/GetByTitle('(Ops) Line Station Information')/items";
-                    //url = string.Format(ClientConfiguration.Default.GraphAPISPListsURL, "5c8afb45-d8b9-4fa2-8c03-c3699a7e8748", query);
                     break;
                 case ReportType.Kaizen:
                     url = ClientConfiguration.Default.ActiveDirectoryResource + "SSQServices/_api/web/lists/GetByTitle('Kaizen Report')/items";
-                    //url = string.Format(ClientConfiguration.Default.GraphAPISPListsURL, "2dd8ec56-2d5b-45f3-998d-7ccd270c708a", query);
                     break;
                 case ReportType.MORType:
                     url = ClientConfiguration.Default.ActiveDirectoryResource + "SSQServices/_api/web/Lists(guid'32d46a92-0ee3-4a85-83ab-12ca72dce65e')/items?$orderby=Order0 asc";
-                    //url = string.Format(ClientConfiguration.Default.GraphAPISPListsURL, "32d46a92-0ee3-4a85-83ab-12ca72dce65e", query);
-
                     break;
                 case ReportType.FlighCrewVoyage:
                     url = ClientConfiguration.Default.ActiveDirectoryResource + "SSQServices/_api/web/lists/GetByTitle('Flight Crew Voyage Record')/items";
-                    //url = string.Format(ClientConfiguration.Default.GraphAPISPListsURL, "a9755f19-c3eb-476b-9c91-f3d70d2e9ea5", query);
-
                     break;
                 case ReportType.OperationPlan:
                     url = ClientConfiguration.Default.ActiveDirectoryResource + "SSQServices/_api/web/lists/GetByTitle('NokScoot Operating Plan')/items";
-                    //url = string.Format(ClientConfiguration.Default.GraphAPISPListsURL, "15075caf-bf0d-44c8-aca1-0df790555efb", query);
-
                     break;
                 case ReportType.AircraftRegistration:
                     url = ClientConfiguration.Default.ActiveDirectoryResource + "SSQServices/_api/web/lists/GetByTitle('Aicraft Fleet Information')/items";
-                    //url = string.Format(ClientConfiguration.Default.GraphAPISPListsURL, "aedcbc6e-2fb3-4c91-89f9-452d58b53d78", query);
                     break;
-
-                case ReportType.Announcements:
-                    url = string.Format(ClientConfiguration.Default.GraphAPISPListRootURL, "a03a6227-1ed7-4c57-8fdb-b0a28bac4bf5", query);
-                    break;
-
                 case ReportType.none:
+                    url = ClientConfiguration.Default.ActiveDirectoryResource + "SSQServices/_api/web/lists/GetByTitle('Operational_Hazard_Event_Register')/items";
                     break;
             }
 
@@ -117,7 +104,7 @@ namespace DevEnvAzure
                 var info = App.DAUtil.GetMasterInfoByName("Users");
                 var spData = JsonConvert.DeserializeObject<SPData>(info.content, new JsonSerializerSettings { DateParseHandling = DateParseHandling.None });
                 Result found = null;
-                foreach (var item in spData.results)
+                foreach (var item in spData.d.results)
                 {
                     if (name.ToLower() == item.Title.ToLower())
                     {
@@ -147,13 +134,13 @@ namespace DevEnvAzure
         private static List<PeoplePicker> ResponseToUsers(string response)
         {
             var spData = JsonConvert.DeserializeObject<SPData>(response, new JsonSerializerSettings { DateParseHandling = DateParseHandling.None });
-            if (spData != null && spData.results.Count > 0)
+            if (spData != null && spData.d.results.Count > 0)
             {
                 List<PeoplePicker> usrs = new List<PeoplePicker>();
-                foreach (var item in spData.results)
+                foreach (var item in spData.d.results)
                 {
-                    if (!string.IsNullOrEmpty(item.mail) && usrs.FirstOrDefault(x => x.Id == item.Id) == null)
-                        usrs.Add(new PeoplePicker { Name = item.displayName, Id = item.Id, LoginName = item.givenName });
+                    if (!string.IsNullOrEmpty(item.Email) && usrs.FirstOrDefault(x => x.Id == item.Id) == null)
+                        usrs.Add(new PeoplePicker { Name = item.Title, Id = item.Id, LoginName = item.LoginName });
                 }
 
                 return usrs;
@@ -173,7 +160,7 @@ namespace DevEnvAzure
 
         public static async Task<List<PeoplePicker>> GetUsersForPicker()
         {
-            if (!IsConnected())
+            if (!SPUtility.IsConnected())
             {
                 return GetUsers();
             }
@@ -182,11 +169,12 @@ namespace DevEnvAzure
 
             try
             {
-                var response = await client.GetStringAsync(ClientConfiguration.Default.GraphAPIRootURL + "v1.0/users");
+                var response = await client.GetStringAsync(ClientConfiguration.Default.SPRootURL + "web/siteusers?");
                 if (response != null)
                 {
                     App.DAUtil.RefreshMasterInfo(new MasterInfo { Name = "Users", content = response });
                     return ResponseToUsers(response);
+
                 }
             }
             catch (Exception ex)
@@ -339,15 +327,14 @@ namespace DevEnvAzure
                 try
                 {
                     var client = await OAuthHelper.GetHTTPClientAsync();
-                    var url = GetListURL(ReportType.AircraftRegistration, "items?expand=fields($select=Aircraft_x0020_Registration)&select=id,fields");
-                    var response = await client.GetStringAsync(url);
+                    var response = await client.GetStringAsync(GetListURL(ReportType.AircraftRegistration));
                     if (response != null)
                     {
                         mInfo = new MasterInfo { Name = "AircraftRegistrations", content = response };
                         App.DAUtil.RefreshMasterInfo(mInfo);
                     }
                 }
-                catch (Exception ex)
+                catch (Exception)
                 {
                     mInfo = App.DAUtil.GetMasterInfoByName("AircraftRegistrations");
                 }
@@ -356,7 +343,7 @@ namespace DevEnvAzure
             if (mInfo != null)
             {
                 var stations = JsonConvert.DeserializeObject<SPData>(mInfo.content);
-                return stations.results.Select(x => x.Fields.Aircraft_x0020_Registration).ToArray();
+                return stations.d.results.Select(x => x.Aircraft_x0020_Registration).ToArray();
             }
 
             return null;
@@ -365,7 +352,7 @@ namespace DevEnvAzure
         public static async Task<Dictionary<string, string>> GetStations(bool isOpen = false)
         {
             MasterInfo mInfo = null;
-            if (!IsConnected())
+            if (!SPUtility.IsConnected())
             {
                 mInfo = App.DAUtil.GetMasterInfoByName("Stations");
             }
@@ -377,7 +364,7 @@ namespace DevEnvAzure
                     string url = GetListURL(ReportType.SationInfo);
                     if (isOpen)
                     {
-                        url += "&$filter=Status eq 'Open'";
+                        url += "?$filter=Status eq 'Open'";
                     }
 
                     var response = await client.GetStringAsync(url);
@@ -387,7 +374,7 @@ namespace DevEnvAzure
                         App.DAUtil.RefreshMasterInfo(mInfo);
                     }
                 }
-                catch (Exception ex)
+                catch (Exception)
                 {
                     mInfo = App.DAUtil.GetMasterInfoByName("Stations");
                 }
@@ -395,16 +382,8 @@ namespace DevEnvAzure
 
             if (mInfo != null)
             {
-                try
-                {
-                    var stations = JsonConvert.DeserializeObject<SPData>(mInfo.content);
-                    return stations.results.Select(x => new { Key = Convert.ToString(x.Id), Value = x.Fields.IATA_x0020_Code }).ToDictionary(v => v.Key, v => v.Value);
-
-                }
-                catch (Exception ex)
-                {
-
-                }
+                var stations = JsonConvert.DeserializeObject<SPData>(mInfo.content);
+                return stations.d.results.Select(x => new { Key = x.Id.ToString(), Value = x.IATA_x0020_Code }).ToDictionary(v => v.Key, v => v.Value);
             }
 
             return null;
@@ -433,10 +412,10 @@ namespace DevEnvAzure
             switch (lType)
             {
                 case LookupType.AircraftRegistraions:
-                    res = oPlans.results.FirstOrDefault(x => x.Fields.Aircraft_x0020_Registration == value);
+                    res = oPlans.d.results.FirstOrDefault(x => x.Aircraft_x0020_Registration == value);
                     break;
                 case LookupType.FlightNumbers:
-                    res = oPlans.results.FirstOrDefault(x => x.Fields.Flight_x0020_Number == value);
+                    res = oPlans.d.results.FirstOrDefault(x => x.Flight_x0020_Number == value);
                     break;
                 default:
                     break;
@@ -462,15 +441,14 @@ namespace DevEnvAzure
                 try
                 {
                     var client = await OAuthHelper.GetHTTPClientAsync();
-                    var url = GetListURL(ReportType.OperationPlan);
-                    var response = await client.GetStringAsync(url);
+                    var response = await client.GetStringAsync(GetListURL(ReportType.OperationPlan));
                     if (response != null)
                     {
                         mInfo = new MasterInfo { Name = "OperatingPlans", content = response };
                         App.DAUtil.RefreshMasterInfo(mInfo);
                     }
                 }
-                catch (Exception ex)
+                catch (Exception)
                 {
                     mInfo = App.DAUtil.GetMasterInfoByName("OperatingPlans");
                 }
@@ -478,28 +456,25 @@ namespace DevEnvAzure
 
             if (mInfo != null)
             {
+                var stations = await GetStations();
+
                 try
                 {
-                    var stations = await GetStations();
-
                     var oPlans = JsonConvert.DeserializeObject<SPData>(mInfo.content, new JsonSerializerSettings
                     {
                         DateParseHandling = DateParseHandling.None,
                         NullValueHandling = NullValueHandling.Ignore,
                         MissingMemberHandling = MissingMemberHandling.Ignore
                     });
-
-                    var plans = oPlans.results.Select(x => new OperatingPlan
+                    return oPlans.d.results.Select(x => new OperatingPlan
                     {
-                        FlighNumber = x.Fields.Flight_x0020_Number,
-                        ArrivalStationId = x.Fields.Arrival_x0020_StationLookupId,
-                        DepartureStationId = x.Fields.Departure_x0020_StationLookupId,
+                        FlighNumber = x.Flight_x0020_Number,
+                        ArrivalStationId = Convert.ToString(x.Arrival_x0020_StationId),
+                        DepartureStationId = Convert.ToString(x.Departure_x0020_StationId),
 
-                        ArrivalStation = stations[x.Fields.Arrival_x0020_StationLookupId],
-                        DepartureStation = stations[x.Fields.Departure_x0020_StationLookupId]
+                        ArrivalStation = stations[Convert.ToString(x.Arrival_x0020_StationId)],
+                        DepartureStation = stations[Convert.ToString(x.Departure_x0020_StationId)]
                     }).ToList();
-
-                    return plans;
                 }
                 catch (Exception ex)
                 {

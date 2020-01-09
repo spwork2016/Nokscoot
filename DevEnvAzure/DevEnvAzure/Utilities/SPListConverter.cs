@@ -104,7 +104,7 @@ namespace DevEnvAzure.Model
         public Metadata __metadata { get; set; }
         public Alerts Alerts { get; set; }
         public Groups Groups { get; set; }
-        public object Id { get; set; }
+        public int Id { get; set; }
         public bool IsHiddenInUI { get; set; }
         public string LoginName { get; set; }
         public string Title { get; set; }
@@ -165,39 +165,12 @@ namespace DevEnvAzure.Model
         public object DEPT_x0020_CODE { get; set; }
         public object Change_x0020_Update { get; set; }
 
-        //public string Flight_x0020_Number { get; set; }
-        //public int Departure_x0020_StationId { get; set; }
-
-        //public int Arrival_x0020_StationId { get; set; }
-        //public string IATA_x0020_Code { get; set; }
-        //public string Aircraft_x0020_Registration { get; set; }
-        //public string AircraftRegistrationNew { get; set; }
-        public string City_x0020_Name { get; set; }
-        public string Country { get; set; }
-        public string Airport_x0020_Type { get; set; }
-
-        [JsonProperty("fields")]
-        public GraphFields Fields { get; set; }
-
-
-        // users graph api
-        public string mail { get; set; }
-        public string displayName { get; set; }
-        public string givenName { get; set; }
-    }
-
-    public class GraphFields
-    {
-        public string Body { get; set; }
-        public string Title { get; set; }
-        public DateTime Expires { get; set; }
-
-
         public string Flight_x0020_Number { get; set; }
-        public string Departure_x0020_StationLookupId { get; set; }
-        public string Arrival_x0020_StationLookupId { get; set; }
+        public int Departure_x0020_StationId { get; set; }
+        public int Arrival_x0020_StationId { get; set; }
         public string IATA_x0020_Code { get; set; }
         public string Aircraft_x0020_Registration { get; set; }
+        public string AircraftRegistrationNew { get; set; }
         public string City_x0020_Name { get; set; }
         public string Country { get; set; }
         public string Airport_x0020_Type { get; set; }
@@ -258,9 +231,6 @@ namespace DevEnvAzure.Model
 
     public class SPData
     {
-        [JsonProperty("value")]
-        public IList<Result> results { get; set; }
-
         public D d { get; set; }
     }
 
