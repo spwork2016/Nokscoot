@@ -66,23 +66,20 @@ namespace DevEnvAzure
 
             var selectedStation = stations.First(x => x.Value == IATACode);
 
-            //string url = ClientConfiguration.Default.ActiveDirectoryResource + string.Format("SSQServices/_api/Web/lists/GetByTitle('(Ops) Line Station Information')/items?$select=IATA_x0020_Code,Title,City_x0020_Name,Id,Country,Airport_x0020_Type&$filter=IATA_x0020_Code eq '{0}'&Status eq '{1}'", IATACode, "Open");
-            string url = SPUtility.GetListURL(ReportType.SationInfo, string.Format("/items/{0}?$expand=fields($select=IATA_x0020_Code,Title,City_x0020_Name,Id,Country,Airport_x0020_Type)&$filter=fields/Status eq '{1}'", selectedStation.Key, "Open"));
+            string url = ClientConfiguration.Default.ActiveDirectoryResource + string.Format("SSQServices/_api/Web/lists/GetByTitle('(Ops) Line Station Information')/items?$select=IATA_x0020_Code,Title,City_x0020_Name,Id,Country,Airport_x0020_Type&$filter=IATA_x0020_Code eq '{0}'&Status eq '{1}'", IATACode, "Open");
+            //string url = SPUtility.GetListURL(ReportType.SationInfo, string.Format("/items/{0}?$expand=fields($select=IATA_x0020_Code,Title,City_x0020_Name,Id,Country,Airport_x0020_Type)&$filter=fields/Status eq '{1}'", selectedStation.Key, "Open"));
             try
             {
                 var response = await client.GetStringAsync(url);
                 if (response != null)
                 {
-                    var spData = JsonConvert.DeserializeObject<DataContracts.StationInformationSpContianer>(response,
+                    var spData = JsonConvert.DeserializeObject<DataContracts.StationInformationSp>(response,
                                  new JsonSerializerSettings { DateParseHandling = DateParseHandling.None, NullValueHandling = NullValueHandling.Ignore });
 
                     if (spData != null)
                     {
-                        int id = Convert.ToInt32(spData.Id);
-                        DataContracts.StationInformationSp sInfo = spData.Fields;
-
                         ToggleBusy(false);
-                        await Navigation.PushAsync(new StationInformation(sInfo.GetModel()));
+                        await Navigation.PushAsync(new StationInformation(spData.GetModel()));
                     }
                 }
             }

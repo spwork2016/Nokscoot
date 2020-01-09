@@ -70,31 +70,31 @@ namespace DevEnvAzure
                 case ReportType.Security:
                     break;
                 case ReportType.SationInfo:
-                    //url = ClientConfiguration.Default.ActiveDirectoryResource + "SSQServices/_api/web/lists/GetByTitle('(Ops) Line Station Information')/items";
-                    url = string.Format(ClientConfiguration.Default.GraphAPISPListsURL, "5c8afb45-d8b9-4fa2-8c03-c3699a7e8748", query);
+                    url = ClientConfiguration.Default.ActiveDirectoryResource + "SSQServices/_api/web/lists/GetByTitle('(Ops) Line Station Information')/items";
+                    //url = string.Format(ClientConfiguration.Default.GraphAPISPListsURL, "5c8afb45-d8b9-4fa2-8c03-c3699a7e8748", query);
                     break;
                 case ReportType.Kaizen:
-                    //url = ClientConfiguration.Default.ActiveDirectoryResource + "SSQServices/_api/web/lists/GetByTitle('Kaizen Report')/items";
-                    url = string.Format(ClientConfiguration.Default.GraphAPISPListsURL, "2dd8ec56-2d5b-45f3-998d-7ccd270c708a", query);
+                    url = ClientConfiguration.Default.ActiveDirectoryResource + "SSQServices/_api/web/lists/GetByTitle('Kaizen Report')/items";
+                    //url = string.Format(ClientConfiguration.Default.GraphAPISPListsURL, "2dd8ec56-2d5b-45f3-998d-7ccd270c708a", query);
                     break;
                 case ReportType.MORType:
-                    // url = ClientConfiguration.Default.ActiveDirectoryResource + "SSQServices/_api/web/Lists(guid'32d46a92-0ee3-4a85-83ab-12ca72dce65e')/items?$orderby=Order0 asc";
-                    url = string.Format(ClientConfiguration.Default.GraphAPISPListsURL, "32d46a92-0ee3-4a85-83ab-12ca72dce65e", query);
+                    url = ClientConfiguration.Default.ActiveDirectoryResource + "SSQServices/_api/web/Lists(guid'32d46a92-0ee3-4a85-83ab-12ca72dce65e')/items?$orderby=Order0 asc";
+                    //url = string.Format(ClientConfiguration.Default.GraphAPISPListsURL, "32d46a92-0ee3-4a85-83ab-12ca72dce65e", query);
 
                     break;
                 case ReportType.FlighCrewVoyage:
-                    //url = ClientConfiguration.Default.ActiveDirectoryResource + "SSQServices/_api/web/lists/GetByTitle('Flight Crew Voyage Record')/items";
-                    url = string.Format(ClientConfiguration.Default.GraphAPISPListsURL, "a9755f19-c3eb-476b-9c91-f3d70d2e9ea5", query);
+                    url = ClientConfiguration.Default.ActiveDirectoryResource + "SSQServices/_api/web/lists/GetByTitle('Flight Crew Voyage Record')/items";
+                    //url = string.Format(ClientConfiguration.Default.GraphAPISPListsURL, "a9755f19-c3eb-476b-9c91-f3d70d2e9ea5", query);
 
                     break;
                 case ReportType.OperationPlan:
-                    //url = ClientConfiguration.Default.ActiveDirectoryResource + "SSQServices/_api/web/lists/GetByTitle('NokScoot Operating Plan')/items";
-                    url = string.Format(ClientConfiguration.Default.GraphAPISPListsURL, "15075caf-bf0d-44c8-aca1-0df790555efb", query);
+                    url = ClientConfiguration.Default.ActiveDirectoryResource + "SSQServices/_api/web/lists/GetByTitle('NokScoot Operating Plan')/items";
+                    //url = string.Format(ClientConfiguration.Default.GraphAPISPListsURL, "15075caf-bf0d-44c8-aca1-0df790555efb", query);
 
                     break;
                 case ReportType.AircraftRegistration:
-                    // url = ClientConfiguration.Default.ActiveDirectoryResource + "SSQServices/_api/web/lists/GetByTitle('Aicraft Fleet Information')/items";
-                    url = string.Format(ClientConfiguration.Default.GraphAPISPListsURL, "aedcbc6e-2fb3-4c91-89f9-452d58b53d78", query);
+                    url = ClientConfiguration.Default.ActiveDirectoryResource + "SSQServices/_api/web/lists/GetByTitle('Aicraft Fleet Information')/items";
+                    //url = string.Format(ClientConfiguration.Default.GraphAPISPListsURL, "aedcbc6e-2fb3-4c91-89f9-452d58b53d78", query);
                     break;
 
                 case ReportType.Announcements:

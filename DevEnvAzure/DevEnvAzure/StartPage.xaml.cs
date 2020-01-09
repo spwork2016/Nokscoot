@@ -167,7 +167,7 @@ namespace DevEnvAzure
                 AuthenticationContext ac = new AuthenticationContext(ClientConfiguration.NokScoot.ActiveDirectoryTenant);
                 ac.TokenCache.Clear();
 
-                App.AuthResult = null;
+                App.GraphAuthentication = null;
 
                 App.DAUtil.DeleteMasterInfo("UserCredentials");
                 App.DAUtil.DeleteMasterInfo("UserInfo");

@@ -45,7 +45,7 @@ namespace DevEnvAzure
             {
                 await OAuthHelper.GetAccessToken();
                 IsBusy = false;
-                if (App.AuthResult != null)
+                if (App.GraphAuthentication != null)
                 {
                     await Task.Run(async () =>
                     {
@@ -81,7 +81,7 @@ namespace DevEnvAzure
                         Device.BeginInvokeOnMainThread(async () =>
                         {
                             IsBusy = false;
-                            if (App.AuthResult != null)
+                            if (App.GraphAuthentication != null)
                             {
                                 MessagingCenter.Send<object>(this, App.EVENT_LAUNCH_MAIN_PAGE);
                             }

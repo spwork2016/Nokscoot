@@ -1,5 +1,4 @@
-﻿using DevEnvAzure.Model;
-using Microsoft.Graph;
+﻿using Microsoft.Graph;
 using Microsoft.IdentityModel.Clients.ActiveDirectory;
 using Newtonsoft.Json;
 using System;
@@ -133,17 +132,20 @@ namespace DevEnvAzure
             return 0;
         }
 
-        public static async Task<HttpClient> GetHTTPClientAsync()
+        public static async Task<HttpClient> GetHTTPClientAsync(bool IsGraphRequest = false)
         {
             //await GetAccessToken();
 
-            if (App.AuthResult == null) return null;
+            if (App.GraphAuthentication == null) return null;
 
             HttpClient client = new HttpClient();
             // if not adal - used application/json;odata=verbose
             client.DefaultRequestHeaders.Add("Accept", "application/json");
             client.DefaultRequestHeaders.Add("ContentType", "application/json");
-            client.DefaultRequestHeaders.Add("Authorization", App.AuthResult.CreateAuthorizationHeader());
+            client.DefaultRequestHeaders.Add("Authorization",
+                IsGraphRequest ?
+                App.GraphAuthentication.CreateAuthorizationHeader() :
+                App.SharePointAuthentication.CreateAuthorizationHeader());
 
             return client;
         }
@@ -181,9 +183,9 @@ namespace DevEnvAzure
                 //var response = await client.GetStringAsync(ClientConfiguration.Default.SPRootURL + "web/currentuser");
                 //if (response != null)
                 //{
-                var userInfo = App.AuthResult?.UserInfo;
+                var userInfo = App.GraphAuthentication?.UserInfo;
                 App.DAUtil.RefreshMasterInfo(new MasterInfo { Name = "UserInfo", content = JsonConvert.SerializeObject(userInfo) });
-                if (App.AuthResult?.UserInfo != null)
+                if (App.GraphAuthentication?.UserInfo != null)
                 {
                     App.CurrentUser = new Model.User
                     {
@@ -209,7 +211,7 @@ namespace DevEnvAzure
             try
             {
                 await GetAccessToken();
-                if (App.AuthResult != null)
+                if (App.GraphAuthentication != null)
                 {
                     var auth = DependencyService.Get<IAuthenticator>();
                     var nokScootConfig = ClientConfiguration.NokScoot;
@@ -235,7 +237,7 @@ namespace DevEnvAzure
                 if (auth != null)
                 {
                     AuthenticationResult json = JsonConvert.DeserializeObject<AuthenticationResult>(auth.content);
-                    App.AuthResult = json;
+                    App.GraphAuthentication = json;
                 }
 
                 MasterInfo userInfo = App.DAUtil.GetMasterInfoByName("UserInfo");
@@ -247,12 +249,12 @@ namespace DevEnvAzure
                 }
             }
 
-            if (App.AuthResult == null) return false;
+            if (App.GraphAuthentication == null) return false;
 
             //For offline fuctionality
-            if (App.AuthResult != null && !SPUtility.IsConnected()) return true;
+            if (App.GraphAuthentication != null && !SPUtility.IsConnected()) return true;
 
-            return SPUtility.IsConnected() && App.AuthResult.ExpiresOn > DateTime.UtcNow;
+            return SPUtility.IsConnected() && App.GraphAuthentication.ExpiresOn > DateTime.UtcNow;
         }
 
         //public static async Task<bool> RefreshAccessToken()
@@ -305,19 +307,35 @@ namespace DevEnvAzure
 
         public static async Task GetAccessToken()
         {
+            var auth = DependencyService.Get<IAuthenticator>();
+            var msg = DependencyService.Get<IMessage>();
+            var nokScootConfig = ClientConfiguration.NokScoot;
             try
             {
-                var auth = DependencyService.Get<IAuthenticator>();
-                var nokScootConfig = ClientConfiguration.NokScoot;
-
-                App.AuthResult = await auth.Authenticate(nokScootConfig.ActiveDirectoryTenant,
+                App.GraphAuthentication = await auth.Authenticate(nokScootConfig.ActiveDirectoryTenant,
                                                             nokScootConfig.GraphAPIRootURL,
                                                             nokScootConfig.ActiveDirectoryClientAppId,
                                                             nokScootConfig.ActiveDirectoryResource);
 
+
+
             }
             catch (Exception ex)
             {
+                msg.LongAlert(ex.Message);
+                throw ex;
+            }
+
+            try
+            {
+                App.SharePointAuthentication = await auth.Authenticate(nokScootConfig.ActiveDirectoryTenant,
+                                                            nokScootConfig.ActiveDirectoryResource,
+                                                            nokScootConfig.ActiveDirectoryClientAppId,
+                                                            nokScootConfig.ActiveDirectoryResource);
+            }
+            catch (Exception ex)
+            {
+                msg.LongAlert(ex.Message);
                 throw ex;
             }
         }

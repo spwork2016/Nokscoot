@@ -30,7 +30,7 @@ namespace DevEnvAzure.Droid
                 // App.AuthResult..Clear();
                 //  App.authcontext.TokenCache.DeleteItem()
 
-                if (App.AuthResult != null)
+                if (App.GraphAuthentication != null)
                 {
                     AuthenticationContext ac = new AuthenticationContext(ClientConfiguration.NokScoot.ActiveDirectoryTenant);
                     ac.TokenCache.Clear();

@@ -14,7 +14,8 @@ namespace DevEnvAzure
 {
     public partial class App : Application
     {
-        public static AuthenticationResult AuthResult = null;
+        public static AuthenticationResult GraphAuthentication = null;
+        public static AuthenticationResult SharePointAuthentication = null;
         public static User CurrentUser = null;
         static DataAccess dbUtils;
         public static List<PeoplePicker> peoplePickerDataSource;
@@ -107,7 +108,7 @@ namespace DevEnvAzure
                         DependencyService.Get<IMessage>().ShortAlert("Please connect to internet and try again!");
                     else
                     {
-                        AuthResult = JsonConvert.DeserializeObject<AuthenticationResult>(authResponse.content);
+                        GraphAuthentication = JsonConvert.DeserializeObject<AuthenticationResult>(authResponse.content);
                         var uInfo = App.DAUtil.GetMasterInfoByName("UserInfo");
                         if (uInfo != null)
                         {

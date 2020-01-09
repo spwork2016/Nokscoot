@@ -306,7 +306,7 @@ namespace DevEnvAzure
 
 
                 var client = new HttpClient();
-                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(App.AuthResult.AccessTokenType, App.AuthResult.AccessToken);
+                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(App.GraphAuthentication.AccessTokenType, App.GraphAuthentication.AccessToken);
                 // client.DefaultRequestHeaders.Add("Authorization", App.AuthenticationResult.AccessTokenType + App.AuthenticationResult.AccessToken);
                 var mediaType = new MediaTypeWithQualityHeaderValue("application/json");
                 mediaType.Parameters.Add(new NameValueHeaderValue("odata", "verbose"));
