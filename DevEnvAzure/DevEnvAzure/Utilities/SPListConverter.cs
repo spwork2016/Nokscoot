@@ -194,10 +194,13 @@ namespace DevEnvAzure.Model
 
 
         public string Flight_x0020_Number { get; set; }
-        public int Departure_x0020_StationLookupId { get; set; }
-        public int Arrival_x0020_StationLookupId { get; set; }
+        public string Departure_x0020_StationLookupId { get; set; }
+        public string Arrival_x0020_StationLookupId { get; set; }
         public string IATA_x0020_Code { get; set; }
         public string Aircraft_x0020_Registration { get; set; }
+        public string City_x0020_Name { get; set; }
+        public string Country { get; set; }
+        public string Airport_x0020_Type { get; set; }
     }
 
     public class UserProfileProperties

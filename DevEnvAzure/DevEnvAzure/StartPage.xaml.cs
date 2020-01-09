@@ -42,8 +42,6 @@ namespace DevEnvAzure
                 menuList.Add(docsPage);
                 menuList.Add(StationInformationPage);
 
-                //menuList.Add(new MasterPageItem() { Title = "One Note", Icon = "onenote.png" });
-                //menuList.Add(new MasterPageItem() { Title = "One Drive", Icon = "drive.png" });
                 menuList.Add(new MasterPageItem() { Title = "Work Day", Icon = "workday.png" });
                 menuList.Add(new MasterPageItem() { Title = "SABA", Icon = "saba.png" });
 

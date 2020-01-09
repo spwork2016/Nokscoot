@@ -362,7 +362,7 @@ namespace DevEnvAzure
             return null;
         }
 
-        public static async Task<Dictionary<int, string>> GetStations(bool isOpen = false)
+        public static async Task<Dictionary<string, string>> GetStations(bool isOpen = false)
         {
             MasterInfo mInfo = null;
             if (!IsConnected())
@@ -398,7 +398,7 @@ namespace DevEnvAzure
                 try
                 {
                     var stations = JsonConvert.DeserializeObject<SPData>(mInfo.content);
-                    return stations.results.Select(x => new { Key = Convert.ToInt32(x.Id), Value = x.Fields.IATA_x0020_Code }).ToDictionary(v => v.Key, v => v.Value);
+                    return stations.results.Select(x => new { Key = Convert.ToString(x.Id), Value = x.Fields.IATA_x0020_Code }).ToDictionary(v => v.Key, v => v.Value);
 
                 }
                 catch (Exception ex)

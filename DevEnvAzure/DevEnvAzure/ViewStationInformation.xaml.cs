@@ -1,24 +1,19 @@
-﻿using System;
+﻿using DevEnvAzure.Model;
+using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
-using Newtonsoft.Json;
 using Xamarin.Forms;
-using Xamarin.Forms.Xaml;
-using DevEnvAzure.Model;
-using DevEnvAzure.Models;
-using System;
-using System.Collections.ObjectModel;
-using System.Linq;
-
 using Xamarin.Forms.Internals;
+using Xamarin.Forms.Xaml;
 
 namespace DevEnvAzure
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class ViewStationInformation : ContentPage
     {
+        public Dictionary<string, string> stations { get; set; }
         public ViewStationInformation()
         {
             InitializeComponent();
@@ -37,7 +32,7 @@ namespace DevEnvAzure
 
             ToggleBusy(true);
 
-            var stations = await SPUtility.GetStations(true);
+            stations = await SPUtility.GetStations(true);
             iataPicker.ItemsSource = stations.Select(x => x.Value).ToList();
 
             ToggleBusy(false);
@@ -69,24 +64,31 @@ namespace DevEnvAzure
             var client = await OAuthHelper.GetHTTPClientAsync();
             if (client == null) return;
 
-            string url = ClientConfiguration.Default.ActiveDirectoryResource + string.Format("SSQServices/_api/Web/lists/GetByTitle('(Ops) Line Station Information')/items?$select=IATA_x0020_Code,Title,City_x0020_Name,Id,Country,Airport_x0020_Type&$filter=IATA_x0020_Code eq '{0}'&Status eq '{1}'", IATACode, "Open");
-            var response = await client.GetStringAsync(url);
-            if (response != null)
+            var selectedStation = stations.First(x => x.Value == IATACode);
+
+            //string url = ClientConfiguration.Default.ActiveDirectoryResource + string.Format("SSQServices/_api/Web/lists/GetByTitle('(Ops) Line Station Information')/items?$select=IATA_x0020_Code,Title,City_x0020_Name,Id,Country,Airport_x0020_Type&$filter=IATA_x0020_Code eq '{0}'&Status eq '{1}'", IATACode, "Open");
+            string url = SPUtility.GetListURL(ReportType.SationInfo, string.Format("/items/{0}?$expand=fields($select=IATA_x0020_Code,Title,City_x0020_Name,Id,Country,Airport_x0020_Type)&$filter=fields/Status eq '{1}'", selectedStation.Key, "Open"));
+            try
             {
-                var spData = JsonConvert.DeserializeObject<SPData>(response,
-                             new JsonSerializerSettings { DateParseHandling = DateParseHandling.None, NullValueHandling = NullValueHandling.Ignore });
-                //stkList.IsVisible = true;
-                //lstStationInfo.ItemsSource = spData.d.results;
-                //lstStationInfo.HeightRequest = 80 * spData.d.results.Count;
-
-                if (spData.results.Count > 0)
+                var response = await client.GetStringAsync(url);
+                if (response != null)
                 {
-                    int id = Convert.ToInt32(spData.results[0].Id);
-                    DataContracts.StationInformationSp sInfo = await SPUtility.GetStationInfoItem(id);
+                    var spData = JsonConvert.DeserializeObject<DataContracts.StationInformationSpContianer>(response,
+                                 new JsonSerializerSettings { DateParseHandling = DateParseHandling.None, NullValueHandling = NullValueHandling.Ignore });
 
-                    ToggleBusy(false);
-                    await Navigation.PushAsync(new StationInformation(sInfo.GetModel()));
+                    if (spData != null)
+                    {
+                        int id = Convert.ToInt32(spData.Id);
+                        DataContracts.StationInformationSp sInfo = spData.Fields;
+
+                        ToggleBusy(false);
+                        await Navigation.PushAsync(new StationInformation(sInfo.GetModel()));
+                    }
                 }
+            }
+            catch (Exception ex)
+            {
+
             }
         }
 

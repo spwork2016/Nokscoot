@@ -20,6 +20,12 @@ namespace DevEnvAzure.DataContracts
         public string Url { get; set; }
     }
 
+    public class StationInformationSpContianer
+    {
+        public int Id { get; set; }
+        [JsonProperty(PropertyName = "Value")]
+        public StationInformationSp Fields { get; set; }
+    }
     public class StationInformationSp
     {
         public StationInformationSp()
