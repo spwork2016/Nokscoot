@@ -43,12 +43,12 @@ namespace DevEnvAzure
             InitializeComponent();
             attachments.CollectionChanged += Attachments_CollectionChanged;
 
-            var eValue = DAUtil.GetAll<OfflineItem>("OfflineItem");
-            if (eValue != null && eValue.Count > 0)
-                App.offlineItems = new ObservableCollection<OfflineItem>(eValue);
-
             try
             {
+                var eValue = DAUtil.GetAll<OfflineItem>("OfflineItem");
+                if (eValue != null && eValue.Count > 0)
+                    App.offlineItems = new ObservableCollection<OfflineItem>(eValue);
+
                 if (SPUtility.IsConnected())
                 {
                     MainPage = new MultiFactorLogin();
@@ -171,7 +171,14 @@ namespace DevEnvAzure
         {
             Device.BeginInvokeOnMainThread(() =>
             {
-                DependencyService.Get<IMessage>().ShortAlert(string.Format("Error: {0}", message));
+                try
+                {
+                    DependencyService.Get<IMessage>().ShortAlert(string.Format("Error: {0}", message));
+                }
+                catch (Exception messageEx)
+                {
+
+                }
             });
         }
 

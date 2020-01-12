@@ -34,7 +34,7 @@ namespace DevEnvAzure.Droid
         public SqlLiteService() { }
 
         #region ISQLite implementation
-     public SQLite.Net.SQLiteConnection GetConnection()
+        public SQLite.Net.SQLiteConnection GetConnection()
         {
             try
             {
@@ -43,15 +43,15 @@ namespace DevEnvAzure.Droid
                 var path = Path.Combine(documentsPath, sqliteFilename);
                 if (!File.Exists(path))
                     File.Create(path);
-               // string path = Environment.GetFolderPath(Environment.SpecialFolder.Personal);
-               // return Path.Combine(path, filename);
+                // string path = Environment.GetFolderPath(Environment.SpecialFolder.Personal);
+                // return Path.Combine(path, filename);
                 //var plat = new SQLite.Net.Platform.XamarinAndroid.SQLitePlatformAndroid();
                 var platform = new SQLite.Net.Platform.XamarinAndroid.SQLitePlatformAndroidN();
                 var conn = new SQLite.Net.SQLiteConnection(platform, path);
                 //  var conn = new SQLite.SQLiteConnection(path);
                 return conn;
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 return null;
             }

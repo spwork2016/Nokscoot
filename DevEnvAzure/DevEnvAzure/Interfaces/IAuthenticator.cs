@@ -7,5 +7,6 @@ namespace DevEnvAzure
     {
         Task<AuthenticationResult> Authenticate(string tenantUrl, string graphResourceUri, string ApplicationID, string returnUri);
         Task<AuthenticationResult> ReAuthenticate(string tenantUrl, string graphResourceUri, string ApplicationID, string returnUri);
+        void Logout();
     }
 }

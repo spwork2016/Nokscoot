@@ -227,6 +227,23 @@ namespace DevEnvAzure
             return null;
         }
 
+        public static async Task Logout()
+        {
+            try
+            {
+                if (App.GraphAuthentication != null)
+                {
+                    var nokScootConfig = ClientConfiguration.NokScoot;
+                    var client = await GetHTTPClientAsync(true);
+                    await client.GetByteArrayAsync(nokScootConfig.LogoutURL);
+                }
+            }
+            catch (Exception ex)
+            {
+
+            }
+        }
+
         public static bool IsLoggedIn()
         {
             if (!SPUtility.IsConnected())

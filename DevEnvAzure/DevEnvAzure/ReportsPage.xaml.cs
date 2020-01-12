@@ -81,10 +81,6 @@ namespace DevEnvAzure
         {
             var kaizen = new Models.KaizenReportModel();
             // kaizen.BenefitsCategory = null;
-
-            var graphClient = OAuthHelper.GetGraphClient(App.GraphAuthentication.AccessToken);
-            var me = graphClient.Me;
-
             await Navigation.PushAsync(new KaizenReport(kaizen, "kaizen"));
         }
     }

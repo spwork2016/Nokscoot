@@ -1,4 +1,5 @@
 ﻿using System;
+
 namespace DevEnvAzure
 {
     public partial class ClientConfiguration
@@ -22,7 +23,8 @@ namespace DevEnvAzure
             APPNAME = "NokScoot-Sharepoint-Mobile",
             AttachmentOptions = new string[] { "Camera", "Gallery" },
             TLSVersion = "",
-            SHORTFORMURL = "SP.Data.Test_x005f_SSRListItem"
+            SHORTFORMURL = "SP.Data.Test_x005f_SSRListItem",
+            LogoutURL = "https://login.microsoftonline.com/287f1604-8fc2-4b4b-8c61-4641962f35fd/oauth2/logout"
         };
 
         //public static ClientConfiguration OneBox = new ClientConfiguration()
@@ -65,5 +67,6 @@ namespace DevEnvAzure
         public string[] AttachmentOptions { get; set; }
         public string SPListURL { get; private set; }
         public string SHORTFORMURL { get; set; }
+        public string LogoutURL { get; set; }
     }
 }

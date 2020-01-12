@@ -174,7 +174,7 @@ namespace DevEnvAzure
                             });
 
                     var contents = new StringContent(body);
-                    contents.Headers.ContentType = MediaTypeHeaderValue.Parse("application/json");
+                    contents.Headers.ContentType = MediaTypeHeaderValue.Parse("application/json;odata=verbose");
 
                     if (CheckConnection())
                     {

@@ -1,4 +1,5 @@
 using Android.App;
+using Android.Webkit;
 using Microsoft.IdentityModel.Clients.ActiveDirectory;
 using System;
 using System.Linq;
@@ -53,24 +54,10 @@ namespace DevEnvAzure.Droid
             }
         }
 
-        //public async Task<AuthenticationResult> Authenticate(string tenantUrl, string graphResourceUri, string ApplicationID, string returnUri)
-        //{
-        //    try
-        //    {
-        //        var authContext = new AuthenticationContext(tenantUrl);
-        //        if (authContext.TokenCache.ReadItems().Any())
-        //            authContext = new AuthenticationContext(authContext.TokenCache.ReadItems().FirstOrDefault().Authority);
-
-        //        var authResult = await authContext.AcquireTokenAsync(graphResourceUri, ApplicationID, new Uri(returnUri), new PlatformParameters((Activity)Forms.Context));
-
-        //        var items = authContext.TokenCache.ReadItems();
-        //        return authResult;
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        return null;
-        //    }
-        //}
+        public void Logout()
+        {
+            CookieManager.Instance.RemoveAllCookie();
+        }
 
         public async Task<AuthenticationResult> ReAuthenticate(string tenantUrl, string graphResourceUri, string ApplicationID, string returnUri)
         {

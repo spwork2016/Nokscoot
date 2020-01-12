@@ -24,9 +24,6 @@ namespace DevEnvAzure
         {
             try
             {
-                var auth = DependencyService.Get<IAuthenticator>();
-                var nokScootConfig = ClientConfiguration.NokScoot;
-
                 await OAuthHelper.GetAccessToken();
                 await OAuthHelper.GetUserInfo();
 
