@@ -14,12 +14,15 @@ namespace DevEnvAzure
 {
     public partial class App : Application
     {
-        public static AuthenticationResult GraphAuthentication = null;
-        public static AuthenticationResult SharePointAuthentication = null;
+        public static AutheticationContext GraphAuthentication = null;
+        public static AutheticationContext SharePointAuthentication = null;
+        public static string SHAREPOINT_AUTH_RESULT_KEY = "SHAREPOINT_AUTH_RESULT";
+        public static string GRAPH_AUTH_RESULT_KEY = "GRAPH_AUTH_RESULT";
+        public static string USER_INFO_KEY = "UserInfo";
+
         public static User CurrentUser = null;
         static DataAccess dbUtils;
         public static List<PeoplePicker> peoplePickerDataSource;
-        public static ObservableCollection<Employee> employees = new ObservableCollection<Employee>();
         public static ObservableCollection<OfflineItem> offlineItems = new ObservableCollection<OfflineItem>();
         public static ObservableCollection<object> savedDrafts = new ObservableCollection<object>();
 
@@ -49,67 +52,26 @@ namespace DevEnvAzure
                 if (eValue != null && eValue.Count > 0)
                     App.offlineItems = new ObservableCollection<OfflineItem>(eValue);
 
+                MessagingCenter.Subscribe<object>(this, EVENT_LAUNCH_MAIN_PAGE, SetMainPageAsRootPage);
+                MessagingCenter.Subscribe<object>(this, EVENT_LAUNCH_MULTIFACTOR_PAGE, SetMultiFactorAuthenticationPage);
+
                 if (SPUtility.IsConnected())
                 {
                     MainPage = new MultiFactorLogin();
-                    //OAuthHelper.GetAccessToken().ContinueWith(async (x) =>
-                    //{
-                    //    await OAuthHelper.GetUserInfo().ContinueWith((y) =>
-                    //    {
-                    //        Device.BeginInvokeOnMainThread(async () =>
-                    //        {
-                    //            MessagingCenter.Send<App>(this, "userInfo");
-                    //            MessagingCenter.Send<App>(this, AUTHENTICATION_SUCCESS);
-                    //            if (App.AuthResult == null)
-                    //            {
-                    //                DependencyService.Get<IMessage>().ShortAlert("Login failed! Please check email/password");
-                    //            }
-                    //        });
-                    //    });
-
-                    //    await SyncLocalData();
-                    //}).ConfigureAwait(false);
-
-                    //var userCredentials = App.DAUtil.GetMasterInfoByName("UserCredentials");
-                    //if (userCredentials != null)
-                    //{
-                    //    var cred = JsonConvert.DeserializeObject<dynamic>(userCredentials.content);
-                    //    string uName = cred.Username;
-                    //    string pwd = cred.Password;
-                    //    MainPage = new StartPage();
-
-                    //    OAuthHelper.GetAuthenticationHeader(uName, pwd).ContinueWith(async (x) =>
-                    //    {
-                    //        await OAuthHelper.GetUserInfo(uName, pwd).ContinueWith((y) =>
-                    //        {
-                    //            Device.BeginInvokeOnMainThread(async () =>
-                    //            {
-                    //                MessagingCenter.Send<App>(this, "userInfo");
-                    //                if (App.AuthResult == null)
-                    //                {
-                    //                    //MainPage = new Login();
-                    //                    DependencyService.Get<IMessage>().ShortAlert("Login failed! Please check email/password");
-                    //                }
-                    //            });
-                    //        });
-
-                    //        await SyncLocalData();
-                    //    }).ConfigureAwait(false);
-                    //}
-                    //else
-                    //{
-                    //    //MainPage = new Login();
-                    //}
                 }
                 else
                 {
-                    var authResponse = App.DAUtil.GetMasterInfoByName("Authentication");
-                    if (authResponse == null)
-                        DependencyService.Get<IMessage>().ShortAlert("Please connect to internet and try again!");
+                    var graphResponse = App.DAUtil.GetMasterInfoByName(GRAPH_AUTH_RESULT_KEY);
+                    var spResponse = App.DAUtil.GetMasterInfoByName(SHAREPOINT_AUTH_RESULT_KEY);
+                    if (graphResponse == null || spResponse == null)
+                    {
+                        MainPage = new MultiFactorLogin();
+                    }
                     else
                     {
-                        GraphAuthentication = JsonConvert.DeserializeObject<AuthenticationResult>(authResponse.content);
-                        var uInfo = App.DAUtil.GetMasterInfoByName("UserInfo");
+                        OAuthHelper.GetLoggedInToken();
+
+                        var uInfo = App.DAUtil.GetMasterInfoByName(USER_INFO_KEY);
                         if (uInfo != null)
                         {
                             var obj = JsonConvert.DeserializeObject<UserInfo>(uInfo.content, new JsonSerializerSettings { DateParseHandling = DateParseHandling.None });
@@ -127,10 +89,6 @@ namespace DevEnvAzure
                         MainPage = new StartPage();
                     }
                 }
-
-                MessagingCenter.Subscribe<object>(this, EVENT_LAUNCH_MAIN_PAGE, SetMainPageAsRootPage);
-                MessagingCenter.Subscribe<object>(this, EVENT_LAUNCH_MULTIFACTOR_PAGE, SetMultiFactorAuthenticationPage);
-                //MessagingCenter.Subscribe<object>(this, AUTHENTICATION_SUCCESS, SetMainPageAsRootPage);
             }
             catch (Exception ex)
             {
@@ -265,6 +223,10 @@ namespace DevEnvAzure
             {
                 ConnectionChanged();
             }
+            else
+            {
+                OAuthHelper.GetLoggedInToken();
+            }
         }
 
         protected override void OnSleep()
@@ -288,31 +250,44 @@ namespace DevEnvAzure
         {
             if (e.IsConnected)
             {
-                ConnectionChanged();
+                await ConnectionChanged();
+            }
+            else
+            {
+                OAuthHelper.GetLoggedInToken();
             }
         }
 
-        private async void ConnectionChanged()
+        private async Task ConnectionChanged()
         {
-            var userCredentials = App.DAUtil.GetMasterInfoByName("UserCredentials");
-            if (userCredentials != null)
+            try
             {
-                var cred = JsonConvert.DeserializeObject<dynamic>(userCredentials.content);
-                string uName = cred.Username;
-                string pwd = cred.Password;
-
-                await OAuthHelper.GetAuthenticationHeader(uName, pwd).ContinueWith(async (x) =>
-                {
-                    try
-                    {
-                        await OAuthHelper.SyncOfflineItems();
-                    }
-                    catch (Exception ex)
-                    {
-                        ShowError(ex.Message);
-                    }
-                }).ConfigureAwait(false);
+                await OAuthHelper.SyncOfflineItems();
             }
+            catch (Exception ex)
+            {
+                ShowError(ex.Message);
+            }
+
+            //var userCredentials = App.DAUtil.GetMasterInfoByName("UserCredentials");
+            //if (userCredentials != null)
+            //{
+            //    var cred = JsonConvert.DeserializeObject<dynamic>(userCredentials.content);
+            //    string uName = cred.Username;
+            //    string pwd = cred.Password;
+
+            //    await OAuthHelper.GetAuthenticationHeader(uName, pwd).ContinueWith(async (x) =>
+            //    {
+            //        try
+            //        {
+            //            await OAuthHelper.SyncOfflineItems();
+            //        }
+            //        catch (Exception ex)
+            //        {
+            //            ShowError(ex.Message);
+            //        }
+            //    }).ConfigureAwait(false);
+            //}
         }
     }
 }

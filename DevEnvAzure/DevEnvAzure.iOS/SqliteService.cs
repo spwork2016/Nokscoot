@@ -9,7 +9,7 @@ using System.IO;
 [assembly: Dependency(typeof(DevEnvAzure.iOS.SqliteService))]
 namespace DevEnvAzure.iOS
 {
-    public class SqliteService : IFilePath
+    public class SqliteService : IDataService
     {
         public SqliteService()
         {

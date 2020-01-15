@@ -26,6 +26,8 @@
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
     <AndroidKeyStore>false</AndroidKeyStore>
+    <AndroidSigningKeyStore>E:\code\DevEnvAzure\DevEnvAzure.Droid\Nokscoot-Mobile-Awesome.keystore</AndroidSigningKeyStore>
+    <AndroidSigningStorePass>sptechnophiles</AndroidSigningStorePass>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -56,7 +58,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <AndroidUseSharedRuntime>false</AndroidUseSharedRuntime>
-    <AndroidLinkMode>SdkOnly</AndroidLinkMode>
+    <AndroidLinkMode>Full</AndroidLinkMode>
     <AotAssemblies>false</AotAssemblies>
     <EnableLLVM>false</EnableLLVM>
     <BundleAssemblies>false</BundleAssemblies>
@@ -174,14 +176,14 @@
     <Reference Include="Syncfusion.Licensing, Version=17.4.0.40, Culture=neutral, PublicKeyToken=632609b4d040f6b4, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Syncfusion.Licensing.17.4.0.40\lib\MonoAndroid10\Syncfusion.Licensing.dll</HintPath>
     </Reference>
-    <Reference Include="Syncfusion.SfAutoComplete.Android, Version=17.4451.0.40, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Syncfusion.Xamarin.SfAutoComplete.17.4.0.40\lib\MonoAndroid10\Syncfusion.SfAutoComplete.Android.dll</HintPath>
+    <Reference Include="Syncfusion.SfAutoComplete.Android, Version=16.1451.0.26, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Syncfusion.Xamarin.SfAutoComplete.16.1.0.26\lib\MonoAndroid10\Syncfusion.SfAutoComplete.Android.dll</HintPath>
     </Reference>
-    <Reference Include="Syncfusion.SfAutoComplete.XForms, Version=17.4451.0.40, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Syncfusion.Xamarin.SfAutoComplete.17.4.0.40\lib\MonoAndroid10\Syncfusion.SfAutoComplete.XForms.dll</HintPath>
+    <Reference Include="Syncfusion.SfAutoComplete.XForms, Version=16.1451.0.26, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Syncfusion.Xamarin.SfAutoComplete.16.1.0.26\lib\MonoAndroid10\Syncfusion.SfAutoComplete.XForms.dll</HintPath>
     </Reference>
-    <Reference Include="Syncfusion.SfAutoComplete.XForms.Android, Version=17.4451.0.40, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Syncfusion.Xamarin.SfAutoComplete.17.4.0.40\lib\MonoAndroid10\Syncfusion.SfAutoComplete.XForms.Android.dll</HintPath>
+    <Reference Include="Syncfusion.SfAutoComplete.XForms.Android, Version=16.1451.0.26, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Syncfusion.Xamarin.SfAutoComplete.16.1.0.26\lib\MonoAndroid10\Syncfusion.SfAutoComplete.XForms.Android.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Buffers, Version=4.0.2.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
@@ -320,7 +322,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
+    <None Include="Nokscoot-Mobile-Awesome.keystore" />
     <None Include="packages.config" />
+    <ProguardConfiguration Include="ProGuardConfig.cfg" />
     <None Include="Resources\AboutResources.txt" />
     <None Include="Assets\AboutAssets.txt" />
   </ItemGroup>

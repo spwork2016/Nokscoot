@@ -24,8 +24,6 @@ namespace DevEnvAzure.Droid
                 try
                 {
                     result = await authContext.AcquireTokenAsync(graphResourceUri, ApplicationID, new Uri(returnUri), new PlatformParameters((Activity)Forms.Context));
-
-                    //result = await authContext.AcquireTokenSilentAsync(graphResourceUri, ApplicationID);
                 }
                 catch (AdalException adlException)
                 {

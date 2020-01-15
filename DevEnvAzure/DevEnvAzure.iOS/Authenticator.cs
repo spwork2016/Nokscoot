@@ -23,7 +23,7 @@ namespace DevEnvAzure.iOS
 
                 try
                 {
-                    result = await authContext.AcquireTokenAsync(graphResourceUri, ApplicationID, new Uri(returnUri), new PlatformParameters((Activity)Forms.Context));
+                    result = await authContext.AcquireTokenAsync(graphResourceUri, ApplicationID, new Uri(returnUri), new PlatformParameters(UIApplication.SharedApplication.KeyWindow.RootViewController));
 
                     //result = await authContext.AcquireTokenSilentAsync(graphResourceUri, ApplicationID);
                 }
@@ -33,7 +33,7 @@ namespace DevEnvAzure.iOS
                     {
                         try
                         {
-                            result = await authContext.AcquireTokenAsync(graphResourceUri, ApplicationID, new Uri(returnUri), new PlatformParameters((Activity)Forms.Context));
+                            result = await authContext.AcquireTokenAsync(graphResourceUri, ApplicationID, new Uri(returnUri), new PlatformParameters(UIApplication.SharedApplication.KeyWindow.RootViewController));
                         }
                         catch (Exception ex)
                         {
@@ -72,7 +72,7 @@ namespace DevEnvAzure.iOS
                 if (authContext.TokenCache.ReadItems().Any())
                 {
                     authContext = new AuthenticationContext(authContext.TokenCache.ReadItems().FirstOrDefault().Authority);
-                    authResult = await authContext.AcquireTokenAsync(graphResourceUri, ApplicationID, new Uri(returnUri), new PlatformParameters((Activity)Forms.Context));
+                    authResult = await authContext.AcquireTokenAsync(graphResourceUri, ApplicationID, new Uri(returnUri), new PlatformParameters(UIApplication.SharedApplication.KeyWindow.RootViewController));
                 }
                 return authResult;
             }

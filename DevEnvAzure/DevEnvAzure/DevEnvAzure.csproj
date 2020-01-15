@@ -74,9 +74,6 @@
     <None Update="GroundSafetyReportView.xaml">
       <Generator>MSBuild:Compile</Generator>
     </None>
-    <None Update="HomePage.xaml">
-      <Generator>MSBuild:Compile</Generator>
-    </None>
     <None Update="ImageViewerPopup.xaml">
       <Generator>MSBuild:Compile</Generator>
     </None>

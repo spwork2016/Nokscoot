@@ -33,10 +33,11 @@ namespace DevEnvAzure
         SQLite.Net.SQLiteConnection dbConn;
         public DataAccess()
         {
-            dbConn = DependencyService.Get<IFilePath>().GetConnection();
+            var db = DependencyService.Get<IDataService>();
             try
             {
-                dbConn.CreateTable<Employee>();
+                dbConn = db.GetConnection();
+
                 dbConn.CreateTable<MasterInfo>();
                 dbConn.CreateTable<FlightSafetyReportModel>();
                 dbConn.CreateTable<SecurityModel>();
@@ -143,33 +144,6 @@ namespace DevEnvAzure
             var d = SaveMasterInfo(info);
             return d;
         }
-    }
-
-    // [SQLite.("Parent")]
-    [Table(@"Employee")]
-    public class Employee
-    {
-        //[SQLite.Net.Attributes.PrimaryKey, SQLite.Net.Attributes.AutoIncrement, SQLite.Net.Attributes.Column("ID")]
-        [PrimaryKey, AutoIncrement, Column("EmpId")]
-        public long EmpId
-        { get; set; }
-        [NotNull]
-        public string vEmpName
-        { get; set; }
-        public string vEmpAge
-        { get; set; }
-        public string vEmpDept
-        { get; set; }
-        public string vEmpDetails
-        { get; set; }
-        public string vEmpGender
-        { get; set; }
-        public string vEmpSal
-        { get; set; }
-        public DateTime vEmpDate
-        { get; set; }
-        public string vEmpActive
-        { get; set; }
     }
 
     public class MasterInfo

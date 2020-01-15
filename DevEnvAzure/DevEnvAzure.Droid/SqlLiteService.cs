@@ -28,8 +28,7 @@ using SQLite;
 [assembly: Dependency(typeof(DevEnvAzure.Droid.SqlLiteService))]
 namespace DevEnvAzure.Droid
 {
-
-    class SqlLiteService : IFilePath
+    class SqlLiteService : IDataService
     {
         public SqlLiteService() { }
 

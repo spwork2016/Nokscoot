@@ -38,7 +38,6 @@ namespace DevEnvAzure
         public static PeoplePicker PeoplePickerCommander;
         public static PeoplePicker PeoplePickercrew1email;
         public static PeoplePicker PeoplePickercrew2email;
-        private static string name;
 
         public FlightSafetyReportView()
         {

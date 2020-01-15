@@ -2,17 +2,20 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="DevEnvAzure.MultiFactorLogin" Title="Welcome to NokScoot" BackgroundColor="#FDCE02">
-  <AbsoluteLayout HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
-    <StackLayout AbsoluteLayout.LayoutFlags="All" AbsoluteLayout.LayoutBounds="0,0,1,1">
-      <ScrollView>
-        <StackLayout>
-          <StackLayout Padding="20" Spacing="2" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand">
-            <Image Source="logo.png" HeightRequest="150" HorizontalOptions="FillAndExpand" Margin="50"/>
-            <ActivityIndicator x:Name="activityIndicator" IsRunning="{Binding IsBusy}" Color="Black" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand"/>
-            <Label x:Name="lblLoading" Text="Authenticating..." TextColor="Black" FontSize="Small" HorizontalOptions="CenterAndExpand" VerticalOptions="FillAndExpand" />
-          </StackLayout>
+    <AbsoluteLayout HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
+        <StackLayout AbsoluteLayout.LayoutFlags="All" AbsoluteLayout.LayoutBounds="0,0,1,1">
+            <ScrollView>
+                <StackLayout>
+                    <StackLayout Padding="20" Spacing="2" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand">
+                        <Image Source="logo.png" HeightRequest="150" HorizontalOptions="FillAndExpand" Margin="50"/>
+                        <ActivityIndicator x:Name="activityIndicator" IsRunning="{Binding IsBusy}" Color="Black" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand"/>
+                        <Label x:Name="lblLoading" Text="Authenticating..." TextColor="Black" FontSize="Small" HorizontalOptions="CenterAndExpand" VerticalOptions="FillAndExpand" />
+
+                        <Button Margin="0,10,0,0" IsVisible="False" x:Name="btnLogin" Text="Retry" Clicked="BtnLogin_Clicked"  BackgroundColor="#FDCE02" TextColor="Black" Grid.Row="11" Grid.Column="1" 
+                HorizontalOptions="FillAndExpand" />
+                    </StackLayout>
+                </StackLayout>
+            </ScrollView>
         </StackLayout>
-      </ScrollView>
-    </StackLayout>
-  </AbsoluteLayout>
+    </AbsoluteLayout>
 </ContentPage>

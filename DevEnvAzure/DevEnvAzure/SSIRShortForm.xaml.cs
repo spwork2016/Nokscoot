@@ -344,8 +344,8 @@ namespace DevEnvAzure
 
                         break;
                 }
-                DependencyService.Get<IMessage>().ShortAlert(_viewobject.MOR);
-                //DependencyService.Get<IMessage>().ShortAlert("Item drafted");
+
+                DependencyService.Get<IMessage>().ShortAlert("Item drafted");
             }
             catch (Exception)
             {
@@ -631,9 +631,9 @@ namespace DevEnvAzure
 
         private async void attachments_Clicked(object sender, EventArgs e)
         {
-            string selectedOption = await DisplayActionSheet("Attachment", "Cancel", null, ClientConfiguration.Default.AttachmentOptions);
             try
             {
+                string selectedOption = await DisplayActionSheet("Attachment", "Cancel", null, ClientConfiguration.Default.AttachmentOptions);
                 await _attachementView.AskForAttachment(selectedOption);
             }
             catch (Exception ex)

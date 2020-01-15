@@ -2,7 +2,7 @@
 using System.Threading.Tasks;
 namespace DevEnvAzure
 {
-    public interface IFilePath
+    public interface IDataService
     {
         SQLiteConnection GetConnection();
     }

@@ -168,10 +168,12 @@ namespace DevEnvAzure
                 ac.TokenCache.Clear();
 
                 App.GraphAuthentication = null;
+                App.CurrentUser = null;
                 App.SharePointAuthentication = null;
 
-                App.DAUtil.DeleteMasterInfo("UserCredentials");
-                App.DAUtil.DeleteMasterInfo("UserInfo");
+                App.DAUtil.DeleteMasterInfo(App.GRAPH_AUTH_RESULT_KEY);
+                App.DAUtil.DeleteMasterInfo(App.SHAREPOINT_AUTH_RESULT_KEY);
+                App.DAUtil.DeleteMasterInfo(App.USER_INFO_KEY);
 
                 DependencyService.Get<IMessage>().LongAlert("Logged out successfully.");
 
