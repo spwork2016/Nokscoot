@@ -1,5 +1,9 @@
 using System;
+using System.Linq;
+using Microsoft.IdentityModel.Clients.ActiveDirectory;
+using UIKit;
 using Xamarin.Forms;
+using System.Threading.Tasks;
 using System.IO;
 using SQLite;
 
@@ -8,9 +12,6 @@ namespace DevEnvAzure.iOS
 {
     public class SqliteService : IDataService
     {
-        public SqliteService()
-        {
-        }
         #region ISQLite implementation
         public SQLiteConnection GetConnection()
         {
@@ -26,6 +27,7 @@ namespace DevEnvAzure.iOS
                 File.Create(path);
             }
 
+            //var plat = new SQLite.Net.Platform.XamarinIOS.SQLitePlatformIOS();
             var conn = new SQLiteConnection(path);
 
             // Return the database connection 

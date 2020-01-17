@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 
 using Foundation;
+using Syncfusion.SfBusyIndicator.XForms.iOS;
 using UIKit;
 using ImageCircle.Forms.Plugin.iOS;
 using UserNotifications;
@@ -30,7 +31,6 @@ namespace DevEnvAzure.iOS
         public override bool FinishedLaunching(UIApplication app, NSDictionary options)
         {
             Rg.Plugins.Popup.Popup.Init();
-
             global::Xamarin.Forms.Forms.Init();
 
             new Syncfusion.SfAutoComplete.XForms.iOS.SfAutoCompleteRenderer();
