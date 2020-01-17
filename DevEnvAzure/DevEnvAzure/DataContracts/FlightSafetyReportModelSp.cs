@@ -1,58 +1,55 @@
-﻿using Newtonsoft.Json;
-using SQLite;
-using System;
+﻿using DevEnvAzure.Utilities;
+using Newtonsoft.Json;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using static DevEnvAzure.Utilities.Jsonpropertyinitialise;
 
 namespace DevEnvAzure.DataContracts
 {
+    [Preserve(AllMembers = true)]
     public class Metadata1
     {
         public string type { get; set; }
     }
-
+    [Preserve(AllMembers = true)]
     public class ApproachType
     {
         public Metadata1 __metadata { get; set; }
         public List<string> results { get; set; }
     }
-
+    [Preserve(AllMembers = true)]
     public class SecurityEventFieldChoice
     {
         public Metadata1 __metadata { get; set; }
         public List<string> results { get; set; }
     }
-
+    [Preserve(AllMembers = true)]
     public class Metadata2
     {
         public string type { get; set; }
     }
-
+    [Preserve(AllMembers = true)]
     public class ReasonForDeviation
     {
         public Metadata2 __metadata { get; set; }
         public List<string> results { get; set; }
     }
-
+    [Preserve(AllMembers = true)]
     public class Metadata3
     {
         public string type { get; set; }
     }
-
+    [Preserve(AllMembers = true)]
     public class IntruderACRelativePosition
     {
         public Metadata3 __metadata { get; set; }
         public List<string> results { get; set; }
     }
+    [Preserve(AllMembers = true)]
     class FlightSafetyReportModelSp
     {
         public FlightSafetyReportModelSp()
         {
-            this.__metadata = new Metadata();
-            this.__metadata.type = ClientConfiguration.Default.SHORTFORMURL;
+            __metadata = new Metadata();
+            __metadata.type = ClientConfiguration.Default.SHORTFORMURL;
         }
         public Metadata __metadata { get; set; }
 
@@ -145,7 +142,7 @@ namespace DevEnvAzure.DataContracts
         { get; set; }
         [JsonProperty(PropertyName = "ApproachType")]
         public ApproachType ApproachType { get; set; }
-       
+
         [JsonProperty(PropertyName = "Heading")]
         public string Heading
         { get; set; }

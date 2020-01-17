@@ -1,8 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using DevEnvAzure.Models;
-using Rg.Plugins.Popup.Pages;
+﻿using Rg.Plugins.Popup.Pages;
 using Rg.Plugins.Popup.Services;
+using System;
+using System.Collections.Generic;
 using Xamarin.Forms;
 
 namespace DevEnvAzure

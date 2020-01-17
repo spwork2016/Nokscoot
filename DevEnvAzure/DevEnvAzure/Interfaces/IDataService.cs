@@ -1,5 +1,5 @@
-﻿using SQLite.Net;
-using System.Threading.Tasks;
+﻿using SQLite;
+
 namespace DevEnvAzure
 {
     public interface IDataService

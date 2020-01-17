@@ -1,8 +1,10 @@
-﻿using Newtonsoft.Json;
+﻿using DevEnvAzure.Utilities;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 namespace DevEnvAzure.Model
 {
+    [Preserve(AllMembers = true)]
     public class Metadata
     {
         public string id { get; set; }
@@ -10,47 +12,47 @@ namespace DevEnvAzure.Model
         public string etag { get; set; }
         public string type { get; set; }
     }
-
+    [Preserve(AllMembers = true)]
     public class Deferred
     {
         public string uri { get; set; }
     }
-
+    [Preserve(AllMembers = true)]
     public class FirstUniqueAncestorSecurableObject
     {
         public Deferred __deferred { get; set; }
     }
-
+    [Preserve(AllMembers = true)]
     public class RoleAssignments
     {
         public Deferred __deferred { get; set; }
     }
-
+    [Preserve(AllMembers = true)]
     public class Activities
     {
         public Deferred __deferred { get; set; }
     }
-
+    [Preserve(AllMembers = true)]
     public class ContentType
     {
         public Deferred __deferred { get; set; }
     }
-
+    [Preserve(AllMembers = true)]
     public class GetDlpPolicyTip
     {
         public Deferred __deferred { get; set; }
     }
-
+    [Preserve(AllMembers = true)]
     public class FieldValuesAsHtml
     {
         public Deferred __deferred { get; set; }
     }
-
+    [Preserve(AllMembers = true)]
     public class FieldValuesAsText
     {
         public Deferred __deferred { get; set; }
     }
-
+    [Preserve(AllMembers = true)]
     public class FieldValuesForEdit
     {
         public Deferred __deferred { get; set; }
@@ -60,37 +62,37 @@ namespace DevEnvAzure.Model
     //{
     //    public Deferred __deferred { get; set; }
     //}
-
+    [Preserve(AllMembers = true)]
     public class Folder
     {
         public Deferred __deferred { get; set; }
     }
-
+    [Preserve(AllMembers = true)]
     public class ParentList
     {
         public Deferred __deferred { get; set; }
     }
-
+    [Preserve(AllMembers = true)]
     public class Properties
     {
         public Deferred __deferred { get; set; }
     }
-
+    [Preserve(AllMembers = true)]
     public class Versions
     {
         public Deferred __deferred { get; set; }
     }
-
+    [Preserve(AllMembers = true)]
     public class Alerts
     {
         public Deferred __deferred { get; set; }
     }
-
+    [Preserve(AllMembers = true)]
     public class Groups
     {
         public Deferred __deferred { get; set; }
     }
-
+    [Preserve(AllMembers = true)]
     public class UserId
     {
         public Deferred __metadata { get; set; }
@@ -98,6 +100,7 @@ namespace DevEnvAzure.Model
         public string NameIdIssuer { get; set; }
     }
 
+    [Preserve(AllMembers = true)]
     public class Result
     {
         //user fields 
@@ -175,36 +178,38 @@ namespace DevEnvAzure.Model
         public string Country { get; set; }
         public string Airport_x0020_Type { get; set; }
     }
-
+    [Preserve(AllMembers = true)]
     public class UserProfileProperties
     {
         public IList<Result> results { get; set; }
 
     }
+    [Preserve(AllMembers = true)]
     public class DirectReports
     {
         public Metadata __metadata { get; set; }
         public IList<object> results { get; set; }
     }
-
+    [Preserve(AllMembers = true)]
     public class ExtendedManagers
     {
         public Metadata __metadata { get; set; }
         public IList<object> results { get; set; }
     }
-
+    [Preserve(AllMembers = true)]
     public class ExtendedReports
     {
         public Metadata __metadata { get; set; }
         public IList<string> results { get; set; }
     }
-
+    [Preserve(AllMembers = true)]
     public class Peers
     {
         public Metadata __metadata { get; set; }
         public IList<object> results { get; set; }
     }
 
+    [Preserve(AllMembers = true)]
     public class D
     {
         //user fields 
@@ -229,26 +234,31 @@ namespace DevEnvAzure.Model
         public IList<Result> results { get; set; }
     }
 
+    [Preserve(AllMembers = true)]
     public class SPData
     {
         public D d { get; set; }
     }
 
+    [Preserve(AllMembers = true)]
     public class StationInformationSpRoot
     {
         public DataContracts.StationInformationSp d { get; set; }
     }
 
+    [Preserve(AllMembers = true)]
     public class FileNameAsPath
     {
         public string DecodedUrl { get; set; }
     }
 
+    [Preserve(AllMembers = true)]
     public class ServerRelativePath
     {
         public string DecodedUrl { get; set; }
     }
 
+    [Preserve(AllMembers = true)]
     public class Value
     {
         public string FileName { get; set; }
@@ -259,12 +269,14 @@ namespace DevEnvAzure.Model
 
     }
 
+    [Preserve(AllMembers = true)]
     public class LookUp
     {
         public Deferred __deferred { get; set; }
         public List<Value> value { get; set; }
     }
 
+    [Preserve(AllMembers = true)]
     public class User
     {
         public string Id { get; set; }

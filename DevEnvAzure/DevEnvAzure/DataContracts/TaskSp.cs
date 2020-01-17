@@ -1,7 +1,4 @@
-﻿using Newtonsoft.Json;
-using System;
-
-namespace DevEnvAzure.DataContracts
+﻿namespace DevEnvAzure.DataContracts
 {
     public class TaskSp
     {

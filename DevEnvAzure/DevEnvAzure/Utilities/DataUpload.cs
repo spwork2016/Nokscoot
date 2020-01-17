@@ -3,12 +3,11 @@ using DevEnvAzure.Models;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
-using System.IO;
+using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Threading.Tasks;
 using Xamarin.Forms;
-using System.Linq;
 using static DevEnvAzure.SPUtility;
 
 namespace DevEnvAzure

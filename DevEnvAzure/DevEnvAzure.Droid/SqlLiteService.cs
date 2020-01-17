@@ -1,22 +1,4 @@
-﻿//using System;
-//using System.Collections.Generic;
-//using System.Linq;
-//using System.Text;
-//using DevEnvAzure.Droid;
-//using Android.App;
-//using Android.Content;
-//using Android.OS;
-//using Android.Runtime;
-//using Android.Views;
-//using Android.Widget;
-//using System.IO;
-//using Android.App;
-//using System;
-//using System.Linq;
-//using System.Threading.Tasks;
-//using Xamarin.Forms;
-
-using Android.App;
+﻿using Android.App;
 using Microsoft.IdentityModel.Clients.ActiveDirectory;
 using System;
 using System.IO;
@@ -33,7 +15,7 @@ namespace DevEnvAzure.Droid
         public SqlLiteService() { }
 
         #region ISQLite implementation
-        public SQLite.Net.SQLiteConnection GetConnection()
+        public SQLiteConnection GetConnection()
         {
             try
             {
@@ -45,8 +27,8 @@ namespace DevEnvAzure.Droid
                 // string path = Environment.GetFolderPath(Environment.SpecialFolder.Personal);
                 // return Path.Combine(path, filename);
                 //var plat = new SQLite.Net.Platform.XamarinAndroid.SQLitePlatformAndroid();
-                var platform = new SQLite.Net.Platform.XamarinAndroid.SQLitePlatformAndroidN();
-                var conn = new SQLite.Net.SQLiteConnection(platform, path);
+                //var platform = new SQLite.Net.Platform.XamarinAndroid.SQLitePlatformAndroid();
+                SQLiteConnection conn = new SQLiteConnection(path);
                 //  var conn = new SQLite.SQLiteConnection(path);
                 return conn;
             }

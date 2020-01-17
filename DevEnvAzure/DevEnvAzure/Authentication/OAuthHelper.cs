@@ -1,4 +1,5 @@
-﻿using Microsoft.IdentityModel.Clients.ActiveDirectory;
+﻿using DevEnvAzure.Models;
+using Microsoft.IdentityModel.Clients.ActiveDirectory;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -173,12 +174,12 @@ namespace DevEnvAzure
 
             if (App.GraphAuthentication == null && graphResponse != null)
             {
-                App.GraphAuthentication = JsonConvert.DeserializeObject<AutheticationContext>(graphResponse.content);
+                App.GraphAuthentication = JsonConvert.DeserializeObject<AuthContext>(graphResponse.content);
             }
 
             if (App.SharePointAuthentication == null && spResponse != null)
             {
-                App.SharePointAuthentication = JsonConvert.DeserializeObject<AutheticationContext>(spResponse.content);
+                App.SharePointAuthentication = JsonConvert.DeserializeObject<AuthContext>(spResponse.content);
             }
         }
 
@@ -229,7 +230,7 @@ namespace DevEnvAzure
                     throw new Exception("Authentication failed.");
                 }
 
-                App.GraphAuthentication = new AutheticationContext(result);
+                App.GraphAuthentication = new AuthContext(result);
             }
             catch (Exception ex)
             {
@@ -251,7 +252,7 @@ namespace DevEnvAzure
                 }
 
 
-                App.SharePointAuthentication = new AutheticationContext(spResult);
+                App.SharePointAuthentication = new AuthContext(spResult);
             }
             catch (Exception ex)
             {
@@ -305,11 +306,11 @@ namespace DevEnvAzure
         }
     }
 
-    public class AutheticationContext
+    public class AuthContext 
     {
         private AuthenticationResult AuthResult;
 
-        public AutheticationContext(AuthenticationResult result)
+        public AuthContext(AuthenticationResult result)
         {
             if (result == null)
             {

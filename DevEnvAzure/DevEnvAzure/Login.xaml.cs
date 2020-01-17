@@ -1,6 +1,4 @@
-﻿using Microsoft.IdentityModel.Clients.ActiveDirectory;
-using Newtonsoft.Json;
-using Plugin.Connectivity;
+﻿using Newtonsoft.Json;
 using System;
 using System.ComponentModel;
 using System.Threading.Tasks;

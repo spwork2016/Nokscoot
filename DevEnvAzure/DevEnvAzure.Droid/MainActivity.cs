@@ -28,6 +28,8 @@ namespace DevEnvAzure.Droid
             
             try
             {
+                Rg.Plugins.Popup.Popup.Init(this, bundle);
+
                 global::Xamarin.Forms.Forms.Init(this, bundle);
                 ImageCircleRenderer.Init();
                 LoadApplication(new App());

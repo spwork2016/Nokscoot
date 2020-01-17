@@ -1,4 +1,5 @@
 ﻿using DevEnvAzure.Model;
+using DevEnvAzure.Models;
 using Newtonsoft.Json;
 using System;
 using System.Linq;
@@ -84,7 +85,7 @@ namespace DevEnvAzure
             }
             catch (Exception ex)
             {
-                throw;
+
             }
         }
 

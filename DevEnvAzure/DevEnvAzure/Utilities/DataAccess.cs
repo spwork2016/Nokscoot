@@ -1,36 +1,15 @@
-﻿using SQLite.Net.Attributes;
+﻿using DevEnvAzure.Models;
+using SQLite;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Xamarin.Forms;
-using SQLite.Net.Interop;
-using DevEnvAzure.Models;
-using System.Net.Http;
 using Xamarin.Forms.Internals;
 
 namespace DevEnvAzure
 {
-    [Table(@"OfflineItem")]
-    public class OfflineItem
-    {
-        [NotNull]
-        [PrimaryKey, AutoIncrement, Column("contentID")]
-        public long ContentID
-        { get; set; }
-        public string Value
-        { set; get; }
-        public int ReportType { get; set; }
-        public DateTime Created { get; set; }
-        public string Error { get; set; }
-        public bool InProgress { get; set; }
-        public string Attachments { get; set; }
-    }
-
     public class DataAccess
     {
-        SQLite.Net.SQLiteConnection dbConn;
+        SQLiteConnection dbConn;
         public DataAccess()
         {
             var db = DependencyService.Get<IDataService>();
@@ -38,9 +17,8 @@ namespace DevEnvAzure
             {
                 dbConn = db.GetConnection();
 
+                dbConn.CreateTable<OfflineItem>();
                 dbConn.CreateTable<MasterInfo>();
-                dbConn.CreateTable<FlightSafetyReportModel>();
-                dbConn.CreateTable<SecurityModel>();
                 dbConn.CreateTable<CabibSafetyReport>();
                 dbConn.CreateTable<FatigueReport>();
                 dbConn.CreateTable<GroundSafetyReport>();
@@ -48,17 +26,19 @@ namespace DevEnvAzure
                 dbConn.CreateTable<KaizenReportModel>();
                 dbConn.CreateTable<StationInformationModel>();
                 dbConn.CreateTable<FlightCrewVoyageRecordModel>();
-                dbConn.CreateTable<OfflineItem>();
+                dbConn.CreateTable<SecurityModel>();
+                dbConn.CreateTable<FlightSafetyReportModel>();
             }
             catch (Exception ex)
             {
-
+                Console.WriteLine(ex.Message);
             }
         }
 
-        public List<U> GetAll<U>(string classObj) where U : class
+        public List<U> GetAll<U>(string tableName) where U : new()
         {
-            return dbConn.Query<U>("Select * From " + classObj + "");
+            var result = dbConn.Query<U>("Select * From " + tableName + "");
+            return result;
         }
         public U Save<U>(U reportData) where U : class
         {
@@ -144,21 +124,5 @@ namespace DevEnvAzure
             var d = SaveMasterInfo(info);
             return d;
         }
-    }
-
-    public class MasterInfo
-    {
-        [PrimaryKey, AutoIncrement, Column("Id")]
-        public long Id
-        { get; set; }
-        [NotNull]
-        public string Name
-        { get; set; }
-        [NotNull]
-        public string content
-        { get; set; }
-        // [NotNull]
-        //public DateTime Created
-        //{ get; set; }
     }
 }

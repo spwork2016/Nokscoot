@@ -1,6 +1,5 @@
 ﻿using DevEnvAzure.DataContracts;
 using Newtonsoft.Json;
-using Plugin.Connectivity;
 using System;
 using System.Collections.Generic;
 using System.Linq;

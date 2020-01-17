@@ -1,35 +1,37 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using DevEnvAzure.DataContracts;
-using Newtonsoft.Json;
-using SQLite.Net.Attributes;
+﻿using SQLite;
+using System;
 namespace DevEnvAzure.Models
 {
-    //public class Metadata
-    //{
-    //    public string id { get; set; }
-    //    public string uri { get; set; }
-    //    public string etag { get; set; }
-    //    public string type { get; set; }
-    //}
-    [Table(@"SecurityModel")]
+    public class OfflineItem
+    {
+        [NotNull]
+        [PrimaryKey, AutoIncrement, Column("contentID")]
+        public long ContentID
+        { get; set; }
+        public string Value
+        { set; get; }
+        public int ReportType { get; set; }
+        public DateTime Created { get; set; }
+        public string Error { get; set; }
+        public bool InProgress { get; set; }
+        public string Attachments { get; set; }
+    }
+
+    public class MasterInfo
+    {
+        [PrimaryKey, AutoIncrement, Column("Id")]
+        public long Id
+        { get; set; }
+        [NotNull]
+        public string Name
+        { get; set; }
+        [NotNull]
+        public string content
+        { get; set; }
+    }
+
     public class SecurityModel
     {
-
-        //public SecurityModel()
-        //{
-        //    this.__metadata = new Metadata();
-        //    this.__metadata.type = "SP.Data.Operational_x005f_Hazard_x005f_Event_x005f_Register_x005f_04042018ListItem";
-        //}
-        //public Metadata __metadata { get; set; }
-        //[NotNull]
-        //[PrimaryKey, AutoIncrement, Column("SecurityID")]
-        //public long SecurityID
-        //{ get; set; }
-
         [PrimaryKey, AutoIncrement]
         public int Id
         { get; set; }

@@ -1,15 +1,25 @@
-﻿using System;
+﻿using DevEnvAzure.DataContracts;
+using DevEnvAzure.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using DevEnvAzure.Model;
-using DevEnvAzure.Models;
-using DevEnvAzure.DataContracts;
-using Newtonsoft.Json;
 
 namespace DevEnvAzure.Utilities
 {
+    public sealed class PreserveAttribute : Attribute
+    {
+        public bool AllMembers;
+        public bool Conditional;
+        public PreserveAttribute(bool allMembers, bool conditional)
+        {
+            AllMembers = allMembers;
+            Conditional = conditional;
+        }
+        public PreserveAttribute()
+        {
+        }
+    }
+
     class Jsonpropertyinitialise
     {
         public FlightSecuritySharepointData getSecurity(SecurityModel sd)

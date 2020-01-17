@@ -5,6 +5,7 @@ using UIKit;
 using Xamarin.Forms;
 using System.Threading.Tasks;
 using Foundation;
+using System.Net.Http;
 
 [assembly: Dependency(typeof(DevEnvAzure.iOS.Authenticator))]
 namespace DevEnvAzure.iOS
@@ -15,6 +16,15 @@ namespace DevEnvAzure.iOS
         {
             try
             {
+                using (var client = new HttpClient())
+                {
+                    client.DefaultRequestHeaders.Remove("Authorization");
+
+                    var response = await client.GetAsync("api/account/externalLogins?returnUrl=/&generateState=true");
+
+                    var ss = await response.Content.ReadAsStringAsync();
+                }
+
                 var authContext = new AuthenticationContext(authority);
                 if (authContext.TokenCache.ReadItems().Any())
                     authContext = new AuthenticationContext(authContext.TokenCache.ReadItems().FirstOrDefault().Authority);
@@ -24,8 +34,6 @@ namespace DevEnvAzure.iOS
                 try
                 {
                     result = await authContext.AcquireTokenAsync(graphResourceUri, ApplicationID, new Uri(returnUri), new PlatformParameters(UIApplication.SharedApplication.KeyWindow.RootViewController));
-
-                    //result = await authContext.AcquireTokenSilentAsync(graphResourceUri, ApplicationID);
                 }
                 catch (AdalException adlException)
                 {

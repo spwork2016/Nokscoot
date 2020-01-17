@@ -1,13 +1,8 @@
-﻿using SQLite.Net.Attributes;
+﻿using SQLite;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DevEnvAzure.Models
 {
-    [Table(@"StationInformationModel")]
     public class StationInformationModel
     {
         [PrimaryKey, AutoIncrement]
@@ -40,12 +35,12 @@ namespace DevEnvAzure.Models
         { get; set; }
         public string TelRep2
         { get; set; }
-        public string AddressThaiConsulate 
+        public string AddressThaiConsulate
         { get; set; }
-        public string TelThaiConsulate 
+        public string TelThaiConsulate
         { get; set; }
         public string FaxThaiConsulate
-        { get; set; }       
+        { get; set; }
         public string EmailThaiConsulate
         { get; set; }
         public string WorkingHoursThaiConsulate
@@ -58,7 +53,7 @@ namespace DevEnvAzure.Models
         { get; set; }
         public string Hoteladdress
         { get; set; }
-        public string HotelTel  
+        public string HotelTel
         { get; set; }
         public string Contactemail
         { get; set; }
@@ -88,9 +83,9 @@ namespace DevEnvAzure.Models
         { get; set; }
         public string noofEquipmentinCompartment
         { get; set; }
-        public bool Engineeronboard     
+        public bool Engineeronboard
         { get; set; }
-        public string DebriefingProceedto 
+        public string DebriefingProceedto
         { get; set; }
         public string SafetyHazards
         { get; set; }

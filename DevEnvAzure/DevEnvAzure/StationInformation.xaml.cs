@@ -1,16 +1,14 @@
 ﻿using DevEnvAzure.Model;
 using DevEnvAzure.Utilities;
 using Newtonsoft.Json;
-using Plugin.Connectivity;
 using System;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Threading.Tasks;
+using Xamarin.Essentials;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
-using System.Linq;
 using static DevEnvAzure.SPUtility;
-using System.IO;
 
 namespace DevEnvAzure
 {
@@ -229,7 +227,7 @@ namespace DevEnvAzure
         {
             if (!string.IsNullOrEmpty(_StationInformation.NameofAirportLink))
             {
-                Device.OpenUri(new Uri(_StationInformation.NameofAirportLink));
+                Launcher.OpenAsync(new Uri(_StationInformation.NameofAirportLink));
             }
         }
     }

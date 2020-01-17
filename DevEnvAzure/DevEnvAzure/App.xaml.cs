@@ -14,8 +14,8 @@ namespace DevEnvAzure
 {
     public partial class App : Application
     {
-        public static AutheticationContext GraphAuthentication = null;
-        public static AutheticationContext SharePointAuthentication = null;
+        public static AuthContext GraphAuthentication = null;
+        public static AuthContext SharePointAuthentication = null;
         public static string SHAREPOINT_AUTH_RESULT_KEY = "SHAREPOINT_AUTH_RESULT";
         public static string GRAPH_AUTH_RESULT_KEY = "GRAPH_AUTH_RESULT";
         public static string USER_INFO_KEY = "UserInfo";
@@ -129,14 +129,7 @@ namespace DevEnvAzure
         {
             Device.BeginInvokeOnMainThread(() =>
             {
-                try
-                {
-                    DependencyService.Get<IMessage>().ShortAlert(string.Format("Error: {0}", message));
-                }
-                catch (Exception messageEx)
-                {
-
-                }
+                DependencyService.Get<IMessage>().ShortAlert(string.Format("Error: {0}", message));
             });
         }
 
@@ -266,7 +259,7 @@ namespace DevEnvAzure
             }
             catch (Exception ex)
             {
-                ShowError(ex.Message);
+                //ShowError(ex.Message);
             }
 
             //var userCredentials = App.DAUtil.GetMasterInfoByName("UserCredentials");

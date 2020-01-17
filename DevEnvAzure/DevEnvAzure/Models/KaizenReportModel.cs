@@ -1,13 +1,9 @@
-﻿using SQLite.Net.Attributes;
+﻿using SQLite;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DevEnvAzure.Models
 {
-    [Table(@"KaizenReportModel")]
+    [Preserve(AllMembers = true)]
     public class KaizenReportModel
     {
         [PrimaryKey, AutoIncrement]

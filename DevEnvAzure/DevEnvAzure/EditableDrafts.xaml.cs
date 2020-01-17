@@ -36,7 +36,7 @@ namespace DevEnvAzure
                 });
 
 
-                App.safetyReport = new ObservableCollection<FlightSafetyReportModel>(App.DAUtil.GetAll<FlightSafetyReportModel>("SafetyReportModel"));
+                App.safetyReport = new ObservableCollection<FlightSafetyReportModel>(App.DAUtil.GetAll<FlightSafetyReportModel>("FlightSafetyReportModel"));
                 lblSafetyReportCount.Text = string.Format("({0})", App.safetyReport.Count.ToString());
                 stkSafetyReports.IsVisible = App.safetyReport.Count > 0;
                 MessagingCenter.Subscribe<DraftsExpandContentView>(this, "safety", (sendern) =>
@@ -102,7 +102,7 @@ namespace DevEnvAzure
                 MessagingCenter.Subscribe<DraftsExpandContentView>(this, "facvoyage", (sendern) =>
                 {
                     fcVoyageCnt.Text = string.Format("({0})", App.safetyReport.Count.ToString());
-                    sktfcVoyage.IsVisible = App.fcVoyage.Count > 0 ;
+                    sktfcVoyage.IsVisible = App.fcVoyage.Count > 0;
                     SetNoDataInfo();
                 });
 

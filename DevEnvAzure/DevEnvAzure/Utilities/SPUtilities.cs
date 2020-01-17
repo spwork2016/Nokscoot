@@ -85,7 +85,7 @@ namespace DevEnvAzure
                     url = ClientConfiguration.Default.ActiveDirectoryResource + "SSQServices/_api/web/lists/GetByTitle('NokScoot Operating Plan')/items";
                     break;
                 case ReportType.AircraftRegistration:
-                    url = ClientConfiguration.Default.ActiveDirectoryResource + "SSQServices/_api/web/lists/GetByTitle('Aicraft Fleet Information')/items";
+                    url = ClientConfiguration.Default.ActiveDirectoryResource + "SSQServices/_api/web/lists/GetByTitle('Aircraft Fleet Information')/items";
                     break;
                 case ReportType.none:
                     url = ClientConfiguration.Default.ActiveDirectoryResource + "SSQServices/_api/web/lists/GetByTitle('Operational_Hazard_Event_Register')/items";
@@ -327,14 +327,15 @@ namespace DevEnvAzure
                 try
                 {
                     var client = await OAuthHelper.GetHTTPClientAsync();
-                    var response = await client.GetStringAsync(GetListURL(ReportType.AircraftRegistration));
+                    var url = GetListURL(ReportType.AircraftRegistration);
+                    var response = await client.GetStringAsync(url);
                     if (response != null)
                     {
                         mInfo = new MasterInfo { Name = "AircraftRegistrations", content = response };
                         App.DAUtil.RefreshMasterInfo(mInfo);
                     }
                 }
-                catch (Exception)
+                catch (Exception ex)
                 {
                     mInfo = App.DAUtil.GetMasterInfoByName("AircraftRegistrations");
                 }

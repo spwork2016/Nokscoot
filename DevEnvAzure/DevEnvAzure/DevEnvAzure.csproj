@@ -5,15 +5,13 @@
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="ExifLib.PCL" Version="1.0.1" />
-    <PackageReference Include="Microsoft.Graph" Version="1.21.0" />
-    <PackageReference Include="Microsoft.IdentityModel.Clients.ActiveDirectory" Version="5.2.5" />
+    <PackageReference Include="Microsoft.IdentityModel.Clients.ActiveDirectory" Version="5.2.6" />
+    <PackageReference Include="modernhttpclient" Version="2.4.2" />
     <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
     <PackageReference Include="PCLStorage" Version="1.0.2" />
     <PackageReference Include="Plugin.Permissions" Version="3.0.0.12" />
     <PackageReference Include="Rg.Plugins.Popup" Version="1.2.0.223" />
-    <PackageReference Include="sqlite-net-pcl" Version="1.4.118" />
-    <PackageReference Include="SQLite.Net-PCL" Version="3.1.1" />
-    <PackageReference Include="SQLitePCLRaw.bundle_green" Version="1.1.10" />
+    <PackageReference Include="sqlite-net-pcl" Version="1.6.292" />
     <PackageReference Include="Syncfusion.Xamarin.SfAutoComplete" Version="16.1.0.26" />
     <PackageReference Include="System.Diagnostics.DiagnosticSource" Version="4.7.0" />
     <PackageReference Include="System.Memory" Version="4.5.3" />
@@ -22,11 +20,11 @@
     <PackageReference Include="System.Reflection.Extensions" Version="4.3.0" />
     <PackageReference Include="System.Reflection.Primitives" Version="4.3.0" />
     <PackageReference Include="Xam.Plugin.Connectivity" Version="3.2.0" />
-    <PackageReference Include="Xam.Plugin.FilePicker" Version="1.1.0" />
     <PackageReference Include="Xam.Plugin.Media" Version="4.0.1.1" />
-    <PackageReference Include="Xam.Plugins.Forms.ImageCircle" Version="2.0.2" />
+    <PackageReference Include="Xam.Plugins.Forms.ImageCircle" Version="3.0.0.5" />
     <PackageReference Include="Xam.Plugins.Notifier" Version="2.1.0" />
-    <PackageReference Include="Xamarin.Forms" Version="4.4.0.991265" />
+    <PackageReference Include="Xamarin.Essentials" Version="1.3.1" />
+    <PackageReference Include="Xamarin.Forms" Version="4.4.0.991477" />
     <PackageReference Include="Xamarin.Plugin.FilePicker" Version="1.2.1" />
     <PackageReference Include="XLabs.Core" Version="2.0.5782" />
     <PackageReference Include="XLabs.Forms" Version="2.0.5782" />

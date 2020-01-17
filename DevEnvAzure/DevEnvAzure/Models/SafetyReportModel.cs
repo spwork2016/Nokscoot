@@ -1,9 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using SQLite.Net.Attributes;
+﻿using SQLite;
+using System;
 namespace DevEnvAzure.Models
 {
     [Table(@"SafetyReport")]
@@ -61,5 +57,5 @@ namespace DevEnvAzure.Models
         //public string ArrivalStation
         //{ get; set; }
     }
-  
+
 }

@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
@@ -37,7 +33,7 @@ namespace DevEnvAzure
         private async void CabinSafety_Clicked(object sender, EventArgs e)
         {
             var csft = new Models.CabibSafetyReport();
-           csft.DateOfEvent = DateTime.Now;
+            csft.DateOfEvent = DateTime.Now;
             //csft.AircraftRegis = null;
             await Navigation.PushAsync(new SSIRShortForm(csft, "cabin"));
         }

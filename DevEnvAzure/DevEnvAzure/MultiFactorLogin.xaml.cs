@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using DevEnvAzure.Models;
+using Newtonsoft.Json;
 using System;
 using System.ComponentModel;
 using System.Threading.Tasks;
@@ -14,6 +15,13 @@ namespace DevEnvAzure
 
             BindingContext = this;
             IsBusy = true;
+
+            btnLogin.Clicked += BtnLogin_Clicked;
+        }
+
+        protected void BtnLogin_Clicked(object sender, EventArgs e)
+        {
+            OnAppearing();
         }
 
         protected override async void OnAppearing()
@@ -21,11 +29,13 @@ namespace DevEnvAzure
             if (SPUtility.IsConnected())
             {
                 lblLoading.Text = "Authenticating...";
+                btnLogin.IsVisible = false;
                 await PerformLoginAsync();
             }
             else
             {
                 IsBusy = false;
+                btnLogin.IsVisible = true;
                 lblLoading.Text = "Network not connected to internet.";
             }
         }
@@ -35,8 +45,6 @@ namespace DevEnvAzure
             try
             {
                 await OAuthHelper.GetAccessToken();
-
-                btnLogin.IsVisible = false;
 
                 App.DAUtil.RefreshMasterInfo(new MasterInfo
                 {
@@ -56,14 +64,11 @@ namespace DevEnvAzure
             }
             catch (Exception ex)
             {
-                await DisplayAlert("Error", ex.Message, "Ok");
-
                 btnLogin.IsVisible = true;
                 IsBusy = false;
                 lblLoading.Text = ex.Message;
             }
         }
 
-        private void BtnLogin_Clicked(object sender, EventArgs e) => OnAppearing();
     }
 }

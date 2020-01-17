@@ -1,7 +1,6 @@
-﻿using System;
-using System.IO;
-using Rg.Plugins.Popup.Pages;
+﻿using Rg.Plugins.Popup.Pages;
 using Rg.Plugins.Popup.Services;
+using System;
 using Xamarin.Forms;
 
 namespace DevEnvAzure
