@@ -24,8 +24,10 @@ namespace DevEnvAzure.iOS
 
                 if (authContext.TokenCache.ReadItems().Any())
                     authContext = new AuthenticationContext(authContext.TokenCache.ReadItems().FirstOrDefault().Authority);
+
                 var authResult = await authContext.AcquireTokenAsync(resourceUri, ApplicationID, new Uri(returnUri),
                     new PlatformParameters(UIApplication.SharedApplication.KeyWindow.RootViewController));
+
                 return authResult;
             }
             catch (Exception ex)

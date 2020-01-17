@@ -1,9 +1,9 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.27130.2024
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29709.97
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DevEnvAzure", "DevEnvAzure\DevEnvAzure\DevEnvAzure.csproj", "{8432D969-6818-4A45-A398-540533E73B5E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DevEnvAzure", "DevEnvAzure\DevEnvAzure\DevEnvAzure.csproj", "{8432D969-6818-4A45-A398-540533E73B5E}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DevEnvAzure.Droid", "DevEnvAzure\DevEnvAzure.Droid\DevEnvAzure.Droid.csproj", "{95621DFD-9843-4674-AF8D-3F824D1728B8}"
 EndProject
@@ -159,8 +159,8 @@ Global
 		{95621DFD-9843-4674-AF8D-3F824D1728B8}.Release|x86.Deploy.0 = Release|Any CPU
 		{6DFFD524-76C5-452F-A222-F1002172480E}.Ad-Hoc|Any CPU.ActiveCfg = Ad-Hoc|iPhone
 		{6DFFD524-76C5-452F-A222-F1002172480E}.Ad-Hoc|ARM.ActiveCfg = Ad-Hoc|iPhone
-		{6DFFD524-76C5-452F-A222-F1002172480E}.Ad-Hoc|iPhone.ActiveCfg = Ad-Hoc|iPhone
-		{6DFFD524-76C5-452F-A222-F1002172480E}.Ad-Hoc|iPhone.Build.0 = Ad-Hoc|iPhone
+		{6DFFD524-76C5-452F-A222-F1002172480E}.Ad-Hoc|iPhone.ActiveCfg = Debug|iPhoneSimulator
+		{6DFFD524-76C5-452F-A222-F1002172480E}.Ad-Hoc|iPhone.Build.0 = Debug|iPhoneSimulator
 		{6DFFD524-76C5-452F-A222-F1002172480E}.Ad-Hoc|iPhoneSimulator.ActiveCfg = Ad-Hoc|iPhoneSimulator
 		{6DFFD524-76C5-452F-A222-F1002172480E}.Ad-Hoc|iPhoneSimulator.Build.0 = Ad-Hoc|iPhoneSimulator
 		{6DFFD524-76C5-452F-A222-F1002172480E}.Ad-Hoc|x64.ActiveCfg = Ad-Hoc|iPhone

@@ -5,6 +5,10 @@ using Xamarin.Essentials;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
+// do not remove
+using ImageCircle.Forms.Plugin;
+using System.IO;
+
 namespace DevEnvAzure
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
@@ -67,16 +71,16 @@ namespace DevEnvAzure
                 if (App.CurrentUser != null)
                 {
                     loggrInUser.Text = App.CurrentUser?.Name;
-                    //if (App.CurrentUser?.PictureBytes != null)
-                    //    profilePic.Source = ImageSource.FromStream(() => new MemoryStream(App.CurrentUser?.PictureBytes));
+                    if (App.CurrentUser?.PictureBytes != null)
+                        profilePic.Source = ImageSource.FromStream(() => new MemoryStream(App.CurrentUser?.PictureBytes));
                 }
                 else
                 {
                     MessagingCenter.Subscribe<App>(this, "userInfo", (arg) =>
                     {
                         loggrInUser.Text = App.CurrentUser?.Name;
-                        //if (App.CurrentUser?.PictureBytes != null)
-                        //    profilePic.Source = ImageSource.FromStream(() => new MemoryStream(App.CurrentUser?.PictureBytes));
+                        if (App.CurrentUser?.PictureBytes != null)
+                            profilePic.Source = ImageSource.FromStream(() => new MemoryStream(App.CurrentUser?.PictureBytes));
                     });
                 }
             }

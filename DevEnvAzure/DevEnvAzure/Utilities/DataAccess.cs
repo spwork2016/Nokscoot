@@ -37,9 +37,9 @@ namespace DevEnvAzure
 
         public List<U> GetAll<U>(string tableName) where U : new()
         {
-            var result = dbConn.Query<U>("Select * From " + tableName + "");
-            return result;
+            return dbConn.Query<U>("Select * From " + tableName + "");
         }
+
         public U Save<U>(U reportData) where U : class
         {
             try

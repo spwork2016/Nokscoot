@@ -1,5 +1,6 @@
 ﻿<MasterDetailPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:ci="clr-namespace:ImageCircle.Forms.Plugin.Abstractions;assembly=ImageCircle.Forms.Plugin"
              x:Class="DevEnvAzure.StartPage" Title="Welcom to Nokscoot">
     <MasterDetailPage.Master>
         <ContentPage Title="Menu">
@@ -16,16 +17,10 @@
                     </Grid.ColumnDefinitions>
 
                     <StackLayout Grid.Row="0" Grid.Column="0">
-                        <!--<ci:CircleImage HeightRequest="75" WidthRequest="75" x:Name="profilePic" Source="Nokscoot.png"
+                        <ci:CircleImage HeightRequest="75" WidthRequest="75" x:Name="profilePic" Source="Nokscoot.png"
                         Aspect="AspectFill">
-                        </ci:CircleImage>-->
+                        </ci:CircleImage>
                     </StackLayout>
-
-                    <!--<Frame Padding="0" IsClippedToBounds="True" Grid.Row="0" Grid.Column="0">
-                        <Image x:Name="profilePic" HeightRequest="50" Aspect="AspectFill" Source="LoginIco.png"/>
-                    </Frame>-->
-
-                    <!--<Image  x:Name="profilePic" Source="LoginIco.png" HeightRequest="110" Margin="0,20,0,0" BackgroundColor="#FDCE02" VerticalOptions="Center" HorizontalOptions="Center"/>-->
                     <Label x:Name="loggrInUser" Grid.Row="0" Grid.Column="2" HorizontalTextAlignment="Start" VerticalTextAlignment="Center"
                  HorizontalOptions="Start" VerticalOptions="Center" FontSize="20" TextColor="Black"/>
                 </Grid>
