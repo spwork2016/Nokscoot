@@ -30,6 +30,8 @@ namespace DevEnvAzure.iOS
         //
         public override bool FinishedLaunching(UIApplication app, NSDictionary options)
         {
+            Syncfusion.Licensing.SyncfusionLicenseProvider
+                .RegisterLicense("MTk5MzQzQDMxMzcyZTM0MmUzMEJ5enBKWDdrR1dSN0REeUs1YXB2TWUzQ0pPS1V6WDduY0xKYkhYQStiUm89");
             Rg.Plugins.Popup.Popup.Init();
             global::Xamarin.Forms.Forms.Init();
 
