@@ -1,24 +1,20 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-
-using Foundation;
-
-using UIKit;
-using ImageCircle.Forms.Plugin.iOS;
-using UserNotifications;
 using System.Threading.Tasks;
+using Foundation;
+using ImageCircle.Forms.Plugin.iOS;
 using Plugin.Connectivity;
+using UIKit;
+using UserNotifications;
 //using Plugin.LocalNotifications;
 
-namespace DevEnvAzure.iOS
-{
+namespace DevEnvAzure.iOS {
     // The UIApplicationDelegate for the application. This class is responsible for launching the 
     // User Interface of the application, as well as listening (and optionally responding) to 
     // application events from iOS.
-    [Register("AppDelegate")]
-    public partial class AppDelegate : global::Xamarin.Forms.Platform.iOS.FormsApplicationDelegate
-    {
+    [Register ("AppDelegate")]
+    public partial class AppDelegate : global::Xamarin.Forms.Platform.iOS.FormsApplicationDelegate {
         //private const double MINIMUM_BACKGROUND_FETCH_INTERVAL = 300;
 
         //
@@ -28,15 +24,14 @@ namespace DevEnvAzure.iOS
         //
         // You have 17 seconds to return from this method, or iOS will terminate your application.
         //
-        public override bool FinishedLaunching(UIApplication app, NSDictionary options)
-        {
+        public override bool FinishedLaunching (UIApplication app, NSDictionary options) {
             Syncfusion.Licensing.SyncfusionLicenseProvider
-                .RegisterLicense("MTk5MzQzQDMxMzcyZTM0MmUzMEJ5enBKWDdrR1dSN0REeUs1YXB2TWUzQ0pPS1V6WDduY0xKYkhYQStiUm89");
-            Rg.Plugins.Popup.Popup.Init();
-            global::Xamarin.Forms.Forms.Init();
+                .RegisterLicense ("MTk5MzQzQDMxMzcyZTM0MmUzMEJ5enBKWDdrR1dSN0REeUs1YXB2TWUzQ0pPS1V6WDduY0xKYkhYQStiUm89");
+            Rg.Plugins.Popup.Popup.Init ();
+            global::Xamarin.Forms.Forms.Init ();
 
-            new Syncfusion.SfAutoComplete.XForms.iOS.SfAutoCompleteRenderer();
-            ImageCircleRenderer.Init();
+            new Syncfusion.SfAutoComplete.XForms.iOS.SfAutoCompleteRenderer ();
+            ImageCircleRenderer.Init ();
 
             //if (UIDevice.CurrentDevice.CheckSystemVersion(10, 0))
             //{
@@ -57,29 +52,24 @@ namespace DevEnvAzure.iOS
 
             //UIApplication.SharedApplication.SetMinimumBackgroundFetchInterval(MINIMUM_BACKGROUND_FETCH_INTERVAL);
 
-            LoadApplication(new App());
+            LoadApplication (new App ());
 
-            return base.FinishedLaunching(app, options);
+            return base.FinishedLaunching (app, options);
         }
 
-
-        public async override void PerformFetch(UIApplication application, Action<UIBackgroundFetchResult> completionHandler)
-        {
+        public async override void PerformFetch (UIApplication application, Action<UIBackgroundFetchResult> completionHandler) {
             var result = UIBackgroundFetchResult.NoData;
-            try
-            {
-                if (SPUtility.IsConnected())
-                {
-                    await App.SyncOfflineItemsBG();
+            try {
+                if (SPUtility.IsConnected ()) {
+                    await App.SyncOfflineItemsBG ();
                     result = UIBackgroundFetchResult.NewData;
                 }
 
-            }
-            catch (Exception exx) // Fetch Errors are Reported via analytics system within BackgroundFetchBoxOfficeTicketResults
+            } catch (Exception exx) // Fetch Errors are Reported via analytics system within BackgroundFetchBoxOfficeTicketResults
             {
                 result = UIBackgroundFetchResult.Failed;
             }
-            completionHandler(result);
+            completionHandler (result);
         }
     }
 }
