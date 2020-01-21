@@ -28,6 +28,8 @@ namespace DevEnvAzure.Droid
             
             try
             {
+                Syncfusion.Licensing.SyncfusionLicenseProvider
+                    .RegisterLicense("MTk5MzQzQDMxMzcyZTM0MmUzMEJ5enBKWDdrR1dSN0REeUs1YXB2TWUzQ0pPS1V6WDduY0xKYkhYQStiUm89");
                 Rg.Plugins.Popup.Popup.Init(this, bundle);
 
                 global::Xamarin.Forms.Forms.Init(this, bundle);
