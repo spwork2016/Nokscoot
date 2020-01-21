@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 
 using Foundation;
-using Syncfusion.SfBusyIndicator.XForms.iOS;
+
 using UIKit;
 using ImageCircle.Forms.Plugin.iOS;
 using UserNotifications;
