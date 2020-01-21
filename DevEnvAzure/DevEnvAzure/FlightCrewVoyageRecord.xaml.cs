@@ -2,7 +2,6 @@
 using DevEnvAzure.Models;
 using DevEnvAzure.Utilities;
 using Newtonsoft.Json;
-using Plugin.Connectivity;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -113,7 +112,7 @@ namespace DevEnvAzure
             return true;
         }
 
-        private void Save_clicked(object sender, XLabs.EventArgs<bool> e)
+        private void Save_clicked(object sender, EventArgs e)
         {
             _flightcrew.ReportType = null;
             _flightcrew.DateOfEvent = null;
@@ -182,7 +181,7 @@ namespace DevEnvAzure
 
         private async Task<HttpClient> GetHTTPClient()
         {
-            var client = await OAuthHelper.GetHTTPClient();
+            var client = await OAuthHelper.GetHTTPClientAsync();
 
             if (client == null)
             {
@@ -273,7 +272,7 @@ namespace DevEnvAzure
                     foreach (var item in attachments)
                     {
                         string attachmentURL = string.Format("{0}({1})/AttachmentFiles/add(FileName='{2}')",
-                            SPUtility.GetListURL(SPUtility.ReportType.FlighCrewVoyage), itemId, item.FileName);
+                            SPUtility.GetListURL(ReportType.FlighCrewVoyage), itemId, item.FileName);
 
                         item.SaveToURL = attachmentURL;
 

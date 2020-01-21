@@ -1,6 +1,4 @@
-﻿using DevEnvAzure.Interfaces;
-using DevEnvAzure.Models;
-using PCLStorage;
+﻿using DevEnvAzure.Models;
 using Rg.Plugins.Popup.Extensions;
 using System;
 using System.Collections.Generic;

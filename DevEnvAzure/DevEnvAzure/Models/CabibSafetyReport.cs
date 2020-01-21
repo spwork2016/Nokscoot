@@ -1,20 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Newtonsoft.Json;
-using SQLite.Net.Attributes;
+using SQLite;
+
 namespace DevEnvAzure.Models
 {
-    [Table(@"CabibSafetyReport")]
-   public class CabibSafetyReport
+    public class CabibSafetyReport
     {
-        //[PrimaryKey, AutoIncrement, Column("CabinId")]
-        //[NotNull]
-        //public long cabinId
-        //{ get; set; }
-
         [PrimaryKey, AutoIncrement]
         public int Id
         { get; set; }

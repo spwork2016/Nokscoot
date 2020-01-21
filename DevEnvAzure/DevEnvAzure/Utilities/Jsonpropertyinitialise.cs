@@ -1,15 +1,25 @@
-﻿using System;
+﻿using DevEnvAzure.DataContracts;
+using DevEnvAzure.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using DevEnvAzure.Model;
-using DevEnvAzure.Models;
-using DevEnvAzure.DataContracts;
-using Newtonsoft.Json;
 
 namespace DevEnvAzure.Utilities
 {
+    public sealed class PreserveAttribute : Attribute
+    {
+        public bool AllMembers;
+        public bool Conditional;
+        public PreserveAttribute(bool allMembers, bool conditional)
+        {
+            AllMembers = allMembers;
+            Conditional = conditional;
+        }
+        public PreserveAttribute()
+        {
+        }
+    }
+
     class Jsonpropertyinitialise
     {
         public FlightSecuritySharepointData getSecurity(SecurityModel sd)
@@ -348,8 +358,8 @@ namespace DevEnvAzure.Utilities
             sddp.VoyageRecord = sd.VoyageRecord;
             sddp.SectorNumber = FlightCrewVoyageRecord.SectorNumberpickerValue;
             sddp.ScheduledDeparture = sd.ScheduledDeparture.ToString("yyyy-MM-dd") + "T07:00:00Z";
-            sddp.FlightNumber = SPUtility.GetLookupIdFromValue(SPUtility.LookupType.FlightNumbers, sd.FlightNumber);
-            sddp.AircraftRegistration = SPUtility.GetLookupIdFromValue(SPUtility.LookupType.AircraftRegistraions, sd.AircraftRegistration);
+            sddp.FlightNumber = SPUtility.GetLookupIdFromValue(LookupType.FlightNumbers, sd.FlightNumber);
+            sddp.AircraftRegistration = SPUtility.GetLookupIdFromValue(LookupType.AircraftRegistraions, sd.AircraftRegistration);
             sddp.DepartureStation = sd.DepartureStation;
             sddp.ArrivalStation = sd.ArrivalStation;
             sddp.LandingBy = sd.LandingBy;

@@ -1,18 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Newtonsoft.Json;
-using Xamarin.Forms;
-using Xamarin.Forms.Xaml;
-using DevEnvAzure.Model;
+﻿using DevEnvAzure.Model;
 using DevEnvAzure.Models;
+using Newtonsoft.Json;
 using System;
-using System.Collections.ObjectModel;
 using System.Linq;
-
+using System.Threading.Tasks;
+using Xamarin.Forms;
 using Xamarin.Forms.Internals;
+using Xamarin.Forms.Xaml;
 
 namespace DevEnvAzure
 {
@@ -66,27 +60,32 @@ namespace DevEnvAzure
 
         private async Task BindStationInfoByIATA(string IATACode)
         {
-            var client = await OAuthHelper.GetHTTPClient();
+            var client = await OAuthHelper.GetHTTPClientAsync();
             if (client == null) return;
 
             string url = ClientConfiguration.Default.ActiveDirectoryResource + string.Format("SSQServices/_api/Web/lists/GetByTitle('(Ops) Line Station Information')/items?$select=IATA_x0020_Code,Title,City_x0020_Name,Id,Country,Airport_x0020_Type&$filter=IATA_x0020_Code eq '{0}'&Status eq '{1}'", IATACode, "Open");
-            var response = await client.GetStringAsync(url);
-            if (response != null)
+
+            try
             {
-                var spData = JsonConvert.DeserializeObject<SPData>(response,
-                             new JsonSerializerSettings { DateParseHandling = DateParseHandling.None, NullValueHandling = NullValueHandling.Ignore });
-                //stkList.IsVisible = true;
-                //lstStationInfo.ItemsSource = spData.d.results;
-                //lstStationInfo.HeightRequest = 80 * spData.d.results.Count;
-
-                if (spData.d.results.Count > 0)
+                var response = await client.GetStringAsync(url);
+                if (response != null)
                 {
-                    int id = spData.d.results[0].Id;
-                    DataContracts.StationInformationSp sInfo = await SPUtility.GetStationInfoItem(id);
+                    var spData = JsonConvert.DeserializeObject<SPData>(response,
+                                 new JsonSerializerSettings { DateParseHandling = DateParseHandling.None, NullValueHandling = NullValueHandling.Ignore });
 
-                    ToggleBusy(false);
-                    await Navigation.PushAsync(new StationInformation(sInfo.GetModel()));
+                    if (spData.d.results.Count > 0)
+                    {
+                        int id = Convert.ToInt32(spData.d.results[0].Id);
+                        DataContracts.StationInformationSp sInfo = await SPUtility.GetStationInfoItem(id);
+
+                        ToggleBusy(false);
+                        await Navigation.PushAsync(new StationInformation(sInfo.GetModel()));
+                    }
                 }
+            }
+            catch (Exception ex)
+            {
+
             }
         }
 

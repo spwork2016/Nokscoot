@@ -15,36 +15,37 @@ using Xamarin.Forms;
 
 namespace DevEnvAzure
 {
+    public enum ReportType
+    {
+        Fatigue = 1,
+        Kaizen = 2,
+        SationInfo = 3,
+        InjuryIllness = 4,
+        FlightSafety = 5,
+        CabinSafety = 6,
+        GroundSafety = 7,
+        Security = 8,
+        FlighCrewVoyage = 9,
+        TechnicalDElay = 10,
+        DelayOccurance = 11,
+        DelayHandling = 12,
+        MORType = 13,
+        OperationPlan = 14,
+        AircraftRegistration = 15,
+        none = -1
+    }
+
+    public enum LookupType
+    {
+        AircraftRegistraions = 1,
+        FlightNumbers = 2
+    }
+
     public static class SPUtility
     {
         public const string SEPARATOR = "|<>|";
         public const string ATTACHMENT_FILES_NOT_FOUND = "Some of the attachments were not available. Please re-check the attachments";
         public const string REFRESH_OFFLINE_ITEMS = "REFRESH_OFFLINE_ITEMS";
-        public enum ReportType
-        {
-            Fatigue = 1,
-            Kaizen = 2,
-            SationInfo = 3,
-            InjuryIllness = 4,
-            FlightSafety = 5,
-            CabinSafety = 6,
-            GroundSafety = 7,
-            Security = 8,
-            FlighCrewVoyage = 9,
-            TechnicalDElay = 10,
-            DelayOccurance = 11,
-            DelayHandling = 12,
-            MORType = 13,
-            OperationPlan = 14,
-            AircraftRegistration = 15,
-            none = -1
-        }
-
-        public enum LookupType
-        {
-            AircraftRegistraions = 1,
-            FlightNumbers = 2
-        }
 
         public static string[] GetPathsFromAttachemntInfo(string attachmentInfo)
         {
@@ -84,7 +85,7 @@ namespace DevEnvAzure
                     url = ClientConfiguration.Default.ActiveDirectoryResource + "SSQServices/_api/web/lists/GetByTitle('NokScoot Operating Plan')/items";
                     break;
                 case ReportType.AircraftRegistration:
-                    url = ClientConfiguration.Default.ActiveDirectoryResource + "SSQServices/_api/web/lists/GetByTitle('Aicraft Fleet Information')/items";
+                    url = ClientConfiguration.Default.ActiveDirectoryResource + "SSQServices/_api/web/lists/GetByTitle('Aircraft Fleet Information')/items";
                     break;
                 case ReportType.none:
                     url = ClientConfiguration.Default.ActiveDirectoryResource + "SSQServices/_api/web/lists/GetByTitle('Operational_Hazard_Event_Register')/items";
@@ -164,7 +165,7 @@ namespace DevEnvAzure
                 return GetUsers();
             }
 
-            var client = await OAuthHelper.GetHTTPClient();
+            var client = await OAuthHelper.GetHTTPClientAsync();
 
             try
             {
@@ -189,7 +190,7 @@ namespace DevEnvAzure
             try
             {
                 string picURL = ClientConfiguration.Default.SPRootURL + "SP.UserProfiles.PeopleManager/GetMyProperties?$select=PictureUrl";
-                var client = await OAuthHelper.GetHTTPClient();
+                var client = await OAuthHelper.GetHTTPClientAsync();
                 var response = await client.GetStringAsync(picURL);
                 if (response != null)
                 {
@@ -282,7 +283,7 @@ namespace DevEnvAzure
 
         public static async Task<List<Value>> GetAttachedFilesForItem(string itemUrl)
         {
-            var client = await OAuthHelper.GetHTTPClient();
+            var client = await OAuthHelper.GetHTTPClientAsync();
             var response = await client.GetStringAsync($"{itemUrl}/AttachmentFiles");
             if (response != null)
             {
@@ -295,7 +296,7 @@ namespace DevEnvAzure
 
         public static async Task<DataContracts.StationInformationSp> GetStationInfoItem(int id)
         {
-            var client = await OAuthHelper.GetHTTPClient();
+            var client = await OAuthHelper.GetHTTPClientAsync();
             string url = GetListURL(ReportType.SationInfo) + $"({id})";
             try
             {
@@ -325,15 +326,16 @@ namespace DevEnvAzure
             {
                 try
                 {
-                    var client = await OAuthHelper.GetHTTPClient();
-                    var response = await client.GetStringAsync(GetListURL(ReportType.AircraftRegistration));
+                    var client = await OAuthHelper.GetHTTPClientAsync();
+                    var url = GetListURL(ReportType.AircraftRegistration);
+                    var response = await client.GetStringAsync(url);
                     if (response != null)
                     {
                         mInfo = new MasterInfo { Name = "AircraftRegistrations", content = response };
                         App.DAUtil.RefreshMasterInfo(mInfo);
                     }
                 }
-                catch (Exception)
+                catch (Exception ex)
                 {
                     mInfo = App.DAUtil.GetMasterInfoByName("AircraftRegistrations");
                 }
@@ -348,7 +350,7 @@ namespace DevEnvAzure
             return null;
         }
 
-        public static async Task<Dictionary<int, string>> GetStations(bool isOpen = false)
+        public static async Task<Dictionary<string, string>> GetStations(bool isOpen = false)
         {
             MasterInfo mInfo = null;
             if (!SPUtility.IsConnected())
@@ -359,7 +361,7 @@ namespace DevEnvAzure
             {
                 try
                 {
-                    var client = await OAuthHelper.GetHTTPClient();
+                    var client = await OAuthHelper.GetHTTPClientAsync();
                     string url = GetListURL(ReportType.SationInfo);
                     if (isOpen)
                     {
@@ -382,7 +384,7 @@ namespace DevEnvAzure
             if (mInfo != null)
             {
                 var stations = JsonConvert.DeserializeObject<SPData>(mInfo.content);
-                return stations.d.results.Select(x => new { Key = x.Id, Value = x.IATA_x0020_Code }).ToDictionary(v => v.Key, v => v.Value);
+                return stations.d.results.Select(x => new { Key = x.Id.ToString(), Value = x.IATA_x0020_Code }).ToDictionary(v => v.Key, v => v.Value);
             }
 
             return null;
@@ -439,7 +441,7 @@ namespace DevEnvAzure
             {
                 try
                 {
-                    var client = await OAuthHelper.GetHTTPClient();
+                    var client = await OAuthHelper.GetHTTPClientAsync();
                     var response = await client.GetStringAsync(GetListURL(ReportType.OperationPlan));
                     if (response != null)
                     {
@@ -459,21 +461,23 @@ namespace DevEnvAzure
 
                 try
                 {
-                    var oPlans = JsonConvert.DeserializeObject<SPData>(mInfo.content, new JsonSerializerSettings { DateParseHandling = DateParseHandling.None,
+                    var oPlans = JsonConvert.DeserializeObject<SPData>(mInfo.content, new JsonSerializerSettings
+                    {
+                        DateParseHandling = DateParseHandling.None,
                         NullValueHandling = NullValueHandling.Ignore,
                         MissingMemberHandling = MissingMemberHandling.Ignore
                     });
                     return oPlans.d.results.Select(x => new OperatingPlan
                     {
                         FlighNumber = x.Flight_x0020_Number,
-                        ArrivalStationId = x.Arrival_x0020_StationId,
-                        DepartureStationId = x.Departure_x0020_StationId,
+                        ArrivalStationId = Convert.ToString(x.Arrival_x0020_StationId),
+                        DepartureStationId = Convert.ToString(x.Departure_x0020_StationId),
 
-                        ArrivalStation = stations[x.Arrival_x0020_StationId],
-                        DepartureStation = stations[x.Departure_x0020_StationId]
+                        ArrivalStation = stations[Convert.ToString(x.Arrival_x0020_StationId)],
+                        DepartureStation = stations[Convert.ToString(x.Departure_x0020_StationId)]
                     }).ToList();
                 }
-                catch(Exception ex)
+                catch (Exception ex)
                 {
 
                 }

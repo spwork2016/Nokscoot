@@ -1,12 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
-using DevEnvAzure.Models;
 
 namespace DevEnvAzure
 {
@@ -15,11 +10,11 @@ namespace DevEnvAzure
     {
         // SafetyReportModel _safetyObject = null;
         object _viewobject = null;
-        public SafetyReport(object viewObject) 
+        public SafetyReport(object viewObject)
         {
 
             //  safetyObject = new SafetyReportModel();
-          //  _safetyObject = safetyObject;
+            //  _safetyObject = safetyObject;
             this.BindingContext = viewObject;
             _viewobject = viewObject;
             InitializeComponent();
@@ -52,7 +47,7 @@ namespace DevEnvAzure
 
         private void savedrafts_btn_Clicked(object sender, EventArgs e)
         {
-         //   App.safetyReport.Add(_viewobject);
+            //   App.safetyReport.Add(_viewobject);
             // var v = safetyObject.EventTitle;
             DependencyService.Get<IMessage>(DependencyFetchTarget.GlobalInstance).ShortAlert("Drafted.");
         }

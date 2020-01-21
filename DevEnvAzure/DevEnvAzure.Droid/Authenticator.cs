@@ -1,4 +1,5 @@
 using Android.App;
+using Android.Webkit;
 using Microsoft.IdentityModel.Clients.ActiveDirectory;
 using System;
 using System.Linq;
@@ -10,23 +11,52 @@ namespace DevEnvAzure.Droid
 {
     class Authenticator : IAuthenticator
     {
-        public async Task<AuthenticationResult> Authenticate(string tenantUrl, string graphResourceUri, string ApplicationID, string returnUri)
+        public async Task<AuthenticationResult> Authenticate(string authority, string graphResourceUri, string ApplicationID, string returnUri)
         {
             try
             {
-                
-                App.authcontext = new AuthenticationContext(tenantUrl);
-                if (App.authcontext.TokenCache.ReadItems().Any())
-                    App.authcontext = new AuthenticationContext(App.authcontext.TokenCache.ReadItems().FirstOrDefault().Authority);
-                var authResult = await App.authcontext.AcquireTokenAsync(graphResourceUri, ApplicationID, new Uri(returnUri), new PlatformParameters((Activity)Forms.Context));
-           
-                return authResult;
+                var authContext = new AuthenticationContext(authority);
+                if (authContext.TokenCache.ReadItems().Any())
+                    authContext = new AuthenticationContext(authContext.TokenCache.ReadItems().FirstOrDefault().Authority);
+
+                AuthenticationResult result = null;
+
+                try
+                {
+                    result = await authContext.AcquireTokenAsync(graphResourceUri, ApplicationID, new Uri(returnUri), new PlatformParameters((Activity)Forms.Context));
+                }
+                catch (AdalException adlException)
+                {
+                    if (adlException.ErrorCode == "user_interaction_required")
+                    {
+                        try
+                        {
+                            result = await authContext.AcquireTokenAsync(graphResourceUri, ApplicationID, new Uri(returnUri), new PlatformParameters((Activity)Forms.Context));
+                        }
+                        catch (Exception ex)
+                        {
+
+                        }
+                    }
+                }
+                catch (Exception unknownEx)
+                {
+
+                }
+
+                return result;
             }
-            catch(Exception)
+            catch (Exception ex)
             {
                 return null;
             }
         }
+
+        public void Logout()
+        {
+            CookieManager.Instance.RemoveAllCookie();
+        }
+
         public async Task<AuthenticationResult> ReAuthenticate(string tenantUrl, string graphResourceUri, string ApplicationID, string returnUri)
         {
             try
@@ -40,7 +70,7 @@ namespace DevEnvAzure.Droid
                 }
                 return authResult;
             }
-            catch (Exception)
+            catch (Exception ex)
             {
                 return null;
             }

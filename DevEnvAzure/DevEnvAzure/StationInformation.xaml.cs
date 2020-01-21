@@ -1,16 +1,14 @@
 ﻿using DevEnvAzure.Model;
 using DevEnvAzure.Utilities;
 using Newtonsoft.Json;
-using Plugin.Connectivity;
 using System;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Threading.Tasks;
+using Xamarin.Essentials;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
-using System.Linq;
 using static DevEnvAzure.SPUtility;
-using System.IO;
 
 namespace DevEnvAzure
 {
@@ -105,7 +103,7 @@ namespace DevEnvAzure
                 Device.BeginInvokeOnMainThread(async () =>
                 {
                     // StringContent contents = null;
-                    var client = await OAuthHelper.GetHTTPClient();
+                    var client = await OAuthHelper.GetHTTPClientAsync();
                     var data = reportObject;// _viewobject;
 
                     var body = JsonConvert.SerializeObject(data, Formatting.None,
@@ -126,7 +124,7 @@ namespace DevEnvAzure
 
                             lblLoading.Text = "Item created successfully." + Environment.NewLine;
 
-                            var spData = JsonConvert.DeserializeObject<SPData>(postResult.Content.ReadAsStringAsync().Result,
+                            var spData = JsonConvert.DeserializeObject<SPData>(await postResult.Content.ReadAsStringAsync(),
                                 new JsonSerializerSettings { DateParseHandling = DateParseHandling.None });
                             int itemId = spData.d.Id;
 
@@ -229,7 +227,7 @@ namespace DevEnvAzure
         {
             if (!string.IsNullOrEmpty(_StationInformation.NameofAirportLink))
             {
-                Device.OpenUri(new Uri(_StationInformation.NameofAirportLink));
+                Launcher.OpenAsync(new Uri(_StationInformation.NameofAirportLink));
             }
         }
     }

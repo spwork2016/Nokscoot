@@ -1,17 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using DevEnvAzure.Model;
+using DevEnvAzure.Models;
+using DevEnvAzure.Utilities;
+using Newtonsoft.Json;
+using System;
 using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Headers;
+using System.Threading.Tasks;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
-using Newtonsoft.Json;
-using DevEnvAzure.Models;
-using DevEnvAzure.Utilities;
-using Plugin.Connectivity;
-using System.Threading.Tasks;
-using DevEnvAzure.Model;
-using System.IO;
 
 namespace DevEnvAzure
 {
@@ -52,7 +49,7 @@ namespace DevEnvAzure
             }
         }
 
-        private void Save_clicked(object sender, EventArgs e)
+        protected void Save_clicked(object sender, EventArgs e)
         {
             if (string.IsNullOrEmpty(_KaizenReport.Subject))
             {
@@ -115,7 +112,7 @@ namespace DevEnvAzure
                     foreach (var item in attachments)
                     {
                         string attachmentURL = string.Format("{0}({1})/AttachmentFiles/add(FileName='{2}')",
-                            SPUtility.GetListURL(SPUtility.ReportType.Kaizen), itemId, item.FileName);
+                            SPUtility.GetListURL(ReportType.Kaizen), itemId, item.FileName);
 
                         item.SaveToURL = attachmentURL;
 
@@ -165,8 +162,10 @@ namespace DevEnvAzure
                 Device.BeginInvokeOnMainThread(async () =>
                 {
                     lblLoading.Text = "Sending...";
-                    var client = await OAuthHelper.GetHTTPClient();
+                    var client = await OAuthHelper.GetHTTPClientAsync();
                     var data = reportObject;
+
+                    // https://github.com/microsoftgraph/msgraph-sdk-dotnet/issues/308
 
                     var body = JsonConvert.SerializeObject(data, Formatting.None,
                             new JsonSerializerSettings
@@ -179,7 +178,7 @@ namespace DevEnvAzure
 
                     if (CheckConnection())
                     {
-                        string url = SPUtility.GetListURL(SPUtility.ReportType.Kaizen);
+                        string url = SPUtility.GetListURL(ReportType.Kaizen);
                         var postResult = await client.PostAsync(url, contents);
 
                         if (postResult.IsSuccessStatusCode)
@@ -187,7 +186,7 @@ namespace DevEnvAzure
                             App.DAUtil.Delete(_KaizenReport);
                             lblLoading.Text = "Item created successfully." + Environment.NewLine;
 
-                            var spData = JsonConvert.DeserializeObject<SPData>(postResult.Content.ReadAsStringAsync().Result,
+                            var spData = JsonConvert.DeserializeObject<SPData>(await postResult.Content.ReadAsStringAsync(),
                                 new JsonSerializerSettings { DateParseHandling = DateParseHandling.None });
                             int itemId = spData.d.Id;
 
@@ -203,7 +202,7 @@ namespace DevEnvAzure
                     }
                     else
                     {
-                        SPUtility.SaveOfflineItem(body, SPUtility.ReportType.Kaizen, _attachementView.GetAttachmentInfoAsString());
+                        SPUtility.SaveOfflineItem(body, ReportType.Kaizen, _attachementView.GetAttachmentInfoAsString());
 
                         await DisplayAlert("", "Item stored in local storage", "Ok");
                         ToggleBusy(false);

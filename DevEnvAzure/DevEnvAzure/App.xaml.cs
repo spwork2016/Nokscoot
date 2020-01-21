@@ -3,27 +3,26 @@ using DevEnvAzure.Models;
 using Microsoft.IdentityModel.Clients.ActiveDirectory;
 using Newtonsoft.Json;
 using Plugin.Connectivity;
+using Plugin.LocalNotifications;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 using Xamarin.Forms;
-using Plugin.LocalNotifications;
 
 namespace DevEnvAzure
 {
     public partial class App : Application
     {
-        public static string ApplicationID = "d4c9dc64-803f-4dce-842c-380ce91f60d4";
-        public static string tenanturl = "https://login.windows.net/common";// "https://login.microsoftonline.com/542381e6-b9d2-4fe3-a20b-e575f656c08c";
-        public static string ReturnUri = "http://DevEnvAzure.microsoft.net";
-        public static string GraphResourceUri = "https://nok365.sharepoint.com"; // "https://graph.microsoft.com";
-        public static AuthenticationResponse AuthenticationResponse = null;
+        public static AuthContext GraphAuthentication = null;
+        public static AuthContext SharePointAuthentication = null;
+        public static string SHAREPOINT_AUTH_RESULT_KEY = "SHAREPOINT_AUTH_RESULT";
+        public static string GRAPH_AUTH_RESULT_KEY = "GRAPH_AUTH_RESULT";
+        public static string USER_INFO_KEY = "UserInfo";
+
         public static User CurrentUser = null;
         static DataAccess dbUtils;
-        public static AuthenticationContext authcontext = null;
         public static List<PeoplePicker> peoplePickerDataSource;
-        public static ObservableCollection<Employee> employees = new ObservableCollection<Employee>();
         public static ObservableCollection<OfflineItem> offlineItems = new ObservableCollection<OfflineItem>();
         public static ObservableCollection<object> savedDrafts = new ObservableCollection<object>();
 
@@ -39,70 +38,50 @@ namespace DevEnvAzure
         public static ObservableCollection<StationInformationModel> statInfo = new ObservableCollection<StationInformationModel>();
         public static ObservableCollection<Attachment> attachments = new ObservableCollection<Attachment>();
         public static string EVENT_LAUNCH_MAIN_PAGE = "EVENT_LAUNCH_MAIN_PAGE";
+        public static string EVENT_LAUNCH_MULTIFACTOR_PAGE = "EVENT_LAUNCH_MULTIFACTOR_PAGE";
+        public static string AUTHENTICATION_SUCCESS = "AUTHENTICATION_SUCCESS";
+
         public App()
         {
             InitializeComponent();
             attachments.CollectionChanged += Attachments_CollectionChanged;
 
-            var eValue = DAUtil.GetAll<OfflineItem>("OfflineItem");
-            if (eValue != null && eValue.Count > 0)
-                App.offlineItems = new ObservableCollection<OfflineItem>(eValue);
-
             try
             {
+                var eValue = DAUtil.GetAll<OfflineItem>("OfflineItem");
+                if (eValue != null && eValue.Count > 0)
+                    App.offlineItems = new ObservableCollection<OfflineItem>(eValue);
+
+                MessagingCenter.Subscribe<object>(this, EVENT_LAUNCH_MAIN_PAGE, SetMainPageAsRootPage);
+                MessagingCenter.Subscribe<object>(this, EVENT_LAUNCH_MULTIFACTOR_PAGE, SetMultiFactorAuthenticationPage);
+
                 if (SPUtility.IsConnected())
                 {
-                    var userCredentials = App.DAUtil.GetMasterInfoByName("UserCredentials");
-                    if (userCredentials != null)
-                    {
-                        var cred = JsonConvert.DeserializeObject<dynamic>(userCredentials.content);
-                        string uName = cred.Username;
-                        string pwd = cred.Password;
-                        MainPage = new StartPage();
-
-                        OAuthHelper.GetAuthenticationHeader(uName, pwd).ContinueWith(async (x) =>
-                        {
-                            await OAuthHelper.GetUserInfo(uName, pwd).ContinueWith((y) =>
-                            {
-                                Device.BeginInvokeOnMainThread(async () =>
-                                {
-                                    MessagingCenter.Send<App>(this, "userInfo");
-                                    if (App.AuthenticationResponse == null)
-                                    {
-                                        MainPage = new Login();
-                                        DependencyService.Get<IMessage>().ShortAlert("Login failed! Please check email/password");
-                                    }
-                                });
-                            });
-
-                            await SyncLocalData();
-                        }).ConfigureAwait(false);
-                    }
-                    else
-                    {
-                        MainPage = new Login();
-                    }
+                    MainPage = new MultiFactorLogin();
                 }
                 else
                 {
-                    var authResponse = App.DAUtil.GetMasterInfoByName("Authentication");
-                    if (authResponse == null)
-                        MainPage = new Login();
+                    var graphResponse = App.DAUtil.GetMasterInfoByName(GRAPH_AUTH_RESULT_KEY);
+                    var spResponse = App.DAUtil.GetMasterInfoByName(SHAREPOINT_AUTH_RESULT_KEY);
+                    if (graphResponse == null || spResponse == null)
+                    {
+                        MainPage = new MultiFactorLogin();
+                    }
                     else
                     {
-                        App.AuthenticationResponse = JsonConvert.DeserializeObject<AuthenticationResponse>(authResponse.content);
-                        var uInfo = App.DAUtil.GetMasterInfoByName("UserInfo");
+                        OAuthHelper.GetLoggedInToken();
+
+                        var uInfo = App.DAUtil.GetMasterInfoByName(USER_INFO_KEY);
                         if (uInfo != null)
                         {
-                            var obj = JsonConvert.DeserializeObject<SPData>(uInfo.content, new JsonSerializerSettings { DateParseHandling = DateParseHandling.None });
+                            var obj = JsonConvert.DeserializeObject<UserInfo>(uInfo.content, new JsonSerializerSettings { DateParseHandling = DateParseHandling.None });
                             if (obj != null)
                             {
                                 App.CurrentUser = new User
                                 {
-                                    Id = obj.d.Id,
-                                    Name = obj.d.Title,
-                                    Email = obj.d.Email,
-                                    //PictureBytes = GetPicture(username, password).Result
+                                    Id = obj.UniqueId,
+                                    Name = obj.GivenName + " " + obj.FamilyName,
+                                    Email = obj.DisplayableId
                                 };
                             }
                         }
@@ -110,8 +89,6 @@ namespace DevEnvAzure
                         MainPage = new StartPage();
                     }
                 }
-
-                MessagingCenter.Subscribe<object>(this, EVENT_LAUNCH_MAIN_PAGE, SetMainPageAsRootPage);
             }
             catch (Exception ex)
             {
@@ -172,7 +149,7 @@ namespace DevEnvAzure
             }
         }
 
-        private async Task SyncLocalData()
+        public async Task SyncLocalData()
         {
             try
             {
@@ -190,7 +167,13 @@ namespace DevEnvAzure
 
         public void SetMainPageAsRootPage(object sender)
         {
+            Device.BeginInvokeOnMainThread(async () => await SyncLocalData());
             MainPage = new StartPage();
+        }
+
+        public void SetMultiFactorAuthenticationPage(object sender)
+        {
+            MainPage = new MultiFactorLogin();
         }
 
         public static PeoplePicker validatePeoplePicker(string name)
@@ -233,6 +216,10 @@ namespace DevEnvAzure
             {
                 ConnectionChanged();
             }
+            else
+            {
+                OAuthHelper.GetLoggedInToken();
+            }
         }
 
         protected override void OnSleep()
@@ -242,45 +229,58 @@ namespace DevEnvAzure
 
         protected async override void OnResume()
         {
-            try
-            {
-                await OAuthHelper.RefreshAccessToken();
-            }
-            catch (Exception ex)
-            {
-                ShowError(string.Format("Unable to refresh token: {0}", ex.Message));
-            }
+            //try
+            //{
+            //    await OAuthHelper.GetAccessToken();
+            //}
+            //catch (Exception ex)
+            //{
+            //    ShowError(string.Format("Unable to refresh token: {0}", ex.Message));
+            //}
         }
 
         private async void Current_ConnectivityChanged(object sender, Plugin.Connectivity.Abstractions.ConnectivityChangedEventArgs e)
         {
             if (e.IsConnected)
             {
-                ConnectionChanged();
+                await ConnectionChanged();
+            }
+            else
+            {
+                OAuthHelper.GetLoggedInToken();
             }
         }
 
-        private async void ConnectionChanged()
+        private async Task ConnectionChanged()
         {
-            var userCredentials = App.DAUtil.GetMasterInfoByName("UserCredentials");
-            if (userCredentials != null)
+            try
             {
-                var cred = JsonConvert.DeserializeObject<dynamic>(userCredentials.content);
-                string uName = cred.Username;
-                string pwd = cred.Password;
-
-                await OAuthHelper.GetAuthenticationHeader(uName, pwd).ContinueWith(async (x) =>
-                {
-                    try
-                    {
-                        await OAuthHelper.SyncOfflineItems();
-                    }
-                    catch (Exception ex)
-                    {
-                        ShowError(ex.Message);
-                    }
-                }).ConfigureAwait(false);
+                await OAuthHelper.SyncOfflineItems();
             }
+            catch (Exception ex)
+            {
+                //ShowError(ex.Message);
+            }
+
+            //var userCredentials = App.DAUtil.GetMasterInfoByName("UserCredentials");
+            //if (userCredentials != null)
+            //{
+            //    var cred = JsonConvert.DeserializeObject<dynamic>(userCredentials.content);
+            //    string uName = cred.Username;
+            //    string pwd = cred.Password;
+
+            //    await OAuthHelper.GetAuthenticationHeader(uName, pwd).ContinueWith(async (x) =>
+            //    {
+            //        try
+            //        {
+            //            await OAuthHelper.SyncOfflineItems();
+            //        }
+            //        catch (Exception ex)
+            //        {
+            //            ShowError(ex.Message);
+            //        }
+            //    }).ConfigureAwait(false);
+            //}
         }
     }
 }

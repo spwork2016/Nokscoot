@@ -2,10 +2,8 @@
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Text.RegularExpressions;
+using System.Threading.Tasks;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -51,7 +49,7 @@ namespace DevEnvAzure
                     IsBusy = true;
                 });
                 List<NotificationItem> items = new List<NotificationItem>();
-                var client = await OAuthHelper.GetHTTPClient();
+                var client = await OAuthHelper.GetHTTPClientAsync();
                 var result = await client.GetStringAsync(string.Format(ClientConfiguration.Default.SPListURL, "announcements"));
                 if (result != null)
                 {
@@ -88,9 +86,9 @@ namespace DevEnvAzure
         {
             NotificationItem selectedItem = (NotificationItem)e.Item;
             int index = NotificationSource.FindIndex((x) =>
-             {
-                 return x.Id == selectedItem.Id;
-             });
+            {
+                return x.Id == selectedItem.Id;
+            });
 
 
             string strippedString = StripHtml(selectedItem.Body);

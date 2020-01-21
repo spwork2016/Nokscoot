@@ -5,8 +5,6 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
@@ -38,7 +36,6 @@ namespace DevEnvAzure
         public static PeoplePicker PeoplePickerCommander;
         public static PeoplePicker PeoplePickercrew1email;
         public static PeoplePicker PeoplePickercrew2email;
-        private static string name;
 
         public FlightSafetyReportView()
         {

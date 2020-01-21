@@ -1,13 +1,11 @@
 ﻿using DevEnvAzure.Models;
+using DevEnvAzure.Utilities;
 using Newtonsoft.Json;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DevEnvAzure.DataContracts
 {
+    [Preserve(AllMembers = true)]
     public class SPFieldURL
     {
         public SPFieldURL()
@@ -20,6 +18,7 @@ namespace DevEnvAzure.DataContracts
         public string Url { get; set; }
     }
 
+    [Preserve(AllMembers = true)]
     public class StationInformationSp
     {
         public StationInformationSp()

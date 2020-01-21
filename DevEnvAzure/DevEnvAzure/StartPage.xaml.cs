@@ -1,15 +1,13 @@
-﻿using DevEnvAzure.Model;
-using DevEnvAzure.Models;
+﻿using Microsoft.IdentityModel.Clients.ActiveDirectory;
 using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
+using Xamarin.Essentials;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
+
+// do not remove
+using ImageCircle.Forms.Plugin;
+using System.IO;
 
 namespace DevEnvAzure
 {
@@ -37,8 +35,8 @@ namespace DevEnvAzure
                 var docsPage = new MasterPageItem() { Title = "Documents", Icon = "documents.png", TargetType = typeof(DocumentLibrary) };
                 var StationInformationPage = new MasterPageItem() { Title = "Station Information", Icon = "stationinfo.png", TargetType = typeof(ViewStationInformation) };
                 var editableDraftsPage = new MasterPageItem() { Title = "Editable Drafts", Icon = "editabledrafts.png", TargetType = typeof(EditableDrafts) };
-                var notificationsPage = new MasterPageItem() { Title = "Notifications", Icon = "notifications.png", TargetType= typeof(Notifications) };
-              
+                var notificationsPage = new MasterPageItem() { Title = "Notifications", Icon = "notifications.png", TargetType = typeof(Notifications) };
+
                 menuList.Add(homePage);
                 menuList.Add(reportingPage);
 
@@ -47,8 +45,6 @@ namespace DevEnvAzure
                 menuList.Add(docsPage);
                 menuList.Add(StationInformationPage);
 
-                //menuList.Add(new MasterPageItem() { Title = "One Note", Icon = "onenote.png" });
-                //menuList.Add(new MasterPageItem() { Title = "One Drive", Icon = "drive.png" });
                 menuList.Add(new MasterPageItem() { Title = "Work Day", Icon = "workday.png" });
                 menuList.Add(new MasterPageItem() { Title = "SABA", Icon = "saba.png" });
 
@@ -70,20 +66,27 @@ namespace DevEnvAzure
 
         protected override async void OnAppearing()
         {
-            if (App.CurrentUser != null)
+            try
             {
-                loggrInUser.Text = App.CurrentUser?.Name;
-                if (App.CurrentUser.PictureBytes != null)
-                    profilePic.Source = ImageSource.FromStream(() => new MemoryStream(App.CurrentUser?.PictureBytes));
-            }
-            else
-            {
-                MessagingCenter.Subscribe<App>(this, "userInfo", (arg) =>
+                if (App.CurrentUser != null)
                 {
                     loggrInUser.Text = App.CurrentUser?.Name;
-                    if (App.CurrentUser.PictureBytes != null)
+                    if (App.CurrentUser?.PictureBytes != null)
                         profilePic.Source = ImageSource.FromStream(() => new MemoryStream(App.CurrentUser?.PictureBytes));
-                });
+                }
+                else
+                {
+                    MessagingCenter.Subscribe<App>(this, "userInfo", (arg) =>
+                    {
+                        loggrInUser.Text = App.CurrentUser?.Name;
+                        if (App.CurrentUser?.PictureBytes != null)
+                            profilePic.Source = ImageSource.FromStream(() => new MemoryStream(App.CurrentUser?.PictureBytes));
+                    });
+                }
+            }
+            catch (Exception ex)
+            {
+
             }
         }
 
@@ -140,54 +143,98 @@ namespace DevEnvAzure
 
                 }
             });
+
         }
 
         private void OnMenuItemSelected(object sender, SelectedItemChangedEventArgs e)
         {
-            var item = (MasterPageItem)e.SelectedItem;
-            ((ListView)sender).SelectedItem = null;
-
-            NavigationSubscribers();
-
-            if (item == null) return;
-
-            if (item.Title == "SABA")
+            try
             {
-                Device.OpenUri(new Uri("https://wd3.myworkday.com/flyscoot/d/inst/1$9232/6503$3.htmld"));
-            }
-            else if (item.Title == "Work Day")
-            {
-                Device.OpenUri(new Uri("https://wd3.myworkday.com/wday/authgwy/flyscoot/login.htmld?returnTo=%2fflyscoot%2fd%2finst%2f779%24610920%2frel-task%2f2997%244086.htmld"));
-            }
-            if (item.Title == "Logout")
-            {
+                var item = (MasterPageItem)e.SelectedItem;
+                ((ListView)sender).SelectedItem = null;
+
+                NavigationSubscribers();
+
+                if (item == null) return;
+
+                if (item.Title == "SABA")
+                {
+                    Launcher.OpenAsync(new Uri("https://wd3.myworkday.com/flyscoot/d/inst/1$9232/6503$3.htmld"));
+                }
+                else if (item.Title == "Work Day")
+                {
+                    Launcher.OpenAsync(new Uri("https://wd3.myworkday.com/wday/authgwy/flyscoot/login.htmld?returnTo=%2fflyscoot%2fd%2finst%2f779%24610920%2frel-task%2f2997%244086.htmld"));
+                }
+
+                if (item.Title == "Logout")
+                {
+                    IsPresented = false;
+
+                    AuthenticationContext ac = new AuthenticationContext(ClientConfiguration.NokScoot.ActiveDirectoryTenant);
+                    ac.TokenCache.Clear();
+
+                    App.GraphAuthentication = null;
+                    App.CurrentUser = null;
+                    App.SharePointAuthentication = null;
+
+                    App.DAUtil.DeleteMasterInfo(App.GRAPH_AUTH_RESULT_KEY);
+                    App.DAUtil.DeleteMasterInfo(App.SHAREPOINT_AUTH_RESULT_KEY);
+                    App.DAUtil.DeleteMasterInfo(App.USER_INFO_KEY);
+
+                    DependencyService.Get<IMessage>().LongAlert("Logged out successfully.");
+
+                    DependencyService.Get<IAuthenticator>().Logout();
+
+                    return;
+                }
+
+                if (!OAuthHelper.IsLoggedIn())
+                {
+                    MessagingCenter.Send<object>(this, App.EVENT_LAUNCH_MULTIFACTOR_PAGE);
+                    return;
+                }
+
                 IsPresented = false;
+                if (item.Title == "Station Information")
+                {
+                    SetNavigationPage(new ViewStationInformation());
+                }
+                else if (item.Title == "Offline Drafts")
+                {
+                    SetNavigationPage(new DraftsPage());
+                }
+                else if (item.Title == "Reporting")
+                {
+                    SetNavigationPage(new ReportsPage());
+                }
+                else if (item.Title == "My Tasks")
+                {
+                    SetNavigationPage(new Tasks());
+                }
+                else if (item.Title == "Documents")
+                {
+                    SetNavigationPage(new DocumentLibrary());
+                }
+                else if (item.Title == "Editable Drafts")
+                {
+                    SetNavigationPage(new EditableDrafts());
+                }
+                else if (item.Title == "Notifications")
+                {
+                    SetNavigationPage(new Notifications());
+                }
+                else if (item.TargetType != null)
+                {
+                    SetNavigationPage((Page)Activator.CreateInstance(item.TargetType));
+                }
 
-                App.AuthenticationResponse = null;
-                App.DAUtil.DeleteMasterInfo("UserCredentials");
-
-                DependencyService.Get<IMessage>().LongAlert("Logged out successfully.");
-
-                SetNavigationPage(new Login());
-                return;
             }
-
-            if (!OAuthHelper.IsLoggedIn())
+            catch (Exception ex)
             {
-                Navigation.PushModalAsync(new Login());
-                return;
-            }
-            if (item.Title == "Station Information")
-            {
-                IsPresented = false;
-
-                SetNavigationPage((Page)Activator.CreateInstance(item.TargetType));
-            }
-
-            else if (item.TargetType != null)
-            {
-                IsPresented = false;
-                SetNavigationPage((Page)Activator.CreateInstance(item.TargetType));
+                Device.BeginInvokeOnMainThread(() =>
+                {
+                    DependencyService.Get<IMessage>().ShortAlert(string.Format("Error: {0}", ex.Message));
+                });
             }
         }
 

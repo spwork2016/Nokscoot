@@ -161,7 +161,7 @@ namespace DevEnvAzure
             App.DAUtil.Delete(cp);
             if (reportName == "DevEnvAzure.Models.FlightSafetyReportModel")
             {
-                App.safetyReport = new ObservableCollection<FlightSafetyReportModel>(App.DAUtil.GetAll<FlightSafetyReportModel>("SafetyReportModel"));
+                App.safetyReport = new ObservableCollection<FlightSafetyReportModel>(App.DAUtil.GetAll<FlightSafetyReportModel>("FlightSafetyReportModel"));
                 MessagingCenter.Send<DraftsExpandContentView>(this, "safety");
             }
             if (reportName == "DevEnvAzure.Models.SecurityModel")

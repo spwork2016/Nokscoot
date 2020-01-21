@@ -3,12 +3,11 @@ using DevEnvAzure.Models;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
-using System.IO;
+using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Threading.Tasks;
 using Xamarin.Forms;
-using System.Linq;
 using static DevEnvAzure.SPUtility;
 
 namespace DevEnvAzure
@@ -32,7 +31,7 @@ namespace DevEnvAzure
 
         public static async Task<int> CreateItemsOffline(List<OfflineItem> items)
         {
-            var client = await OAuthHelper.GetHTTPClient();
+            var client = await OAuthHelper.GetHTTPClientAsync();
 
             try
             {
@@ -77,7 +76,7 @@ namespace DevEnvAzure
 
                                 try
                                 {
-                                    var spData = JsonConvert.DeserializeObject<SPData>(postResult.Content.ReadAsStringAsync().Result,
+                                    var spData = JsonConvert.DeserializeObject<SPData>(await postResult.Content.ReadAsStringAsync(),
                                     new JsonSerializerSettings { DateParseHandling = DateParseHandling.None });
 
                                     Attachment attachment = new Attachment(path);

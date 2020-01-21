@@ -1,18 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using SQLite.Net.Attributes;
+using SQLite;
+
 namespace DevEnvAzure.Models
 {
-    [Table(@"FatigueReport")]
     public class FatigueReport
     {
-        //[PrimaryKey, AutoIncrement, Column("fatigueId")]
-        //public long fatigueId
-        //{ get; set; }
-        //[NotNull]
         [PrimaryKey, AutoIncrement]
         public int Id
         { get; set; }

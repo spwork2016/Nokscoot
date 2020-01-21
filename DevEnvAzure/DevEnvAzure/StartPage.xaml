@@ -1,6 +1,6 @@
 ﻿<MasterDetailPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-                  xmlns:ci="clr-namespace:ImageCircle.Forms.Plugin.Abstractions;assembly=ImageCircle.Forms.Plugin.Abstractions"  
+             xmlns:ci="clr-namespace:ImageCircle.Forms.Plugin.Abstractions;assembly=ImageCircle.Forms.Plugin"
              x:Class="DevEnvAzure.StartPage" Title="Welcom to Nokscoot">
     <MasterDetailPage.Master>
         <ContentPage Title="Menu">
@@ -18,40 +18,34 @@
 
                     <StackLayout Grid.Row="0" Grid.Column="0">
                         <ci:CircleImage HeightRequest="75" WidthRequest="75" x:Name="profilePic" Source="Nokscoot.png"
-                                    Aspect="AspectFill">
+                        Aspect="AspectFill">
                         </ci:CircleImage>
                     </StackLayout>
-
-                    <!--<Frame Padding="0" IsClippedToBounds="True" Grid.Row="0" Grid.Column="0">
-                        <Image x:Name="profilePic" HeightRequest="50" Aspect="AspectFill" Source="LoginIco.png"/>
-                    </Frame>-->
-
-                    <!--<Image  x:Name="profilePic" Source="LoginIco.png" HeightRequest="110" Margin="0,20,0,0" BackgroundColor="#FDCE02" VerticalOptions="Center" HorizontalOptions="Center"/>-->
-                    <Label x:Name="loggrInUser" Grid.Row="0" Grid.Column="2" HorizontalTextAlignment="Start" VerticalTextAlignment="Center" 
-                           HorizontalOptions="Start" VerticalOptions="Center" FontSize="20" TextColor="Black"/>
+                    <Label x:Name="loggrInUser" Grid.Row="0" Grid.Column="2" HorizontalTextAlignment="Start" VerticalTextAlignment="Center"
+                 HorizontalOptions="Start" VerticalOptions="Center" FontSize="20" TextColor="Black"/>
                 </Grid>
                 <ListView x:Name="navigationDrawerList"
-                  RowHeight="35" BackgroundColor="White"
-                  SeparatorVisibility="Default" SeparatorColor="#FDCE02"
-                  ItemSelected="OnMenuItemSelected">
+          RowHeight="35" BackgroundColor="White"
+          SeparatorVisibility="Default" SeparatorColor="#FDCE02"
+          ItemSelected="OnMenuItemSelected">
                     <ListView.ItemTemplate>
                         <DataTemplate>
                             <ViewCell>
                                 <!-- Main design for our menu items -->
                                 <StackLayout VerticalOptions="FillAndExpand"
-                             Orientation="Horizontal"
-                             Padding="5,0,0,0"
-                             Spacing="5">
+             Orientation="Horizontal"
+             Padding="5,0,0,0"
+             Spacing="5">
 
                                     <Image Source="{Binding Icon}"
-                         WidthRequest="20"
-                         HeightRequest="20"
-                         VerticalOptions="Center" />
+       WidthRequest="20"
+       HeightRequest="20"
+       VerticalOptions="Center" />
 
                                     <Label Text="{Binding Title}"
-                         FontSize="Small"
-                         VerticalOptions="Center"
-                         TextColor="Black"  Margin="5">
+       FontSize="Small"
+       VerticalOptions="Center"
+       TextColor="Black"  Margin="5">
                                     </Label>
                                 </StackLayout>
                             </ViewCell>

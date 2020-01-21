@@ -1,8 +1,9 @@
-﻿using Newtonsoft.Json;
+﻿using DevEnvAzure.Utilities;
 using System;
 
 namespace DevEnvAzure.DataContracts
 {
+    [Preserve(AllMembers = true)]
     public class EmployeeInformation
     {
         public EmployeeInformation()
@@ -23,7 +24,7 @@ namespace DevEnvAzure.DataContracts
         public DateTime? Joining_x0020_Date { get; set; }
         public bool Active_x0020_Employee { get; set; }
     }
-
+    [Preserve(AllMembers = true)]
     public class Metadata
     {
         public string id { get; set; }

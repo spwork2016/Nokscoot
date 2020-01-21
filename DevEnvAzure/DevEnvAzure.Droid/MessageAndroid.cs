@@ -23,7 +23,7 @@ namespace DevEnvAzure.Droid
 
             public void ShortAlert(string message)
             {
-                Toast.MakeText(Android.App.Application.Context, message, ToastLength.Short).Show();
+                Toast.MakeText(Android.App.Application.Context, message, ToastLength.Long).Show();
             }
         }
     

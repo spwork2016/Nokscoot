@@ -1,6 +1,5 @@
 ﻿using DevEnvAzure.DataContracts;
 using Newtonsoft.Json;
-using Plugin.Connectivity;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -121,7 +120,7 @@ namespace DevEnvAzure
         {
             try
             {
-                var client = await OAuthHelper.GetHTTPClient();
+                var client = await OAuthHelper.GetHTTPClientAsync();
                 string url = string.Format(SPDocumentLibraryURL, folderPath, isFiles ? "Files" : "Folders");
                 var response = await client.GetStringAsync(url);
                 if (response != null)
@@ -145,7 +144,7 @@ namespace DevEnvAzure
         {
             try
             {
-                var client = await OAuthHelper.GetHTTPClient();
+                var client = await OAuthHelper.GetHTTPClientAsync();
 
                 string root = ClientConfiguration.Default.ActiveDirectoryResource;
                 string urlString = Uri.EscapeUriString(root.Remove(root.Length - 1, 1) + fileObj.ServerRelativeUrl);
@@ -154,7 +153,7 @@ namespace DevEnvAzure
                 var byteContent = new ByteArrayContent(buffer);
                 byteContent.Headers.ContentType = new MediaTypeHeaderValue("application/json");
 
-                var response = client.PostAsync(SPDocumentAnonymousLink, byteContent).Result;
+                var response = await client.PostAsync(SPDocumentAnonymousLink, byteContent);
                 if (response.IsSuccessStatusCode)
                 {
                     string str = await response.Content.ReadAsStringAsync();

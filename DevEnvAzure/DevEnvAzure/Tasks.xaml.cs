@@ -1,13 +1,11 @@
 ﻿using DevEnvAzure.Controls;
 using DevEnvAzure.Model;
 using Newtonsoft.Json;
-using Plugin.Connectivity;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Headers;
-using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Xamarin.Forms;
@@ -83,12 +81,20 @@ namespace DevEnvAzure
 
             IsBusy = true;
             var data = await GetTasks();
-            foreach (var item in data)
-            {
-                Items.Add(item);
-            }
             IsBusy = false;
-            ToggleVisibility();
+            if (data != null)
+            {
+                foreach (var item in data)
+                {
+                    Items.Add(item);
+                }
+
+                ToggleVisibility();
+            }
+            else
+            {
+
+            }
         }
 
         protected override async void OnAppearing()
@@ -107,7 +113,7 @@ namespace DevEnvAzure
         private async Task CompleteTheTask(Result item)
         {
             IsBusy = true;
-            var client = await OAuthHelper.GetHTTPClient();
+            var client = await OAuthHelper.GetHTTPClientAsync();
 
             var data = new DataContracts.TaskSp();
             data.PercentComplete = 100;
@@ -129,7 +135,7 @@ namespace DevEnvAzure
             var postResult = await client.PostAsync(item.__metadata.uri, contents);
             if (!postResult.IsSuccessStatusCode)
             {
-                var httpErrorObject = postResult.Content.ReadAsStringAsync().Result;
+                var httpErrorObject = await postResult.Content.ReadAsStringAsync();
             }
             else
             {
@@ -143,7 +149,7 @@ namespace DevEnvAzure
         {
             try
             {
-                var client = await OAuthHelper.GetHTTPClient();
+                var client = await OAuthHelper.GetHTTPClientAsync();
                 var response = await client.GetStringAsync(SPTasksURL);
                 if (response != null)
                 {
@@ -155,13 +161,15 @@ namespace DevEnvAzure
                     }
                 }
             }
-            catch (Exception)
+            catch (Exception ex)
             {
                 Device.BeginInvokeOnMainThread(() =>
                 {
+                    DependencyService.Get<IMessage>().ShortAlert(ex.Message);
                     IsBusy = false;
                 });
             }
+
             return null;
         }
 

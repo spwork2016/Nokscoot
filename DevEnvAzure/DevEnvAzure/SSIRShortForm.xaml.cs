@@ -1,20 +1,18 @@
-﻿using System;
+﻿using DevEnvAzure.Model;
+using DevEnvAzure.Models;
+using DevEnvAzure.Utilities;
+using Newtonsoft.Json;
+using Plugin.FilePicker;
+using Plugin.FilePicker.Abstractions;
+using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Threading.Tasks;
-using DevEnvAzure.Model;
-using DevEnvAzure.Models;
-using Newtonsoft.Json;
-using Plugin.Connectivity;
-using Plugin.FilePicker;
-using Plugin.FilePicker.Abstractions;
 using Xamarin.Forms;
-using Xamarin.Forms.Xaml;
-using DevEnvAzure.Utilities;
 using Xamarin.Forms.Internals;
-using System.IO;
-using System.Collections.Generic;
+using Xamarin.Forms.Xaml;
 
 namespace DevEnvAzure
 {
@@ -156,7 +154,7 @@ namespace DevEnvAzure
         }
 
         public static int idval;
-        private async void Save_clicked(object sender, XLabs.EventArgs<bool> e)
+        private async void Save_clicked(object sender, EventArgs e)
         {
             if (Convert.ToString(EventTitleEntry.Text).Length == 0 || dtevntPicker.Date == null || Convert.ToString(MORpicker.SelectedItem).Length == 0)
             {
@@ -184,7 +182,7 @@ namespace DevEnvAzure
                             FlightSafetyReportModel sf = (FlightSafetyReportModel)_viewobject;
                             sf.ReportType = "Safety" + sf.Id.ToString();
                             MORTypeID = MORpicker.SelectedIndex;
-                            CreateItems(jsonInitObj.getflightSafetyJson(sf), SPUtility.ReportType.FlightSafety);
+                            CreateItems(jsonInitObj.getflightSafetyJson(sf), ReportType.FlightSafety);
                             App.DAUtil.Delete(sf);
                             break;
                         case "security":
@@ -202,31 +200,31 @@ namespace DevEnvAzure
                                 return;
                             }
 
-                            CreateItems(spData, SPUtility.ReportType.Security);
+                            CreateItems(spData, ReportType.Security);
                             App.DAUtil.Delete(sd);
                             break;
                         case "ground":
                             GroundSafetyReport gd = (GroundSafetyReport)_viewobject;
                             gd.ReportType = "GroundSafety" + gd.Id.ToString();
-                            CreateItems(jsonInitObj.getGroundSafety(gd), SPUtility.ReportType.GroundSafety);
+                            CreateItems(jsonInitObj.getGroundSafety(gd), ReportType.GroundSafety);
                             App.DAUtil.Delete(gd);
                             break;
                         case "fatigue":
                             FatigueReport ft = (FatigueReport)_viewobject;
                             ft.ReportType = "Fatigue" + ft.Id.ToString();
-                            CreateItems(jsonInitObj.getFatigue(ft), SPUtility.ReportType.Fatigue);
+                            CreateItems(jsonInitObj.getFatigue(ft), ReportType.Fatigue);
                             App.DAUtil.Delete(ft);
                             break;
                         case "Injury":
                             InjuryIllnessReport injr = (InjuryIllnessReport)_viewobject;
                             injr.ReportType = "InjuryIllness" + injr.Id.ToString();
-                            CreateItems(jsonInitObj.getInjuryJson(injr), SPUtility.ReportType.InjuryIllness);
+                            CreateItems(jsonInitObj.getInjuryJson(injr), ReportType.InjuryIllness);
                             App.DAUtil.Delete(injr);
                             break;
                         case "cabin":
                             CabibSafetyReport cd = (CabibSafetyReport)_viewobject;
                             cd.ReportType = "Cabin" + cd.Id.ToString();
-                            CreateItems(jsonInitObj.getCabinSfetyJson(cd), SPUtility.ReportType.CabinSafety);
+                            CreateItems(jsonInitObj.getCabinSfetyJson(cd), ReportType.CabinSafety);
                             App.DAUtil.Delete(cd);
                             break;
                     }
@@ -346,8 +344,8 @@ namespace DevEnvAzure
 
                         break;
                 }
-                DependencyService.Get<IMessage>().ShortAlert(_viewobject.MOR);
-                //DependencyService.Get<IMessage>().ShortAlert("Item drafted");
+
+                DependencyService.Get<IMessage>().ShortAlert("Item drafted");
             }
             catch (Exception)
             {
@@ -385,16 +383,15 @@ namespace DevEnvAzure
             return SPUtility.IsConnected();
         }
 
-        protected void CreateItems<U>(U reportObject, SPUtility.ReportType reportType) where U : class
+        protected void CreateItems<U>(U reportObject, ReportType reportType) where U : class
         {
-            return; 
             try
             {
                 ToggleBusy(true);
 
                 Device.BeginInvokeOnMainThread(async () =>
                 {
-                    var client = await OAuthHelper.GetHTTPClient();
+                    var client = await OAuthHelper.GetHTTPClientAsync();
                     var data = reportObject;
 
                     string body = "";
@@ -553,11 +550,11 @@ namespace DevEnvAzure
                 return;
             }
 
-            var client = await OAuthHelper.GetHTTPClient();
+            var client = await OAuthHelper.GetHTTPClientAsync();
             if (client == null) { return; }
             try
             {
-                string url = SPUtility.GetListURL(SPUtility.ReportType.MORType);
+                string url = SPUtility.GetListURL(ReportType.MORType);
                 var result = await client.GetStringAsync(url);
 
                 if (result != null)
@@ -634,9 +631,9 @@ namespace DevEnvAzure
 
         private async void attachments_Clicked(object sender, EventArgs e)
         {
-            string selectedOption = await DisplayActionSheet("Attachment", "Cancel", null, ClientConfiguration.Default.AttachmentOptions);
             try
             {
+                string selectedOption = await DisplayActionSheet("Attachment", "Cancel", null, ClientConfiguration.Default.AttachmentOptions);
                 await _attachementView.AskForAttachment(selectedOption);
             }
             catch (Exception ex)
@@ -645,7 +642,7 @@ namespace DevEnvAzure
             }
         }
 
-        private async Task SendAttachments(int itemId, SPUtility.ReportType reportType)
+        private async Task SendAttachments(int itemId, ReportType reportType)
         {
             try
             {

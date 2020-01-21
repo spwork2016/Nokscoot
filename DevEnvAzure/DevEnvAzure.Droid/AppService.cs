@@ -9,6 +9,7 @@ using Android.OS;
 using Android.Runtime;
 using Android.Views;
 using Android.Widget;
+using DevEnvAzure.Models;
 using Plugin.Connectivity;
 using Xamarin.Forms;
 
