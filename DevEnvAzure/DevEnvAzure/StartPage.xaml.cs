@@ -1,4 +1,4 @@
-﻿using Microsoft.IdentityModel.Clients.ActiveDirectory;
+using Microsoft.IdentityModel.Clients.ActiveDirectory;
 using System;
 using System.Collections.Generic;
 using Xamarin.Essentials;
@@ -181,9 +181,11 @@ namespace DevEnvAzure
                     App.DAUtil.DeleteMasterInfo(App.SHAREPOINT_AUTH_RESULT_KEY);
                     App.DAUtil.DeleteMasterInfo(App.USER_INFO_KEY);
 
-                    DependencyService.Get<IMessage>().LongAlert("Logged out successfully.");
+                    DependencyService.Get<IMessage>().ShortAlert("Logged out successfully.");
 
                     DependencyService.Get<IAuthenticator>().Logout();
+
+                    MessagingCenter.Send<object>(this, App.EVENT_LAUNCH_MULTIFACTOR_PAGE);
 
                     return;
                 }
